@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Draft =()=> {
+const Draft = () => {
 
 };
 export default Draft;
