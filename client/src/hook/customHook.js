@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const TestHook =()=> {
+const TestHook = () => {
 
 };
 export default TestHook;
