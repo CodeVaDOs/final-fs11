@@ -5,6 +5,7 @@ src/main/resources/public
 logs
 storage
 
+
 # dependencies
 client/node_modules
 client/.pnp
@@ -27,3 +28,6 @@ client/.stylelintcache
 client/npm-debug.log*
 client/yarn-debug.log*
 client/yarn-error.log*
+
+client/yarn.lock
+client/package-lock.json
