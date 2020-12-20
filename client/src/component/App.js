@@ -2,10 +2,12 @@ import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 import { setHello } from '../redux/actions';
+import AppBar from '../component/AppBar';
 
 const App = ({ route, hello, setHello }) => {
   return (
     <div>
+      <AppBar route={route}/>
       {hello}
       <button type="button" onClick={() => setHello('HELLO')}>Hello redux!</button>
       <div>

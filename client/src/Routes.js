@@ -1,7 +1,8 @@
 import App from '../src/component/App';
-import NotFound from "./page/NotFound/NotFound";
+import NotFound from './page/NotFound/NotFound';
 import Home from '../src/page/Home/Home';
 import Archive from '../src/page/Archive/Archive';
+import Setting from './page/Setting/Setting';
 // import Client from '../src/page/Client'
 // import Document from '../src/page/Document'
 // import Employee from '../src/page/Employee'
@@ -20,21 +21,30 @@ export default [
       {
         component: Home,
         path: '/',
-        exact: true
+        exact: true,
+        name: 'Home'
+      },
+      {
+        component: Setting,
+        path: '/setting',
+        exact: true,
+        name: 'Setting'
       },
       {
         component: Archive,
         path: '/archive',
-        exact: true
+        exact: true,
+        name: 'Archive'
       },
+
       // {
       //     component: Broadcast,
       //     path: '/broadcast',
       //     exact: true
       // },
-      {
-        component: NotFound,
-      }
+      // {
+      //   component: NotFound,
+      // }
     ]
   }
 ];
