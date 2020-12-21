@@ -7,7 +7,7 @@ const App = ({ route, hello, setHello }) => {
   return (
     <div>
       {hello}
-      <button type="button" onClick={() => setHello('HELLO')}>Hello redux!</button>
+      <button type="button" onClick={() => setHello('HELLO')}>Hello redux! Bla bla</button>
       <div>
         {renderRoutes(route.routes)}
       </div>
