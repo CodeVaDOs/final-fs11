@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu } from "antd";
-
-import { DesktopOutlined, FileOutlined, PieChartOutlined, } from '@ant-design/icons';
 import { Link } from "react-router-dom";
-
-const { Sider } = Layout;
-
 
 const Header = () => {
   const [current, setCurrent] = useState('mail');
