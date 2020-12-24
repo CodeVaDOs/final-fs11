@@ -30,7 +30,11 @@ const routes = [
     component: lazy(() => import("@pages/NotFound")),
   },
 ];
+let i = 0;
 
+while (i < 10000) {
+  i++;
+}
 const AppContainer = () => {
   const routeComponents = useMemo(
     () =>
@@ -39,7 +43,6 @@ const AppContainer = () => {
       )),
     []
   );
-
   return (
     <>
       <Preloader loaded={(<div>Preloader</div>)}/>
