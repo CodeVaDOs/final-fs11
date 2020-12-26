@@ -1,15 +1,9 @@
 import React from 'react';
-import { Menu } from "../Menu";
-import useResizeAware from "react-resize-aware";
+import SimpleDrawer from "../SimpleDrawer";
 
 const Header = () => {
-  const [resizeListener] = useResizeAware();
-
   return (
-    <>
-      {resizeListener}
-      <Menu/>
-    </>
+    <SimpleDrawer/>
   );
 };
 
