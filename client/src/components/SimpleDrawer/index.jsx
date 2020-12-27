@@ -114,7 +114,7 @@ const SimpleDrawer = () => {
   };
   const list = (
     <List className={classes.list}>
-      {routes.map((route, index) => {
+      {routes.map((route) => {
         if (!route.isHeaders) {
           return (
             <ListItem className={classes.link} key={route.name}>

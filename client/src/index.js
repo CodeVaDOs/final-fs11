@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import App from "@containers/AppContainer";
+import AppContainer from "@containers/AppContainer";
 import store from '@redux/store';
 import { HashRouter as Router } from "react-router-dom";
 import 'antd/dist/antd.css';
@@ -17,7 +17,7 @@ ReactDOM.render(
       <div>
         <Header/>
         <Container>
-          <App/>
+          <AppContainer/>
         </Container>
       </div>
     </Router>

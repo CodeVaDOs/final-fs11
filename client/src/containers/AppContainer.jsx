@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useMemo } from "react";
+import React, { Suspense, useMemo } from "react";
 import { Switch } from "react-router-dom";
 import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
@@ -28,6 +28,4 @@ const AppContainer = () => {
     </>
   );
 };
-
 export default AppContainer;
-
