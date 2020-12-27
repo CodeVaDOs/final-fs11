@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
-import { routes } from "../../containers/AppContainer";
+import { routes } from "@utils/routes";
 import * as PropTypes from "prop-types";
 import UpArrow from "../../assert/arrow_chevron_direction_down_move_navigation_up_icon_123220.svg";
 import Search from "../Search";
