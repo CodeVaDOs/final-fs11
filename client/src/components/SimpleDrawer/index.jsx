@@ -145,13 +145,13 @@ const SimpleDrawer = () => {
             selected={selectedIndex === 0}
             onClick={(event) => handleListItemClick(event, 0)}
             className={classes.link}>
-            <Link to={routes[0].path}>{routes[0].name}</Link>
+            <Link to={"/"}>Home</Link>
           </ListItem>
           <ListItem
             selected={selectedIndex === 1}
             onClick={(event) => handleListItemClick(event, 1)}
             className={classes.link}>
-            <Link to={routes[1].path}>{routes[1].name}</Link>
+            <Link to={'/settings'}>Settings</Link>
           </ListItem>
           <Search/>
         </List>
