@@ -16,13 +16,18 @@ const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    zIndex: "1254",
+
   },
   drawer: {
     whiteSpace: 'nowrap',
+    position: 'relative',
   },
   drawerOpen: {
     background: "#EEF5FF",
     width: drawerWidth,
+    overflow: "visible",
+
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -31,12 +36,12 @@ const useStyles = makeStyles((theme) => ({
 
   drawerClose: {
     background: "#EEF5FF",
+    overflow: "visible",
 
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(5) + 1,
     },
@@ -57,11 +62,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     border: 'none',
     background: '#EEF5FF',
-    position: "relative",
-    top: 15,
+    position: "absolute",
+    top: "15px",
+    left: "-12px",
     width: "25px",
     height: "25px",
-    right: `calc(50%)`,
     zIndex: 100
   },
 }));
@@ -96,31 +101,22 @@ export default function MiniDrawer({ children }) {
 
         </div>
         <Divider/>
-        <List >
-          <ListItem >
+        <List>
+          <ListItem>
             Personal Manager
           </ListItem>
         </List>
         <div>
           <ManagerCard/>
         </div>
+        <IconButton onClick={handleDrawerClose} className={classes.menuButton}>
+          <ChevronLeft fontSize="inherit"/>
+        </IconButton>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar}/>
         {children}
       </main>
-      {open === true ?
-        <div>
-          <IconButton onClick={handleDrawerClose} className={classes.menuButton}>
-            <ChevronLeft fontSize="inherit"/>
-          </IconButton>
-        </div> :
-        <div>
-          <IconButton onClick={handleDrawerClose} className={classes.menuButton}>
-            <ChevronRight fontSize="inherit"/>
-          </IconButton>
-        </div>
-      }
     </div>
   );
 }
