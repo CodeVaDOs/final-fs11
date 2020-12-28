@@ -5,31 +5,32 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 
 import { routes } from "@utils/routes";
-import * as PropTypes from "prop-types";
-import UpArrow from "../../assert/arrow_chevron_direction_down_move_navigation_up_icon_123220.svg";
 import Search from "../Search";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
 const drawerHeight = 170;
 const drawerNormalize = 10;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    overflow: "hidden",
+    maxWidth: '65%',
     backgroundColor: theme.palette.background.paper,
   },
   appBar: {
+    width: "65%",
     position: "fixed",
     background: "#EEF5FF",
     top: -195,
     margin: "20px",
     boxSizing: 'border-box',
-    width: '65%',
     transition: theme.transitions.create(["margin", "height"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
   },
   appBarShift: {
+    width: "65%",
     marginTop: drawerHeight + drawerNormalize,
     transition: theme.transitions.create(["margin", "height"], {
       easing: theme.transitions.easing.easeOut,
@@ -94,16 +95,16 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 5,
     float: "right",
     color: '#4AD584',
+  },
+  menuLinks: {
+    width: "70%",
+    display: "flex",
+    position: "relative",
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 }));
 
-class ArrowDownwardIcon extends React.Component {
-  render() {
-    return null;
-  }
-}
-
-ArrowDownwardIcon.propTypes = { fontSize: PropTypes.string };
 const SimpleDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -112,22 +113,10 @@ const SimpleDrawer = () => {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-  const list = (
-    <List className={classes.list}>
-      {routes.map((route) => {
-        if (!route.isHeaders) {
-          return (
-            <ListItem className={classes.link} key={route.name}>
-              <Link to={route.path}>{route.name}</Link>
-            </ListItem>
-          );
-        }
-      })}
-    </List>
-  );
   return (
-    <div>
+    <div className={classes.root}>
       <AppBar
+        width="75%"
         style={{ "borderRadius": "0 0 20px 20px" }}
         className={classNames(classes.appBar, { [classes.appBarShift]: open })}
         position="static"
@@ -155,16 +144,29 @@ const SimpleDrawer = () => {
           </ListItem>
           <Search/>
         </List>
-        {list}
+        <div className={classes.menuLinks}>
+          <List className={classes.list}>
+            {routes.map((route) => {
+              if (!route.isHeaders) {
+                return (
+                  <ListItem className={classes.link} key={route.name}>
+                    <Link to={route.path}>{route.name}</Link>
+                  </ListItem>
+                );
+              }
+            })}
+          </List>
+        </div>
+
         {open === true ?
           <div>
             <IconButton onClick={() => setOpen(!open)} className={classes.menuButton}>
-              <svg path={UpArrow}/>
+              <ExpandLess fontSize="inherit"/>
             </IconButton>
           </div> :
           <div>
             <IconButton onClick={() => setOpen(!open)} className={classes.menuButton}>
-              <ArrowDownwardIcon fontSize="inherit"/>
+              <ExpandMore fontSize="inherit"/>
             </IconButton>
           </div>
         }
