@@ -53,6 +53,17 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 0,
     padding: theme.spacing(5) + 1,
   },
+  menuButton: {
+    borderRadius: "50%",
+    border: 'none',
+    background: '#EEF5FF',
+    position: "relative",
+    top: 15,
+    width: "25px",
+    height: "25px",
+    right: `calc(50%)`,
+    zIndex: 100
+  },
 }));
 
 export default function MiniDrawer({ children }) {
@@ -67,6 +78,7 @@ export default function MiniDrawer({ children }) {
     <div className={classes.root}>
       <CssBaseline/>
       <SimpleDrawer/>
+
       <Drawer
         variant="permanent"
         anchor="right"
@@ -79,19 +91,9 @@ export default function MiniDrawer({ children }) {
           }),
         }}
       >
+
         <div className={classes.toolbar}>
-          {open === true ?
-            <div>
-              <IconButton onClick={handleDrawerClose} className={classes.menuButton}>
-                <ChevronLeft fontSize="inherit"/>
-              </IconButton>
-            </div> :
-            <div>
-              <IconButton onClick={handleDrawerClose} className={classes.menuButton}>
-                <ChevronRight fontSize="inherit"/>
-              </IconButton>
-            </div>
-          }
+
         </div>
         <Divider/>
         <List >
@@ -107,6 +109,18 @@ export default function MiniDrawer({ children }) {
         <div className={classes.toolbar}/>
         {children}
       </main>
+      {open === true ?
+        <div>
+          <IconButton onClick={handleDrawerClose} className={classes.menuButton}>
+            <ChevronLeft fontSize="inherit"/>
+          </IconButton>
+        </div> :
+        <div>
+          <IconButton onClick={handleDrawerClose} className={classes.menuButton}>
+            <ChevronRight fontSize="inherit"/>
+          </IconButton>
+        </div>
+      }
     </div>
   );
 }
