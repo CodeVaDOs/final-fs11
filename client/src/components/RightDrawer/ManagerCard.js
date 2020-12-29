@@ -9,7 +9,7 @@ import ImageIcon from '@material-ui/icons/Image';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "95%",
+    minWidth: "95%",
     backgroundColor: theme.palette.background.paper,
     borderRadius: "10%",
     margin: 10,
@@ -19,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center"
   },
   myManager: {
-    width: "80%",
-    display: "flex",
+    minWidth: "80%",
     flexDirection: 'column',
     justifyContent: "space-around",
     alignItems: "flex-start",

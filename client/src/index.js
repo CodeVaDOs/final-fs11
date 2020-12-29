@@ -12,7 +12,6 @@ const classes = {
     width: "100%",
     zIndex: 1,
     overflow: "hidden",
-    backgroundColor: "red"
   },
   header: {},
   appFrame: {
@@ -34,11 +33,12 @@ const Root = () => (
       <div style={classes.root}>
         <div style={classes.appFrame}>
           <AppHeader/>
-          <MiniDrawer>
-            <main style={classes.content}>
+          <main style={classes.content}>
+            <MiniDrawer>
               <AppContainer/>
-            </main>
-          </MiniDrawer>
+            </MiniDrawer>
+          </main>
+
         </div>
       </div>
     </Router>

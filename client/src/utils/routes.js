@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import { HomeWork } from '@material-ui/icons';
 
 export const routes = [
   {
@@ -7,6 +8,7 @@ export const routes = [
     exact: true,
     path: "/",
     name: "Home",
+    icon: HomeWork,
     component: lazy(() => import("@pages/Home")),
   },
   {
@@ -16,6 +18,7 @@ export const routes = [
     exact: true,
     path: "/setting",
     name: "Setting",
+    icon: HomeWork,
     component: lazy(() => import("@pages/Setting")),
   },
   {
@@ -24,6 +27,8 @@ export const routes = [
     exact: true,
     path: "/document",
     name: "Document",
+    icon: HomeWork,
+
     component: lazy(() => import("@pages/Document")),
   },
   {
@@ -32,6 +37,8 @@ export const routes = [
     exact: true,
     path: "/overview",
     name: "Overview",
+    icon: HomeWork,
+
     component: lazy(() => import("@pages/Overview")),
   },
   {
@@ -40,6 +47,8 @@ export const routes = [
     exact: true,
     path: "/houses",
     name: "Houses",
+    icon: HomeWork,
+
     component: lazy(() => import("@pages/Houses")),
   },
   {
@@ -48,6 +57,8 @@ export const routes = [
     exact: true,
     path: "/statistics",
     name: "Statistics",
+    icon: HomeWork,
     component: lazy(() => import("@pages/Statistics")),
   },
+
 ];

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { AppBar, IconButton, List, ListItem, } from "@material-ui/core";
+import { AppBar, IconButton, List, } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Search from "../Search";
 import { routes } from "@utils/routes";
+import { Btn } from "./Button";
 
 const drawerHeight = 170;
 const drawerNormalize = 10;
@@ -17,11 +18,10 @@ const useStyles = makeStyles((theme) => ({
     // App bar - closing
     position: "fixed",
     background: "#EEF5FF",
-    top: -195,
+    top: -185,
     boxSizing: 'border-box',
     margin: "20px",
-    width: `calc(100% - 150px)`,
-
+    width: "60%",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     margin: "20px",
     boxSizing: 'border-box',
-    width: `calc(100% - 12px)`,
-
+    width: "60%",
     marginTop: drawerHeight + drawerNormalize,
     transition: theme.transitions.create(["margin", "height"], {
       easing: theme.transitions.easing.easeOut,
@@ -50,14 +49,6 @@ const useStyles = makeStyles((theme) => ({
     height: "25px",
     left: `calc(50%)`,
     zIndex: 100
-  },
-  link: {
-    textDecoration: 'none',
-    flex: 1,
-    display: "inline-block",
-    width: 'max-content',
-    textDecorationColor: '#6E7375',
-    maxWidth: "max-content"
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
@@ -128,27 +119,14 @@ const AppHeader = () => {
           <div className={classes.logoW}>MARKSEM</div>
           <div className={classes.logoCRM}> CRM</div>
         </div>
-        <ListItem
-          className={classes.link}>
-          <Link to={"/"}>Home</Link>
-        </ListItem>
-        <ListItem
-          className={classes.link}>
-          <Link to={'/settings'}>Settings</Link>
-        </ListItem>
+        <Btn icon={<HomeWorkIcon color="primary"/>} title={'Home'} path={'/'}/>
+        <Btn icon={<SettingsIcon color="primary"/>} title={'Settings'} path={'/settings'}/>
         <Search/>
       </List>
       <div className={classes.menuLinks}>
         <List className={classes.list}>
-          {routes.map((route) => {
-            if (!route.isHeaders) {
-              return (
-                <ListItem className={classes.link} key={route.name}>
-                  <Link to={route.path}>{route.name}</Link>
-                </ListItem>
-              );
-            }
-          })}
+          {routes.filter(r => !r.isHeaders).map((r, index) => (
+            <Btn key={index} icon={<r.icon/>} title={r.name} path={r.path}/>))}
         </List>
       </div>
       <div>
