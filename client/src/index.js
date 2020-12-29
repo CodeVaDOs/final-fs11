@@ -8,20 +8,21 @@ import 'antd/dist/antd.css';
 import Header from "./components/Header";
 import { Layout } from "antd";
 import Container from "./components/Container";
-
-
+import { IntlProvider } from 'react-intl';
 const reduxStore = store();
 
 ReactDOM.render(
-  <Provider store={reduxStore}>
-    <Router>
-      <Layout>
-        <Header/>
-        <Container>
-          <App/>
-        </Container>
-      </Layout>
-    </Router>
-  </Provider>,
+  <IntlProvider locale="en">
+    <Provider store={reduxStore}>
+      <Router>
+        <Layout>
+          <Header/>
+          <Container>
+            <App/>
+          </Container>
+        </Layout>
+      </Router>
+    </Provider>
+  </IntlProvider>,
   document.getElementById("root")
 );

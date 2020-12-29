@@ -1,9 +1,10 @@
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import userReducer from "./reducers/userReduser";
 
 const { applyMiddleware, combineReducers, createStore } = require("redux");
 const reducer = combineReducers({
-  undefined
+  user:  userReducer
 });
 
 export default () => {
