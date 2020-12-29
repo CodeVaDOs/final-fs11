@@ -38,7 +38,6 @@ const Root = () => (
               <AppContainer/>
             </MiniDrawer>
           </main>
-
         </div>
       </div>
     </Router>

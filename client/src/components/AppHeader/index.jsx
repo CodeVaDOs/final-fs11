@@ -119,8 +119,8 @@ const AppHeader = () => {
           <div className={classes.logoW}>MARKSEM</div>
           <div className={classes.logoCRM}> CRM</div>
         </div>
-        <Btn icon={<HomeWorkIcon color="primary"/>} title={'Home'} path={'/'}/>
-        <Btn icon={<SettingsIcon color="primary"/>} title={'Settings'} path={'/settings'}/>
+        <Btn icon={<HomeWorkIcon/>} title={'Home'} path={'/'}/>
+        <Btn icon={<SettingsIcon/>} title={'Settings'} path={'/settings'}/>
         <Search/>
       </List>
       <div className={classes.menuLinks}>
