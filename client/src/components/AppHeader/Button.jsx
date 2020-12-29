@@ -2,37 +2,32 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouteLinka } from "react-router-dom";
-import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   button: {
+    fontSize: '18px',
     margin: theme.spacing(1),
     textDecoration: 'none',
+    background: "transparent",
+    border: "none",
     textTransform: 'capitalize',
     display: "flex",
     color: '#6E7375',
     width: 'max-content',
     alignItems: "center",
     position: 'relative',
-    backgroundColor: "Transparent",
-    backgroundRepeat: "no-repeat",
-    border: "none",
-    cursor: "pointer",
-    overflow: "hidden",
-    outline: "none",
     // '&:hover': {
-    '&::before': {
-      position: "absolute",
-      bottom: "-5px",
-      left: 0,
-      right: 0,
-      height: '1px',
-      color: '#254A93',
-      backgroundColor: '#254A93',
-      content: '',
-    },
     '&:hover': {
       color: '#254A93',
+      '&::after': {
+        position: "absolute",
+        bottom: "-5px",
+        left: 0,
+        right: 0,
+        height: '10px',
+        color: '#6E7375',
+        content: '',
+      },
     },
     '&:active': {
       color: '#254A93',
@@ -51,17 +46,12 @@ export const Btn = props => {
       variant="body2"
       to={path}
     >
-      <Link
-        component="button"
-        variant="body2"
+      <Button
+        startIcon={icon}
+        className={classes.button}
       >
-        <Button
-          className={classes.button}
-          startIcon={icon}
-        >
-          {title}
-        </Button>
-      </Link>
+        {title}
+      </Button>
     </RouteLinka>
   );
 };

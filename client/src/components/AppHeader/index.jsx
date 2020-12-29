@@ -84,13 +84,17 @@ const useStyles = makeStyles((theme) => ({
   logoW: {
     float: "left",
     width: "max-content",
+    fontSize: '24px',
+
   },
   logoCRM: {
     paddingLeft: 5,
     float: "right",
     color: '#4AD584',
+    fontSize: '24px',
   },
   menuLinks: {
+    marginLeft: "22px",
     width: "70%",
     display: "flex",
     position: "relative",
