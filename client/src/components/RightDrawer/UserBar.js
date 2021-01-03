@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,7 +9,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from "@material-ui/core/IconButton";
 import { Badge, Menu, MenuItem } from "@material-ui/core";
 import MailIcon from '@material-ui/icons/Mail';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import CheckLanguage from "./CheckLanguage";
 
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 export default function UserBar({ name, describe, sms, notification, avatar }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [_, setMobileMoreAnchorEl] = useState(null);
+  const [, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
   const handleProfileMenuOpen = (event) => {
@@ -59,9 +58,6 @@ export default function UserBar({ name, describe, sms, notification, avatar }) {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
   const menuId = 'primary-search-account-menu';
 
   const renderMenu = (
