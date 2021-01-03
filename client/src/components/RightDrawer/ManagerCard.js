@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-
   },
   managerAvatar: {
     transform: "scale(1.2)",
@@ -35,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden"
     // marginLeft: "55px"
   },
-
   line: {
     height: '100%',
     width: '60px',
