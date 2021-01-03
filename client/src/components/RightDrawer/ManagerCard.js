@@ -1,57 +1,136 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
+import { Grid, LinearProgress, List, ListItemIcon, withStyles } from "@material-ui/core";
+import PhoneEnabledIcon from "@material-ui/icons/PhoneEnabled";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: "95%",
+    marginLeft: "10px",
+    width: "100%",
     backgroundColor: theme.palette.background.paper,
     borderRadius: "10%",
-    margin: 10,
-    display: "flex",
-    flexDirection: 'row',
-    justifyContent: "space-around",
-    alignItems: "center"
+    boxShadow: "5px 5px 2px 1px rgba(0, 0, 112, .05)"
   },
   myManager: {
-    minWidth: "80%",
-    flexDirection: 'column',
+    width: "300px",
+    display: "flex",
     justifyContent: "space-around",
-    alignItems: "flex-start",
-    lineHeight: "1px"
+    alignItems: "center",
 
   },
-  avatarBlock: {
-    margin: "20px",
-    width: "19.9%",
-    height: "100%",
-    scale: 2.3
+  managerAvatar: {
+    transform: "scale(1.2)",
   },
-  avatarPhoto: {}
+  li: {
+    maxHeight: "25px",
+    paddingRight: '15px'
+  },
+  liImage: {
+    maxWidth: "20px",
+    overflow: "hidden"
+    // marginLeft: "55px"
+  },
+
+  line: {
+    height: '100%',
+    width: '60px',
+    marginTop: "-20px",
+    borderRadius: "40%",
+    '& > * + *': {
+      marginRight: theme.spacing(0),
+      width: "100px"
+    },
+  },
+  rotate: {
+    transform: "rotate(90deg)",
+  }
 }));
 
-export default function ManagerCard() {
-  const classes = useStyles();
 
+export default function ManagerCard({ name, tel, email }) {
+  const classes = useStyles();
   return (
-    <List className={classes.root}>
-      <div className={classes.avatarBlock}>
-        <ListItemAvatar>
-          <Avatar>
-            <ImageIcon/>
+    <div className={classes.root}>
+      <Grid container className={classes.myManager}>
+        <Grid item md={1}>
+          <div className={classes.rotate}>
+            <div className={classes.line}>
+              <BorderLinearProgress variant="determinate" value={100}/>
+            </div>
+          </div>
+        </Grid>
+
+        <Grid item md={2}>
+          <Avatar className={classes.managerAvatar}>
+            <AccountCircleIcon color="primary"/>
           </Avatar>
-        </ListItemAvatar>
-      </div>
-      <ListItem className={classes.myManager}>
-        <ListItemText primary="Jhon"/><br/>
-        <ListItemText secondary="093-111-11-11"/><br/>
-        <ListItemText secondary="olegprytula@gmail.com"/><br/>
-      </ListItem>
-    </List>
+        </Grid>
+
+        <Grid item md={9}>
+          <List>
+            <Grid container>
+              <ListItem className={classes.li}>
+                <Grid item md={2}>
+                  <ListItemIcon
+                    className={classes.liImage}>
+                  </ListItemIcon>
+                </Grid>
+                <Grid item md={11}>
+                  <ListItemText
+                    primary={name}/>
+                </Grid>
+              </ListItem>
+            </Grid>
+
+            <Grid container>
+              <ListItem className={classes.li}>
+                <Grid item md={2}>
+                  <ListItemIcon
+                    className={classes.liImage}>
+                    <PhoneEnabledIcon/>
+                  </ListItemIcon>
+                </Grid>
+                <Grid item md={10}>
+                  <ListItemText
+                    secondary={tel}/>
+                </Grid>
+              </ListItem>
+            </Grid>
+
+            <Grid container>
+              <ListItem className={classes.li}>
+                <Grid item md={2}>
+                  <ListItemIcon
+                    className={classes.liImage}>
+                    <MailOutlineIcon/>
+                  </ListItemIcon>
+                </Grid>
+                <Grid item md={11}>
+                  <ListItemText
+                    secondary={email}/>
+                </Grid>
+              </ListItem>
+            </Grid>
+          </List>
+        </Grid>
+      </Grid>
+    </div>
+
   );
 }
+//todo
+const BorderLinearProgress = withStyles((theme) => ({
+  root: {
+    height: 5,
+    borderRadius: 5,
+  },
+  bar: {
+    borderRadius: 5,
+    backgroundColor: '#FA505D',
+  },
+}))(LinearProgress);

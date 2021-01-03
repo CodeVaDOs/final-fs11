@@ -1,11 +1,10 @@
 import React from 'react';
-import { Card } from 'antd';
 
 const Container = (props) => {
   return (
-    <Card {...props}>
+    <div {...props}>
       {props.children}
-    </Card>
+    </div>
   );
 };
 

@@ -4,8 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons";
-import { Drawer, ListItem } from "@material-ui/core";
+import { CssBaseline, Drawer, Grid } from "@material-ui/core";
 import ManagerCard from "./ManagerCard";
+import Container from "../Container";
 
 const drawerWidth = 340;
 
@@ -81,43 +82,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MiniDrawer = ({ children }) => {
+const MiniDrawer = () => {
   const classes = useStyles();
-  const [openRightPanel, setOpenRightPanel] = useState(false);
+  const [openRightPanel, setOpenRightPanel] = useState(true);
 
   const handleDrawerClose = () => {
     setOpenRightPanel(!openRightPanel);
   };
   return (
     <>
-      <Drawer
-        variant="permanent"
-        anchor="right"
-        classes={{
-          paperAnchorDockedRight: clsx({
-            [classes.drawerOpen]: openRightPanel,
-            [classes.drawerClose]: !openRightPanel,
-          }),
-        }}>
-        <IconButton
-          onClick={handleDrawerClose}
-          className={classes.menuButton}>
-          {openRightPanel === true ? <ChevronRight fontSize="inherit"/> : <ChevronLeft fontSize="inherit"/>}
-        </IconButton>
-        <ListItem>
-          Personal Manager
-        </ListItem>
-        <div>
-          <ManagerCard/>
-        </div>
-      </Drawer>
-      <main
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}>
-        <div className={classes.toolbar}/>
-        {children}
-      </main>
+      <CssBaseline/>
+      <Container>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Drawer
+              variant="permanent"
+              anchor="right"
+              classes={{
+                paperAnchorDockedRight: clsx({
+                  [classes.drawerOpen]: openRightPanel,
+                  [classes.drawerClose]: !openRightPanel,
+                }),
+              }}>
+              <IconButton
+                onClick={handleDrawerClose}
+                className={classes.menuButton}>
+                {openRightPanel === true ? <ChevronRight fontSize="inherit"/> : <ChevronLeft fontSize="inherit"/>}
+              </IconButton>
+              <main>
+                <Grid item spacing={5}>
+                  <h3>Personal Manager</h3>
+                </Grid>
+                <Grid container spacing={3}>
+
+                  <Grid item spacing={3}>
+                    <ManagerCard name={'Oleg Prytula'} tel={'093-111-11-11'} email={'olegprytula@gmail.com'}/>
+                  </Grid>
+                </Grid>
+              </main>
+            </Drawer>
+          </Grid>
+        </Grid>
+
+      </Container>
     </>
   );
 };
