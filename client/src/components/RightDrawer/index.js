@@ -7,33 +7,18 @@ import { ChevronLeft, ChevronRight } from "@material-ui/icons";
 import { CssBaseline, Drawer, Grid } from "@material-ui/core";
 import ManagerCard from "./ManagerCard";
 import Container from "../Container";
+import UserBar from "./UserBar";
 
-const drawerWidth = 340;
+const drawerWidth = 420;
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginRight: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  profileLogo: {
-    marginRight: `${theme.spacing.unit}px`
-  },
+
   menuButton: {
     borderRadius: "50%",
     border: 'none',
     background: '#EEF5FF',
     position: "absolute",
-    top: "15px",
+    top: "30px",
     left: "-12px",
     width: "25px",
     height: "25px",
@@ -53,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     background: "#EEF5FF",
-    width: drawerWidth,
+    width: "35%",
     overflow: "visible",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -63,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     position: "relative",
     height: "100%",
-    width: drawerWidth,
+    width: "100%",
     // Drawer - opening
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -72,13 +57,13 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
   toolbar: {
-    padding: theme.spacing(0, 1),
+    padding: theme.spacing(0, 0),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    flexGrow: 0,
+    padding: theme.spacing(0),
   },
 }));
 
@@ -91,39 +76,39 @@ const MiniDrawer = () => {
   };
   return (
     <>
-      <CssBaseline/>
       <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Drawer
-              variant="permanent"
-              anchor="right"
-              classes={{
-                paperAnchorDockedRight: clsx({
-                  [classes.drawerOpen]: openRightPanel,
-                  [classes.drawerClose]: !openRightPanel,
-                }),
-              }}>
-              <IconButton
-                onClick={handleDrawerClose}
-                className={classes.menuButton}>
-                {openRightPanel === true ? <ChevronRight fontSize="inherit"/> : <ChevronLeft fontSize="inherit"/>}
-              </IconButton>
-              <main>
-                <Grid item spacing={5}>
-                  <h3>Personal Manager</h3>
-                </Grid>
-                <Grid container spacing={3}>
-
-                  <Grid item spacing={3}>
-                    <ManagerCard name={'Oleg Prytula'} tel={'093-111-11-11'} email={'olegprytula@gmail.com'}/>
-                  </Grid>
-                </Grid>
-              </main>
-            </Drawer>
+        <Drawer
+          variant="permanent"
+          anchor="right"
+          classes={{
+            paperAnchorDockedRight: clsx({
+              [classes.drawerOpen]: openRightPanel,
+              [classes.drawerClose]: !openRightPanel,
+            }),
+          }}>
+          <IconButton
+            onClick={handleDrawerClose}
+            className={classes.menuButton}>
+            {openRightPanel === true ? <ChevronRight fontSize="inherit"/> : <ChevronLeft fontSize="inherit"/>}
+          </IconButton>
+          <Grid container spacing={1}>
+            <Grid item spacing={1}>
+              <UserBar
+                name={'Dima Ovsienko'}
+                avatar={'https://bipbap.ru/wp-content/uploads/2017/10/minony-kartinki-smeshnye-na-avatarku.jpg'}
+                notification={8}
+                describe={`Investor`}
+                sms={17}
+              />
+            </Grid>
+            <Grid item spacing={1}>
+              {/*<ListSubheader>Yesterday</ListSubheader>*/}
+            </Grid>
+            <Grid item spacing={1}>
+              <ManagerCard name={'Oleg Prytula'} tel={'093-111-11-11'} email={'olegprytula@gmail.com'}/>
+            </Grid>
           </Grid>
-        </Grid>
-
+        </Drawer>
       </Container>
     </>
   );

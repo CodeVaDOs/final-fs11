@@ -6,15 +6,10 @@ import { HashRouter as Router } from "react-router-dom";
 import AppContainer from "./containers/AppContainer";
 import MiniDrawer from "./components/RightDrawer";
 import AppHeader from "./components/AppHeader";
-import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 
 const reduxStore = store();
-const useStyles = makeStyles((theme) => ({}));
-
 const Root = () => {
-
-
   return (
     <Provider store={reduxStore}>
       <Router>

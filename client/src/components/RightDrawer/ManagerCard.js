@@ -10,17 +10,18 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginLeft: "10px",
+    marginLeft: "15px",
     width: "100%",
     backgroundColor: theme.palette.background.paper,
     borderRadius: "10%",
     boxShadow: "5px 5px 2px 1px rgba(0, 0, 112, .05)"
   },
   myManager: {
-    width: "300px",
+    width: "380px",
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
+
   },
   managerAvatar: {
     transform: "scale(1.2)",
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden"
     // marginLeft: "55px"
   },
+
   line: {
     height: '100%',
     width: '60px',
