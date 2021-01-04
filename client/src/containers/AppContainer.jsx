@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense, useMemo } from "react";
 import { Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 
