@@ -15,14 +15,15 @@ const useStyles = makeStyles((theme) => ({
 
   menuButton: {
     borderRadius: "50%",
-    border: 'none',
-    background: '#EEF5FF',
     position: "absolute",
-    top: "30px",
-    left: "-12px",
-    width: "25px",
-    height: "25px",
-    zIndex: 100
+    top: "50px",
+    transform:"scale(1.5)",
+    left: "-19px",
+    width: "39px",
+    height: "39px",
+    zIndex: 100,
+    background: "#EEF5FF",
+
   },
   drawerClose: {
     background: "#EEF5FF",
@@ -71,7 +72,7 @@ const MiniDrawer = () => {
   const classes = useStyles();
   const [openRightPanel, setOpenRightPanel] = useState(true);
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = (e) => {
     setOpenRightPanel(!openRightPanel);
   };
   return (
@@ -86,11 +87,7 @@ const MiniDrawer = () => {
               [classes.drawerClose]: !openRightPanel,
             }),
           }}>
-          <IconButton
-            onClick={handleDrawerClose}
-            className={classes.menuButton}>
-            {openRightPanel === true ? <ChevronRight fontSize="inherit"/> : <ChevronLeft fontSize="inherit"/>}
-          </IconButton>
+
           <Grid container spacing={1}>
             <Grid item spacing={1}>
               <UserBar
@@ -108,6 +105,11 @@ const MiniDrawer = () => {
               <ManagerCard name={'Oleg Prytula'} tel={'093-111-11-11'} email={'olegprytula@gmail.com'}/>
             </Grid>
           </Grid>
+          <IconButton
+            onClick={handleDrawerClose}
+            className={classes.menuButton}>
+            {openRightPanel === true ? <ChevronRight/> : <ChevronLeft />}
+          </IconButton>
         </Drawer>
       </Container>
     </>

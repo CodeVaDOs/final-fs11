@@ -15,7 +15,8 @@ import CheckLanguage from "./CheckLanguage";
 const useStyles = makeStyles((theme) => ({
   list: {
     width: "100%",
-    margin:"0 auto"
+    margin:"0 auto",
+    marginTop: "30px"
   },
   grow: {
     flexGrow: 0,
@@ -32,10 +33,23 @@ const useStyles = makeStyles((theme) => ({
 
   sectionDesktop: {
     [theme.breakpoints.up('md')]: {
-      padding:"10px",
+      padding: "10px",
       display: 'flex',
     },
   },
+  descrBlock: {
+    display: "flex",
+    alignItems: 'flex-end',
+    flexDirection: 'column',
+    lineHeight: "-0px",
+    position: "relative",
+    marginLeft: '15px'
+  },
+  avatar: {
+    width: '68px',
+    height: '68px',
+    marginLeft: '15px'
+  }
 }));
 
 
@@ -75,7 +89,7 @@ export default function UserBar({ name, describe, sms, notification, avatar }) {
   );
 
   return (
-    <React.Fragment>
+    <React.Fragment >
       <CssBaseline/>
       <List className={classes.list}>
         <React.Fragment>
@@ -93,7 +107,10 @@ export default function UserBar({ name, describe, sms, notification, avatar }) {
                 </Badge>
               </IconButton>
             </div>
-            <ListItemText primary={name} secondary={describe}/>
+            <div className={classes.descrBlock}>
+              <ListItemText primary={name}/><br/>
+              <ListItemText secondary={describe}/>
+            </div>
             <ListItemAvatar
               edge="end"
               aria-label="account of current user"
@@ -101,7 +118,7 @@ export default function UserBar({ name, describe, sms, notification, avatar }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
               style={{ cursor: 'pointer' }}>
-              <Avatar alt="Profile Picture" src={avatar}/>
+              <Avatar className={classes.avatar} alt="Profile Picture" src={avatar}/>
             </ListItemAvatar>
           </ListItem>
         </React.Fragment>
