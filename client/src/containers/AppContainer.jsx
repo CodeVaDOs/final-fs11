@@ -43,12 +43,12 @@ const AppContainer = ({ lang }) => {
 
   return (
     <>
-      <I18nProvider locale={lang}>
-        <Preloader loaded={(<div>Preloader</div>)}/>
-        <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
-          <Switch>{routeComponents}</Switch>
-        </Suspense>
-      </I18nProvider>
+      {/*<I18nProvider locale={lang}>*/}
+      <Preloader loaded={(<div>Preloader</div>)}/>
+      <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
+        <Switch>{routeComponents}</Switch>
+      </Suspense>
+      {/*</I18nProvider>*/}
     </>
   );
 };

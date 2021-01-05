@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
-import LangSwitcher from "../LangSwitcher";
+// import LangSwitcher from "../LangSwitcher";
 import translate from "../../i18n/translate";
 
 const Header = () => {
@@ -24,7 +24,7 @@ const Header = () => {
           <Link to="/archive"> Archive </Link>
         </Menu.Item>
       </Menu>
-      <LangSwitcher />
+      {/*<LangSwitcher />*/}
     </>
   );
 };

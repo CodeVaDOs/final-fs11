@@ -1,5 +1,6 @@
 import React from "react";
 import translate from "../../i18n/translate";
+import TaskList from "../../components/ManagerTask/TaskList";
 
 const Home = () => {
   return (
