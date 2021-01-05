@@ -8,6 +8,7 @@ import MiniDrawer from "./components/RightDrawer";
 import AppHeader from "./components/AppHeader";
 import { Container } from "@material-ui/core";
 
+
 const reduxStore = store();
 const Root = () => {
   return (
@@ -15,8 +16,9 @@ const Root = () => {
       <Router>
         <Container>
           <AppHeader/>
-          <AppContainer/>
-          <MiniDrawer/>
+          <MiniDrawer>
+            <AppContainer/>
+          </MiniDrawer>
         </Container>
       </Router>
     </Provider>

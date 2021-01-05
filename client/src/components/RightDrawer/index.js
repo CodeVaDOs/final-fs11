@@ -4,20 +4,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons";
-import { Drawer, Grid } from "@material-ui/core";
+import { Drawer } from "@material-ui/core";
 import ManagerCard from "./ManagerCard";
-import Container from "../Container";
 import UserBar from "./UserBar";
 
 const drawerWidth = 420;
 
 const useStyles = makeStyles((theme) => ({
-
+  root: {
+    display: "flex"
+  },
   menuButton: {
     borderRadius: "50%",
     position: "absolute",
     top: "50px",
-    transform:"scale(1.5)",
+    transform: "scale(1.5)",
     left: "-19px",
     width: "39px",
     height: "39px",
@@ -47,28 +48,19 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawer: {
-    position: "relative",
-    height: "100%",
-    width: "100%",
-    // Drawer - opening
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    flexShrink: 0,
+    width: drawerWidth,
+    flexShrink: 0
   },
-  toolbar: {
-    padding: theme.spacing(0, 0),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
+  toolbar: theme.mixins.toolbar,
   content: {
-    flexGrow: 0,
-    padding: theme.spacing(0),
-  },
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3
+  }
 }));
 
-const MiniDrawer = () => {
+const MiniDrawer = (props) => {
+  const { children } = props;
   const classes = useStyles();
   const [openRightPanel, setOpenRightPanel] = useState(true);
 
@@ -77,41 +69,36 @@ const MiniDrawer = () => {
   };
   return (
     <>
-      <Container>
+      <div className={classes.root}>
         <Drawer
+          className={classes.drawer}
           variant="permanent"
           anchor="right"
           classes={{
-            paperAnchorDockedRight: clsx({
+            paper: clsx({
               [classes.drawerOpen]: openRightPanel,
               [classes.drawerClose]: !openRightPanel,
             }),
           }}>
-
-          <Grid container spacing={1}>
-            <Grid item spacing={1}>
-              <UserBar
-                name={'Dima Ovsienko'}
-                avatar={'https://bipbap.ru/wp-content/uploads/2017/10/minony-kartinki-smeshnye-na-avatarku.jpg'}
-                notification={8}
-                describe={`Investor`}
-                sms={17}
-              />
-            </Grid>
-            <Grid item spacing={1}>
-              {/*<ListSubheader>Yesterday</ListSubheader>*/}
-            </Grid>
-            <Grid item spacing={1}>
-              <ManagerCard name={'Oleg Prytula'} tel={'093-111-11-11'} email={'olegprytula@gmail.com'}/>
-            </Grid>
-          </Grid>
+          <UserBar
+            name={'Dima Ovsienko'}
+            avatar={'https://bipbap.ru/wp-content/uploads/2017/10/minony-kartinki-smeshnye-na-avatarku.jpg'}
+            notification={8}
+            describe={`Investor`}
+            sms={17}
+          />
+          <ManagerCard name={'Oleg Prytula'} tel={'093-111-11-11'} email={'olegprytula@gmail.com'}/>
           <IconButton
             onClick={handleDrawerClose}
             className={classes.menuButton}>
-            {openRightPanel === true ? <ChevronRight/> : <ChevronLeft />}
+            {openRightPanel === true ? <ChevronRight/> : <ChevronLeft/>}
           </IconButton>
         </Drawer>
-      </Container>
+        <main className={classes.content}>
+          <div className={classes.toolbar}/>
+          {children}
+        </main>
+      </div>
     </>
   );
 };
