@@ -77,7 +77,7 @@ const ForgotPass =(props)=>{
   const submit = (e) => {
     e.preventDefault();
     // props.sendForgotPassword(email);
-    // setIsSent(true);
+    setIsSent(true);
   };
   const refRef = createRef();
   const handleBlur=(event)=> {

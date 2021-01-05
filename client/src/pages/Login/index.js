@@ -1,4 +1,4 @@
-import React, { createRef, useState, lazy } from 'react';
+import React, { createRef, useState  } from 'react';
 import { Container } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +10,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { connect } from "react-redux";
 
 
 const useStyles = makeStyles({
@@ -46,17 +47,21 @@ const Login =( props, { user } )=>{
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordCorrect, setPasswordCorrect] = useState(undefined);
+  const [passwordCorrect] = useState(undefined);
   const refRef = createRef();
   const refRefPas1 = createRef();
 
   const routeChange = () => {
+    //connect after fetch request
+    // if (props.isEntered === true) {
+    //   props.close();
+    // }
     // change path to / forgotpass route
   };
   const check=(event)=> {
-    if (passwordValue !== "") {
-    }
-    // props.getUser(emailValue, passwordValue);
+    // if (passwordValue !== "") {
+    //   // props.getUser(emailValue, passwordValue);
+    // }
   };
   const handleBlur=(event)=>{
     refRef.current.validate(event.target.value);
@@ -78,22 +83,23 @@ const Login =( props, { user } )=>{
             Please enter your password
     </Typography>
   );
-  const passwordOrMailAreNotCorrect = () => {
-    if (
-      props.isEntered ===
-            "There is no user record corresponding to this identifier. The user may has been deleted." ||
-            props.isEntered ===
-            "The password is invalid or the user does not have a password."
-    ) {
-      return (
-        <Typography variant="body1">
-                    Wrong password or/and email
-        </Typography>
-      );
-    } else {
-      return false;
-    }
-  };
+  //connect after fetch request
+  // const passwordOrMailAreNotCorrect = () => {
+  //   if (
+  //     props.isEntered ===
+  //           "There is no user record corresponding to this identifier. The user may has been deleted." ||
+  //           props.isEntered ===
+  //           "The password is invalid or the user does not have a password."
+  //   ) {
+  //     return (
+  //       <Typography variant="body1">
+  //                   Wrong password or/and email
+  //       </Typography>
+  //     );
+  //   } else {
+  //     return false;
+  //   }
+  // };
   return(
     <>
       <Container maxWidth={"xl"}>
@@ -170,4 +176,7 @@ const Login =( props, { user } )=>{
     </>
   );
 };
+
 export default Login;
+
+
