@@ -170,7 +170,12 @@ const MiniDrawer = (props) => {
         </IconButton>
       </Drawer>
       <Container>
-        {props.children}
+        <div className={clsx(classes.appBar,
+          {
+            [classes.appBarShift]: open,
+          })}>
+          {props.children}
+        </div>
       </Container>
     </>
   );
