@@ -15,7 +15,6 @@ const Root = () => {
     <Provider store={reduxStore}>
       <Router>
         <Container>
-          <AppHeader/>
           <MiniDrawer>
             <AppContainer/>
           </MiniDrawer>
