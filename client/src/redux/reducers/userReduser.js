@@ -1,6 +1,6 @@
 import { LOCALES } from "../../i18n";
 import { SET_LOCALE } from "../constants/types";
-const initialUserState = { languages: LOCALES.ENGLISH };
+const initialUserState = { languages: LOCALES.UKRAINIAN };
 
 const userReducer = (state = initialUserState, action) => {
   switch (action.type) {

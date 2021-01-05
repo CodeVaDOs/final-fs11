@@ -23,6 +23,9 @@ const Header = () => {
         <Menu.Item key="3">
           <Link to="/archive"> Archive </Link>
         </Menu.Item>
+        <Menu.Item key="4">
+          <Link to="/login"> Login </Link>
+        </Menu.Item>
       </Menu>
       {/*<LangSwitcher />*/}
     </>
