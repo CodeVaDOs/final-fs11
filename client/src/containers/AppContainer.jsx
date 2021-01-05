@@ -27,6 +27,20 @@ const routes = [
     component: lazy(() => import("@pages/Archive")),
   },
   {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/login",
+    component: lazy(() => import("@pages/Login")),
+  },
+  {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/forgotpassword",
+    component: lazy(() => import("@pages/ForgotPass")),
+  },
+  {
     path: "/",
     component: lazy(() => import("@pages/NotFound")),
   },
