@@ -1,4 +1,3 @@
-import Card from "@material-ui/core/Card";
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Task from "./Task";
@@ -16,9 +15,8 @@ const useStyles = makeStyles({
 const TaskList = ({ taskList }) => {
   const classes = useStyles();
 
-  const list = taskList.map(({ header, body, colorButton, url }) =>
-    <Task header={header} url={url}
-          colorButton={colorButton}>{body}</Task>);
+  const list = taskList.map(({ header, body, colorButton, url }, index) =>
+    <Task header={header} key={index} url={url} colorButton={colorButton}>{body}</Task>);
 
   return (
     <div className={classes.container}>

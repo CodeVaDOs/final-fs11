@@ -15,12 +15,16 @@ const useStyles = makeStyles({
     color: '#293134',
     fontSize: '16px',
     margin: '0',
+    letterSpacing: '0em',
+    fontWeight: 'normal'
   },
 
   taskBody: {
     color: '#b1b4ba',
     fontSize: '12px',
-    margin: '10px 0 0'
+    margin: '10px 0 0',
+    letterSpacing: '0em',
+    fontWeight: 'normal'
   },
 
   taskButton: props => ({
@@ -30,6 +34,8 @@ const useStyles = makeStyles({
     color: '#fff',
     fontSize: '14px',
     margin: '0 0 0 auto',
+    display: 'block',
+    border: 'none'
   })
 });
 
