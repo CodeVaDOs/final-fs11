@@ -10,7 +10,6 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { connect } from "react-redux";
 
 
 const useStyles = makeStyles({
@@ -151,7 +150,7 @@ const Login =( props, { user } )=>{
                 }}
               />
               {errorMessageWrongPassword}
-              {passwordOrMailAreNotCorrect()}
+              {/*{passwordOrMailAreNotCorrect()}*/}
               <span>&nbsp;&nbsp;&nbsp;</span>
               <Typography variant="body1" >
                 {translate('forgotPass')}<span>&nbsp;</span>
