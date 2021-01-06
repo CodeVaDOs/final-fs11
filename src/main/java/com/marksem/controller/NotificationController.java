@@ -1,9 +1,11 @@
 package com.marksem.controller;
 
-import com.marksem.dto.request.RequestUser;
-import com.marksem.dto.response.ResponseUser;
-import com.marksem.entity.User;
-import com.marksem.service.UserService;
+import com.marksem.dto.request.RequestBooking;
+import com.marksem.dto.request.RequestNotification;
+import com.marksem.entity.Booking;
+import com.marksem.entity.Notification;
+import com.marksem.service.BookingService;
+import com.marksem.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,23 +14,18 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("notifications")
 @RequiredArgsConstructor
-public class UserController {
-    private final UserService service;
-
-    @PostMapping
-    public ResponseUser create(@RequestBody RequestUser u) {
-        return service.create(u);
-    }
+public class NotificationController {
+    private final NotificationService service;
 
     @GetMapping
-    public List<ResponseUser> readAll() {
+    public List<Notification> readAll() {
         return service.readAll();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ResponseUser> read(@PathVariable("id") Long id) {
+    public ResponseEntity<Notification> read(@PathVariable("id") Long id) {
         try{
             return ResponseEntity.ok(service.read(id));
         } catch (NoSuchElementException e){
@@ -36,13 +33,9 @@ public class UserController {
         }
     }
 
-    @PutMapping()
-    public ResponseEntity<ResponseUser> update(@RequestBody RequestUser u) {
-        try {
-            return ResponseEntity.ok(service.update(u));
-        }catch (NoSuchElementException e){
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping
+    public Notification create(@RequestBody RequestNotification n) {
+        return service.create(n);
     }
 
     @DeleteMapping("{id}")

@@ -1,30 +1,23 @@
 package com.marksem.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
+import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="bookings")
-@Builder
+@Table(name="transaction_groups")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Booking extends BaseEntity{
+public class TransactionGroup extends BaseEntity{
     private Long from_date;
     private Long to_date;
-    private String renter_photo_url;
-    private Boolean isOwner;
 
     @ManyToOne
     @JoinColumn(name="house_id")
     private House house;
 
-    @OneToOne(mappedBy = "booking")
-    private FeedBack feedback;
-
-    @ManyToOne
-    @JoinColumn(name="renter_id")
-    private User renter;
+    @OneToMany(mappedBy = "transaction_group")
+    private List<Transaction> transactions = new ArrayList<>();
 }

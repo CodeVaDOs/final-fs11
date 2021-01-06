@@ -5,6 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 public class RequestMessage {
+    private Long id;
     private Long from_user_id;
     private Long to_user_id;
     private String text;

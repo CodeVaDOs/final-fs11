@@ -2,9 +2,6 @@ spring:
   profiles:
     active: dev
 ---
-server:
-  port: 9000
----
 springdoc:
   swagger-ui:
     path: /doc

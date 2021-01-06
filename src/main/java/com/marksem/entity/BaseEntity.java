@@ -1,11 +1,9 @@
 package com.marksem.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -18,9 +16,25 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    private Long create_date;
-    private Long update_date;
+
     private Long version;
     private Long created_by;
     private Long updated_by;
+
+    @Column(updatable = false)
+    private Long create_date;
+
+    @Column(insertable = false)
+    private Long update_date;
+
+
+    @PrePersist
+    private void toCreate() {
+        create_date = new Date().getTime();
+    }
+
+    @PreUpdate
+    private void toUpdate() {
+        update_date = new Date().getTime();
+    }
 }

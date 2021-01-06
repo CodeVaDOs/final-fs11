@@ -1,19 +1,13 @@
 package com.marksem.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
+import lombok.*;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name="houses")
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +26,7 @@ public class House extends BaseEntity{
     private List<Booking> bookings = new ArrayList<>();
 
     @OneToMany(mappedBy = "house")
-    private List<Transaction> transactions = new ArrayList<>();
+    private List<TransactionGroup> transaction_groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "house")
     private List<Document> documents = new ArrayList<>();
