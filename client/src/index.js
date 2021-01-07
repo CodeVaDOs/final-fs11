@@ -1,4 +1,4 @@
-import React from "react";
+import React , { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "@containers/AppContainer";
@@ -8,12 +8,13 @@ import 'antd/dist/antd.css';
 import Header from "./components/Header";
 import { Layout } from "antd";
 import Container from "./components/Container";
-import { IntlProvider } from 'react-intl';
 const reduxStore = store();
+import { PageLoader } from "@components/Loader";
+import './i18next';
 
 ReactDOM.render(
-  <IntlProvider locale="en">
-    <Provider store={reduxStore}>
+  <Provider store={reduxStore}>
+    <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
       <Router>
         <Layout>
           <Header/>
@@ -22,7 +23,7 @@ ReactDOM.render(
           </Container>
         </Layout>
       </Router>
-    </Provider>
-  </IntlProvider>,
+    </Suspense>
+  </Provider>,
   document.getElementById("root")
 );
