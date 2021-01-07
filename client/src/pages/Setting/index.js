@@ -1,9 +1,10 @@
 import React from 'react';
-import translate from "../../i18n/translate";
+import { useTranslation } from "react-i18next";
 const Setting = () => {
+  const { t } = useTranslation();
   return (
     <div>
-      <h1>{translate('settings')} </h1>
+      <h1>{t('settings')} </h1>
     </div>
   );
 };

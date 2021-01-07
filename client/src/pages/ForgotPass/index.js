@@ -2,11 +2,11 @@ import React ,{ createRef, useState } from 'react';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import ButtonStyle from "../../components/Button";
-import translate from "../../i18n/translate";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { useTranslation } from "react-i18next";
 const useStyles = makeStyles({
   root: {
     borderRadius: 23,
@@ -70,6 +70,7 @@ const useStyles = makeStyles({
 });
 
 const ForgotPass =(props)=>{
+  const { t } = useTranslation();
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [isSent, setIsSent] = useState(false);
@@ -94,7 +95,7 @@ const ForgotPass =(props)=>{
       <div>
         <div></div>
         <Typography className={classes.subheader} >
-          {translate('checkPass')}
+          {t('checkPass')}
         </Typography>
       </div>
     </>
@@ -103,30 +104,30 @@ const ForgotPass =(props)=>{
     <Box className={classes.root}>
       <Box className={classes.rootNext}>
         <Typography className={classes.text}>
-          {translate('recoverPass')}
+          {t('recoverPass')}
         </Typography>
         <ValidatorForm className={classes.registerForm} autoComplete="off" instantValidate={false}
           onSubmit={submit}>
           <div>
             <Typography className={classes.subheader} >
-              {translate('recoverPassText')}
+              {t('recoverPassText')}
             </Typography>
             <TextValidator
-              label={translate('Email')}
+              label={t('Email')}
               variant="outlined"
               onChange={handleChange}
               name="email"
               value={email}
               validators={['required', 'isEmail']}
-              errorMessages={['This field is required', translate('notValid')]}
+              errorMessages={['This field is required', t('notValid')]}
               style={{ width: "100%", marginTop: "15px" }}
               onBlur={handleBlur}
               ref={refRef}
-              helperText={translate('recoverPass')}
+              helperText={t('recoverPass')}
             />
           </div>
           <Box className={classes.button} >
-            <ButtonStyle text={translate('recoverySend')} onClick={()=>{}}/>
+            <ButtonStyle text={t('recoverySend')} onClick={()=>{}}/>
           </Box>
         </ValidatorForm>
       </Box>

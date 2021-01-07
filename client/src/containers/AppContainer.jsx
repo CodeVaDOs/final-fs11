@@ -1,9 +1,7 @@
 import React, { lazy, Suspense, useMemo } from "react";
 import { Switch } from "react-router-dom";
-import { connect } from "react-redux";
 import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
-import { I18nProvider } from "../i18n";
 
 const routes = [
   {
@@ -57,21 +55,13 @@ const AppContainer = ({ lang }) => {
 
   return (
     <>
-      {/*<I18nProvider locale={lang}>*/}
       <Preloader loaded={(<div>Preloader</div>)}/>
       <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
         <Switch>{routeComponents}</Switch>
       </Suspense>
-      {/*</I18nProvider>*/}
     </>
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    lang: state.user.languages,
-  };
-}
 
-
-export default connect(mapStateToProps, null)(AppContainer);
+export default AppContainer;

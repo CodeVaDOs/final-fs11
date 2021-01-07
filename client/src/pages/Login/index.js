@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import ButtonStyle from "../../components/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import translate from '../../i18n/translate';
+import { useTranslation } from "react-i18next";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
@@ -42,6 +42,7 @@ const useStyles = makeStyles({
 });
 
 const Login =( props, { user } )=>{
+  const { t } = useTranslation();
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
@@ -105,7 +106,7 @@ const Login =( props, { user } )=>{
         <Box className={classes.root}>
           <Box className={classes.rootNext}>
             <Typography className={classes.text}>
-              {translate('signInHere')}
+              {t('signInHere')}
             </Typography>
           </Box>
           <Box style={ { width:400, height:200, margin:'20px auto' } }>
@@ -114,8 +115,8 @@ const Login =( props, { user } )=>{
                 name="email"
                 value={emailValue}
                 validators={['required', 'isEmail']}
-                errorMessages={['This field is required', translate('regErrEmail')]}
-                label={translate('Email')}
+                errorMessages={['This field is required', t('regErrEmail')]}
+                label={t('Email')}
                 onBlur={handleBlur}
                 ref={refRef}
                 variant="outlined"
@@ -123,7 +124,7 @@ const Login =( props, { user } )=>{
                 style={{ width: "100%" }}
               />
               <TextValidator
-                label={translate('RegPass')}
+                label={t('RegPass')}
                 variant="outlined"
                 type={showPassword ? "text" : "password"}
                 onChange={handleChangePassword}
@@ -153,7 +154,7 @@ const Login =( props, { user } )=>{
               {/*{passwordOrMailAreNotCorrect()}*/}
               <span>&nbsp;&nbsp;&nbsp;</span>
               <Typography variant="body1" >
-                {translate('forgotPass')}<span>&nbsp;</span>
+                {t('forgotPass')}<span>&nbsp;</span>
                 <a
                   style={{ textDecoration: "none" }}
                   href="#"
@@ -162,13 +163,13 @@ const Login =( props, { user } )=>{
                     props.close();
                   }}
                 >
-                  {translate('clickHere')}
+                  {t('clickHere')}
                 </a>
               </Typography>
             </ValidatorForm>
           </Box>
           <Box>
-            <ButtonStyle text={translate('signH1Title')} onClick={check}/>
+            <ButtonStyle text={t('signH1Title')} onClick={check}/>
           </Box>
         </Box>
       </Container>
