@@ -1,5 +1,7 @@
-package com.marksem.entity;
+package com.marksem.entity.house;
 
+import com.marksem.entity.BaseEntity;
+import com.marksem.entity.house.HouseModel;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -14,9 +16,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HouseType extends BaseEntity{
+public class HouseType extends BaseEntity {
     private String name;
 
-    @OneToMany(mappedBy = "house_type")
-    private List<HouseModel> house_models = new ArrayList<>();
+    @OneToMany(mappedBy = "houseType")
+    private List<HouseModel> houseModels = new ArrayList<>();
 }

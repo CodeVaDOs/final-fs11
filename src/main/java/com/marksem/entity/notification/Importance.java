@@ -1,4 +1,4 @@
-package com.marksem.entity;
+package com.marksem.entity.notification;
 
 public enum Importance {
     LARGE, MEDIUM, SMALL

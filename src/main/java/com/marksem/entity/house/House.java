@@ -1,5 +1,10 @@
-package com.marksem.entity;
+package com.marksem.entity.house;
 
+import com.marksem.entity.BaseEntity;
+import com.marksem.entity.booking.Booking;
+import com.marksem.entity.document.Document;
+import com.marksem.entity.transaction.TransactionGroup;
+import com.marksem.entity.user.User;
 import lombok.*;
 import javax.persistence.*;
 import java.util.*;
@@ -11,12 +16,14 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class House extends BaseEntity{
+public class House extends BaseEntity {
     private String location;
     private String equipment;
     private String area;
     private String description;
-    private Double avg_rating;
+
+    @Column(name = "avg_rating")
+    private Double avgRating;
 
     @ManyToOne
     @JoinColumn(name="owner_id")
@@ -26,12 +33,12 @@ public class House extends BaseEntity{
     private List<Booking> bookings = new ArrayList<>();
 
     @OneToMany(mappedBy = "house")
-    private List<TransactionGroup> transaction_groups = new ArrayList<>();
+    private List<TransactionGroup> transactionGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "house")
     private List<Document> documents = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="house_model_id")
-    private HouseModel house_model;
+    private HouseModel houseModel;
 }

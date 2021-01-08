@@ -1,4 +1,4 @@
-package com.marksem.entity;
+package com.marksem.entity.contact;
 
 public enum ContactType {
     MAIN, ADDITIONAL

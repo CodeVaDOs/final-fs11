@@ -1,11 +1,8 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestHouse;
-import com.marksem.dto.request.RequestMessage;
-import com.marksem.entity.House;
-import com.marksem.entity.Message;
+import com.marksem.entity.house.House;
 import com.marksem.service.HouseService;
-import com.marksem.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

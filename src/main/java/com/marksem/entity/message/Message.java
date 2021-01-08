@@ -1,5 +1,7 @@
-package com.marksem.entity;
+package com.marksem.entity.message;
 
+import com.marksem.entity.BaseEntity;
+import com.marksem.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,12 +15,12 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message extends BaseEntity{
+public class Message extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="from_user_id")
-    private User from_user;
+    private User fromUser;
     @ManyToOne
     @JoinColumn(name="to_user_id")
-    private User to_user;
+    private User toUser;
     private String text;
 }

@@ -1,18 +1,18 @@
 package com.marksem.dto.response;
 
-import com.marksem.entity.House;
+import com.marksem.entity.house.House;
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
-public class ResponseHouse {
-    private Long id;
+public class ResponseHouse extends BaseEntity{
     private String location;
     private String equipment;
     private String area;
     private String description;
-    private Double avg_rating;
+    private Double avgRating;
 
     public static ResponseHouse toDto(House h) {
         return ResponseHouse.builder()
@@ -20,7 +20,7 @@ public class ResponseHouse {
                 .equipment(h.getEquipment())
                 .area(h.getArea())
                 .description(h.getDescription())
-                .avg_rating(h.getAvg_rating())
+                .avgRating(h.getAvgRating())
                 .build();
     }
 }

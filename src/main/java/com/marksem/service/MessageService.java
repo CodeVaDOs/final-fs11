@@ -1,8 +1,7 @@
 package com.marksem.service;
 
 import com.marksem.dto.request.RequestMessage;
-import com.marksem.dto.response.ResponseMessage;
-import com.marksem.entity.Message;
+import com.marksem.entity.message.Message;
 import com.marksem.repo.MessageRepository;
 import com.marksem.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,8 @@ public class MessageService {
     private final UserRepository userRepo;
 
     public Message create(RequestMessage m){
-        return userRepo.findById(m.getFrom_user_id())
-                .map(from -> userRepo.findById(m.getTo_user_id())
+        return userRepo.findById(m.getFromUserId())
+                .map(from -> userRepo.findById(m.getToUserId())
                         .map(to -> messageRepo.save(new Message(from, to, m.getText())))
                         .orElseThrow(NoSuchElementException::new))
                 .orElseThrow(NoSuchElementException::new);

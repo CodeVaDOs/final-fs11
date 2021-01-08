@@ -1,5 +1,7 @@
-package com.marksem.entity;
+package com.marksem.entity.notification;
 
+import com.marksem.entity.BaseEntity;
+import com.marksem.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notification extends BaseEntity{
+public class Notification extends BaseEntity {
     private String text;
     private Boolean isRead;
     private Importance importance;

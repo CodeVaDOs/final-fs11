@@ -1,4 +1,4 @@
-package com.marksem.entity;
+package com.marksem.entity.user;
 
 public enum Role {
     USER, MANAGER, ADMIN

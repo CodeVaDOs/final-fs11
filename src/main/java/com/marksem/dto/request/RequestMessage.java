@@ -2,11 +2,12 @@ package com.marksem.dto.request;
 
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class RequestMessage {
+public class RequestMessage extends BaseEntity{
     private Long id;
-    private Long from_user_id;
-    private Long to_user_id;
+    private Long fromUserId;
+    private Long toUserId;
     private String text;
 }

@@ -1,5 +1,7 @@
-package com.marksem.entity;
+package com.marksem.entity.booking;
 
+import com.marksem.entity.BaseEntity;
+import com.marksem.entity.booking.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedBack extends BaseEntity{
+public class FeedBack extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;

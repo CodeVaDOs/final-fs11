@@ -1,14 +1,14 @@
-package com.marksem.entity;
+package com.marksem.entity.document;
 
+import com.marksem.entity.BaseEntity;
+import com.marksem.entity.document.DocumentType;
+import com.marksem.entity.house.House;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -16,8 +16,9 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Document extends BaseEntity{
-    private String url_file;
+public class Document extends BaseEntity {
+    @Column(name = "url_file")
+    private String urlFile;
     private String name;
     private DocumentType type;
 

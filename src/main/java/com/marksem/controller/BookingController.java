@@ -1,8 +1,7 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestBooking;
-import com.marksem.dto.request.RequestHouse;
-import com.marksem.entity.Booking;
+import com.marksem.entity.booking.Booking;
 import com.marksem.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

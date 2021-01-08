@@ -1,9 +1,7 @@
 package com.marksem.service;
 
-import com.marksem.dto.request.RequestHouse;
 import com.marksem.dto.request.RequestNotification;
-import com.marksem.entity.House;
-import com.marksem.entity.Notification;
+import com.marksem.entity.notification.Notification;
 import com.marksem.repo.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

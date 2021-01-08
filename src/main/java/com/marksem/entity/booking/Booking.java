@@ -1,5 +1,8 @@
-package com.marksem.entity;
+package com.marksem.entity.booking;
 
+import com.marksem.entity.BaseEntity;
+import com.marksem.entity.house.House;
+import com.marksem.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,10 +14,16 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Booking extends BaseEntity{
-    private Long from_date;
-    private Long to_date;
-    private String renter_photo_url;
+public class Booking extends BaseEntity {
+    @Column(name = "from_date")
+    private Long fromDate;
+
+    @Column(name = "to_date")
+    private Long toDate;
+
+    @Column(name = "renter_photo_url")
+    private String renterPhotoUrl;
+
     private Boolean isOwner;
 
     @ManyToOne

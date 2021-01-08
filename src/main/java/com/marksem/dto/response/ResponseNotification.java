@@ -1,13 +1,14 @@
 package com.marksem.dto.response;
 
-import com.marksem.entity.Importance;
-import com.marksem.entity.Notification;
+import com.marksem.entity.notification.Importance;
+import com.marksem.entity.notification.Notification;
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
-public class ResponseNotification {
+public class ResponseNotification extends BaseEntity{
     private Long id;
     private String text;
     private Boolean isRead;

@@ -1,5 +1,6 @@
-package com.marksem.entity;
+package com.marksem.entity.transaction;
 
+import com.marksem.entity.BaseEntity;
 import lombok.*;
 import javax.persistence.*;
 
@@ -10,17 +11,19 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction extends BaseEntity{
+public class Transaction extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "transaction_group_id")
-    private TransactionGroup transaction_group;
+    private TransactionGroup transactionGroup;
 
     private Double amount;
-    private Double amount_USD;
+
+    @Column(name = "amount_USD")
+    private Double amountUSD;
     private Currency currency;
     private String comment;
 
     @ManyToOne
     @JoinColumn(name = "transaction_type_id")
-    private TransactionType transaction_type;
+    private TransactionType transactionType;
 }

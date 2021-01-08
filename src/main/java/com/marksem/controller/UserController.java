@@ -2,7 +2,6 @@ package com.marksem.controller;
 
 import com.marksem.dto.request.RequestUser;
 import com.marksem.dto.response.ResponseUser;
-import com.marksem.entity.User;
 import com.marksem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

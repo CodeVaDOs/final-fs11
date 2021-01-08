@@ -1,10 +1,7 @@
 package com.marksem.controller;
 
-import com.marksem.dto.request.RequestBooking;
 import com.marksem.dto.request.RequestNotification;
-import com.marksem.entity.Booking;
-import com.marksem.entity.Notification;
-import com.marksem.service.BookingService;
+import com.marksem.entity.notification.Notification;
 import com.marksem.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
