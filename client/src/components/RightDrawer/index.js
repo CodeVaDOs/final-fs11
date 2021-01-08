@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons";
-import { AppBar, CssBaseline, Drawer, Slide, useScrollTrigger } from "@material-ui/core";
+import { AppBar, CssBaseline, Drawer, Slide, useScrollTrigger, useTheme } from "@material-ui/core";
 import ManagerCard from "./ManagerCard";
 import UserBar from "./UserBar";
 import AppHeader from "../AppHeader";
 import Divider from '@material-ui/core/Divider';
 import Container from "../Container";
+import Box from "@material-ui/core/Box";
 
 const drawerWidth = 440;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: 'flex-start',
+
   },
 
   appBar: {
@@ -25,21 +28,19 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     top: -175,
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["height", 'margin'], {
+    transition: theme.transitions.create(['width', "height", 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: "92%",
+    width: "96.5%",
     left: "0",
 
   },
   appBarShift: {
-    margin: "20px",
-    // marginTop: drawerHeight + drawerNormalize,
     left: "0",
     marginRight: drawerWidth,
     width: `calc(100% - ${drawerWidth + 40}px)`,
-    transition: theme.transitions.create(["height", 'margin'], {
+    transition: theme.transitions.create(['width', "height", 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -56,25 +57,24 @@ const useStyles = makeStyles((theme) => ({
     height: "39px",
     zIndex: 100,
     background: "#EEF5FF",
-
   },
   drawerClose: {
     background: "#EEF5FF",
     overflow: "visible",
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create(['width', "height", 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(7) + 1,
+    width: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(2),
     },
   },
   drawerOpen: {
     overflow: "visible",
     background: "#EEF5FF",
     width: drawerWidth,
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create('width', "height", 'margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -94,6 +94,12 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   content: {
+    width: `calc(100% - ${drawerWidth + 40}px)`,
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  contentUpOpen: {
+    height: `calc(100% - ${drawerWidth + 40}px)`,
     flexGrow: 1,
     padding: theme.spacing(3),
   },
@@ -105,23 +111,13 @@ function HideOnScroll(props) {
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
 
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear={true} direction="down" in={!trigger}>
       {children}
     </Slide>
   );
 }
 
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
 const MiniDrawer = (props) => {
-  // const { children } = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -130,60 +126,63 @@ const MiniDrawer = (props) => {
   };
   return (
     <>
-      <CssBaseline/>
-      <HideOnScroll {...props}>
-        <AppBar
-          className={clsx(classes.appBar,
-            { [classes.appBarShift]: open,
-            })}
-        >
-          <AppHeader  open={open} setOpen={setOpen}/>
-        </AppBar>
-      </HideOnScroll>
-      <Drawer
-        variant="permanent"
-        anchor="right"
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}>
-        <Divider/>
+      <div className={classes.root}>
+        <CssBaseline/>
+        <HideOnScroll  {...props}>
+          <Box width="25%">
+            <AppBar
+              className={clsx(classes.appBar,
+                {
+                  [classes.appBarShift]: open,
+                })}>
+              <AppHeader open={open} setOpen={setOpen}/>
+            </AppBar>
+          </Box>
+        </HideOnScroll>
+        <Drawer
+          variant="permanent"
+          anchor="right"
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}>
+          <Divider/>
 
-        <UserBar
-          name={'Dima Ovsienko'}
-          avatar={'https://bipbap.ru/wp-content/uploads/2017/10/minony-kartinki-smeshnye-na-avatarku.jpg'}
-          notification={8}
-          describe={`Investor`}
-          sms={17}
-        />
-        <Divider/>
+          <UserBar
+            name={'Dima Ovsienko'}
+            avatar={'https://bipbap.ru/wp-content/uploads/2017/10/minony-kartinki-smeshnye-na-avatarku.jpg'}
+            notification={8}
+            describe={`Investor`}
+            sms={17}
+          />
+          <Divider/>
 
-        <ManagerCard name={'Oleg Prytula'} tel={'093-111-11-11'} email={'olegprytula@gmail.com'}/>
-        <Divider/>
+          <ManagerCard
+            name={'Oleg Prytula'}
+            tel={'093-111-11-11'}
+            email={'olegprytula@gmail.com'}/>
+          <Divider/>
 
-        <IconButton
-          onClick={handleDrawerClose}
-          className={classes.menuButton}>
-          {open === true ? <ChevronRight/> : <ChevronLeft/>}
-        </IconButton>
-      </Drawer>
-      <Container>
-        <div className={clsx(classes.appBar,
-          {
-            [classes.appBarShift]: open,
-          })}>
-          {props.children}
-        </div>
-      </Container>
+          <IconButton
+            onClick={handleDrawerClose}
+            className={classes.menuButton}>
+            {open === true ? <ChevronRight/> : <ChevronLeft/>}
+          </IconButton>
+        </Drawer>
+        <main className={clsx({
+          [classes.content]: open,
+          [classes.contentUpOpen]: props.contentUp,
+        })}>
+          <div className={classes.toolbar}/>
+          <Container>
+            {props.children}
+          </Container>
+        </main>
+      </div>
     </>
   );
-};
-
-MiniDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
 };
 
 export default MiniDrawer;

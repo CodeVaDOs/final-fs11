@@ -5,7 +5,6 @@ import { render } from "react-dom";
 import { HashRouter as Router } from "react-router-dom";
 import AppContainer from "./containers/AppContainer";
 import MiniDrawer from "./components/RightDrawer";
-import AppHeader from "./components/AppHeader";
 import { Container } from "@material-ui/core";
 
 

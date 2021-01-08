@@ -9,14 +9,13 @@ import { routes } from "@utils/routes";
 import { Btn } from "./Button";
 import clsx from "clsx";
 
-const drawerHeight = 190;
+export const drawerHeight = 190;
 const drawerNormalize = 10;
 
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     borderRadius: "15%",
-
     height: drawerHeight,
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["height", 'margin'], {
@@ -25,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
-    top: -15,
     borderRadius: "15%",
 
     marginTop: drawerHeight + drawerNormalize,
@@ -97,11 +95,19 @@ const useStyles = makeStyles((theme) => ({
 const AppHeader = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
+  // const [contentUp, setContentUpOpen] = useState(false);
+  //
+  // if (open) {
+  //   console.log('RFVJY');
+  //   setContentUpOpen(!contentUp);
+  //   dispach
+  // }
 
   return (
     <div className={clsx(classes.appBar, {
       [classes.appBarShift]: open,
     })}>
+
       <List className={classes.headerList}>
         <div className={classes.logo}>
           <div className={classes.logoW}>MARKSEM</div>

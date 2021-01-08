@@ -10,6 +10,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    borderRadius: '10%',
     margin: "10px",
     width: "400px",
     backgroundColor: theme.palette.background.paper,
