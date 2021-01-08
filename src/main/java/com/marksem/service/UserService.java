@@ -15,17 +15,17 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository repo;
 
-    public ResponseUser create(RequestUser u){
+    public ResponseUser create(RequestUser u) {
         return ResponseUser.toDto(repo.save(u.toEntity()));
     }
 
-    public ResponseUser read(Long id){
+    public ResponseUser read(Long id) {
         return repo.findById(id)
                 .map(ResponseUser::toDto)
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    public List<ResponseUser> readAll(){
+    public List<ResponseUser> readAll() {
         return repo.findAll().stream().map(ResponseUser::toDto).collect(Collectors.toList());
     }
 
@@ -40,7 +40,7 @@ public class UserService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    public Long delete(Long id){
+    public Long delete(Long id) {
         repo.deleteById(id);
         return id;
     }

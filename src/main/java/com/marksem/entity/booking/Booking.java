@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="bookings")
+@Table(name = "bookings")
 @Builder
 @Data
 @NoArgsConstructor
@@ -27,13 +27,13 @@ public class Booking extends BaseEntity {
     private Boolean isOwner;
 
     @ManyToOne
-    @JoinColumn(name="house_id")
+    @JoinColumn(name = "house_id")
     private House house;
 
     @OneToOne(mappedBy = "booking")
     private FeedBack feedback;
 
     @ManyToOne
-    @JoinColumn(name="renter_id")
+    @JoinColumn(name = "renter_id")
     private User renter;
 }

@@ -14,19 +14,19 @@ import java.util.NoSuchElementException;
 public class NotificationService {
     private final NotificationRepository repo;
 
-    public Notification create(RequestNotification n){
+    public Notification create(RequestNotification n) {
         return repo.save(new Notification());
     }
 
-    public Notification read(Long id){
+    public Notification read(Long id) {
         return repo.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Notification> readAll(){
+    public List<Notification> readAll() {
         return repo.findAll();
     }
 
-    public Long delete(Long id){
+    public Long delete(Long id) {
         repo.deleteById(id);
         return id;
     }

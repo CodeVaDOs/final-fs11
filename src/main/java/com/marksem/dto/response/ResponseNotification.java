@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @Builder
 @AllArgsConstructor
-public class ResponseNotification extends BaseEntity{
+public class ResponseNotification extends BaseEntity {
     private Long id;
     private String text;
     private Boolean isRead;

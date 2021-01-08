@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="contacts")
+@Table(name = "contacts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +22,6 @@ public class Contact extends BaseEntity {
     private ContactType type;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

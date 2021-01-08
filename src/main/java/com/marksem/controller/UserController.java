@@ -28,9 +28,9 @@ public class UserController {
 
     @GetMapping("{id}")
     public ResponseEntity<ResponseUser> read(@PathVariable("id") Long id) {
-        try{
+        try {
             return ResponseEntity.ok(service.read(id));
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -39,16 +39,16 @@ public class UserController {
     public ResponseEntity<ResponseUser> update(@RequestBody RequestUser u) {
         try {
             return ResponseEntity.ok(service.update(u));
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Long> delete(@PathVariable("id") Long id){
-        try{
+    public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
+        try {
             return ResponseEntity.ok(service.delete(id));
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }

@@ -7,13 +7,13 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class RequestUser extends BaseEntity{
+public class RequestUser extends BaseEntity {
     private Long id;
     private String email;
     private String password;
     private Role role;
 
-    public User toEntity(){
+    public User toEntity() {
         return User.builder().password(this.password).email(this.email).role(this.role).build();
     }
 }

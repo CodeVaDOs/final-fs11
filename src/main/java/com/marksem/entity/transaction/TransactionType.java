@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="transaction_types")
+@Table(name = "transaction_types")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -14,19 +14,19 @@ import java.util.NoSuchElementException;
 public class HouseService {
     private final HouseRepository repo;
 
-    public House create(RequestHouse h){
+    public House create(RequestHouse h) {
         return repo.save(new House());
     }
 
-    public House read(Long id){
+    public House read(Long id) {
         return repo.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<House> readAll(){
+    public List<House> readAll() {
         return repo.findAll();
     }
 
-    public Long delete(Long id){
+    public Long delete(Long id) {
         repo.deleteById(id);
         return id;
     }

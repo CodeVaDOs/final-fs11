@@ -12,7 +12,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="house_types")
+@Table(name = "house_types")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="notifications")
+@Table(name = "notifications")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +24,6 @@ public class Notification extends BaseEntity {
     private Importance importance;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

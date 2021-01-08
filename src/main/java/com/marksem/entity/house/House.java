@@ -6,12 +6,13 @@ import com.marksem.entity.document.Document;
 import com.marksem.entity.transaction.TransactionGroup;
 import com.marksem.entity.user.User;
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="houses")
+@Table(name = "houses")
 @Builder
 @Data
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class House extends BaseEntity {
     private Double avgRating;
 
     @ManyToOne
-    @JoinColumn(name="owner_id")
+    @JoinColumn(name = "owner_id")
     private User owner;
 
     @OneToMany(mappedBy = "house")
@@ -39,6 +40,6 @@ public class House extends BaseEntity {
     private List<Document> documents = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="house_model_id")
+    @JoinColumn(name = "house_model_id")
     private HouseModel houseModel;
 }

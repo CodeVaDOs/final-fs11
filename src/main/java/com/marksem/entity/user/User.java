@@ -7,12 +7,13 @@ import com.marksem.entity.notification.Notification;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.*;
 
-@EqualsAndHashCode(exclude="contacts", callSuper = true)
+@EqualsAndHashCode(exclude = "contacts", callSuper = true)
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Builder
 @Data
 @NoArgsConstructor

@@ -19,8 +19,7 @@ import java.util.Date;
 @Setter(AccessLevel.PROTECTED)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class Auditable<U>
-{
+public class Auditable<U> {
     @CreatedBy
     @Column(name = "created_by")
     private U createdBy;

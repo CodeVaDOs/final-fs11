@@ -11,16 +11,16 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="messages")
+@Table(name = "messages")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name="from_user_id")
+    @JoinColumn(name = "from_user_id")
     private User fromUser;
     @ManyToOne
-    @JoinColumn(name="to_user_id")
+    @JoinColumn(name = "to_user_id")
     private User toUser;
     private String text;
 }

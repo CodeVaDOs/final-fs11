@@ -23,9 +23,9 @@ public class MessageController {
 
     @GetMapping("{id}")
     public ResponseEntity<Message> read(@PathVariable("id") Long id) {
-        try{
+        try {
             return ResponseEntity.ok(service.read(id));
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -36,10 +36,10 @@ public class MessageController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Long> delete(@PathVariable("id") Long id){
-        try{
+    public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
+        try {
             return ResponseEntity.ok(service.delete(id));
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }

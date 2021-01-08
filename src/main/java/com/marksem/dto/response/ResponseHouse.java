@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @Builder
 @AllArgsConstructor
-public class ResponseHouse extends BaseEntity{
+public class ResponseHouse extends BaseEntity {
     private String location;
     private String equipment;
     private String area;

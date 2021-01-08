@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 @AllArgsConstructor
-public class ResponseUser extends BaseEntity{
+public class ResponseUser extends BaseEntity {
     private Long id;
     private String password;
     private String email;
@@ -23,10 +23,10 @@ public class ResponseUser extends BaseEntity{
     private String urlAvatar;
     private Language language;
     private List<ResponseHouse> houses;
-//    private List<ResponseContact> contacts = new ArrayList<>();
+    //    private List<ResponseContact> contacts = new ArrayList<>();
     private List<ResponseNotification> notifications;
 
-    public static ResponseUser toDto(User u){
+    public static ResponseUser toDto(User u) {
         return ResponseUser.builder()
                 .id(u.getId())
                 .password(u.getPassword())

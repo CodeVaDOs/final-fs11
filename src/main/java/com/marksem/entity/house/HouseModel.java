@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="house_models")
+@Table(name = "house_models")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +18,6 @@ public class HouseModel extends BaseEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="house_type_id")
+    @JoinColumn(name = "house_type_id")
     private HouseType houseType;
 }

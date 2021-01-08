@@ -16,7 +16,7 @@ public class MessageService {
     private final MessageRepository messageRepo;
     private final UserRepository userRepo;
 
-    public Message create(RequestMessage m){
+    public Message create(RequestMessage m) {
         return userRepo.findById(m.getFromUserId())
                 .map(from -> userRepo.findById(m.getToUserId())
                         .map(to -> messageRepo.save(new Message(from, to, m.getText())))
@@ -24,15 +24,15 @@ public class MessageService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    public Message read(Long id){
+    public Message read(Long id) {
         return messageRepo.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Message> readAll(){
+    public List<Message> readAll() {
         return messageRepo.findAll();
     }
 
-    public Long delete(Long id){
+    public Long delete(Long id) {
         messageRepo.deleteById(id);
         return id;
     }

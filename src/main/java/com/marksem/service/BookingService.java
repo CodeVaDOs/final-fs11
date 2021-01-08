@@ -14,19 +14,19 @@ import java.util.NoSuchElementException;
 public class BookingService {
     private final BookingRepository repo;
 
-    public Booking create(RequestBooking b){
+    public Booking create(RequestBooking b) {
         return repo.save(new Booking());
     }
 
-    public Booking read(Long id){
+    public Booking read(Long id) {
         return repo.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Booking> readAll(){
+    public List<Booking> readAll() {
         return repo.findAll();
     }
 
-    public Long delete(Long id){
+    public Long delete(Long id) {
         repo.deleteById(id);
         return id;
     }

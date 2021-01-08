@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="documents")
+@Table(name = "documents")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +23,6 @@ public class Document extends BaseEntity {
     private DocumentType type;
 
     @ManyToOne
-    @JoinColumn(name="house_id")
+    @JoinColumn(name = "house_id")
     private House house;
 }

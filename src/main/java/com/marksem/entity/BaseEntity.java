@@ -1,8 +1,10 @@
 package com.marksem.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
+
 import lombok.AccessLevel;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -14,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseEntity extends Auditable<String> implements Serializable{
+public class BaseEntity extends Auditable<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)

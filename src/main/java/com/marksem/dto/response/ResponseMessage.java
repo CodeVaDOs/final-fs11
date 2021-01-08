@@ -6,7 +6,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class ResponseMessage extends BaseEntity{
+public class ResponseMessage extends BaseEntity {
     private Long id;
     private User fromUser;
     private User toUser;

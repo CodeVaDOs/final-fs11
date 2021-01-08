@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="feed_backs")
+@Table(name = "feed_backs")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
