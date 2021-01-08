@@ -6,16 +6,12 @@ const useStyles = makeStyles({
   root: {
     borderRadius: 5,
     border: "1.4px solid #254A93",
-    height: 50,
-    width: 193,
     fontFamily: "Roboto, sans-serif",
     textTransform: "capitalize",
-    fontStyle: "normal",
+    fontStyle: "bold",
     fontWeight: 600,
-    marginLeft: '40%',
     fontSize: 18,
     textDecoration: "none",
-    backgroundColor: "#254A93",
     color: "#FFF",
     boxShadow: "0 4px 26px rgba(198, 170, 176, 0.16)",
     "&:hover": {
@@ -38,8 +34,14 @@ const useStyles = makeStyles({
   },
 });
 
-const ButtonStyle =({ text, onClick, type = "button" })=>{
+const ButtonStyle =({ w, h, bgcolor, ml, text, onClick, type = "button" })=>{
   const classes = useStyles();
-  return(<Button className={classes.root} type={type} onClick={onClick}>{text}</Button>);
+  const divStyle = {
+    width:w,
+    height:h,
+    backgroundColor: bgcolor,
+    marginLeft:ml
+  };
+  return(<Button style={divStyle} className={classes.root} type={type} onClick={onClick}>{text}</Button>);
 };
 export default ButtonStyle;
