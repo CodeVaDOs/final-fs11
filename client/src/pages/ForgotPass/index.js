@@ -127,7 +127,7 @@ const ForgotPass =(props)=>{
             />
           </div>
           <Box className={classes.button} >
-            <ButtonStyle text={t('recoverySend')} onClick={()=>{}}/>
+            <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('recoverySend')} onClick={()=>{}}/>
           </Box>
         </ValidatorForm>
       </Box>

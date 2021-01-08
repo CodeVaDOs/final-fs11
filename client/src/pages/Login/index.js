@@ -160,7 +160,7 @@ const Login =( props, { user } )=>{
                   href="#"
                   onClick={() => {
                     routeChange();
-                    props.close();
+                    // props.close();
                   }}
                 >
                   {t('clickHere')}
@@ -169,7 +169,7 @@ const Login =( props, { user } )=>{
             </ValidatorForm>
           </Box>
           <Box>
-            <ButtonStyle text={t('signH1Title')} onClick={check}/>
+            <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('signH1Title')} onClick={check}/>
           </Box>
         </Box>
       </Container>
