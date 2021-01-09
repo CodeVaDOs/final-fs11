@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from "react-i18next";
-import News from "../../components/news";
+import News from "../../components/News";
 
 const Archive = () => {
   const { t } = useTranslation();
