@@ -71,7 +71,7 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-export default function news() {
+export default function News() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
