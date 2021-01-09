@@ -1,4 +1,4 @@
-import React , { Suspense } from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "@containers/AppContainer";
@@ -8,9 +8,10 @@ import 'antd/dist/antd.css';
 import Header from "./components/Header";
 import { Layout } from "antd";
 import Container from "./components/Container";
-const reduxStore = store();
 import { PageLoader } from "@components/Loader";
-import './i18next';
+
+const reduxStore = store();
+// import './i18next';
 
 ReactDOM.render(
   <Provider store={reduxStore}>
