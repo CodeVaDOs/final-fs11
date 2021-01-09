@@ -4,35 +4,39 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Container, Divider, List, ListItem, ListItemText } from "@material-ui/core";
+import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { news } from "../../utils/newsList";
 
 const blue = '#254A93';
 const useStyles = makeStyles((theme) => ({
   root: {
+    fontFamily: "Roboto",
     margin: '0 auto',
     padding: 0,
     width: '890px',
     borderRadius: '20px 20px 0 0',
     overflow: 'hidden',
     boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.16)'
-
-
   },
   heading: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    color: 'white',
+    color: '#fff',
     fontSize: theme.typography.pxToRem(18),
     fontWeight: theme.typography.fontWeightBold,
   },
   newsHead: {
+    filter: 'drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.261))',
     background: blue,
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
+  },
+  colored: {
+    color: "white"
   },
   list: {
     width: '100%',
@@ -65,16 +69,23 @@ const useStyles = makeStyles((theme) => ({
   controls: {
     display: 'flex',
     alignItems: 'center',
+    textTransform: 'none',
     color: '#99A0A3',
     justifyContent: 'space-between',
     paddingBottom: theme.spacing(2),
   },
+  date: {
+    color: '#99A0A3'
+  }
 }));
 const ColorButton = withStyles((theme) => ({
   root: {
-    backgroundColor: blue,
+    background: "#254A93",
+    border: "1px solid #000000",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
   },
 }))(Button);
+
 
 export default function News() {
   const classes = useStyles();
@@ -83,102 +94,66 @@ export default function News() {
       <Accordion>
         <div className={classes.newsHead}>
           <AccordionSummary
-            color={"white"}
-            expandIcon={<ExpandMoreIcon color="#0d47a1"/>}
+            expandIcon={<ExpandMoreIcon className={classes.colored}/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}><span>Новини  </span><EventNoteIcon/></Typography>
+            <Typography>
+              <div className={classes.heading}>Новини <EventNoteIcon/></div>
+            </Typography>
           </AccordionSummary>
         </div>
 
 
         <AccordionDetails>
+
           <List className={classes.list}>
-            <ListItem alignItems="flex-start">
-              <img
-                className={classes.cover}
-                src="https://hsto.org/getpro/habr/post_images/b65/b0c/75c/b65b0c75c9d5b3f2e76e3c1dba4dfad4.jpg"
-              />
-              <ListItemText
-                primary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className={classes.inlinePrimary}>
-                      {" Доступне нове місце розташування!"}
-                      <br/>
-                    </Typography>
-                    <br/>
-                  </React.Fragment>
-                }
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className={classes.inlineSecondary}
-                    >
-                      {"Вітаємо клієнтів MARKSEM! MARKSEM відкриває нове місце на березі мальовничого озера в Карпатах. У новому місці також з’являться нові розваги та послуги для вашого."}
-                    </Typography>
-                    <div className={classes.controls}>
-                      <Typography
-                        component="p">
-                        {`20.01.2021`}
-                      </Typography>
-                      <ColorButton variant="contained" color="primary">
-                        Детальніше
-                      </ColorButton>
-                    </div>
-                  </React.Fragment>}
-              />
-            </ListItem>
-            <Divider variant="inset" component="li"/>
-            <ListItem alignItems="flex-start">
-              <img
-                className={classes.cover}
-                src="https://shoppingpl.com/uploads/post-covers/Dokumenty-do-pracy-w-Polsce.-Korzysci-i-osobliwosci-umowy-o-prace.jpg"
-              />
-              <ListItemText
-                primary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className={classes.inlinePrimary}>
-                      {"Нові умови співпраці!"}
-                      <br/>
-                    </Typography>
-                    <br/>
-                  </React.Fragment>
-                }
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className={classes.inlineSecondary}
-                    >
-                      {"MARKSEM запускає новий проект співпраці. Вкладіть гроші в продукт MARKSEM і отримайте план розстрочки вже сьогодні. З отриманого доходу оплатіть покупку!\n" +
-                      "Перейдіть за посиланням та дізнайтеся більше"}
-                    </Typography>
-                    <div className={classes.controls}>
-
-                      <Typography
-                        component="p">
-                        {`20.01.2021`}
-                      </Typography>
-
-                      <ColorButton variant="contained" color="primary">
-                        Детальніше
-                      </ColorButton>
-                    </div>
-                  </React.Fragment>}
-              />
-            </ListItem>
-            <Divider variant="inset" component="li"/>
-
+            {
+              news.map(({ image, title, anons, date }) => (
+                <div key={title}>
+                  <ListItem alignItems="flex-start">
+                    <img
+                      className={classes.cover}
+                      src={image}
+                    />
+                    <ListItemText
+                      primary={
+                        <React.Fragment>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            className={classes.inlinePrimary}>
+                            {title}
+                            <br/>
+                          </Typography>
+                          <br/>
+                        </React.Fragment>
+                      }
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            className={classes.inlineSecondary}
+                          >
+                            {anons}
+                          </Typography>
+                          <div className={classes.controls}>
+                            <Typography
+                              component="p">
+                              {date}
+                            </Typography>
+                            <ColorButton variant="contained" color="primary">
+                              Детально
+                            </ColorButton>
+                          </div>
+                        </React.Fragment>}
+                    />
+                  </ListItem>
+                  <Divider variant="inset" component="li"/>
+                </div>
+              ))
+            }
           </List>
         </AccordionDetails>
       </Accordion>
