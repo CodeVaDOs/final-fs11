@@ -17,9 +17,10 @@ const useStyles = makeStyles((theme) => ({
   contentUp: {
     height: `calc(100% - ${drawerHeight + 40}px)`,
     flexGrow: 1,
+
   },
   appBar: {
-
+    width: "100%",
     border: "1px solid transparent",
     borderRadius: "10% 10% 10% 10%",
     height: "auto",

@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: "96.5%",
+    width: "93.5%",
     left: "0",
-
   },
   appBarShift: {
     left: "0",
@@ -61,9 +60,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(2),
+    width: theme.spacing(10),
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(2),
+      width: theme.spacing(5),
     },
   },
   drawerOpen: {
