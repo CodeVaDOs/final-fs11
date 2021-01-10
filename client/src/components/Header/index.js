@@ -86,7 +86,7 @@ const useStyles = makeStyles({
     backgroundColor: '#eef5ff',
     padding: '51px 20px 48px',
     borderRadius: '0 0 20px 20px',
-    minWidth: '890px',
+    minWidth: '790px',
     position: 'relative',
     width: '100%'
   },

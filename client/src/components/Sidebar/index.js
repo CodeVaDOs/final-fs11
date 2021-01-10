@@ -9,86 +9,81 @@ import UserBar from "../UserBar";
 import ManagerCard from "../ManagerCard";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons";
 
-const drawerWidth = 440;
-
+export const drawerWidth = 430;
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: 'flex-start',
   },
   appBar: {
+    height: "auto",
+    justifyContent: "flex-end",
+    background: "#EEF5FF",
+    boxSizing: 'border-box',
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(['width', "height", 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    width: "100%",
+    left: "0",
   },
   appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    left: "0",
+    marginRight: drawerWidth,
+    width: `calc(100% - ${drawerWidth + 40}px)`,
+    transition: theme.transitions.create(['width', "height", 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+
   menuButton: {
-    borderRadius: '50%',
-    border: "1px solid black",
-    width: '36px',
-    height: '36px',
-    display: 'absolute',
-    left: '-15px',
-    top: '55px',
-    zIndex: 100
+    overflow: "visible",
+    borderRadius: "50%",
+    position: "absolute",
+    top: "50px",
+    transform: "scale(1.2)",
+    left: "-19px",
+    width: "39px",
+    height: "39px",
+    zIndex: 100,
+    background: "#EEF5FF",
   },
-  hide: {
-    display: 'none',
+  drawerClose: {
+    background: "#EEF5FF",
+    overflow: "visible",
+    transition: theme.transitions.create(['width', "height", 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(3),
+    },
+  },
+  drawerOpen: {
+    overflow: "visible",
+    background: "#EEF5FF",
+    width: drawerWidth,
+    transition: theme.transitions.create('width', "height", 'margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: 'nowrap',
   },
-  drawerOpen: {
+  drawerPaper: {
     width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    overflow: 'visible',
-
-  },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflow: 'visible',
-    width: theme.spacing(4) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(2) + 1,
-    },
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
   },
 }));
 
-export default function Sidebar() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
 
-  const handleDrawerToggle = () => {
-    setOpen(!open);
-  };
+export default function Sidebar(props) {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -96,16 +91,20 @@ export default function Sidebar() {
       <Drawer
         variant="permanent"
         anchor="right"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
         classes={{
           paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
+            [classes.drawerOpen]: props.open,
+            [classes.drawerClose]: !props.open,
           }),
         }}>
         <IconButton
-          onClick={handleDrawerToggle}
+          onClick={props.handleDrawerToggle}
           className={classes.menuButton}>
-          {open === true ? <ChevronRight/> : <ChevronLeft/>}
+          {props.open === true ? <ChevronRight/> : <ChevronLeft/>}
         </IconButton>
         <Divider/>
 
@@ -123,8 +122,6 @@ export default function Sidebar() {
           tel={'093-111-11-11'}
           email={'olegprytula@gmail.com'}/>
         <Divider/>
-
-
       </Drawer>
     </div>
   );
