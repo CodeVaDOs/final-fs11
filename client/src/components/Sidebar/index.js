@@ -31,7 +31,14 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    borderRadius: '50%',
+    border: "1px solid black",
+    width: '36px',
+    height: '36px',
+    display: 'absolute',
+    left: '-15px',
+    top: '55px',
+    zIndex: 100
   },
   hide: {
     display: 'none',
@@ -47,16 +54,18 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    overflow: 'visible',
+
   },
   drawerClose: {
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
+    overflow: 'visible',
+    width: theme.spacing(4) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(2) + 1,
     },
   },
   toolbar: {
@@ -93,6 +102,11 @@ export default function Sidebar() {
             [classes.drawerClose]: !open,
           }),
         }}>
+        <IconButton
+          onClick={handleDrawerToggle}
+          className={classes.menuButton}>
+          {open === true ? <ChevronRight/> : <ChevronLeft/>}
+        </IconButton>
         <Divider/>
 
         <UserBar
@@ -110,11 +124,7 @@ export default function Sidebar() {
           email={'olegprytula@gmail.com'}/>
         <Divider/>
 
-        <IconButton
-          onClick={handleDrawerToggle}
-          className={classes.menuButton}>
-          {open === true ? <ChevronRight/> : <ChevronLeft/>}
-        </IconButton>
+
       </Drawer>
     </div>
   );
