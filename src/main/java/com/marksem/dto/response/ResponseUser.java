@@ -37,9 +37,9 @@ public class ResponseUser extends BaseEntity {
                 .birthday(u.getBirthday())
                 .urlAvatar(u.getUrlAvatar())
                 .language(u.getLanguage())
-                .houses(u.getHouses().stream().map(ResponseHouse::toDto).collect(Collectors.toList()))
+//                .houses(u.getHouses().stream().map(ResponseHouse::toDto).collect(Collectors.toList()))
 //                .contacts(u.getContacts().stream().map(ResponseContact::toDto).collect(Collectors.toList()))
-                .notifications(u.getNotifications().stream().map(ResponseNotification::toDto).collect(Collectors.toList()))
+//                .notifications(u.getNotifications().stream().map(ResponseNotification::toDto).collect(Collectors.toList()))
                 .build();
     }
 }
