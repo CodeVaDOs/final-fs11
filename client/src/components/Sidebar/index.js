@@ -1,128 +1,65 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import UserBar from "../UserBar";
-import ManagerCard from "../ManagerCard";
-import { ChevronLeft, ChevronRight } from "@material-ui/icons";
+import React, { useState } from 'react';
+import { makeStyles, Drawer, Paper } from "@material-ui/core";
+import buttonArrow from "@assert/icons/buttonArrow.svg";
+import SidebarHeader from './components/SidebarHeader';
 
-export const drawerWidth = 430;
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: 'flex-start',
-  },
-  appBar: {
-    height: "auto",
-    justifyContent: "flex-end",
-    background: "#EEF5FF",
+const useStyles = makeStyles(theme => ({
+  openHandler: props => ({
+    position: 'absolute',
+    top: '50px',
+    right: props.open ? '416' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
+
+    transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
+
+
+    border: '1px solid #b1b4ba',
+    backgroundColor: '#eef5ff',
+    borderRadius: '50%',
+    height: '39px',
+    width: '39px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    outline: 'none',
+
+    zIndex: 1201
+  }),
+
+  collapseButtonImage: props => ({
+    transform: props.open ? 'rotate(90deg)' : 'rotate(90deg) rotateX(180deg)',
+    transition: '300ms linear',
+    marginRight: props.open ? '0' : '15px'
+  }),
+
+  drawer: props => ({
+    width: props.width,
+    backgroundColor: '#eef5ff',
+    borderLeft: '1px solid #b1b4ba',
+    padding: '30px',
     boxSizing: 'border-box',
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', "height", 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: "100%",
-    left: "0",
-  },
-  appBarShift: {
-    left: "0",
-    marginRight: drawerWidth,
-    width: `calc(100% - ${drawerWidth + 40}px)`,
-    transition: theme.transitions.create(['width', "height", 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
 
-  menuButton: {
-    overflow: "visible",
-    borderRadius: "50%",
-    position: "absolute",
-    top: "50px",
-    transform: "scale(1.2)",
-    left: "-19px",
-    width: "39px",
-    height: "39px",
-    zIndex: 100,
-    background: "#EEF5FF",
-  },
-  drawerClose: {
-    background: "#EEF5FF",
-    overflow: "visible",
-    transition: theme.transitions.create(['width', "height", 'margin'], {
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: props.open ? theme.transitions.duration.leavingScreen : theme.transitions.duration.enteringScreen,
     }),
-    width: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(3),
-    },
-  },
-  drawerOpen: {
-    overflow: "visible",
-    background: "#EEF5FF",
-    width: drawerWidth,
-    transition: theme.transitions.create('width', "height", 'margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
+  }),
 }));
 
-
-export default function Sidebar(props) {
-  const classes = useStyles();
+const Index = ({ width, open, handleOpen }) => {
+  const classes = useStyles({ width, open });
 
   return (
-    <div className={classes.root}>
-      <CssBaseline/>
-      <Drawer
-        variant="permanent"
-        anchor="right"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: props.open,
-            [classes.drawerClose]: !props.open,
-          }),
-        }}>
-        <IconButton
-          onClick={props.handleDrawerToggle}
-          className={classes.menuButton}>
-          {props.open === true ? <ChevronRight/> : <ChevronLeft/>}
-        </IconButton>
-        <Divider/>
+    <>
+      <button className={classes.openHandler} onClick={handleOpen}>
+        <img className={classes.collapseButtonImage} src={buttonArrow} alt="button arrow"/>
+      </button>
 
-        <UserBar
-          name={'Dima Ovsienko'}
-          avatar={'https://bipbap.ru/wp-content/uploads/2017/10/minony-kartinki-smeshnye-na-avatarku.jpg'}
-          notification={8}
-          describe={`Investor`}
-          sms={17}
-        />
-        <Divider/>
-
-        <ManagerCard
-          name={'Oleg Prytula'}
-          tel={'093-111-11-11'}
-          email={'olegprytula@gmail.com'}/>
-        <Divider/>
+      <Drawer classes={{ paper: classes.drawer }} variant="persistent" open={open} anchor="right">
+        side bar content
       </Drawer>
-    </div>
+    </>
   );
-}
+};
+
+export default Index;

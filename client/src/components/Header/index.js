@@ -86,9 +86,8 @@ const useStyles = makeStyles({
     backgroundColor: '#eef5ff',
     padding: '51px 20px 48px',
     borderRadius: '0 0 20px 20px',
-    minWidth: '790px',
+    minWidth: '890px',
     position: 'relative',
-    width: '100%'
   },
 
   mainContainer: {
@@ -191,7 +190,9 @@ const Header = () => {
         </div>
       </div>
 
-      <Collapse in={isOpenHeader} appear={true}>
+      <Collapse classes={{
+
+      }} in={isOpenHeader} appear={true}>
         <div className={classes.collapseContainer}>
           <div className={classes.linksContainer}>
             {additionalList}

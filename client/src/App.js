@@ -1,85 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from "@components/Header";
 import Sidebar from "@components/Sidebar";
 import { makeStyles } from "@material-ui/core";
-import clsx from "clsx";
-import { drawerWidth } from "./components/Sidebar";
 import AppContainer from "./containers/AppContainer";
+
+const sidebarWidth = 416;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexDirection: "column",
-    justifyContent: 'flex-start',
-    width: '96%',
-    left: '0',
-    position: "absolute",
-    margin: '0 auto',
-    paddingLeft:'20px'
+    flexDirection: "row",
   },
-  mainContainer: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  mainContainerShift: {
-    marginRight: `${drawerWidth + 40}px`,
-    width: `calc(100% - ${drawerWidth + 90}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerOpen: {
-    zIndex: '9999',
-    width: `calc(90% - ${-drawerWidth}px)`,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    overflow: 'visible',
 
-  },
-  drawerClose: {
-    zIndex: '9999',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflow: 'visible',
-    width: theme.spacing(4) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(2) + 1,
-    },
-  },
+  mainContainer: props => ({
+    width: '100%',
+    marginLeft: '20px',
+    marginRight: props.isOpenSidebar ? sidebarWidth + 30 + 'px' : '30px',
+    transition: 'margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
+  })
 }));
 
+
 const App = () => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setOpen(!open);
-  };
-
-  const classes = useStyles();
+  const [isOpenSidebar, handleOpenSidebar] = useState(true);
+  const classes = useStyles({ isOpenSidebar });
 
   return (
     <div className={classes.root}>
-      <div className={clsx(classes.mainContainer,
-        {
-          [classes.mainContainerShift]: open,
-        })}>
+      <div className={classes.mainContainer}>
         <Header/>
         <AppContainer/>
       </div>
-      <div
-        className={clsx({
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}>
-        <Sidebar handleDrawerToggle={handleDrawerToggle} open={open}/>
+      <div>
+        <Sidebar
+          width={sidebarWidth}
+          open={isOpenSidebar}
+          handleOpen={handleOpenSidebar.bind(null, !isOpenSidebar)}/>
       </div>
     </div>
   );
