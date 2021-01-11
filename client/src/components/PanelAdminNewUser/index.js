@@ -1,4 +1,4 @@
-import React, { createRef, useState, useMemo } from "react";
+import React, { createRef, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 import Box from '@material-ui/core/Box';
@@ -144,6 +144,7 @@ const PanelAdminNewUser =()=> {
     const reader = new FileReader();
     let file = event.target.files[0];
     let url = reader.readAsDataURL(file);
+    console.log(url);
 
     reader.onloadend = (e) => setUploadImg({
       mainState: "uploaded",
