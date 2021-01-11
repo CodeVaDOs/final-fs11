@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, Drawer, Paper } from "@material-ui/core";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
-import SidebarHeader from './components/SidebarHeader';
 
 const useStyles = makeStyles(theme => ({
   openHandler: props => ({

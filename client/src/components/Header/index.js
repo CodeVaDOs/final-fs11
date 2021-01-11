@@ -155,7 +155,7 @@ const useStyles = makeStyles({
   },
 
   collapseButtonImage: props => ({
-    transform: props.isOpenHeader ? 'rotateX(180deg)' : 'rotateX(0deg)',
+    transform: props.isOpenHeader ? 'rotateX(0deg)' : 'rotateX(180deg)',
     transition: '300ms linear',
   })
 });
