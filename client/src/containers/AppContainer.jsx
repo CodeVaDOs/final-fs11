@@ -3,7 +3,7 @@ import { Switch } from "react-router-dom";
 import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
 
-const routes = [
+export const routes = [
   {
     isPublic: false,
     exact: true,
@@ -55,10 +55,10 @@ const AppContainer = ({ lang }) => {
 
   return (
     <>
-      <Preloader loaded={(<div>Preloader</div>)}/>
-      <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
-        <Switch>{routeComponents}</Switch>
-      </Suspense>
+      {/*<Preloader loaded={(<div>Preloader</div>)}/>*/}
+      {/*<Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>*/}
+      <Switch>{routeComponents}</Switch>
+      {/*</Suspense>*/}
     </>
   );
 };
