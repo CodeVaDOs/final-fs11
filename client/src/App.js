@@ -1,31 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from "@components/Header";
 import Sidebar from "@components/Sidebar";
-import Container from "@containers/AppContainer";
 import { makeStyles } from "@material-ui/core";
+import AppContainer from "./containers/AppContainer";
 
-const useStyles = makeStyles({
+const sidebarWidth = 416;
+
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    maxWidth: '1366px',
-    width: '1366px',
-    margin: '0 auto'
+    flexDirection: "row",
   },
-  mainContainer: {
-    margin: '0 30px'
-  }
-});
+
+  mainContainer: props => ({
+    width: '100%',
+    marginLeft: '20px',
+    marginRight: props.isOpenSidebar ? sidebarWidth + 30 + 'px' : '30px',
+    transition: 'margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
+  })
+}));
+
 
 const App = () => {
-  const classes = useStyles();
+  const [isOpenSidebar, handleOpenSidebar] = useState(true);
+  const classes = useStyles({ isOpenSidebar });
 
   return (
     <div className={classes.root}>
       <div className={classes.mainContainer}>
         <Header/>
-        <Container/>
+        <AppContainer/>
       </div>
-      <Sidebar/>
+      <div>
+        <Sidebar
+          width={sidebarWidth}
+          open={isOpenSidebar}
+          handleOpen={handleOpenSidebar.bind(null, !isOpenSidebar)}/>
+      </div>
     </div>
   );
 };
