@@ -89,22 +89,22 @@ const UserAvatar = styled.img`
  */
 
 const SidebarMenuItem = (props) => {
-  const { language, name, role, flagLink, avatarLink } = props;
+  const { language = "UA", name = "Name LastName", role = "Role" } = props;
 
   return (
     <Container>
       <SettingsContainer>
         <Switcher>
           <Flag src={flag} alt="country flag"/>
-          <LangSelect>{language || "UA"}</LangSelect>
+          <LangSelect>{language}</LangSelect>
         </Switcher>
         <MailOutlineIcon color="inherit" style={{ marginLeft: "1rem" }}/>
         <NotificationsIcon color="inherit" style={{ marginLeft: "1rem" }}/>
       </SettingsContainer>
       <UserContainer>
         <UserCredit>
-          <UserName>{name || "First LastName"}</UserName>
-          <UserRole>{role || "Role"}</UserRole>
+          <UserName>{name}</UserName>
+          <UserRole>{role}</UserRole>
         </UserCredit>
         <UserAvatar src={avatar} alt="user avatar"/>
       </UserContainer>

@@ -10,7 +10,8 @@ import { Layout } from "antd";
 import Container from "./components/Container";
 const reduxStore = store();
 import { PageLoader } from "@components/Loader";
-import './i18next';
+import 'i18next';
+import SidebarMenuItem from "./components/SideBarMenuItem";
 
 ReactDOM.render(
   <Provider store={reduxStore}>
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Container>
             <App/>
           </Container>
+          <SidebarMenuItem/>
         </Layout>
       </Router>
     </Suspense>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
-import LangSwitcher from "../LangSwitcher";
+// import LangSwitcher from "../LangSwitcher";
 import { useTranslation } from "react-i18next";
 const Header = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const Header = () => {
           <Link to="/login">{t('signInHere')}</Link>
         </Menu.Item>
       </Menu>
-      <LangSwitcher />
+      {/*<LangSwitcher />*/}
     </>
   );
 };

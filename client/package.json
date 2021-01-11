@@ -13,7 +13,6 @@
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "eslint": "^7.15.0",
-    "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-http-backend": "^1.0.21",
     "less-loader": "^7.1.0",
@@ -60,7 +59,9 @@
   },
   "devDependencies": {
     "customize-cra": "^1.0.0",
+    "i18next": "^19.8.4",
     "react-app-rewire-alias": "^0.1.9",
-    "react-app-rewired": "^2.1.8"
+    "react-app-rewired": "^2.1.8",
+    "styled-components": "^5.2.1"
   }
 }
