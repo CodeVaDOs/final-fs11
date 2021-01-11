@@ -7,12 +7,11 @@ const useStyles = makeStyles({
     borderRadius: 5,
     border: "1.4px solid #254A93",
     fontFamily: "Roboto, sans-serif",
-    textTransform: "capitalize",
     fontStyle: "bold",
-    fontWeight: 600,
-    fontSize: 18,
     textDecoration: "none",
+    textTransform:'none',
     color: "#FFF",
+    backgroundColor: "#254A93",
     boxShadow: "0 4px 26px rgba(198, 170, 176, 0.16)",
     "&:hover": {
       backgroundColor: "#254A93",
@@ -32,16 +31,23 @@ const useStyles = makeStyles({
       },
     }
   },
+  active:{
+    backgroundColor: '#fff',
+    color:'#6E7375',
+    border: "1.4px solid #6E7375",
+    textTransform:'none',
+  }
 });
 
-const ButtonStyle =({ w, h, bgcolor, ml, text, onClick, type = "button" })=>{
+const ButtonStyle =({ btnState, w, h, ml, fw="500", fs="18px", text, onClick, type = "button" })=>{
   const classes = useStyles();
   const divStyle = {
     width:w,
     height:h,
-    backgroundColor: bgcolor,
-    marginLeft:ml
+    marginLeft:ml,
+    fontWeight:fw,
+    fontSize:fs
   };
-  return(<Button style={divStyle} className={classes.root} type={type} onClick={onClick}>{text}</Button>);
+  return(<Button style={divStyle} className={ btnState === true ? classes.active: classes.root} type={type} onClick={onClick}>{text}</Button>);
 };
 export default ButtonStyle;
