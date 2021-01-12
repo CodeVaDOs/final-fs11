@@ -1,22 +1,27 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { HashRouter as Router } from "react-router-dom";
-import { PageLoader } from "@components/Loader";
+import App from "@containers/AppContainer";
 import store from '@redux/store';
-import App from './App.js';
+import { HashRouter as Router } from "react-router-dom";
+import 'antd/dist/antd.css';
+import Header from "./components/Header";
+import { Layout } from "antd";
+import Container from "./components/Container";
 
-import './index.scss';
 
 const reduxStore = store();
 
 ReactDOM.render(
   <Provider store={reduxStore}>
-    <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
-      <Router>
-        <App/>
-      </Router>
-    </Suspense>
+    <Router>
+      <Layout>
+        <Header/>
+        <Container>
+          <App/>
+        </Container>
+      </Layout>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

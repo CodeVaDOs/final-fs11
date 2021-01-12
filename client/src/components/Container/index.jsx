@@ -1,11 +1,11 @@
 import React from 'react';
-import Box from "@material-ui/core/Box";
+import { Card } from 'antd';
 
 const Container = (props) => {
   return (
-    <Box>
+    <Card {...props} style={{ borderRadius: 6, minHeight: "100vh", ...props.style }}>
       {props.children}
-    </Box>
+    </Card>
   );
 };
 

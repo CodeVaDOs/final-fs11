@@ -1,11 +1,3 @@
 spring:
   profiles:
     active: dev
----
-springdoc:
-  swagger-ui:
-    path: /doc
-
-
-
-
