@@ -2,82 +2,10 @@ import React, { lazy, useMemo, useState } from 'react';
 import Logo from './ui/Logo';
 import { useTranslation } from "react-i18next";
 import { makeStyles, Collapse } from "@material-ui/core";
-
 import HeaderLink from './components/HeaderLink';
-
 import searchIcon from '@assert/icons/search-icon.svg';
 import buttonArrow from '@assert/icons/buttonArrow.svg';
 import { icons } from '@assert/header-icons/index';
-
-const links = {
-  mainLinks: [
-    {
-      id: 1,
-      text: 'Главная',
-      icon: icons.main,
-      to: '/',
-      isMain: true
-    },
-    {
-      id: 2,
-      text: 'Настройки',
-      icon: icons.settings,
-      to: '/setting',
-      isMain: true
-    },
-  ],
-  additionalLinks: [
-    {
-      id: 3,
-      text: 'Панель',
-      icon: icons.panel,
-      to: '/panel',
-      isMain: false
-
-    },
-    {
-      id: 4,
-      text: 'Клиенты',
-      icon: icons.clients,
-      to: '/clients',
-      isMain: false
-
-    },
-    {
-      id: 5,
-      text: 'Документы',
-      icon: icons.documents,
-      to: '/documents',
-      isMain: false
-
-    },
-    {
-      id: 6,
-      text: 'Финансы',
-      icon: icons.finance,
-      to: '/finances',
-      isMain: false
-
-    },
-    {
-      id: 7,
-      text: 'Аренда',
-      icon: icons.analytic,
-      to: '/rent',
-      isMain: false
-
-    },
-    {
-      id: 8,
-      text: 'Трансляция',
-      icon: icons.photo,
-      to: '/streaming',
-      isMain: false
-
-    },
-  ]
-};
-
 
 const useStyles = makeStyles({
   header: {
@@ -166,7 +94,102 @@ const Header = () => {
   const [isOpenHeader, handleHeader] = useState(true);
 
   const classes = useStyles({ isOpenHeader });
+  const links = {
+    mainLinks: [
+      {
+        id: 1,
+        text:t("menuHome"),
+        icon: icons.main,
+        to: '/',
+        isMain: true
+      },
+      {
+        id: 2,
+        text:t("menuSettings"),
+        icon: icons.settings,
+        to: '/setting',
+        isMain: true
+      },
+    ],
+    additionalLinks: [
+      {
+        id: 3,
+        text:t("menuPanel"),
+        icon: icons.panel,
+        to: '/panel',
+        isMain: false
 
+      },
+      {
+        id: 4,
+        text:t("menuClients"),
+        icon: icons.clients,
+        to: '/clients',
+        isMain: false
+
+      },
+      {
+        id: 5,
+        text:t("menuDocuments"),
+        icon: icons.documents,
+        to: '/documents',
+        isMain: false
+
+      },
+      {
+        id: 6,
+        text:t("menuFinance"),
+        icon: icons.finance,
+        to: '/finances',
+        isMain: false
+
+      },
+      {
+        id: 7,
+        text:t("menuRent"),
+        icon: icons.analytic,
+        to: '/rent',
+        isMain: false
+
+      },
+      {
+        id: 8,
+        text:t("menuVideo"),
+        icon: icons.photo,
+        to: '/streaming',
+        isMain: false
+
+      },
+      {
+        id: 9,
+        text:t("menuHouses"),
+        icon: icons.photo,
+        to: '/houses',
+        isMain: false
+      },
+      {
+        id: 10,
+        text:t("menuEmployee"),
+        icon: icons.photo,
+        to: '/employees',
+        isMain: false
+      },
+      {
+        id: 11,
+        text:t("menuArchive"),
+        icon: icons.photo,
+        to: '/archive',
+        isMain: false
+      },
+      {
+        id: 12,
+        text:t("menuHistory"),
+        icon: icons.photo,
+        to: '/history"',
+        isMain: false
+      },
+    ]
+  };
 
   const mainList = useMemo(() =>
     links.mainLinks.map(link =>
@@ -186,7 +209,7 @@ const Header = () => {
         </div>
         <div className={classes.searchContainer}>
           <img className={classes.searchImg} src={searchIcon} alt="search icon"/>
-          <input className={classes.searchInput} placeholder="Поиск" type="text"/>
+          <input className={classes.searchInput} placeholder= {t("search")} type="text"/>
         </div>
       </div>
 

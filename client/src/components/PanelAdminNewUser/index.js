@@ -16,13 +16,12 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { CardActionArea, CardContent, Fab } from "@material-ui/core";
 
-
 const useStyles = makeStyles({
   root: {
     borderRadius: 5,
     height: 45,
     width: 400,
-    padding: 5,
+    padding: 8,
     margin: '10px auto',
     "& label.Mui-focused": {
       color: "#254A93",
