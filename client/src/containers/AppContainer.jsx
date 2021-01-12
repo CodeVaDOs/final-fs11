@@ -1,10 +1,9 @@
 import React, { lazy, Suspense, useMemo } from "react";
 import { Switch } from "react-router-dom";
-
 import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
 
-const routes = [
+export const routes = [
   {
     isPublic: false,
     exact: true,
@@ -26,12 +25,26 @@ const routes = [
     component: lazy(() => import("@pages/Archive")),
   },
   {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/login",
+    component: lazy(() => import("@pages/Login")),
+  },
+  {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/forgotpassword",
+    component: lazy(() => import("@pages/ForgotPass")),
+  },
+  {
     path: "/",
     component: lazy(() => import("@pages/NotFound")),
   },
 ];
 
-const AppContainer = () => {
+const AppContainer = ({ lang }) => {
   const routeComponents = useMemo(
     () =>
       routes.map(({ isPublic, isAdminRoute, ...route }) => (
@@ -42,12 +55,13 @@ const AppContainer = () => {
 
   return (
     <>
-      <Preloader loaded={(<div>Preloader</div>)}/>
-      <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
-        <Switch>{routeComponents}</Switch>
-      </Suspense>
+      {/*<Preloader loaded={(<div>Preloader</div>)}/>*/}
+      {/*<Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>*/}
+      <Switch>{routeComponents}</Switch>
+      {/*</Suspense>*/}
     </>
   );
 };
+
 
 export default AppContainer;
