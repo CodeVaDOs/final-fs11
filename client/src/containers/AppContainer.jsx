@@ -3,7 +3,7 @@ import { Switch } from "react-router-dom";
 import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
 
-const routes = [
+export const routes = [
   {
     isPublic: false,
     exact: true,
@@ -39,6 +39,13 @@ const routes = [
     component: lazy(() => import("@pages/ForgotPass")),
   },
   {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/changepassword",
+    component: lazy(() => import("@pages/ChangePass")),
+  },
+  {
     path: "/",
     component: lazy(() => import("@pages/NotFound")),
   },
@@ -55,10 +62,10 @@ const AppContainer = ({ lang }) => {
 
   return (
     <>
-      <Preloader loaded={(<div>Preloader</div>)}/>
-      <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
-        <Switch>{routeComponents}</Switch>
-      </Suspense>
+      {/*<Preloader loaded={(<div>Preloader</div>)}/>*/}
+      {/*<Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>*/}
+      <Switch>{routeComponents}</Switch>
+      {/*</Suspense>*/}
     </>
   );
 };

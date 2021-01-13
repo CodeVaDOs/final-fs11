@@ -2,6 +2,7 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestMessage;
 import com.marksem.entity.message.Message;
+import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.MessageRepository;
 import com.marksem.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,13 @@ public class MessageService {
         return userRepo.findById(m.getFromUserId())
                 .map(from -> userRepo.findById(m.getToUserId())
                         .map(to -> messageRepo.save(new Message(from, to, m.getText())))
-                        .orElseThrow(NoSuchElementException::new))
-                .orElseThrow(NoSuchElementException::new);
+                        .orElseThrow(() -> new NoDataFoundException("user", m.getToUserId())))
+                .orElseThrow(() -> new NoDataFoundException("user", m.getFromUserId()));
     }
 
     public Message read(Long id) {
-        return messageRepo.findById(id).orElseThrow(NoSuchElementException::new);
+        return messageRepo.findById(id)
+                .orElseThrow(() -> new NoDataFoundException("nessage", id));
     }
 
     public List<Message> readAll() {
