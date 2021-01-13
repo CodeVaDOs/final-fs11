@@ -15,6 +15,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     fontFamily: "Roboto",
     margin: '0 auto',
+    marginTop: '40px',
+    marginBottom: '40px',
     padding: 0,
     width: '890px',
     borderRadius: '20px 20px 0 0',
