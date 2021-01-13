@@ -1,7 +1,7 @@
-import React, { lazy, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Logo from './ui/Logo';
 import { useTranslation } from "react-i18next";
-import { makeStyles, Collapse } from "@material-ui/core";
+import { Collapse, makeStyles } from "@material-ui/core";
 
 import HeaderLink from './components/HeaderLink';
 
@@ -73,7 +73,13 @@ const links = {
       icon: icons.photo,
       to: '/streaming',
       isMain: false
-
+    },
+    {
+      id: 9,
+      text: 'Дома',
+      icon: icons.photo,
+      to: '/houses',
+      isMain: false
     },
   ]
 };
