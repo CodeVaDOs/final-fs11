@@ -2,12 +2,12 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestUser;
 import com.marksem.dto.response.ResponseUser;
+import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +22,7 @@ public class UserService {
     public ResponseUser read(Long id) {
         return repo.findById(id)
                 .map(ResponseUser::toDto)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() ->  new NoDataFoundException("user", id));
     }
 
     public List<ResponseUser> readAll() {
@@ -37,7 +37,7 @@ public class UserService {
                     e.setRole(u.getRole());
                     return ResponseUser.toDto(repo.save(e));
                 })
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() ->  new NoDataFoundException("user", u.getId()));
     }
 
     public Long delete(Long id) {

@@ -2,12 +2,12 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestNotification;
 import com.marksem.entity.notification.Notification;
+import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +19,8 @@ public class NotificationService {
     }
 
     public Notification read(Long id) {
-        return repo.findById(id).orElseThrow(NoSuchElementException::new);
+        return repo.findById(id)
+                .orElseThrow(() ->  new NoDataFoundException("notification", id));
     }
 
     public List<Notification> readAll() {

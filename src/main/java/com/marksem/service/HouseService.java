@@ -2,12 +2,12 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestHouse;
 import com.marksem.entity.house.House;
+import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.HouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +19,8 @@ public class HouseService {
     }
 
     public House read(Long id) {
-        return repo.findById(id).orElseThrow(NoSuchElementException::new);
+        return repo.findById(id)
+                .orElseThrow(() -> new NoDataFoundException("house", id));
     }
 
     public List<House> readAll() {

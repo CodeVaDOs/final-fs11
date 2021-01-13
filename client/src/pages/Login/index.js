@@ -10,15 +10,16 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+import EmailIcon from '@material-ui/icons/Email';
+import LockIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles({
   root: {
-    borderRadius: 23,
-    border: "2px solid #254A93",
+    borderRadius: '20px',
+    boxShadow: '0px 2px 4px #00000033',
+    margin:"20px auto",
     height: 400,
     width: 800,
-    margin: '0 auto',
     textDecoration: "none",
   },
   rootNext: {
@@ -38,6 +39,30 @@ const useStyles = makeStyles({
     color:'#fff',
     fontSize: 22,
     paddingTop: 8
+  },
+  rootInput: {
+    borderRadius: 5,
+    height: 45,
+    width: 400,
+    padding: 5,
+    margin: '5px auto',
+    "& label.Mui-focused": {
+      color: "#254A93",
+      borderRadius: '5px',
+    },
+    "& .MuiOutlinedInput-input":{
+      padding:"15.5px 14px"
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "0.5px solid #6E737",
+        borderRadius: `5 5 5 5`
+      },
+      "& .Mui-focused fieldset": {
+        borderColor: "#254A93",
+        color: "#254A93",
+      },
+    },
   },
 });
 
@@ -100,6 +125,8 @@ const Login =( props, { user } )=>{
   //     return false;
   //   }
   // };
+  const iconEmail =()=>{return(<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);};
+  const iconPass =()=>{return(<><LockIcon style={{ marginBottom: "-5px" }}/>{t("RegPass")}</>);};
   return(
     <>
       <Container maxWidth={"xl"}>
@@ -112,11 +139,12 @@ const Login =( props, { user } )=>{
           <Box style={ { width:400, height:200, margin:'20px auto' } }>
             <ValidatorForm noValidate autoComplete="off" instantValidate={false}>
               <TextValidator
+                className={classes.rootInput}
                 name="email"
                 value={emailValue}
                 validators={['required', 'isEmail']}
                 errorMessages={['This field is required', t('regErrEmail')]}
-                label={t('Email')}
+                label={iconEmail()}
                 onBlur={handleBlur}
                 ref={refRef}
                 variant="outlined"
@@ -124,7 +152,8 @@ const Login =( props, { user } )=>{
                 style={{ width: "100%" }}
               />
               <TextValidator
-                label={t('RegPass')}
+                className={classes.rootInput}
+                label={iconPass()}
                 variant="outlined"
                 type={showPassword ? "text" : "password"}
                 onChange={handleChangePassword}

@@ -51,6 +51,7 @@ const IncomeCard = () => {
     thickness: 2,
     size: 80
   };
+  const color = "#ff9800";
 
   return (
     <Box boxShadow={3}>
