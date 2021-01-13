@@ -18,7 +18,7 @@ import { CardActionArea, CardContent, Fab } from "@material-ui/core";
 
 
 const useStyles = makeStyles({
-  root: {
+  root
     borderRadius: 5,
     height: 45,
     width: 400,
