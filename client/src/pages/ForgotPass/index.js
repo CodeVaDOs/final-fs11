@@ -7,14 +7,15 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
+import EmailIcon from '@material-ui/icons/Email';
 const useStyles = makeStyles({
   root: {
-    borderRadius: 23,
-    border: "2px solid #254A93",
+    borderRadius: '20px',
+    boxShadow: '0px 2px 4px #00000033',
+    margin:"20px auto",
     height: 320,
     width: 800,
-    margin: '0 auto',
-    textDecoration: "none",
+    textDecoration: "none"
   },
   rootNext: {
     borderTopLeftRadius: 20,
@@ -74,6 +75,7 @@ const ForgotPass =(props)=>{
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [isSent, setIsSent] = useState(false);
+  const iconEmail =()=>{return(<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);};
 
   const submit = (e) => {
     e.preventDefault();
@@ -113,7 +115,7 @@ const ForgotPass =(props)=>{
               {t('recoverPassText')}
             </Typography>
             <TextValidator
-              label={t('Email')}
+              label={iconEmail()}
               variant="outlined"
               onChange={handleChange}
               name="email"

@@ -7,6 +7,7 @@ import store from '@redux/store';
 import App from './App.js';
 
 import './index.scss';
+import './i18next';
 
 const reduxStore = store();
 
