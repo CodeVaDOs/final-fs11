@@ -1,5 +1,4 @@
 import React from 'react';
-import AlignItemsList from "../../components/HouseCard";
 import { Container } from "@material-ui/core";
 import CustomizedTabs from "../../components/HouseCard/tabs";
 

@@ -239,9 +239,7 @@ export default function HouseCard(props) {
       </div>
     );
   }
-
-}
-;
+};
 
 
 
