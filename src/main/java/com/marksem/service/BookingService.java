@@ -2,12 +2,12 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestBooking;
 import com.marksem.entity.booking.Booking;
+import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +19,8 @@ public class BookingService {
     }
 
     public Booking read(Long id) {
-        return repo.findById(id).orElseThrow(NoSuchElementException::new);
+        return repo.findById(id)
+                .orElseThrow(() ->  new NoDataFoundException("booking", id));
     }
 
     public List<Booking> readAll() {

@@ -1,10 +1,17 @@
 {
   "menuHome": "Главная",
-  "menuSettings": "Настройки",
+  "menuSettings": "Настройка",
+  "menuPanel": "Панель",
+  "menuClients": "Клиенты",
+  "menuDocuments": "Документы",
+  "menuFinance": "Финансы",
+  "menuRent": "Аренда",
+  "menuVideo": "Трансляция",
+  "menuHouses": "Будинки",
+  "menuEmployee": "Работники",
   "menuArchive": "Архив",
-  "archive":"Архив",
-  "home":"Главная",
-  "settings":"Настройки",
+  "menuHistory": "История",
+  "search": "Поиск",
   "signInHere": "Войти",
   "Email": "Электронная почта",
   "regErrEmail": "Электронная почта не действительна",
@@ -26,5 +33,6 @@
   "errPassRep": "Пароль подтверждения недействителен",
   "create": "Создать",
   "client": "Клиент",
-  "manager": "Менеджер"
+  "manager": "Менеджер",
+  "changePassHeader": "Изменить пароль"
 }
