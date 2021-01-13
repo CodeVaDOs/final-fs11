@@ -21,14 +21,14 @@ const useStyles = makeStyles({
     borderRadius: 5,
     height: 45,
     width: 400,
-    padding: 8,
-    margin: '10px auto',
+    padding: 5,
+    margin: '5px auto',
     "& label.Mui-focused": {
       color: "#254A93",
       borderRadius: '5px',
     },
     "& .MuiOutlinedInput-input":{
-      padding:"12.5px 14px"
+      padding:"15.5px 14px"
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
