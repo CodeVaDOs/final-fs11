@@ -5,3 +5,8 @@ spring:
 springdoc:
   swagger-ui:
     path: /doc
+---
+jwt:
+  secret: proselyte
+  expiration: 604800
+  header: Authorization
