@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     top: '0',
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: "center"
+    alignItems: "center",
+    margin: '20px'
   },
 
 }));
@@ -27,8 +28,9 @@ export default function ControllableStates() {
 
   return (
     <div>
-      <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
-      <div>{`inputValue: '${inputValue}'`}</div>
+      {console.log(`value: ${value !== null ? `'${value}'` : 'null'}`)}
+      {console.log(`inputValue: '${inputValue}'`)}
+      <br/>
       <br/>
       <Autocomplete
         value={value}
