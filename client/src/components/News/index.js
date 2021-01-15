@@ -8,7 +8,7 @@ import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { news } from "../../utils/newsList";
+import { news } from "../../utils/constants/newsList";
 
 const blue = '#254A93';
 const useStyles = makeStyles((theme) => ({
