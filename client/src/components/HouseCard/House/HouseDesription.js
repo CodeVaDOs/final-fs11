@@ -49,7 +49,7 @@ export default function HouseDesription() {
             </div>
             <div className={classes.tableMeaning} align="left">
               <span>{row.desription} </span>
-              {index == -1 ? row.pause : row.pause}
+              {index === -1 ? '' : row.pause}
             </div>
           </div>
         ))}
