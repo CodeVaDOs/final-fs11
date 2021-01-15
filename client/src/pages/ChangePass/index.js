@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     height: 400,
     width: 800,
     textDecoration: "none",
+    backgroundColor:"#fff"
   },
   rootNext: {
     borderTopLeftRadius: 20,

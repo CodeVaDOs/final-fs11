@@ -15,7 +15,8 @@ const useStyles = makeStyles({
     margin:"20px auto",
     height: 320,
     width: 800,
-    textDecoration: "none"
+    textDecoration: "none",
+    backgroundColor:"#fff"
   },
   rootNext: {
     borderTopLeftRadius: 20,

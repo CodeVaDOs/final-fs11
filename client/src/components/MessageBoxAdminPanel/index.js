@@ -12,10 +12,14 @@ import { CustomDrawer } from "./CustomDrawer";
 
 const useStyles = makeStyles({
   messageBox: {
-    width: "100%",
+    width: '890px',
+    height: 'auto',
+    borderRadius: '20px',
+    boxShadow: '0px 2px 4px #00000033',
+    marginBottom:"12px",
+    backgroundColor:"#fff",
     borderTopRightRadius: "20px",
     borderTopLeftRadius: "20px",
-    border: "1px solid",
     overflow: "hidden",
     color: "#fff"
   },
@@ -63,7 +67,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const MessageBoxAdminPanel = () => {
+const MessageBoxAdminPanel = () => {
   const [openList, setOpenList] = useState(true);
 
   const classes = useStyles();
@@ -120,3 +124,5 @@ export const MessageBoxAdminPanel = () => {
     </Box>
   </div>);
 };
+
+export default MessageBoxAdminPanel;
