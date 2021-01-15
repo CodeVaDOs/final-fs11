@@ -3,7 +3,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import "react-image-lightbox/style.css";
 import { photos as images } from "../../../utils/constants/photos";
 import { GridList } from "@material-ui/core";
-import Lightbox from "react-image-lightbox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,20 +53,20 @@ export const Slider = () => {
           );
         })}
       </GridList>
-      {isOpen && (
-        <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + images.length - 1) % images.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % images.length)
-          }
-        />
-      )}
+      {/*{isOpen && (*/}
+      {/*  <Lightbox*/}
+      {/*    mainSrc={images[photoIndex]}*/}
+      {/*    nextSrc={images[(photoIndex + 1) % images.length]}*/}
+      {/*    prevSrc={images[(photoIndex + images.length - 1) % images.length]}*/}
+      {/*    onCloseRequest={() => setIsOpen(false)}*/}
+      {/*    onMovePrevRequest={() =>*/}
+      {/*      setPhotoIndex((photoIndex + images.length - 1) % images.length)*/}
+      {/*    }*/}
+      {/*    onMoveNextRequest={() =>*/}
+      {/*      setPhotoIndex((photoIndex + 1) % images.length)*/}
+      {/*    }*/}
+      {/*  />*/}
+      {/*)}*/}
     </div>
   );
 };
