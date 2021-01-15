@@ -46,7 +46,8 @@ const useStyles = makeStyles({
     height: '401px',
     borderRadius: '20px',
     boxShadow: '0px 2px 4px #00000033',
-    marginBottom:"12px"
+    marginBottom:"12px",
+    backgroundColor:"#fff"
   },
   subGrid: {
     height: '400px',
@@ -262,8 +263,8 @@ const PanelAdminNewUser =()=> {
         <Grid className={classes.subGrid}  item xs={8} >
           <Typography className={classes.title}>{t('newUserTitle')}</Typography>
           <Box style={{ marginTop:"8px", marginBottom:"0px" }}>
-            <ButtonStyle btnState={dataForm.typeClient} w={"100px"} h={"30px"} bgcolor={"#254A93"} ml={"25px"} fw="400" fs="14px" text={t('client')} onClick={toggle}/>
-            <ButtonStyle btnState={dataForm.typeManager} w={"100px"} h={"30px"} bgcolor={"#254A93"} ml={"56px"} fw="400" fs="14px" text={t('manager')} onClick={toggle}/>
+            <ButtonStyle btnState={dataForm.typeClient} w={"100px"} h={"30px"} ml={"25px"} fw="400" fs="14px" text={t('client')} onClick={toggle}/>
+            <ButtonStyle btnState={dataForm.typeManager} w={"100px"} h={"30px"} ml={"56px"} fw="400" fs="14px" text={t('manager')} onClick={toggle}/>
           </Box>
           <Box>
             <ValidatorForm noValidate autoComplete="off" instantValidate={false} onSubmit={check}>

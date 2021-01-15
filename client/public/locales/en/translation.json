@@ -34,5 +34,16 @@
   "create": "Create",
   "client": "Client",
   "manager": "Manager",
-  "changePassHeader": "Change password"
+  "changePassHeader": "Change password",
+  "memoTitle": "Create a manager reminder",
+  "inputValue": "Write reminder ...",
+  "sendBtn": "Send",
+  "createBtn": "Create a title...",
+  "typeMassage": "Type  of Message",
+  "important": "Important",
+  "informative": "Informative",
+  "allManager": "All managers",
+  "choseManager": "Select recipients",
+  "hello": "Hello, "
+
 }
