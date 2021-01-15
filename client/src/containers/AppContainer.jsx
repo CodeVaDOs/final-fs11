@@ -1,6 +1,5 @@
-import React, { lazy, Suspense, useMemo } from "react";
+import React, { lazy, useMemo } from "react";
 import { Switch } from "react-router-dom";
-import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
 
 export const routes = [
@@ -51,6 +50,13 @@ export const routes = [
     exact: true,
     path: "/changepassword",
     component: lazy(() => import("@pages/ChangePass")),
+  },
+  {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/houses",
+    component: lazy(() => import("@pages/House")),
   },
   {
     path: "/",
