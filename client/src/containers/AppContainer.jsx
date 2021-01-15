@@ -5,6 +5,7 @@ import PrivateRoute from "@components/PrivateRoute";
 export const routes = [
   {
     isPublic: false,
+    isAdminRoute: false,
     exact: true,
     path: "/",
     component: lazy(() => import("@pages/Home")),
