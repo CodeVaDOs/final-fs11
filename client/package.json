@@ -1,4 +1,12 @@
 {
+  "watch": {
+    "eslint-dev": {
+      "patterns": [
+        "src/**/*.js"
+      ],
+      "extensions": "js"
+    }
+  },
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -32,7 +40,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start-js": "react-scripts start",
+    "start": "concurrently \"yarn run start-js\"",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
@@ -58,7 +67,9 @@
   "devDependencies": {
     "clsx": "^1.1.1",
     "customize-cra": "^1.0.0",
+    "eslint-config-prettier": "^7.1.0",
     "i18next": "^19.8.4",
+    "prettier": "2.2.1",
     "react-app-rewire-alias": "^0.1.9",
     "react-app-rewired": "^2.1.8",
     "styled-components": "^5.2.1"
