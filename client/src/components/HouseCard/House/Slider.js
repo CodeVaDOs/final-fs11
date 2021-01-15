@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import "react-image-lightbox/style.css";
+// import "react-image-lightbox/style.css";
 import { photos as images } from "../../../utils/constants/photos";
 import { GridList } from "@material-ui/core";
 
