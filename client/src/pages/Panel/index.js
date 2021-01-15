@@ -24,7 +24,7 @@ const renderAdminPanel =()=> {
   </>);
 };
 const Panel =(props)=> {
-  const [userType, setUserType] = useState('adm');
+  const [userType] = useState('adm');
   const { t } = useTranslation();
   const classes = useStyles();
   const propsName = "user.name";
