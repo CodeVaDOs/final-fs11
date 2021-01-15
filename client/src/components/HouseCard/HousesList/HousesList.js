@@ -2,9 +2,10 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import HouseCard from "./index";
+import HouseCard from "./HouseCards";
 import TabPanel from "./TabPanel";
 import ControllableStates from "./Control";
+import { housesView } from "../../../utils/constants/housesView";
 
 
 const AntTabs = withStyles({
@@ -44,17 +45,18 @@ const useStyles = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
   },
-  demo1: {
-  },
+  demo1: {},
 }));
 
-export default function CustomizedTabs(props) {
+
+export default function HousesTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState('one');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <div className={classes.root}>
       <div className={classes.demo1}>
@@ -64,13 +66,11 @@ export default function CustomizedTabs(props) {
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
           <ControllableStates/>
-          <HouseCard category={'MyHouse'}/>
+          <HouseCard category={housesView.MyHouse}/>
         </TabPanel>
         <TabPanel value={value} index="two">
-          <HouseCard category={'control'}/>
-        </TabPanel>
-        <TabPanel value={value} index="three">
-          Item Three
+          <ControllableStates/>
+          <HouseCard category={housesView.control}/>
         </TabPanel>
       </div>
     </div>
