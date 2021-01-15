@@ -34,5 +34,15 @@
   "create": "Створити",
   "client": "Кліент",
   "manager": "Менеджер",
-  "changePassHeader": "Змінити пароль"
+  "changePassHeader": "Змінити пароль",
+  "memoTitle": "Створити нагадування менеджеру",
+  "inputValue": "Написати нагадування...",
+  "sendBtn": "Відіслати",
+  "createBtn": "Створити заголовок...",
+  "typeMassage": "Тип Повідомлення",
+  "important": "Важливе",
+  "informative": "Інформативне",
+  "allManager": "Всім менеджерам",
+  "choseManager": "Обрати отримувачів",
+  "hello": "Вітаю, "
 }
