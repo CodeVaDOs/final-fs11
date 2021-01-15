@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { options } from "../../../utils/constants/housesView";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const options = ["Всі", 'Орендовані', 'Вільні'];
-
 export default function ControllableStates() {
   const [value, setValue] = React.useState(options[0]);
   const [inputValue, setInputValue] = React.useState('');
@@ -27,8 +26,8 @@ export default function ControllableStates() {
 
   return (
     <div>
-      <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
-      <div>{`inputValue: '${inputValue}'`}</div>
+      {console.log(`value: ${value !== null ? `'${value}'` : 'null'}`)}
+      {console.log(`inputValue: '${inputValue}'`)}
       <br/>
       <Autocomplete
         value={value}
