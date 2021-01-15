@@ -1,7 +1,6 @@
 spring:
   profiles:
     active: dev
-
 ---
 
 spring:
@@ -23,7 +22,6 @@ spring:
 springdoc:
   swagger-ui:
     path: /doc
-
 ---
 
 spring:
@@ -48,3 +46,9 @@ spring:
       settings:
         trace: true
         web-allow-others: true
+---
+jwt:
+  secret: proselyte
+  expiration: 604800
+  header: Authorization
+

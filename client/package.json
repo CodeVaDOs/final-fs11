@@ -1,4 +1,12 @@
 {
+  "watch": {
+    "eslint-dev": {
+      "patterns": [
+        "src/**/*.js"
+      ],
+      "extensions": "js"
+    }
+  },
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -59,10 +67,12 @@
   "devDependencies": {
     "clsx": "^1.1.1",
     "customize-cra": "^1.0.0",
-    "i18next": "^19.8.4",
+    "eslint-config-prettier": "^7.1.0",
+    "prettier": "2.2.1",
     "react-app-rewire-alias": "^0.1.9",
     "react-app-rewired": "^2.1.8",
     "react-circular-progressbar": "^2.0.3",
     "react-image-lightbox": "^5.1.1"
+    "react-app-rewired": "^2.1.8"
   }
 }
