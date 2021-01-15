@@ -2,11 +2,54 @@ spring:
   profiles:
     active: dev
 ---
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://ec2-52-205-145-201.compute-1.amazonaws.com:5432/dfbohplvljtqie;
+    driver-class-name: org.postgresql.Driver
+    username: mlpeugyvcdinfn
+    password: e1a1ff54ded8c5b22e835e7b0c616d43db806e72a3d1f1344f04c8c6cda82c72
+    initialization-mode: always
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    database: postgresql
+
 springdoc:
   swagger-ui:
     path: /doc
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:h2:mem:testdb;
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    #    data: classpath:sql/data.sql
+    initialization-mode: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: true
+        web-allow-others: true
 ---
 jwt:
   secret: proselyte
   expiration: 604800
   header: Authorization
+
+---

@@ -16,20 +16,19 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { CardActionArea, CardContent, Fab } from "@material-ui/core";
 
-
 const useStyles = makeStyles({
   root: {
     borderRadius: 5,
     height: 45,
     width: 400,
     padding: 5,
-    margin: '10px auto',
+    margin: '5px auto',
     "& label.Mui-focused": {
       color: "#254A93",
       borderRadius: '5px',
     },
     "& .MuiOutlinedInput-input":{
-      padding:"12.5px 14px"
+      padding:"15.5px 14px"
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
