@@ -1,17 +1,15 @@
 package com.marksem.entity.user;
 
-import com.sun.tools.javac.util.List;
+import java.util.*;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum Role {
-    USER(new HashSet<Permission>(Collections.singleton(Permission.DEVELOPERS_READ))),
-    MANAGER(new HashSet<Permission>(List.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE))),
-    ADMIN(new HashSet<Permission>(List.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE)));
+    USER(new HashSet<>(Collections.singletonList(Permission.DEVELOPERS_READ))),
+    MANAGER(new HashSet<>(Arrays.asList(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE))),
+    ADMIN(new HashSet<>(Arrays.asList(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE)));
 
     private final Set<Permission> permissions;
 
