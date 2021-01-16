@@ -27,65 +27,306 @@ export const camaz = (
 // Даные по домам
 
 export const tileData = [
+  //myHouses
   {
     img: image,
-    contractDate: '11.07.2020',
+    contractDate: '1111111',
     contractId: '00170',
     town: 'Яблуниця',
     townLocation: 'Івано-Франківська область',
     svg: pause,
     myHouse: true,
     control: false
-  },
-  {
-    img: image1,
-    contractDate: '21.07.2020',
-    contractId: '20270',
-    town: 'Житомир',
-    townLocation: 'Житомирська область',
-    svg: camaz,
-    myHouse: true,
-    control: false
-  },
-  {
-    img: image1,
-    contractDate: '21.07.2020',
-    contractId: '20270',
-    town: 'Житомир',
-    townLocation: 'Житомирська область',
-    svg: camaz,
-    myHouse: true,
-    control: false
-  },
-  {
-    img: image1,
-    contractDate: '01.02.2020',
-    contractId: '002170',
-    town: 'Бровары',
-    townLocation: 'Житомирська область',
-    svg: camaz,
+  }, {
+    img: image,
+    contractDate: '1111111',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'Івано-Франківська область',
+    svg: pause,
     myHouse: false,
     control: true
   },
   {
     img: image1,
-    contractDate: '31.12.2020',
+    contractDate: '2222222',
     contractId: '51270',
     town: 'Чайка',
     townLocation: 'Києвська область',
     svg: camaz,
     myHouse: true,
     control: false
+  }, {
+    img: image,
+    contractDate: '3333333',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'laaaaaasttttt',
+    svg: pause,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '2222222',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'Києвська область',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '3333333',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'laaaaaasttttt',
+    svg: pause,
+    myHouse: false,
+    control: true
   },
   {
     img: image1,
-    contractDate: '31.12.2020',
+    contractDate: '44444444',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'laaaaaast',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '44444444',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'laaaaaast',
+    svg: camaz,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image,
+    contractDate: '55555555',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'Івано-Франківська область',
+    svg: pause,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '55555555',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'Івано-Франківська область',
+    svg: pause,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image1,
+    contractDate: '66666666',
     contractId: '51270',
     town: 'Чайка',
     townLocation: 'Києвська область',
     svg: camaz,
     myHouse: true,
     control: false
+  }, {
+    img: image,
+    contractDate: '7777777',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'laaaaaasttttt',
+    svg: pause,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '66666666',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'Києвська область',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '7777777',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'laaaaaasttttt',
+    svg: pause,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image1,
+    contractDate: '888888888',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'laaaaaast',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '888888888',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'laaaaaast',
+    svg: camaz,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image,
+    contractDate: '999999999',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'Івано-Франківська область',
+    svg: pause,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '999999999',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'Івано-Франківська область',
+    svg: pause,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image1,
+    contractDate: '10',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'Києвська область',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '11',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'laaaaaasttttt',
+    svg: pause,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '10',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'Києвська область',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '11',
+    contractId: '00170asaf',
+    town: 'Яблуниця',
+    townLocation: 'laagsdhaaaasttttt',
+    svg: pause,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image1,
+    contractDate: '12',
+    contractId: '51rt23ghfd270',
+    town: 'Чайка',
+    townLocation: 'laa23taaaast',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '12',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'laawrt2aaaast',
+    svg: camaz,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image,
+    contractDate: '13',
+    contractId: '00re170',
+    town: 'Яб3213луниця',
+    townLocation: 'Іванqwrt1о-Франківська область',
+    svg: pause,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '13',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'Івано-rt1Франківська область',
+    svg: pause,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image1,
+    contractDate: '14',
+    contractId: '51270',
+    town: 'Чаrqwйка',
+    townLocation: 'Киwqrєвськtqqwа область',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '15',
+    contractId: '02120170',
+    town: 'Яблуниця',
+    townLocation: 'laaaqrtqwaaasttttt',
+    svg: pause,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '14',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'Києвська erqwобласть',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image,
+    contractDate: '15',
+    contractId: '00170',
+    town: 'Яблуниця',
+    townLocation: 'laaaaaastggasqtttt',
+    svg: pause,
+    myHouse: false,
+    control: true
+  },
+  {
+    img: image1,
+    contractDate: '16',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'laasfaaaaast',
+    svg: camaz,
+    myHouse: true,
+    control: false
+  }, {
+    img: image1,
+    contractDate: '16',
+    contractId: '51270',
+    town: 'Чайка',
+    townLocation: 'laaaaafaast',
+    svg: camaz,
+    myHouse: false,
+    control: true
   },
 
 ];

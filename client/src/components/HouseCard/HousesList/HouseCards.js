@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { housesView, tileData } from "../../../utils/constants/housesView";
+import { tileData } from "../../../utils/constants/housesView";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
     overflow: 'hidden',
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    overflow: 'hidden',
     margin: '10px',
   },
   img: {
@@ -83,8 +85,7 @@ const useStyles = makeStyles((theme) => ({
   btnNext: props => ({
     position: 'absolute',
     top: '120px',
-    right: props.open ? '416' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
-
+    right: 0,
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
 
     border: '1px solid #b1b4ba',
@@ -119,82 +120,98 @@ export default function HouseCards(props) {
     setCurrentImagIdx(index);
   };
 
-
   const nextSlide = () => {
     const resetIndex = currentImageIdx === images.length - 1;
     const index = resetIndex ? 0 : currentImageIdx + 1;
     setCurrentImagIdx(index);
   };
   const activeImageSourcesFromState = images.slice(
-    currentImageIdx,
-    currentImageIdx + 5
+    currentImageIdx ,
+    currentImageIdx + 6
   );
   const imageSourcesToDisplay =
-    activeImageSourcesFromState.length < 5 ?
+    activeImageSourcesFromState.length < 6 ?
       [
         ...activeImageSourcesFromState,
-        ...images.slice(0, 5 - activeImageSourcesFromState.length)
       ]
       : activeImageSourcesFromState;
 
-  if (props.category === housesView.myHouse) {
+  useEffect(() => {
+
+
+  }, [nextSlide,activeImageSourcesFromState,images,imageSourcesToDisplay,currentImageIdx,setCurrentImagIdx ]);
+
+  if (props.category === "myHouse") {
+    console.log(imageSourcesToDisplay);
+    const myHouses = imageSourcesToDisplay.filter(t => t.myHouse === true);
+    console.log(myHouses);
     return (
       <div className={classes.root}>
         <div>
           <div className={classes.content}>
-            {imageSourcesToDisplay
-              .filter(t => t.myHouse === true)
+            {myHouses
               .map((house, index) => (
                 <div key={index} className={index === 0 ? classes.houseCardActive : classes.houseCard}>
-                  <img className={classes.img} src={house.img} alt={house.contractId}/>
-                  <div className={classes.houseCardBody}>
-                    <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                    <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                    <span className={classes.locationData}> {house.town}</span>
-                    <span className={classes.locationData}> {house.townLocation}</span>
+                  <div>
+                    <img className={classes.img} src={house.img} alt={house.contractId}/>
+                    <div className={classes.houseCardBody}>
+                      <span className={classes.cardContract}> Контракт {house.contractDate}</span>
+                      <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                      <span className={classes.locationData}> {house.town}</span>
+                      <span className={classes.locationData}> {house.townLocation}</span>
+                    </div>
                   </div>
                 </div>
-              ))}
+              )
+              )}
           </div>
         </div>
-        {imageSourcesToDisplay.length < 5 ?
+        {myHouses.length > 5 ?
+          <button className={classes.btnNext} onClick={nextSlide}>
+            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+          </button> :
+          <button className={classes.btnNext} onClick={nextSlide}>
+            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+          </button>
+
+        }
+      </div>
+    );
+  } else if (props.category === "control") {
+    const controls = imageSourcesToDisplay.filter(t => t.myHouse === true);
+    return (
+      <div className={classes.root}>
+        <div>
+          <div className={classes.content}>
+            {controls
+              .map((house, index) => {
+                return (
+                  <div key={index} className={index === 0 ? classes.houseCardActive : classes.houseCard}>
+                    <div>
+                      <img className={classes.img} src={house.img} alt={house.contractId}/>
+
+                      <div className={classes.houseCardBody}>
+                        <span className={classes.cardContract}> Контракт {house.contractDate}</span>
+                        <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                        <span className={classes.locationData}> {house.town}</span>
+                        <span className={classes.locationData}> {house.townLocation}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                );
+              })}
+          </div>
+        </div>
+        {controls.length < 5 ?
           "" :
           <button className={classes.btnNext} onClick={nextSlide}>
             <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
           </button>
         }
-
       </div>
     );
-  } else if (props.category === housesView.control) {
-    return (
-      <div className={classes.root}>
-        <div>
-          <div className={classes.content}>
-            {imageSourcesToDisplay
-              .filter(t => t.control === true)
-              .map((house, index) => (
-                <div key={index} className={index === 0 ? classes.houseCardActive : classes.houseCard}>
-                  <img className={classes.img} src={house.img} alt={house.contractId}/>
-                  <div className={classes.houseCardBody}>
-                    <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                    <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                    <span className={classes.locationData}> {house.town}</span>
-                    <span className={classes.locationData}> {house.townLocation}</span>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-        {imageSourcesToDisplay.length < 5 ?
-          "" :
-          <button className={classes.btnNext} onClick={nextSlide}>
-            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
-          </button>
-        }
 
-      </div>
-    );
   }
 };
 
