@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { svg1 } from "../../../utils/constants/housesView";
+import { pause } from "../../../utils/constants/housesView";
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +30,7 @@ function createData(name, desription, pause) {
 
 
 const rows = [
-  createData('Статус ', 'Вільний ', svg1),
+  createData('Статус ', 'Вільний ', pause),
   createData('Плоша Будинку', "80 m2"),
   createData('Локація', 'Яблуниця Івано-Франківська область, вул. Стальського 34'),
   createData('Комплектація', "Standart"),

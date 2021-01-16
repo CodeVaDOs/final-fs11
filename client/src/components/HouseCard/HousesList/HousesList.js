@@ -4,7 +4,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import HouseCard from "./HouseCards";
 import TabPanel from "./TabPanel";
-import ControllableStates from "./Control";
 import { housesView } from "../../../utils/constants/housesView";
 
 
@@ -65,11 +64,9 @@ export default function HousesTabs(props) {
           <AntTab value="two" label="Управління"/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <ControllableStates/>
-          <HouseCard category={housesView.MyHouse}/>
+          <HouseCard category={housesView.myHouse}/>
         </TabPanel>
         <TabPanel value={value} index="two">
-          <ControllableStates/>
           <HouseCard category={housesView.control}/>
         </TabPanel>
       </div>
