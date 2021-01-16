@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { tileData } from "../../../utils/constants/housesView";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
@@ -101,9 +101,32 @@ const useStyles = makeStyles((theme) => ({
 
     zIndex: 1201
   }),
+  btnPrev: props => ({
+    position: 'absolute',
+    top: '120px',
+    left: 0,
+    transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
+
+    border: '1px solid #b1b4ba',
+    backgroundColor: '#eef5ff',
+    borderRadius: '50%',
+    height: '39px',
+    width: '39px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    outline: 'none',
+
+    zIndex: 1201
+  }),
 
   collapseButtonImg: props => ({
-    transform: props.open ? 'rotate(90deg) rotateX(180deg)' : 'rotate(90deg)',
+    transform: 'rotate(90deg) rotateX(180deg)',
+    transition: '300ms linear',
+  }),
+  collapseButtonImgPrev: props => ({
+    transform: 'rotate(90deg)',
     transition: '300ms linear',
   }),
 }));
@@ -115,43 +138,52 @@ export default function HouseCards(props) {
   const classes = useStyles();
 
   const prevSlide = () => {
+    // find out whether currentImageIdx eqals 0 and thus user reached beginning of carousel
     const resetToVeryBack = currentImageIdx === 0;
+
     const index = resetToVeryBack ? images.length - 1 : currentImageIdx - 1;
+
+    // assign the logical index to current image index that will be used in render method
     setCurrentImagIdx(index);
   };
 
   const nextSlide = () => {
+    // check if we need to start over from the first index
     const resetIndex = currentImageIdx === images.length - 1;
+
     const index = resetIndex ? 0 : currentImageIdx + 1;
+
+    // assign the logical index to current image index that will be used in render method
     setCurrentImagIdx(index);
   };
-  const activeImageSourcesFromState = images.slice(
-    currentImageIdx ,
-    currentImageIdx + 6
-  );
-  const imageSourcesToDisplay =
-    activeImageSourcesFromState.length < 6 ?
-      [
-        ...activeImageSourcesFromState,
-      ]
-      : activeImageSourcesFromState;
 
-  useEffect(() => {
+  // create a new array with 5 elements from the source images
+  const activeImageSourcesFromState = images.slice(currentImageIdx, currentImageIdx + 5);
 
-
-  }, [nextSlide,activeImageSourcesFromState,images,imageSourcesToDisplay,currentImageIdx,setCurrentImagIdx ]);
+  // check the length of the new array (it’s less than 5 when index is at the end of the imagge sources array)
+  const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
+    // if the imageSourcesToDisplay's length is lower than 5 images than append missing images from the beginning of the original array
+    ? [...activeImageSourcesFromState, ...images.slice(0, 5 - activeImageSourcesFromState.length)]
+    : activeImageSourcesFromState;
 
   if (props.category === "myHouse") {
-    console.log(imageSourcesToDisplay);
     const myHouses = imageSourcesToDisplay.filter(t => t.myHouse === true);
-    console.log(myHouses);
     return (
       <div className={classes.root}>
+        {currentImageIdx > 0 ?
+          <button className={classes.btnPrev} onClick={prevSlide}>
+            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+          </button> :
+          ""
+        }
         <div>
           <div className={classes.content}>
             {myHouses
               .map((house, index) => (
-                <div key={index} className={index === 0 ? classes.houseCardActive : classes.houseCard}>
+                <div
+                  key={index}
+                  className={index === 0 ? classes.houseCardActive : classes.houseCard}
+                >
                   <div>
                     <img className={classes.img} src={house.img} alt={house.contractId}/>
                     <div className={classes.houseCardBody}>
@@ -167,11 +199,9 @@ export default function HouseCards(props) {
           </div>
         </div>
         {myHouses.length > 5 ?
+          "" :
           <button className={classes.btnNext} onClick={nextSlide}>
-            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
-          </button> :
-          <button className={classes.btnNext} onClick={nextSlide}>
-            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+            <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
           </button>
 
         }
@@ -181,6 +211,12 @@ export default function HouseCards(props) {
     const controls = imageSourcesToDisplay.filter(t => t.myHouse === true);
     return (
       <div className={classes.root}>
+        {currentImageIdx > 0 ?
+          <button className={classes.btnPrev} onClick={prevSlide}>
+            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+          </button> :
+          ""
+        }
         <div>
           <div className={classes.content}>
             {controls
@@ -203,18 +239,15 @@ export default function HouseCards(props) {
               })}
           </div>
         </div>
-        {controls.length < 5 ?
+        {controls.length > 5 ?
           "" :
           <button className={classes.btnNext} onClick={nextSlide}>
-            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+            <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
           </button>
+
         }
       </div>
     );
 
   }
 };
-
-
-
-
