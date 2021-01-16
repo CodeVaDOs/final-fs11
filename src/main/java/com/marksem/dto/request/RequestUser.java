@@ -3,6 +3,8 @@ package com.marksem.dto.request;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -22,6 +24,11 @@ public class RequestUser extends BaseEntity {
     private Role role;
 
     public User toEntity() {
-        return User.builder().password(this.password).email(this.email).role(this.role).build();
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+
+        return User.builder()
+                .password(bCryptPasswordEncoder.encode(password))
+                .email(this.email)
+                .role(this.role).build();
     }
 }
