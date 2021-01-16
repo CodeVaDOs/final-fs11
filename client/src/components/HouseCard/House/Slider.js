@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import "react-image-lightbox/style.css";
 import { photos as images } from "../../../utils/constants/photos";
-import { GridList } from "@material-ui/core";
 import Lightbox from "react-image-lightbox";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,19 +40,33 @@ export const Slider = () => {
 
   return (
     <div className={classes.root}>
-      <img className={classes.bigPhoto} src={photoIndex ? images[photoIndex] : images[0]} alt={'das'}/>
-      <GridList className={classes.gridList} cols={2.5}>
+      <img
+        className={classes.bigPhoto}
+        src={photoIndex ? images[photoIndex] : images[0]}
+        alt={'Фото дома'}
+      />
+      <div
+        className={classes.gridList}
+        cols={2.5}>
         {images.map((tile, index) => {
           return (
-            <img
-              className={classes.gridListitem}
-              key={tile}
-              onClick={() => {
-                openPhoto(index);
-              }} src={tile} alt={tile}/>
+            <div key={tile}>
+              <img
+                className={classes.gridListitem}
+                onClick={() => {
+                }}
+                src={tile[0]}
+                alt={tile[0]}/>
+              <img
+                className={classes.gridListitem}
+                onClick={() => {
+                }}
+                src={tile[1]}
+                alt={tile[1]}/>
+            </div>
           );
         })}
-      </GridList>
+      </div>
       {isOpen && (
         <Lightbox
           mainSrc={images[photoIndex]}
