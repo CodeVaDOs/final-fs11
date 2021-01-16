@@ -64,10 +64,10 @@ export default function HousesTabs(props) {
           <AntTab value="two" label="Управління"/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <HouseCard category={housesView.myHouse}/>
+          <HouseCard />
         </TabPanel>
         <TabPanel value={value} index="two">
-          <HouseCard category={housesView.control}/>
+          <HouseCard />
         </TabPanel>
       </div>
     </div>

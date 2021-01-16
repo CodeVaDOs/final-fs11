@@ -138,116 +138,60 @@ export default function HouseCards(props) {
   const classes = useStyles();
 
   const prevSlide = () => {
-    // find out whether currentImageIdx eqals 0 and thus user reached beginning of carousel
     const resetToVeryBack = currentImageIdx === 0;
-
     const index = resetToVeryBack ? images.length - 1 : currentImageIdx - 1;
-
-    // assign the logical index to current image index that will be used in render method
     setCurrentImagIdx(index);
   };
 
   const nextSlide = () => {
-    // check if we need to start over from the first index
     const resetIndex = currentImageIdx === images.length - 1;
-
     const index = resetIndex ? 0 : currentImageIdx + 1;
-
-    // assign the logical index to current image index that will be used in render method
     setCurrentImagIdx(index);
   };
 
-  // create a new array with 5 elements from the source images
   const activeImageSourcesFromState = images.slice(currentImageIdx, currentImageIdx + 5);
-
-  // check the length of the new array (it’s less than 5 when index is at the end of the imagge sources array)
   const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
-    // if the imageSourcesToDisplay's length is lower than 5 images than append missing images from the beginning of the original array
     ? [...activeImageSourcesFromState, ...images.slice(0, 5 - activeImageSourcesFromState.length)]
     : activeImageSourcesFromState;
 
-  if (props.category === "myHouse") {
-    const myHouses = imageSourcesToDisplay.filter(t => t.myHouse === true);
-    return (
-      <div className={classes.root}>
-        {currentImageIdx > 0 ?
-          <button className={classes.btnPrev} onClick={prevSlide}>
-            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
-          </button> :
-          ""
-        }
-        <div>
-          <div className={classes.content}>
-            {myHouses
-              .map((house, index) => (
-                <div
-                  key={index}
-                  className={index === 0 ? classes.houseCardActive : classes.houseCard}
-                >
-                  <div>
-                    <img className={classes.img} src={house.img} alt={house.contractId}/>
-                    <div className={classes.houseCardBody}>
-                      <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                      <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                      <span className={classes.locationData}> {house.town}</span>
-                      <span className={classes.locationData}> {house.townLocation}</span>
-                    </div>
+  return (
+    <div className={classes.root}>
+      {currentImageIdx < 1 ?
+        "" :
+        <button className={classes.btnPrev} onClick={prevSlide}>
+          <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+        </button>
+      }
+      <div>
+        <div className={classes.content}>
+          {imageSourcesToDisplay
+            .map((house, index) => (
+              <div
+                key={index}
+                className={index === 0 ? classes.houseCardActive : classes.houseCard}
+              >
+                <div>
+                  <img className={classes.img} src={house.img} alt={house.contractId}/>
+                  <div className={classes.houseCardBody}>
+                    <span className={classes.cardContract}> Контракт {house.contractDate}</span>
+                    <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                    <span className={classes.locationData}> {house.town}</span>
+                    <span className={classes.locationData}> {house.townLocation}</span>
                   </div>
                 </div>
-              )
-              )}
-          </div>
+              </div>
+            )
+            )}
         </div>
-        {myHouses.length > 5 ?
-          "" :
-          <button className={classes.btnNext} onClick={nextSlide}>
-            <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
-          </button>
-
-        }
       </div>
-    );
-  } else if (props.category === "control") {
-    const controls = imageSourcesToDisplay.filter(t => t.myHouse === true);
-    return (
-      <div className={classes.root}>
-        {currentImageIdx > 0 ?
-          <button className={classes.btnPrev} onClick={prevSlide}>
-            <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
-          </button> :
-          ""
-        }
-        <div>
-          <div className={classes.content}>
-            {controls
-              .map((house, index) => {
-                return (
-                  <div key={index} className={index === 0 ? classes.houseCardActive : classes.houseCard}>
-                    <div>
-                      <img className={classes.img} src={house.img} alt={house.contractId}/>
+      {imageSourcesToDisplay.length > 5 ?
+        "" :
+        <button className={classes.btnNext} onClick={nextSlide}>
+          <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
+        </button>
+      }
+    </div>
+  );
+}
 
-                      <div className={classes.houseCardBody}>
-                        <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                        <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                        <span className={classes.locationData}> {house.town}</span>
-                        <span className={classes.locationData}> {house.townLocation}</span>
-                      </div>
-                    </div>
-                  </div>
 
-                );
-              })}
-          </div>
-        </div>
-        {controls.length > 5 ?
-          "" :
-          <button className={classes.btnNext} onClick={nextSlide}>
-            <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
-          </button>
-
-        }
-      </div>
-    );
-
-  }
-};
