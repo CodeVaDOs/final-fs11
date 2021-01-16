@@ -1,6 +1,6 @@
 import React from "react";
-import image from "../../components/HouseCard/HousesList/img.png";
 import image1 from "../../components/HouseCard/HousesList/img_1.png";
+// import image from "../../components/HouseCard/HousesList/img.png";
 
 export const housesView = {
   myHouse: "myHouse",
@@ -26,66 +26,22 @@ export const camaz = (
 
 // Даные по домам
 
-export const tileData = [
-  {
-    img: image,
-    contractDate: '11.07.2020',
-    contractId: '00170',
-    town: 'Яблуниця',
-    townLocation: 'Івано-Франківська область',
-    svg: pause,
-    myHouse: true,
-    control: false
-  },
+export const tileData = Array.apply(null, Array(9)).map((_,index) => (
   {
     img: image1,
-    contractDate: '21.07.2020',
-    contractId: '20270',
-    town: 'Житомир',
-    townLocation: 'Житомирська область',
+    contractDate: index,
+    contractId: index,
+    town: index,
+    townLocation: index,
     svg: camaz,
-    myHouse: true,
-    control: false
-  },
-  {
-    img: image1,
-    contractDate: '21.07.2020',
-    contractId: '20270',
-    town: 'Житомир',
-    townLocation: 'Житомирська область',
-    svg: camaz,
-    myHouse: true,
-    control: false
-  },
-  {
-    img: image1,
-    contractDate: '01.02.2020',
-    contractId: '002170',
-    town: 'Бровары',
-    townLocation: 'Житомирська область',
-    svg: camaz,
-    myHouse: false,
-    control: true
-  },
-  {
-    img: image1,
-    contractDate: '31.12.2020',
-    contractId: '51270',
-    town: 'Чайка',
-    townLocation: 'Києвська область',
-    svg: camaz,
-    myHouse: true,
-    control: false
-  },
-  {
-    img: image1,
-    contractDate: '31.12.2020',
-    contractId: '51270',
-    town: 'Чайка',
-    townLocation: 'Києвська область',
-    svg: camaz,
-    myHouse: true,
-    control: false
-  },
-
-];
+  }
+  // {
+  //   img: image,
+  //   contractDate: index + 1,
+  //   contractId: index + 1,
+  //   town: index + 1,
+  //   townLocation: index + 1,
+  //   svg: pause,
+  // }
+)
+);

@@ -171,7 +171,6 @@ const useStyles = makeStyles((theme) => ({
 export const HouseContainer = () => {
   const classes = useStyles();
 
-
   return (
     <>
       <div className={classes.root}>
