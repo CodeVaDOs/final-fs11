@@ -133,9 +133,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function HouseCards(props) {
-  const [images, _] = useState(tileData);
+  const [images, setImages] = useState(tileData);
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
+  const setImagesHandler = (index) => {
+    // console.log(index);
+  };
 
   const prevSlide = () => {
     const resetToVeryBack = currentImageIdx === 0;
@@ -151,9 +154,9 @@ export default function HouseCards(props) {
 
   const activeImageSourcesFromState = images.slice(currentImageIdx, currentImageIdx + 5);
   const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
-    ? [...activeImageSourcesFromState, ...images.slice(0, 5 - activeImageSourcesFromState.length)]
+    ? [...activeImageSourcesFromState , ...images.slice(0, 5 - activeImageSourcesFromState.length)]
     : activeImageSourcesFromState;
-
+  console.log(imageSourcesToDisplay);
   return (
     <div className={classes.root}>
       {currentImageIdx < 1 ?
@@ -169,6 +172,7 @@ export default function HouseCards(props) {
               <div
                 key={index}
                 className={index === 0 ? classes.houseCardActive : classes.houseCard}
+                onClick={setImagesHandler(index)}
               >
                 <div>
                   <img className={classes.img} src={house.img} alt={house.contractId}/>

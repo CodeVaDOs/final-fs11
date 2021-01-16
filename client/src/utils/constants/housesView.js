@@ -1,5 +1,6 @@
 import React from "react";
 import image1 from "../../components/HouseCard/HousesList/img_1.png";
+// import image from "../../components/HouseCard/HousesList/img.png";
 
 export const housesView = {
   myHouse: "myHouse",
@@ -28,11 +29,19 @@ export const camaz = (
 export const tileData = Array.apply(null, Array(9)).map((_,index) => (
   {
     img: image1,
-    contractDate: index ,
+    contractDate: index,
     contractId: index,
     town: index,
     townLocation: index,
     svg: camaz,
   }
+  // {
+  //   img: image,
+  //   contractDate: index + 1,
+  //   contractId: index + 1,
+  //   town: index + 1,
+  //   townLocation: index + 1,
+  //   svg: pause,
+  // }
 )
 );
