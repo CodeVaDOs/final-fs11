@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 
   leftSide: {
-    width: '100%',
+    width: '453px',
     display: 'flex',
     alignItems: "center",
     justifyContent: 'center'
