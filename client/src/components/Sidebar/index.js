@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { makeStyles, Drawer, Paper } from "@material-ui/core";
+import React from 'react';
+import { Drawer, makeStyles } from "@material-ui/core";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
 
 const useStyles = makeStyles(theme => ({

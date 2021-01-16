@@ -6,6 +6,9 @@ import { CircleOfStatistic } from "./CircleOfStatistic";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Typography from "@material-ui/core/Typography";
 import { Slider } from "./Slider";
+import { Location } from "./Location";
+import { Rent } from "./Rent";
+import sv from './img.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -149,13 +152,24 @@ const useStyles = makeStyles((theme) => ({
 
   textBlock: {
     margin: 15
+  },
+
+  //bottomSide
+  bottomSide: {
+    width: '100%',
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginBottom: '15px',
+    marginTop: '15px',
+    font: 'Roboto'
   }
 }));
 
 
 export const HouseContainer = () => {
   const classes = useStyles();
-
 
   return (
     <>
@@ -219,6 +233,17 @@ export const HouseContainer = () => {
           </Typography>
 
         </div>
+        <div className={classes.bottomSide}>
+          <div className={classes.leftSide}>
+            <Location/>
+            <img src={sv} alt=""/>
+          </div>
+          <div className={classes.rightSide}>
+            <Rent/>
+          </div>
+
+        </div>
+
       </div>
     </>
   );
