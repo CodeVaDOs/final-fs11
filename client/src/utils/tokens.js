@@ -1,3 +1,5 @@
+import api from "@utils/api";
+
 export const getTokens = () => {
   return {
     accessToken: localStorage.getItem("authToken"),
@@ -6,9 +8,19 @@ export const getTokens = () => {
 };
 
 export const setAuthToken = (token) => {
-  localStorage.setItem("authToken", token);
+  if (token) {
+    api.defaults.headers.common.Authorization = `${token}`;
+    localStorage.setItem("authToken", token);
+  } else {
+    delete api.defaults.headers.common.Authorization;
+    localStorage.removeItem("authToken");
+  }
 };
 
 export const setRefreshToken = (token) => {
-  localStorage.setItem("refreshToken", token);
+  if (token) {
+    localStorage.setItem("refreshToken", token);
+  } else {
+    localStorage.removeItem("refreshToken");
+  }
 };
