@@ -34,7 +34,7 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <Container>
-          <h1 color={'primary'}>Что-то пошло не так, сори...</h1>
+          <h1 color={'primary'}>Ребята, произошло что-то странное</h1>
           <Button
             color={"primary"}
             onClick={() => window.location.reload()}>
