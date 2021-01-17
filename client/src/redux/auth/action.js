@@ -22,7 +22,7 @@ const logIn = (values) => (dispatch) => {
     .post('auth/login', values)
     .then((data) => {
       console.log("success log in");
-      setAuthToken(data.jwt);
+      setAuthToken(data.token);
       setRefreshToken(data.refreshToken);
       dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
     })
