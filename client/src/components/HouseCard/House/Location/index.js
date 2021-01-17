@@ -1,9 +1,12 @@
 import React from 'react';
+import sv from "../img.png";
 
 export const Location = (props) => {
 
 
   return (
-    <div>Location</div>
+    <div>
+      <img src={sv} alt=""/>
+    </div>
   );
 };
