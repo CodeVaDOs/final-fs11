@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import { Slider } from "./Slider";
 import { Location } from "./Location";
 import { Rent } from "./Rent";
-import sv from './img.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -233,10 +232,11 @@ export const HouseContainer = () => {
           </Typography>
 
         </div>
+
+
         <div className={classes.bottomSide}>
           <div className={classes.leftSide}>
             <Location/>
-            <img src={sv} alt=""/>
           </div>
           <div className={classes.rightSide}>
             <Rent/>
