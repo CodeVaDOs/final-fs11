@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
 ---
 
 spring:
@@ -25,13 +25,14 @@ springdoc:
 ---
 
 spring:
-  profiles: dev
+  profiles: my
   datasource:
     url: jdbc:h2:mem:testdb;
     driver-class-name: org.h2.Driver
     username: sa
     password:
-    #    data: classpath:sql/data.sql
+        data:
+          classpath: sql/data.sql
     initialization-mode: always
   jpa:
     show-sql: true
@@ -49,6 +50,7 @@ spring:
 ---
 jwt:
   secret: proselyte
-  expiration: 604800
+  expiration: 7200
+  expirationRefresh: 604800
   header: Authorization
 
