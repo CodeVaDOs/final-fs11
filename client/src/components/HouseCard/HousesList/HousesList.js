@@ -4,8 +4,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import HouseCard from "./HouseCards";
 import TabPanel from "./TabPanel";
-import { housesView } from "../../../utils/constants/housesView";
-
 
 const AntTabs = withStyles({
   indicator: {
