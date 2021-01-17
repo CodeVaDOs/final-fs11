@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -70,9 +69,5 @@ const ControlNotification = ({ title, body }) => {
   </Card>);
 };
 
-ControlNotification.propTypes = {
-  title: PropTypes.string,
-  body: PropTypes.string
-};
 
 export default ControlNotification;

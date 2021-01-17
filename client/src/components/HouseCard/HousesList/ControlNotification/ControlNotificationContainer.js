@@ -1,27 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
-import DayTask from "../../../DayTask/DayTask";
-
-const useStyles = makeStyles({
-  header: {
-    color: "#254A93",
-    fontSize: "18px"
-  },
-
-  badge: {
-    padding: "5px",
-    color: "#fff",
-    borderRadius: "50%",
-    background: "#FA505D",
-    fontSize: "12px",
-    marginLeft: "10px"
-  },
-  headerWrap: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  }
-});
+import ControlNotification from "./ControlNotification";
 
 const dayTasks = [
   {
@@ -41,11 +19,9 @@ const dayTasks = [
 ];
 
 const ControlNotificationContainer = () => {
-  const classes = useStyles();
-
   return (<>
     {dayTasks.map((dayTask, index) =>
-      <DayTask key={index} title={dayTask.header} body={dayTask.text}/>)}
+      <ControlNotification key={index} title={dayTask.header} body={dayTask.text}/>)}
   </>);
 };
 
