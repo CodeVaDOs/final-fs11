@@ -1,25 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import "react-image-lightbox/style.css";
 import { photos as images } from "../../../utils/constants/photos";
-import { GridList } from "@material-ui/core";
-import Lightbox from "react-image-lightbox";
+import TransitionsModal from "../../Modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    margin: '10px',
-    marginRight: '20px'
+    width: '453px',
+    marginRight: '20px',
   },
   gridList: {
-    flexWrap: 'nowrap',
+    display: "flex",
+    justifyContent: 'space-between',
+    alignItems: "center",
+    flexDirection: 'row',
     transform: 'translateZ(0)',
+    height: '100px',
 
   },
   gridListitem: {
-    maxHeight: "90px",
-    marginRight: '10px',
+    maxHeight: "110px",
     borderRadius: '10%',
+    width: '140px',
+
+  },
+  gridListitemShadowImg: {
+    maxHeight: "110px",
+    borderRadius: '10%',
+    opacity: '74%',
+    position: "relative",
+    width: '140px',
+
+  },
+  countOfPfoto: {
+    position: 'absolute',
+    top: '10px',
+    right: '60px',
+    color: 'white',
+    fontSize: '24px'
   },
   bigPhoto: {
     marginBottom: '10px',
@@ -33,41 +50,73 @@ export const Slider = () => {
   const classes = useStyles();
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    if (photoIndex > images.length - 1) {
+      setPhotoIndex(0);
+    }
+    if (photoIndex < 0) {
+      setPhotoIndex(images.length - 1);
+    }
+  }, [photoIndex, setPhotoIndex]);
 
-  function openPhoto(index) {
-    setIsOpen(true);
+  function showPhoto(index) {
     setPhotoIndex(index);
   }
 
+  function openModal() {
+    setIsOpen(true);
+  }
+
+
   return (
     <div className={classes.root}>
-      <img className={classes.bigPhoto} src={photoIndex ? images[photoIndex] : images[0]} alt={'das'}/>
-      <GridList className={classes.gridList} cols={2.5}>
-        {images.map((tile, index) => {
-          return (
-            <img
-              className={classes.gridListitem}
-              key={tile}
-              onClick={() => {
-                openPhoto(index);
-              }} src={tile} alt={tile}/>
-          );
-        })}
-      </GridList>
-      {isOpen && (
-        <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + images.length - 1) % images.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % images.length)
-          }
-        />
-      )}
+      <img className={classes.bigPhoto}
+        src={photoIndex ? images[photoIndex] : images[0]} alt={'das'}/>
+      <div className={classes.gridList}>
+        <img
+          className={classes.gridListitem}
+          onClick={() => {
+            showPhoto(0);
+          }}
+          src={images[0]} alt={"1"}/>
+        <img
+          className={classes.gridListitem}
+          onClick={() => {
+            showPhoto(1);
+          }} src={images[1]} alt={"1"}/>
+        <div>
+          <img
+            className={classes.gridListitemShadowImg}
+            onClick={openModal}
+            src={images[2]}
+            alt={"2"}/>
+          <p className={classes.countOfPfoto}>+25</p>
+        </div>
+
+
+      </div>
+      {isOpen ? <TransitionsModal
+        open={isOpen}
+        setIsOpen={setIsOpen}
+        photoIndex={photoIndex}
+        setPhotoIndex={setPhotoIndex}
+      /> :
+        ""
+      }
+      {/*{isOpen && (*/}
+      {/*  <Lightbox*/}
+      {/*    mainSrc={images[photoIndex]}*/}
+      {/*    nextSrc={images[(photoIndex + 1) % images.length]}*/}
+      {/*    prevSrc={images[(photoIndex + images.length - 1) % images.length]}*/}
+      {/*    onCloseRequest={() => setIsOpen(false)}*/}
+      {/*    onMovePrevRequest={() =>*/}
+      {/*      setPhotoIndex((photoIndex + images.length - 1) % images.length)*/}
+      {/*    }*/}
+      {/*    onMoveNextRequest={() =>*/}
+      {/*      setPhotoIndex((photoIndex + 1) % images.length)*/}
+      {/*    }*/}
+      {/*  />*/}
+      {/*)}*/}
     </div>
   );
 };

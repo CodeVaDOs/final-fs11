@@ -1,5 +1,7 @@
+import imgBig from './img.png';
+
+
 export const photos = [
-  "https://source.unsplash.com/2ShvY8Lf6l0/800x599",
   "https://source.unsplash.com/Dm-qxdynoEc/800x799",
   "https://source.unsplash.com/qDkso9nvCg0/600x799",
   "https://source.unsplash.com/iecJiKe_RNg/600x799",

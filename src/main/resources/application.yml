@@ -6,16 +6,18 @@ spring:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:postgresql://ec2-52-205-145-201.compute-1.amazonaws.com:5432/dfbohplvljtqie;
+    url: jdbc:postgresql://ec2-52-205-145-201.compute-1.amazonaws.com:5432/dfbohplvljtqie
     driver-class-name: org.postgresql.Driver
     username: mlpeugyvcdinfn
     password: e1a1ff54ded8c5b22e835e7b0c616d43db806e72a3d1f1344f04c8c6cda82c72
-    initialization-mode: always
+    initialization-mode: never
+#    data: classpath:sql/data.sql
+
 
   jpa:
-    show-sql: false
+    show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     database: postgresql
 
