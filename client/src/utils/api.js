@@ -22,9 +22,9 @@ api.interceptors.response.use(
           },
         })
         .then(({ data }) => {
-          setAuthToken(data.jwt);
+          setAuthToken(data.token);
           setRefreshToken(data.refreshToken);
-          originalRequest.headers.Authorization = data.jwt;
+          originalRequest.headers.Authorization = data.token;
           return api(originalRequest);
         });
     }
