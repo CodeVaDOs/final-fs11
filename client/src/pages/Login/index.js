@@ -1,4 +1,5 @@
-import React, { createRef, useState  } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import Typography from "@material-ui/core/Typography";
@@ -12,32 +13,34 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
+import { useDispatch, useSelector } from "react-redux";
+import { API_ACTIONS as AUTH_ACTIONS } from "@redux/auth/action";
 
 const useStyles = makeStyles({
   root: {
     borderRadius: '20px',
     boxShadow: '0px 2px 4px #00000033',
-    margin:"20px auto",
+    margin: "20px auto",
     height: 400,
     width: 800,
     textDecoration: "none",
-    backgroundColor:"#fff"
+    backgroundColor: "#fff"
   },
   rootNext: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     height: 50,
-    background:'#254A93',
+    background: '#254A93',
     marginBottom: 50,
     textAlign: "center",
-    color:'#fff',
+    color: '#fff',
   },
   text: {
     fontFamily: "Roboto, sans-serif",
     textTransform: "capitalize",
     fontStyle: "normal",
     fontWeight: 600,
-    color:'#fff',
+    color: '#fff',
     fontSize: 22,
     paddingTop: 8
   },
@@ -51,8 +54,8 @@ const useStyles = makeStyles({
       color: "#254A93",
       borderRadius: '5px',
     },
-    "& .MuiOutlinedInput-input":{
-      padding:"15.5px 14px"
+    "& .MuiOutlinedInput-input": {
+      padding: "15.5px 14px"
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
@@ -67,7 +70,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Login =( props, { user } )=>{
+const Login = (props, { user }) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState("");
@@ -77,6 +80,17 @@ const Login =( props, { user } )=>{
   const refRef = createRef();
   const refRefPas1 = createRef();
 
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const { loading, authorized } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    if (authorized) {
+      history.push("/");
+    }
+  }, [authorized, history]);
+
   const routeChange = () => {
     //connect after fetch request
     // if (props.isEntered === true) {
@@ -84,29 +98,32 @@ const Login =( props, { user } )=>{
     // }
     // change path to / forgotpass route
   };
-  const check=(event)=> {
-    // if (passwordValue !== "") {
-    //   // props.getUser(emailValue, passwordValue);
-    // }
+  const check = (event) => {
+    if (passwordValue !== "") {
+      dispatch(AUTH_ACTIONS.logIn({
+        email: emailValue,
+        password: passwordValue
+      }));
+    }
   };
-  const handleBlur=(event)=>{
+  const handleBlur = (event) => {
     refRef.current.validate(event.target.value);
   };
-  const handleBlurPassword=(event)=> {
+  const handleBlurPassword = (event) => {
     refRefPas1.current.validate(event.target.value);
   };
-  const handleChange=(event)=>{
+  const handleChange = (event) => {
     setEmailValue(event.target.value);
   };
-  const handleChangePassword=(event)=>{
+  const handleChangePassword = (event) => {
     setPasswordValue(event.target.value);
   };
-  const handleMouseDownPassword=(event)=>{
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   const errorMessageWrongPassword = passwordCorrect === false && (
     <Typography variant="body1">
-            Please enter your password
+      Please enter your password
     </Typography>
   );
   //connect after fetch request
@@ -126,9 +143,13 @@ const Login =( props, { user } )=>{
   //     return false;
   //   }
   // };
-  const iconEmail =()=>{return(<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);};
-  const iconPass =()=>{return(<><LockIcon style={{ marginBottom: "-5px" }}/>{t("RegPass")}</>);};
-  return(
+  const iconEmail = () => {
+    return (<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);
+  };
+  const iconPass = () => {
+    return (<><LockIcon style={{ marginBottom: "-5px" }}/>{t("RegPass")}</>);
+  };
+  return (
     <>
       <Container maxWidth={"xl"}>
         <Box className={classes.root}>
@@ -137,7 +158,7 @@ const Login =( props, { user } )=>{
               {t('signInHere')}
             </Typography>
           </Box>
-          <Box style={ { width:400, height:200, margin:'20px auto' } }>
+          <Box style={{ width: 400, height: 200, margin: '20px auto' }}>
             <ValidatorForm noValidate autoComplete="off" instantValidate={false}>
               <TextValidator
                 className={classes.rootInput}
@@ -174,7 +195,7 @@ const Login =( props, { user } )=>{
                         onClick={() => setShowPassword(!showPassword)}
                         onMouseDown={handleMouseDownPassword}
                       >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                        {showPassword ? <Visibility/> : <VisibilityOff/>}
                       </IconButton>
                     </InputAdornment>
                   )
@@ -183,7 +204,7 @@ const Login =( props, { user } )=>{
               {errorMessageWrongPassword}
               {/*{passwordOrMailAreNotCorrect()}*/}
               <span>&nbsp;&nbsp;&nbsp;</span>
-              <Typography variant="body1" >
+              <Typography variant="body1">
                 {t('forgotPass')}<span>&nbsp;</span>
                 <a
                   style={{ textDecoration: "none" }}

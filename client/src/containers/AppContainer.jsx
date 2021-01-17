@@ -1,6 +1,8 @@
-import React, { lazy, useMemo } from "react";
+import React, { lazy, useMemo, Suspense } from "react";
 import { Switch } from "react-router-dom";
+import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
+import { useSelector } from "react-redux";
 
 export const routes = [
   {
@@ -32,7 +34,7 @@ export const routes = [
     component: lazy(() => import("@pages/Panel")),
   },
   {
-    isPublic: false,
+    isPublic: true,
     isAdminRoute: false,
     exact: true,
     path: "/login",
@@ -66,6 +68,8 @@ export const routes = [
 ];
 
 const AppContainer = ({ lang }) => {
+  const loading = useSelector((state) => state.auth.loading);
+
   const routeComponents = useMemo(
     () =>
       routes.map(({ isPublic, isAdminRoute, ...route }) => (
@@ -76,10 +80,10 @@ const AppContainer = ({ lang }) => {
 
   return (
     <>
-      {/*<Preloader loaded={(<div>Preloader</div>)}/>*/}
-      {/*<Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>*/}
-      <Switch>{routeComponents}</Switch>
-      {/*</Suspense>*/}
+      <Preloader loaded={!loading} />
+      <Suspense fallback={<PageLoader loaded={!loading} />}>
+        <Switch>{routeComponents}</Switch>
+      </Suspense>
     </>
   );
 };
