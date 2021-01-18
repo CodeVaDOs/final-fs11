@@ -16,10 +16,8 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       return await axios
-        .get('/api/v1/auth/refreshToken', {
-          headers: {
-            "refresh-token": refreshToken
-          },
+        .post('/api/v1/auth/refresh', {
+          refreshToken
         })
         .then(({ data }) => {
           setAuthToken(data.token);
