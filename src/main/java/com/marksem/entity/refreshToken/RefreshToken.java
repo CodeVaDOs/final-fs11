@@ -31,9 +31,8 @@ public class RefreshToken extends BaseEntity {
     public RefreshToken(Long validityRefreshToken, User user) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityRefreshToken * 1000);
-
-        this.expirationDate = now;
-        this.issueDate = validity;
+        this.issueDate = now;
+        this.expirationDate = validity;
         this.isUsed = false;
         this.user = user;
     }
