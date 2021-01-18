@@ -44,5 +44,12 @@
   "informative": "Информативное",
   "allManager": "Всем менеджерам",
   "choseManager": "Выбрать получателей",
-  "hello": "Привет, "
+  "hello": "Привет, ",
+  "privateHouse": "Собственные Дома",
+  "freeHouses": "Вакантные Дома",
+  "fastAccess": "Быстрый Доступ",
+  "fastAnalytics": "Посмотреть Аналитику",
+  "accessContract": "Подсказки для разговора с клиентом",
+  "contractTitle": "Сделок Закрыто",
+  "clientTitle": "Всего моих клиентов"
 }

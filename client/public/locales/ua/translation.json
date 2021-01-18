@@ -44,5 +44,12 @@
   "informative": "Інформативне",
   "allManager": "Всім менеджерам",
   "choseManager": "Обрати отримувачів",
-  "hello": "Вітаю, "
+  "hello": "Вітаю, ",
+  "privateHouse": "Власні Будинки",
+  "freeHouses": "Вакантні Будинки",
+  "fastAccess": "Швидкий Доступ",
+  "fastAnalytics": "Переглянути Аналітику",
+  "accessContract": "Підказки для розмови з клієнтом",
+  "contractTitle": "Угод Закрито",
+  "clientTitle": "Всього моїх клієнтів"
 }
