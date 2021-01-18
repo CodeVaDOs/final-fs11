@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from "@components/Header";
+import Header from "../src/components/Header";
 import Sidebar from "@components/Sidebar";
 import { makeStyles } from "@material-ui/core";
 import AppContainer from "./containers/AppContainer";

@@ -85,7 +85,11 @@ public class JwtTokenProvider {
     }
 
     public Long getRefreshTokenId(String refreshToken) {
-        return Long.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(refreshToken).getBody().getSubject());
+        try {
+            return Long.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(refreshToken).getBody().getSubject());
+        } catch (Exception ex){
+            throw new JwtAuthenticationException("refreshToken is invalid", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     public String resolveToken(HttpServletRequest request) {

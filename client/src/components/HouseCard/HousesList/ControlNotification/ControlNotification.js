@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -41,11 +40,14 @@ const useStyles = makeStyles({
     background: "#EEF5FF",
     marginLeft: "10px"
   },
-
+  details: {
+    marginBottom: "0",
+    marginTop: "10px"
+  }
 });
 
 
-const DayTask = ({ title, body }) => {
+const ControlNotification = ({ title, body }) => {
   const classes = useStyles();
 
   return (<Card className={classes.root}>
@@ -67,9 +69,5 @@ const DayTask = ({ title, body }) => {
   </Card>);
 };
 
-DayTask.propTypes = {
-  title: PropTypes.string,
-  body: PropTypes.string
-};
 
-export default DayTask;
+export default ControlNotification;

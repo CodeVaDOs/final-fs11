@@ -3,9 +3,9 @@ import Logo from './ui/Logo';
 import { useTranslation } from "react-i18next";
 import { makeStyles, Collapse } from "@material-ui/core";
 import HeaderLink from './components/HeaderLink';
-import searchIcon from '@assert/icons/search-icon.svg';
-import buttonArrow from '@assert/icons/buttonArrow.svg';
-import { icons } from '@assert/header-icons/index';
+import searchIcon from '../../assert/icons/search-icon.svg';
+import buttonArrow from '../../assert/icons/buttonArrow.svg';
+import { icons } from '../../assert/header-icons';
 
 const useStyles = makeStyles({
   header: {

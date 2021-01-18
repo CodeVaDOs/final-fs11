@@ -44,6 +44,12 @@
   "informative": "Informative",
   "allManager": "All managers",
   "choseManager": "Select recipients",
-  "hello": "Hello, "
-
+  "hello": "Hello, ",
+  "privateHouse": "Own Houses",
+  "freeHouses": "Vacant Houses",
+  "fastAccess": "Quick Access",
+  "fastAnalytics": "View Analytics",
+  "accessContract": "Client conversation tips",
+  "contractTitle": "Closed Deals",
+  "clientTitle": "Total of my clients"
 }
