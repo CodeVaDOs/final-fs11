@@ -6,7 +6,6 @@ import OrangeHouse from "../../images/orangeHouse.png";
 import FastAccess from "../FastAccess";
 import Box from '@material-ui/core/Box';
 import Typography from "@material-ui/core/Typography";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Button from "@material-ui/core/Button";
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import Client from "../../images/client.png";
