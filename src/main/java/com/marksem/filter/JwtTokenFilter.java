@@ -2,6 +2,7 @@ package com.marksem.filter;
 
 import com.marksem.exception.JwtAuthenticationException;
 import com.marksem.security.JwtTokenProvider;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,9 +19,11 @@ import java.io.IOException;
 @Component
 public class JwtTokenFilter extends GenericFilterBean {
     private final JwtTokenProvider jwtTokenProvider;
+
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
@@ -31,11 +34,11 @@ public class JwtTokenFilter extends GenericFilterBean {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
+            filterChain.doFilter(servletRequest, servletResponse);
+
         } catch (JwtAuthenticationException e) {
             SecurityContextHolder.clearContext();
-            ((HttpServletResponse) servletResponse).sendError(e.getStatus().value());
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            ((HttpServletResponse) servletResponse).sendError(HttpStatus.UNAUTHORIZED.value(), "JWT token is expired or invalid");
         }
-        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

@@ -26,7 +26,9 @@ public class JwtTokenProvider {
     @Value("${jwt.header}")
     private String authorizationHeader;
     @Value("${jwt.expiration}")
-    private long validityInMilliseconds;
+    private long validityToken;
+    @Value("${jwt.expirationRefresh}")
+    private long validityRefreshToken;
 
     public JwtTokenProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -41,7 +43,20 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds * 1000);
+        Date validity = new Date(now.getTime() + validityToken * 1000);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
+
+    public String createRefreshToken(Long id) {
+        Claims claims = Jwts.claims().setSubject(String.valueOf(id));
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + validityRefreshToken * 1000);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -67,6 +82,14 @@ public class JwtTokenProvider {
 
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Long getRefreshTokenId(String refreshToken) {
+        try {
+            return Long.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(refreshToken).getBody().getSubject());
+        } catch (Exception ex){
+            throw new JwtAuthenticationException("refreshToken is invalid", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     public String resolveToken(HttpServletRequest request) {
