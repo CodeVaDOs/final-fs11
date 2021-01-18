@@ -74,11 +74,13 @@ public class AuthService {
         Long refreshTokenId = jwtTokenProvider.getRefreshTokenId(refreshToken);
         RefreshToken rt = read(refreshTokenId);
 
-        if(rt.getExpirationDate().before(new Date()) || rt.getIsUsed()){
+        if(
+//                rt.getExpirationDate().before(new Date()) ||
+                        rt.getIsUsed()){
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            User user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+            User user = userRepository.findById(rt.getId()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
             return createTokens(user);
         }
     }
