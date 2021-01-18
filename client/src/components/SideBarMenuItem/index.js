@@ -4,6 +4,7 @@ import avatar from '../../images/avatar.png';
 import flag from '../../images/flag.png';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import LangSwitcher from "../LangSwitcher";
 
 const Container = styled.div`
   display: flex;
@@ -96,7 +97,7 @@ const SidebarMenuItem = (props) => {
       <SettingsContainer>
         <Switcher>
           <Flag src={flag} alt="country flag"/>
-          <LangSelect>{language}</LangSelect>
+          <LangSwitcher/>
         </Switcher>
         <MailOutlineIcon color="inherit" style={{ marginLeft: "1rem" }}/>
         <NotificationsIcon color="inherit" style={{ marginLeft: "1rem" }}/>
@@ -108,7 +109,6 @@ const SidebarMenuItem = (props) => {
         </UserCredit>
         <UserAvatar src={avatar} alt="user avatar"/>
       </UserContainer>
-
     </Container>
   );
 };

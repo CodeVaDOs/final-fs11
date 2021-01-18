@@ -1,6 +1,8 @@
 import React from 'react';
 import { Drawer, makeStyles } from "@material-ui/core";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
+import FastAccessPanel from "../FastAccessPanel";
+import SidebarMenuItem from "../SideBarMenuItem";
 
 const useStyles = makeStyles(theme => ({
   openHandler: props => ({
@@ -55,7 +57,8 @@ const Index = ({ width, open, handleOpen }) => {
       </button>
 
       <Drawer classes={{ paper: classes.drawer }} variant="persistent" open={open} anchor="right">
-        side bar content
+        <SidebarMenuItem/>
+        <FastAccessPanel/>
       </Drawer>
     </>
   );
