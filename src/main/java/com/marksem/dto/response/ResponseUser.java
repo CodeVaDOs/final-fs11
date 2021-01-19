@@ -29,8 +29,6 @@ public class ResponseUser extends BaseEntity {
     public static ResponseUser toDto(User u) {
         return ResponseUser.builder()
                 .id(u.getId())
-                .password(u.getPassword())
-                .email(u.getEmail())
                 .role(u.getRole())
                 .managerId(u.getManagerId())
                 .name(u.getName())

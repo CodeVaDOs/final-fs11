@@ -25,7 +25,6 @@ springdoc:
   swagger-ui:
     path: /doc
 ---
-
 spring:
   profiles: my
   datasource:
@@ -52,6 +51,7 @@ spring:
 ---
 jwt:
   secret: proselyte
+  secretRefresh: uuid12345
   expiration: 7200
   expirationRefresh: 604800
   header: Authorization
