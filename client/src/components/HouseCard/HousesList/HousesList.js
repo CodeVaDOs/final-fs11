@@ -4,6 +4,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import HouseCard from "./HouseCards";
 import TabPanel from "./TabPanel";
+import ControlNotificationContainer from "./ControlNotification/ControlNotificationContainer";
+import { Container } from "@material-ui/core";
+import { HouseContainer } from "../House";
+import { ManagementServices } from "./ManagementServices/ManagmentServices";
 
 const AntTabs = withStyles({
   indicator: {
@@ -42,7 +46,15 @@ const useStyles = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
   },
-  demo1: {},
+  container: {
+    width: '100%',
+    height: 'fit-content',
+    boxShadow: "3px 3px 3px 3px rgba(0,0,0, 0.5)",
+    borderRadius: '20px',
+    fontFamily: 'Roboto',
+    display: 'flex',
+
+  },
 }));
 
 
@@ -56,16 +68,20 @@ export default function HousesTabs(props) {
 
   return (
     <div className={classes.root}>
-      <div className={classes.demo1}>
+      <div>
         <AntTabs value={value} onChange={handleChange} aria-label="ant example">
           <AntTab value="one" label="Мої будинки" wrapped/>
           <AntTab value="two" label="Управління"/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <HouseCard />
+          <HouseCard/>
+          <Container className={classes.container}>
+            <HouseContainer/>
+          </Container>
         </TabPanel>
         <TabPanel value={value} index="two">
-          <HouseCard />
+          <ControlNotificationContainer/>
+          <ManagementServices/>
         </TabPanel>
       </div>
     </div>

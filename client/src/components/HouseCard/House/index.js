@@ -6,8 +6,10 @@ import { CircleOfStatistic } from "./CircleOfStatistic";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Typography from "@material-ui/core/Typography";
 import { Slider } from "./Slider";
-import { Location } from "./Location";
 import { Rent } from "./Rent";
+import Map from "./Map/Map";
+import Marker from "./Map/Marker";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 
   leftSide: {
-    width: '453px',
+    width: '100%',
     display: 'flex',
     alignItems: "center",
     justifyContent: 'center'
@@ -44,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     alignItems: "center",
-    flexDirection: 'column'
+    flexDirection: 'column',
+    position: 'relative'
 
   },
   houseIdInfo: {
@@ -150,7 +153,18 @@ const useStyles = makeStyles((theme) => ({
   },
 
   textBlock: {
-    margin: 15
+    marginLeft: 40,
+  },
+  title: {
+    marginTop: 20,
+    marginBottom: 10,
+    fontSize: 18,
+    color: '#293134'
+  },
+  texte: {
+    fontSize: 16,
+    color: '#6E7375'
+
   },
 
   //bottomSide
@@ -160,8 +174,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: 'center',
     flexDirection: 'row',
-    marginBottom: '15px',
-    marginTop: '15px',
+    marginBottom: '10px',
+    marginTop: '10px',
     font: 'Roboto'
   }
 }));
@@ -222,21 +236,36 @@ export const HouseContainer = () => {
         </div>
 
         <div className={classes.textBlock}>
-          <Typography variant="body1" gutterBottom>
+          <Typography className={classes.title}>
             Деталі
           </Typography>
-          <Typography variant="body1">
+          <Typography className={classes.texte}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
             unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
             dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
           </Typography>
-
+          <Typography className={classes.title}>
+            Локація
+          </Typography>
         </div>
 
 
         <div className={classes.bottomSide}>
+
           <div className={classes.leftSide}>
-            <Location/>
+            <Map>
+
+              <Marker
+                id="myLocation"
+                coords={[13.342814, 52.488653]}
+                color="teal"
+              />
+              <Marker
+                id="anotherLocation"
+                coords={[13.339826, 52.488932]}
+                color="orange"
+              />
+            </Map>
           </div>
           <div className={classes.rightSide}>
             <Rent/>
