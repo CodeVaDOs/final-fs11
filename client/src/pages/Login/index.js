@@ -14,7 +14,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import { useDispatch, useSelector } from "react-redux";
-import { API_ACTIONS as AUTH_ACTIONS } from "@redux/auth/action";
+import { AUTH_ACTIONS } from "@redux/auth/action";
 
 const useStyles = makeStyles({
   root: {

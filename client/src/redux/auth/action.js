@@ -1,7 +1,17 @@
 import api from "@utils/api";
-import { catchError, getTokens, setAuthToken, setRefreshToken } from "../../utils";
+import { catchError, setAuthToken, setRefreshToken } from "../../utils";
 
 
+const getProfile = () => (dispatch) => {
+  api.get('users/profile')
+    .then((profile) => {
+      console.log("Fetched profile: ", profile);
+      dispatch({ type: "GET_PROFILE", payload: profile });
+    })
+    .catch(err => {
+      dispatch({ type: "GET_PROFILE_FAILURE" });
+    });
+};
 
 const logOut = () => (dispatch) => {
   api.get('auth/logout')
@@ -52,7 +62,8 @@ const logIn = (values) => (dispatch) => {
 //     });
 // };
 
-export const API_ACTIONS = {
+export const AUTH_ACTIONS = {
   logIn,
   logOut,
+  getProfile
 };
