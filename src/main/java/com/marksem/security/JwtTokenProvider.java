@@ -23,6 +23,8 @@ public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
     private String secretKey;
+    @Value("${jwt.secretRefresh}")
+    private String secretRefreshKey;
     @Value("${jwt.header}")
     private String authorizationHeader;
     @Value("${jwt.expiration}")
@@ -37,6 +39,7 @@ public class JwtTokenProvider {
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+        secretRefreshKey = Base64.getEncoder().encodeToString(secretRefreshKey.getBytes());
     }
 
     public String createToken(String username, String role) {
@@ -62,7 +65,7 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(SignatureAlgorithm.HS256, secretRefreshKey)
                 .compact();
     }
 
@@ -85,11 +88,7 @@ public class JwtTokenProvider {
     }
 
     public Long getRefreshTokenId(String refreshToken) {
-        try {
-            return Long.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(refreshToken).getBody().getSubject());
-        } catch (Exception ex){
-            throw new JwtAuthenticationException("refreshToken is invalid", HttpStatus.UNAUTHORIZED);
-        }
+        return Long.valueOf(Jwts.parser().setSigningKey(secretRefreshKey).parseClaimsJws(refreshToken).getBody().getSubject());
     }
 
     public String resolveToken(HttpServletRequest request) {

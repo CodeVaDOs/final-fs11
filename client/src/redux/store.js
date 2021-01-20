@@ -1,6 +1,7 @@
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import authReducer from './auth/reducer';
+import { AUTH_ACTIONS } from "./auth/action";
 import { getTokens, setAuthToken } from "../utils";
 
 const { applyMiddleware, combineReducers, createStore } = require("redux");
@@ -19,7 +20,7 @@ export default () => {
 
   if (accessToken) {
     setAuthToken(accessToken);
-    // store.dispatch(AUTH_ACTIONS.fetchProfile())
+    store.dispatch(AUTH_ACTIONS.getProfile());
   }
 
   return store;
