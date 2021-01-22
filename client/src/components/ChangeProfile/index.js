@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     textDecoration: "none",
     backgroundColor:"#fff",
   },
-  text: {
+  textProfile: {
     fontFamily: "Roboto, sans-serif",
     textTransform: "capitalize",
     fontStyle: "normal",
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     paddingTop: 8,
     marginLeft:15
   },
-  textSubHeader: {
+  textSubHeaderProfile: {
     fontFamily: "Roboto, sans-serif",
     textTransform: "none",
     fontStyle: "normal",
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     marginTop: 13,
     padding:15
   },
-  textSmall: {
+  textSmallProfile: {
     fontFamily: "Roboto, sans-serif",
     textTransform: "none",
     fontStyle: "normal",
@@ -47,7 +47,7 @@ const useStyles = makeStyles({
     paddingTop: 8,
     marginLeft:15
   },
-  textMini: {
+  textMiniProfile: {
     fontFamily: "Roboto, sans-serif",
     textTransform: "none",
     fontStyle: "normal",
@@ -57,7 +57,7 @@ const useStyles = makeStyles({
     marginLeft:15,
     marginTop: -13
   },
-  rootInput: {
+  rootInputProfile: {
     borderRadius: 5,
     height: 45,
     width: 400,
@@ -160,8 +160,8 @@ const ChangeProfile =() => {
         >
           <Grid item xs={4} >
             {inputData.map(e=>
-              <Typography  key={e.id} className={classes.textSubHeader}>{e.label}</Typography>)}
-            <Typography className={classes.textMini}>{t('birthDaySub')}</Typography>
+              <Typography  key={e.id} className={classes.textSubHeaderProfile}>{e.label}</Typography>)}
+            <Typography className={classes.textMiniProfile}>{t('birthDaySub')}</Typography>
           </Grid>
           <Grid  item xs={8}>
             <ValidatorForm noValidate autoComplete="off" instantValidate={false}>
@@ -171,7 +171,7 @@ const ChangeProfile =() => {
                   :
                   (i.name === "phone" || i.name === "secondPhone") ?
                     <TextValidator
-                      className={classes.rootInput}
+                      className={classes.rootInputProfile}
                       key={i.id}
                       value={i.valueType}
                       name={i.name}
@@ -182,7 +182,7 @@ const ChangeProfile =() => {
                       onChange={i.onChange}
                     />:
                     <TextValidator
-                      className={classes.rootInput}
+                      className={classes.rootInputProfile}
                       key={i.id}
                       value={i.valueType}
                       name={i.name}
