@@ -87,7 +87,7 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public Long getRefreshTokenId(String refreshToken) {
+    public Long getRefreshTokenId (String refreshToken) {
         return Long.valueOf(Jwts.parser().setSigningKey(secretRefreshKey).parseClaimsJws(refreshToken).getBody().getSubject());
     }
 

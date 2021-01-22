@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+//    private final ResetPasswordService resetPasswordService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody RequestAuth request) {
@@ -28,8 +29,18 @@ public class AuthController {
     public ResponseEntity<?> refresh(@RequestHeader("Refresh-token") String token) {
         try {
             return ResponseEntity.ok(authService.refresh(token));
-        } catch (AuthenticationException e) {
+        } catch (RuntimeException e) {
             return new ResponseEntity<>("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
         }
     }
+
+//    @PostMapping("/forgotPassword")
+//    public  ResponseEntity<?> forgotPassword(@RequestBody RequestResetPassword request) {
+//        try {
+//            resetPasswordService.sendMessageToEmail(request.getEmail());
+//        } catch (MessagingException e) {
+//            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }
