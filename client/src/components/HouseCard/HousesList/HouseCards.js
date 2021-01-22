@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { tileData } from "../../../utils/constants/housesView";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
@@ -132,31 +132,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function HouseCards(props) {
-  const [images, setImages] = useState(tileData);
+export default function HouseCards({ data, onHouseClick }) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
-  const setImagesHandler = (index) => {
-    // console.log(index);
-  };
-
+  useEffect(() => {
+  }, [onHouseClick]);
   const prevSlide = () => {
     const resetToVeryBack = currentImageIdx === 0;
-    const index = resetToVeryBack ? images.length - 1 : currentImageIdx - 1;
+    const index = resetToVeryBack ? data.length - 1 : currentImageIdx - 1;
     setCurrentImagIdx(index);
   };
 
   const nextSlide = () => {
-    const resetIndex = currentImageIdx === images.length - 1;
+    const resetIndex = currentImageIdx === data.length - 1;
     const index = resetIndex ? 0 : currentImageIdx + 1;
     setCurrentImagIdx(index);
   };
 
-  const activeImageSourcesFromState = images.slice(currentImageIdx, currentImageIdx + 5);
+  const activeImageSourcesFromState = data.slice(currentImageIdx, currentImageIdx + 5);
   const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
-    ? [...activeImageSourcesFromState , ...images.slice(0, 5 - activeImageSourcesFromState.length)]
+    ? [...activeImageSourcesFromState, ...data.slice(0, 5 - activeImageSourcesFromState.length)]
     : activeImageSourcesFromState;
-  console.log(imageSourcesToDisplay);
   return (
     <div className={classes.root}>
       {currentImageIdx < 1 ?
@@ -167,25 +163,28 @@ export default function HouseCards(props) {
       }
       <div>
         <div className={classes.content}>
-          {imageSourcesToDisplay
-            .map((house, index) => (
-              <div
-                key={index}
-                className={index === 0 ? classes.houseCardActive : classes.houseCard}
-                onClick={setImagesHandler(index)}
-              >
-                <div>
-                  <img className={classes.img} src={house.img} alt={house.contractId}/>
-                  <div className={classes.houseCardBody}>
-                    <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                    <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                    <span className={classes.locationData}> {house.town}</span>
-                    <span className={classes.locationData}> {house.townLocation}</span>
+          {data
+            .map((house, index) => {
+              return (
+                <div
+                  key={index}
+                  onMouseEnter={onHouseClick.bind(index)}
+                  className={index === 0 ? classes.houseCardActive : classes.houseCard}
+                >
+                  <div>
+                    <img
+                      className={classes.img} src={house.img} alt={house.contractId}/>
+                    <div className={classes.houseCardBody}>
+                      <span className={classes.cardContract}> Контракт {house.contractDate}</span>
+                      <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                      <span className={classes.locationData}> {house.town}</span>
+                      <span className={classes.locationData}> {house.townLocation}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-            )}
+              );
+
+            })}
         </div>
       </div>
       {imageSourcesToDisplay.length > 5 ?

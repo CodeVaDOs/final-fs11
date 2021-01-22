@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: "center",
     justifyContent: 'space-evenly',
-    minHeight:"190px"
+    minHeight: "190px"
   },
   diagramBody: {
     width: '100%',
@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     fontSize: '32px',
     fontWeight: 400
   },
@@ -181,9 +181,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const HouseContainer = () => {
-  const classes = useStyles();
+export const HouseContainer = ({ house }) => {
 
+  const classes = useStyles();
+  console.log('id', house);
   return (
     <>
       <div className={classes.root}>
@@ -192,10 +193,9 @@ export const HouseContainer = () => {
             <Slider/>
           </div>
 
-
           <div className={classes.rightSide}>
             <div className={classes.houseIdInfo}>
-              <p className={classes.id}>ID 00170</p>
+              <p className={classes.id}>{house.id}</p>
               <div className={classes.houseIdInfoButtonBlock}>
                 <PrintIcon style={{ color: '#464C4E' }}/>
                 <a className={classes.ExportButton} href={'#'}>
@@ -205,11 +205,10 @@ export const HouseContainer = () => {
               </div>
             </div>
             <div className={classes.houseDescription}>
-              <HouseDesription/>
+              <HouseDesription house={house}/>
             </div>
 
             <div className={classes.houseRentStatisticBlock}>
-
               <div className={classes.diagramBlock}>
                 <div className={classes.statisticRent}>Статистика Оренди</div>
                 <div className={classes.diagramBody}>
@@ -217,16 +216,16 @@ export const HouseContainer = () => {
                     <CircleOfStatistic percentage={57}/>
                   </div>
                   <div className={classes.persentsBlock}>
-                    <div className={classes.days}>20 днів</div>
+                    <div className={classes.days}>{house.days}</div>
                     <div className={classes.persents}>
                       <p>
-                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+12%</span>
+                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.percent * 10} %</span>
                         <span className={classes.persentsFromTo}>від минулого місяця</span>
                       </p>
                     </div>
                   </div>
                   <div className={classes.moneyInDollars}>
-                    <p>$3.573K</p>
+                    <p>$ {house.price}K</p>
                   </div>
                 </div>
               </div>
@@ -240,9 +239,7 @@ export const HouseContainer = () => {
             Деталі
           </Typography>
           <Typography className={classes.texte}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-            unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-            dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+            lorem * {house.details} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti earum enim ipsa laboriosam minus neque numquam odit, quos voluptas!
           </Typography>
           <Typography className={classes.title}>
             Локація

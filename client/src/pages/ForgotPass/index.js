@@ -109,7 +109,7 @@ const ForgotPass =(props)=>{
         <Typography className={classes.text}>
           {t('recoverPass')}
         </Typography>
-        <ValidatorForm className={classes.registerForm} autoComplete="off" instantValidate={false}
+        <proValidatorForm className={classes.registerForm} autoComplete="off" instantValidate={false}
           onSubmit={submit}>
           <div>
             <Typography className={classes.subheader} >
@@ -132,7 +132,7 @@ const ForgotPass =(props)=>{
           <Box className={classes.button} >
             <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('recoverySend')} onClick={()=>{}}/>
           </Box>
-        </ValidatorForm>
+        </proValidatorForm>
       </Box>
     </Box>
   );

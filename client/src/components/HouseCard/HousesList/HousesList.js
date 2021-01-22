@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,6 +8,7 @@ import ControlNotificationContainer from "./ControlNotification/ControlNotificat
 import { Container } from "@material-ui/core";
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
+import { tileData } from "../../../utils/constants/housesView";
 
 const AntTabs = withStyles({
   indicator: {
@@ -61,11 +62,20 @@ const useStyles = makeStyles((theme) => ({
 export default function HousesTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState('one');
-
+  const [data, setImages] = useState(tileData);
+  const [house, setHouse] = useState(tileData[0]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  function onHouseClick(e) {
+    e.preventDefault();
+    let ind = data.map(d => d).filter(id => id.id === e._targetInst.index);
+    setHouse(ind[0]);
+  };
+  console.log('houseState', house);
+  useEffect(() => {
+  }, [HousesTabs]);
   return (
     <div className={classes.root}>
       <div>
@@ -74,9 +84,9 @@ export default function HousesTabs(props) {
           <AntTab value="two" label="Управління"/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <HouseCard/>
+          <HouseCard onHouseClick={onHouseClick} data={data}/>
           <Container className={classes.container}>
-            <HouseContainer/>
+            <HouseContainer house={house}/>
           </Container>
         </TabPanel>
         <TabPanel value={value} index="two">
@@ -87,3 +97,4 @@ export default function HousesTabs(props) {
     </div>
   );
 }
+
