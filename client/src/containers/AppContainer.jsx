@@ -60,7 +60,7 @@ export const routes = [
   },
 ];
 
-const AppContainer = ({ lang }) => {
+const AppContainer = () => {
   const loading = useSelector((state) => state.auth.loading);
 
   const routeComponents = useMemo(
@@ -73,8 +73,8 @@ const AppContainer = ({ lang }) => {
 
   return (
     <>
-      <Preloader loaded={!loading} />
-      <Suspense fallback={<PageLoader loaded={!loading} />}>
+      <Preloader loaded={!loading}/>
+      <Suspense fallback={<PageLoader loaded={!loading}/>}>
         <Switch>{routeComponents}</Switch>
       </Suspense>
     </>

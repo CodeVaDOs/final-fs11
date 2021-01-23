@@ -34,6 +34,7 @@
     "react-i18next": "^11.8.5",
     "react-material-ui-form-validator": "^2.1.1",
     "react-redux": "^7.2.2",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-swipeable-views": "^0.13.9",
@@ -71,6 +72,7 @@
     "clsx": "^1.1.1",
     "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^7.1.0",
+    "history": "^5.0.0",
     "prettier": "2.2.1",
     "react-app-rewire-alias": "^0.1.9",
     "react-app-rewired": "^2.1.8"

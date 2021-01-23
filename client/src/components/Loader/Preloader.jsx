@@ -1,8 +1,8 @@
 import React from "react";
 import cx from "classnames";
-import { Spin } from "antd";
 
 import css from "./styles.module.scss";
+import { LinearProgress } from "@material-ui/core";
 
 const Preloader = ({ loaded }) => {
   return (
@@ -11,7 +11,7 @@ const Preloader = ({ loaded }) => {
         [css.loaderHide]: loaded,
       })}
     >
-      <Spin size="large"/>
+      <LinearProgress/>
     </div>
   );
 };
