@@ -183,6 +183,7 @@ const useStyles = makeStyles(() => ({
 export const HouseContainer = ({ house }) => {
 
   const classes = useStyles();
+
   return (
     <>
       <div className={classes.root}>
@@ -190,6 +191,7 @@ export const HouseContainer = ({ house }) => {
           <div className={classes.leftSide}>
             <Slider/>
           </div>
+
 
           <div className={classes.rightSide}>
             <div className={classes.houseIdInfo}>
@@ -207,6 +209,7 @@ export const HouseContainer = ({ house }) => {
             </div>
 
             <div className={classes.houseRentStatisticBlock}>
+
               <div className={classes.diagramBlock}>
                 <div className={classes.statisticRent}>Статистика Оренди</div>
                 <div className={classes.diagramBody}>
