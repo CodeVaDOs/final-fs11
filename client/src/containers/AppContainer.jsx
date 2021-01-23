@@ -51,13 +51,6 @@ export const routes = [
     isPublic: false,
     isAdminRoute: false,
     exact: true,
-    path: "/changepassword",
-    component: lazy(() => import("@pages/ChangePass")),
-  },
-  {
-    isPublic: false,
-    isAdminRoute: false,
-    exact: true,
     path: "/houses",
     component: lazy(() => import("@pages/House")),
   },
