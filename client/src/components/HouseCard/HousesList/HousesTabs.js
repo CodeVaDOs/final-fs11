@@ -9,6 +9,7 @@ import { Container } from "@material-ui/core";
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
 import { tileData } from "../../../utils/constants/housesView";
+import { useFetch } from "../../../hooks/useFetch";
 
 const AntTabs = withStyles({
   indicator: {
@@ -48,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   container: {
-    width: '100%',
+    width: 'max-content',
     height: 'fit-content',
-    boxShadow: "3px 3px 3px 3px rgba(0,0,0, 0.5)",
+    boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
     borderRadius: '20px',
     fontFamily: 'Roboto',
     display: 'flex',
@@ -59,23 +60,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function HousesTabs(props) {
+export default function HousesTabs() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('one');
-  const [data, setImages] = useState(tileData);
+  const [value, setValue] = useState('one');
+  const [Houses,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
+  const [{ data, loading }, getData] = useFetch({
+    url: `houses`
+  });
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(data, loading);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  function onHouseClick(e) {
-    e.preventDefault();
-    let ind = data.map(d => d).filter(id => id.id === e._targetInst.index);
-    setHouse(ind[0]);
-  };
-  console.log('houseState', house);
-  useEffect(() => {
-  }, [HousesTabs]);
+  function houseToState(e) {
+    setHouse(Houses[e]);
+  }
+
   return (
     <div className={classes.root}>
       <div>
@@ -84,7 +90,7 @@ export default function HousesTabs(props) {
           <AntTab value="two" label="Управління"/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <HouseCard onHouseClick={onHouseClick} data={data}/>
+          <HouseCard onHouseClick={houseToState} data={Houses}/>
           <Container className={classes.container}>
             <HouseContainer house={house}/>
           </Container>

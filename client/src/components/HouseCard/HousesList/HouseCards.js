@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { tileData } from "../../../utils/constants/housesView";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
+import { ListItem } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
-    width: '100%',
+    minWidth: '100%',
     position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
@@ -22,10 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
-    "&:hover": {
-      color: 'white',
-      backgroundColor: '#254A93',
-    }
+
   },
   houseCardActive: {
     margin: '10px',
@@ -82,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateZ(0)',
     overflowY: "hidden"
   },
-  btnNext: props => ({
+  btnNext: () => ({
     position: 'absolute',
     top: '120px',
     right: 0,
@@ -98,10 +95,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     cursor: 'pointer',
     outline: 'none',
-
-    zIndex: 1201
   }),
-  btnPrev: props => ({
+  btnPrev: () => ({
     position: 'absolute',
     top: '120px',
     left: 0,
@@ -121,11 +116,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1201
   }),
 
-  collapseButtonImg: props => ({
+  collapseButtonImg: () => ({
     transform: 'rotate(90deg) rotateX(180deg)',
     transition: '300ms linear',
   }),
-  collapseButtonImgPrev: props => ({
+  collapseButtonImgPrev: () => ({
     transform: 'rotate(90deg)',
     transition: '300ms linear',
   }),
@@ -135,8 +130,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HouseCards({ data, onHouseClick }) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
-  useEffect(() => {
-  }, [onHouseClick]);
+
   const prevSlide = () => {
     const resetToVeryBack = currentImageIdx === 0;
     const index = resetToVeryBack ? data.length - 1 : currentImageIdx - 1;
@@ -163,26 +157,29 @@ export default function HouseCards({ data, onHouseClick }) {
       }
       <div>
         <div className={classes.content}>
-          {data
+          {activeImageSourcesFromState
             .map((house, index) => {
               return (
-                <div
+                <ListItem
                   key={index}
-                  onMouseEnter={onHouseClick.bind(index)}
-                  className={index === 0 ? classes.houseCardActive : classes.houseCard}
-                >
-                  <div>
-                    <img
-                      className={classes.img} src={house.img} alt={house.contractId}/>
-                    <div className={classes.houseCardBody}>
-                      <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                      <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                      <span className={classes.locationData}> {house.town}</span>
-                      <span className={classes.locationData}> {house.townLocation}</span>
+                  onClick={onHouseClick(currentImageIdx)}>
+                  <div
+                    className={index ? classes.houseCard : classes.houseCardActive}
+                  >
+                    <div>
+                      <img
+                        className={classes.img} src={house.img} alt={house.contractId}/>
+                      <div className={classes.houseCardBody}>
+                        <span className={classes.cardContract}> Контракт {house.contractDate}</span>
+                        <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                        <span className={classes.locationData}> {house.town}</span>
+                        <span className={classes.locationData}> {house.location}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
+                </ListItem>
+              )
+              ;
 
             })}
         </div>

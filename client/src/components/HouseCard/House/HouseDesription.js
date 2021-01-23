@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 
 
 export default function HouseDesription({ house }) {
-  console.log(house);
   const classes = useStyles();
 
   function createData(name, desription, pause) {

@@ -11,7 +11,7 @@ import Map from "./Map/Map";
 import Marker from "./Map/Marker";
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -184,7 +184,6 @@ const useStyles = makeStyles((theme) => ({
 export const HouseContainer = ({ house }) => {
 
   const classes = useStyles();
-  console.log('id', house);
   return (
     <>
       <div className={classes.root}>
