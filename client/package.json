@@ -73,5 +73,6 @@
     "prettier": "2.2.1",
     "react-app-rewire-alias": "^0.1.9",
     "react-app-rewired": "^2.1.8"
-  }
+  },
+  "proxy": "http://localhost:8080/"
 }
