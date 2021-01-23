@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { HashRouter as Router } from "react-router-dom";
+
 import { PageLoader } from "../src/components/Loader";
 import store from '@redux/store';
 import App from './App.js';

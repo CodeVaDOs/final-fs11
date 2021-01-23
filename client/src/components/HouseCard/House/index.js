@@ -7,8 +7,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import Typography from "@material-ui/core/Typography";
 import { Slider } from "./Slider";
 import { Rent } from "./Rent";
-import Map from "./Map/Map";
-import Marker from "./Map/Marker";
+import { Map } from "./Map";
 
 
 const useStyles = makeStyles(() => ({
@@ -234,13 +233,13 @@ export const HouseContainer = ({ house }) => {
         </div>
 
         <div className={classes.textBlock}>
-          <Typography className={classes.title}>
+          <Typography component={'span'} className={classes.title}>
             Деталі
           </Typography>
-          <Typography className={classes.texte}>
+          <Typography component={'span'} className={classes.texte}>
             lorem * {house.details} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti earum enim ipsa laboriosam minus neque numquam odit, quos voluptas!
           </Typography>
-          <Typography className={classes.title}>
+          <Typography component={'span'} className={classes.title}>
             Локація
           </Typography>
         </div>
@@ -249,19 +248,7 @@ export const HouseContainer = ({ house }) => {
         <div className={classes.bottomSide}>
 
           <div className={classes.leftSide}>
-            <Map>
-
-              <Marker
-                id="myLocation"
-                coords={[13.342814, 52.488653]}
-                color="teal"
-              />
-              <Marker
-                id="anotherLocation"
-                coords={[13.339826, 52.488932]}
-                color="orange"
-              />
-            </Map>
+            <Map/>
           </div>
           <div className={classes.rightSide}>
             <Rent/>

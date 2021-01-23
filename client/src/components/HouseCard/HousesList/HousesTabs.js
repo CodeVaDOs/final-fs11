@@ -70,7 +70,7 @@ export default function HousesTabs() {
   });
   useEffect(() => {
     getData();
-  }, []);
+  }, [Houses]);
 
   console.log(data, loading);
 

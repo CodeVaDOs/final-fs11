@@ -4,8 +4,9 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
 import Typography from "@material-ui/core/Typography";
+import { useTranslation } from "react-i18next";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     justifyContent: "space-between",
@@ -45,65 +46,67 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const services1 = [
-  {
-    id: 1,
-    service: 'Сантехніка',
-    icon: '*_*'
-  },
-  {
-    id: 2,
-    service: 'Система охорони',
-    icon: '*_*'
-  },
-  {
-    id: 3,
-    service: 'Фасадні роботи',
-    icon: '*_*'
-  },
 
-];
-
-const services2 = [
-  {
-    id: 4,
-    service: 'Електрика',
-    icon: '()_()'
-  },
-  {
-    id: 5,
-    service: 'Вентиляція та кондиціонування',
-    icon: '()_()'
-  },
-  {
-    id: 6,
-    service: 'Вікна та двері',
-    icon: '()_()'
-  },
-
-
-];
-const services3 = [
-  {
-    id: 7,
-    service: 'Благоустрій території',
-    icon: '[]_[]'
-  },
-  {
-    id: 8,
-    service: 'Опалення',
-    icon: '[]_[]'
-  },
-  {
-    id: 9,
-    service: 'Інше...',
-    icon: '[]_[]'
-  },
-];
-
-
-export const ManagementServices = (props) => {
+export const ManagementServices = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
+
+  const services1 = [
+    {
+      id: 1,
+      "service": t('Plumbing'),
+      icon: '*_*'
+    },
+    {
+      id: 2,
+      service: 'Система охорони',
+      icon: '*_*'
+    },
+    {
+      id: 3,
+      service: 'Фасадні роботи',
+      icon: '*_*'
+    },
+
+  ];
+
+  const services2 = [
+    {
+      id: 4,
+      service: 'Електрика',
+      icon: '()_()'
+    },
+    {
+      id: 5,
+      service: 'Вентиляція та кондиціонування',
+      icon: '()_()'
+    },
+    {
+      id: 6,
+      service: 'Вікна та двері',
+      icon: '()_()'
+    },
+
+
+  ];
+  const services3 = [
+    {
+      id: 7,
+      service: 'Благоустрій території',
+      icon: '[]_[]'
+    },
+    {
+      id: 8,
+      service: 'Опалення',
+      icon: '[]_[]'
+    },
+    {
+      id: 9,
+      service: 'Інше...',
+      icon: '[]_[]'
+    },
+  ];
 
   function FormRow() {
     return (

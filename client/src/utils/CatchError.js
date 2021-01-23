@@ -1,18 +1,39 @@
-import { notification } from "antd";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
+export default function AlertMsg({ severity, msg }) {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Alert severity={severity}>{msg}</Alert>
+      {/*<Alert severity="error">This is an error alert — check it out!</Alert>*/}
+      {/*<Alert severity="warning">This is a warning alert — check it out!</Alert>*/}
+      {/*<Alert severity="info">This is an info alert — check it out!</Alert>*/}
+      {/*<Alert severity="success">This is a success alert — check it out!</Alert>*/}
+    </div>
+  );
+}
 
 export const catchError = (e) => {
   if (e?.response?.data?.message) {
     const { message } = e.response.data;
-
-    message.forEach((i) => {
-      const { msg } = i;
-      notification.error({
-        message: msg,
-      });
-    });
+    return (
+      <AlertMsg msg={message} severity={'error'}/>
+    );
   } else {
-    notification.error({
-      message: "Something went wrong",
-    });
+    return (
+      <AlertMsg msg={"ok"} severity={'info'}/>
+    );
   }
 };
