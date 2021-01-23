@@ -19,7 +19,6 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
     "@types/react": "^17.0.0",
-    "antd": "^4.9.4",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "eslint": "^7.15.0",
@@ -41,7 +40,6 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -76,5 +74,6 @@
     "prettier": "2.2.1",
     "react-app-rewire-alias": "^0.1.9",
     "react-app-rewired": "^2.1.8"
-  }
+  },
+  "proxy": "http://localhost:8080/"
 }

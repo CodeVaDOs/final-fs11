@@ -1,7 +1,6 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestAuth;
-import com.marksem.dto.request.RequestRefreshToken;
 import com.marksem.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,10 +24,10 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity<?> refresh(@RequestBody RequestRefreshToken request) {
+    @GetMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestHeader("Refresh-token") String token) {
         try {
-            return ResponseEntity.ok(authService.refresh(request.getRefreshToken()));
+            return ResponseEntity.ok(authService.refresh(token));
         } catch (AuthenticationException e) {
             return new ResponseEntity<>("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
         }

@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -27,6 +28,13 @@ public class UserController {
     @PreAuthorize("hasAuthority('developers:read')")
     public List<ResponseUser> readAll() {
         return service.readAll();
+    }
+
+    @GetMapping("profile")
+    @PreAuthorize("hasAuthority('developers:read')")
+    public List<ResponseUser> getProfile() {
+        return service.readAll().stream().limit(1)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("{id}")
