@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,6 +8,8 @@ import ControlNotificationContainer from "./ControlNotification/ControlNotificat
 import { Container } from "@material-ui/core";
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
+import { tileData } from "../../../utils/constants/housesView";
+import { useFetch } from "../../../hooks/useFetch";
 
 const AntTabs = withStyles({
   indicator: {
@@ -47,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   container: {
-    width: '100%',
+    width: 'max-content',
     height: 'fit-content',
-    boxShadow: "3px 3px 3px 3px rgba(0,0,0, 0.5)",
+    boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
     borderRadius: '20px',
     fontFamily: 'Roboto',
     display: 'flex',
@@ -58,13 +60,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function HousesTabs(props) {
+export default function HousesTabs() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('one');
+  const [value, setValue] = useState('one');
+  const [Houses,] = useState(tileData);
+  const [house, setHouse] = useState(tileData[0]);
+  const [{ data, loading }, getData] = useFetch({
+    url: `houses`
+  });
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(data, loading);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  function houseToState(e) {
+    setHouse(Houses[e]);
+  }
 
   return (
     <div className={classes.root}>
@@ -74,9 +90,9 @@ export default function HousesTabs(props) {
           <AntTab value="two" label="Управління"/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <HouseCard/>
+          <HouseCard onHouseClick={houseToState} data={Houses}/>
           <Container className={classes.container}>
-            <HouseContainer/>
+            <HouseContainer house={house}/>
           </Container>
         </TabPanel>
         <TabPanel value={value} index="two">
@@ -87,3 +103,4 @@ export default function HousesTabs(props) {
     </div>
   );
 }
+

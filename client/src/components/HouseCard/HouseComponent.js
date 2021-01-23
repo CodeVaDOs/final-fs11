@@ -1,5 +1,5 @@
 import React from 'react';
-import HousesTabs from "./HousesList/HousesList";
+import HousesTabs from "./HousesList/HousesTabs";
 
 const HouseComponent = () => {
 
