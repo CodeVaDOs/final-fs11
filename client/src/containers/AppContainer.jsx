@@ -1,8 +1,13 @@
 import React, { lazy, useMemo, Suspense } from "react";
-import { Switch } from "react-router-dom";
+import
+{
+  Switch,
+  useLocation
+} from "react-router-dom";
 import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
 import { useSelector } from "react-redux";
+import * as ga from "q";
 
 export const routes = [
   {
@@ -60,8 +65,16 @@ export const routes = [
   },
 ];
 
+function usePageViews() {
+  let location = useLocation();
+  React.useEffect(() => {
+    ga.send(["pageview", location.pathname]);
+  }, [location]);
+}
+
 const AppContainer = () => {
   const loading = useSelector((state) => state.auth.loading);
+  usePageViews();
 
   const routeComponents = useMemo(
     () =>

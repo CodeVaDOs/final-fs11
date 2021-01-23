@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { HashRouter as Router } from "react-router-dom";
 
+
 import { PageLoader } from "../src/components/Loader";
 import store from '@redux/store';
 import App from './App.js';
@@ -17,7 +18,7 @@ ReactDOM.render(
   <ErrorBoundary>
     <Provider store={reduxStore}>
       <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
-        <Router>
+        <Router >
           <App/>
         </Router>
       </Suspense>
