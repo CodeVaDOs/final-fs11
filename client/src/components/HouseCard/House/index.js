@@ -7,11 +7,10 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import Typography from "@material-ui/core/Typography";
 import { Slider } from "./Slider";
 import { Rent } from "./Rent";
-import Map from "./Map/Map";
-import Marker from "./Map/Marker";
+import { Map } from "./Map";
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -104,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: "center",
     justifyContent: 'space-evenly',
-    minHeight:"190px"
+    minHeight: "190px"
   },
   diagramBody: {
     width: '100%',
@@ -126,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     fontSize: '32px',
     fontWeight: 400
   },
@@ -181,7 +180,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const HouseContainer = () => {
+export const HouseContainer = ({ house }) => {
+
   const classes = useStyles();
 
   return (
@@ -195,7 +195,7 @@ export const HouseContainer = () => {
 
           <div className={classes.rightSide}>
             <div className={classes.houseIdInfo}>
-              <p className={classes.id}>ID 00170</p>
+              <p className={classes.id}>{house.id}</p>
               <div className={classes.houseIdInfoButtonBlock}>
                 <PrintIcon style={{ color: '#464C4E' }}/>
                 <a className={classes.ExportButton} href={'#'}>
@@ -205,7 +205,7 @@ export const HouseContainer = () => {
               </div>
             </div>
             <div className={classes.houseDescription}>
-              <HouseDesription/>
+              <HouseDesription house={house}/>
             </div>
 
             <div className={classes.houseRentStatisticBlock}>
@@ -217,16 +217,16 @@ export const HouseContainer = () => {
                     <CircleOfStatistic percentage={57}/>
                   </div>
                   <div className={classes.persentsBlock}>
-                    <div className={classes.days}>20 днів</div>
+                    <div className={classes.days}>{house.days}</div>
                     <div className={classes.persents}>
                       <p>
-                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+12%</span>
+                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.percent * 10} %</span>
                         <span className={classes.persentsFromTo}>від минулого місяця</span>
                       </p>
                     </div>
                   </div>
                   <div className={classes.moneyInDollars}>
-                    <p>$3.573K</p>
+                    <p>$ {house.price}K</p>
                   </div>
                 </div>
               </div>
@@ -236,15 +236,13 @@ export const HouseContainer = () => {
         </div>
 
         <div className={classes.textBlock}>
-          <Typography className={classes.title}>
+          <Typography component={'span'} className={classes.title}>
             Деталі
           </Typography>
-          <Typography className={classes.texte}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-            unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-            dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+          <Typography component={'span'} className={classes.texte}>
+            lorem * {house.details} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti earum enim ipsa laboriosam minus neque numquam odit, quos voluptas!
           </Typography>
-          <Typography className={classes.title}>
+          <Typography component={'span'} className={classes.title}>
             Локація
           </Typography>
         </div>
@@ -253,19 +251,7 @@ export const HouseContainer = () => {
         <div className={classes.bottomSide}>
 
           <div className={classes.leftSide}>
-            <Map>
-
-              <Marker
-                id="myLocation"
-                coords={[13.342814, 52.488653]}
-                color="teal"
-              />
-              <Marker
-                id="anotherLocation"
-                coords={[13.339826, 52.488932]}
-                color="orange"
-              />
-            </Map>
+            <Map/>
           </div>
           <div className={classes.rightSide}>
             <Rent/>
