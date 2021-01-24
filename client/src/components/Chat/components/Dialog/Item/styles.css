@@ -24,7 +24,7 @@
 .dialog .item .list {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;;
+    justify-content: flex-end;
 }
 
 .dialog .item .list-item {
@@ -86,6 +86,7 @@
 
 .dialog svg.message-status {
     display: none;
+    color: #1b1c23;
 }
 
 .dialog svg.remove-message {
