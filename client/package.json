@@ -32,6 +32,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.5",
+    "react-icons": "^4.1.0",
     "react-material-ui-form-validator": "^2.1.1",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
@@ -71,12 +72,14 @@
     "@material-ui/pickers": "^3.2.10",
     "clsx": "^1.1.1",
     "customize-cra": "^1.0.0",
+    "date-fns": "2.16.1",
+    "dayjs": "^1.10.4",
     "eslint-config-prettier": "^7.1.0",
     "history": "^5.0.0",
-    "date-fns": "2.16.1",
     "prettier": "2.2.1",
     "react-app-rewire-alias": "^0.1.9",
-    "react-app-rewired": "^2.1.8"
+    "react-app-rewired": "^2.1.8",
+    "webfontloader": "^1.6.28"
   },
   "proxy": "http://localhost:8080/"
 }
