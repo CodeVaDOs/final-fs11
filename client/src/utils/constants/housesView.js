@@ -1,6 +1,6 @@
 import React from "react";
 import image1 from "../../components/HouseCard/HousesList/img_1.png";
-// import image from "../../components/HouseCard/HousesList/img.png";
+// import image from "../../components/HouseCard/HousesList/santech.png";
 
 export const options = ["Всі", 'Орендовані', 'Вільні'];
 //pause
