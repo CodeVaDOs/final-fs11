@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { AUTH_ACTIONS } from "../../../../redux/auth/action";
 
 const useStyles = makeStyles({
   headerContainer: {

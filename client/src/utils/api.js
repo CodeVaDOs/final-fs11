@@ -29,7 +29,6 @@ api.interceptors.response.use(
         }).catch(err => {
           setAuthToken();
           setRefreshToken();
-          browserHistory.push("/login");
         });
     }
 
