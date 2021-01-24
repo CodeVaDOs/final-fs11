@@ -26,6 +26,10 @@ api.interceptors.response.use(
           setRefreshToken(data.refreshToken);
           originalRequest.headers.Authorization = data.token;
           return api(originalRequest);
+        }).catch(err => {
+          setAuthToken();
+          setRefreshToken();
+          browserHistory.push("/login");
         });
     }
 

@@ -35,15 +35,14 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         user: action.payload,
-      }
-
+      };
     case "GET_PROFILE_FAILURE":
       return {
         ...state,
         loading: false,
         authorized: false,
         user: {}
-      }
+      };
 
     case "LOGOUT": {
       return {
