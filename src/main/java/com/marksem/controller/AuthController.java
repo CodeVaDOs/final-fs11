@@ -28,7 +28,7 @@ public class AuthController {
     public ResponseEntity<?> refresh(@RequestHeader("Refresh-token") String token) {
         try {
             return ResponseEntity.ok(authService.refresh(token));
-        } catch (AuthenticationException e) {
+        } catch (RuntimeException e) {
             return new ResponseEntity<>("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
         }
     }
