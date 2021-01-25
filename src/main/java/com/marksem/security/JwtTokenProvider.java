@@ -25,12 +25,20 @@ public class JwtTokenProvider {
     private String secretKey;
     @Value("${jwt.secretRefresh}")
     private String secretRefreshKey;
+    @Value("${jwt.secretPasswordReset}")
+    private String secretPasswordReset;
+    @Value("${jwt.secretPasswordUpdate}")
+    private String secretPasswordUpdate;
     @Value("${jwt.header}")
     private String authorizationHeader;
     @Value("${jwt.expiration}")
     private long validityToken;
     @Value("${jwt.expirationRefresh}")
     private long validityRefreshToken;
+    @Value("${jwt.expirationPasswordReset}")
+    private long expirationPasswordReset;
+    @Value("${jwt.expirationPasswordUpdate}")
+    private long expirationPasswordUpdate;
 
     public JwtTokenProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -69,9 +77,53 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    public String createPasswordResetToken(Long id) {
+        Claims claims = Jwts.claims().setSubject(String.valueOf(id));
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + expirationPasswordReset * 1000);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretPasswordReset)
+                .compact();
+    }
+
+    public String getPasswordUpdateToken(Long id){
+        Claims claims = Jwts.claims().setSubject(String.valueOf(id));
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + expirationPasswordUpdate * 1000);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretPasswordUpdate)
+                .compact();
+    }
+
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            return !claimsJws.getBody().getExpiration().before(new Date());
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new JwtAuthenticationException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    public boolean validatePasswordResetToken(String token) {
+        try {
+            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretPasswordReset).parseClaimsJws(token);
+            return !claimsJws.getBody().getExpiration().before(new Date());
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new JwtAuthenticationException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    public boolean validatePasswordUpdateToken(String token) {
+        try {
+            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretPasswordUpdate).parseClaimsJws(token);
             return !claimsJws.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtAuthenticationException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
@@ -87,8 +139,16 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public Long getRefreshTokenId(String refreshToken) {
-        return Long.valueOf(Jwts.parser().setSigningKey(secretRefreshKey).parseClaimsJws(refreshToken).getBody().getSubject());
+    public Long getRefreshTokenId (String token) {
+        return Long.valueOf(Jwts.parser().setSigningKey(secretRefreshKey).parseClaimsJws(token).getBody().getSubject());
+    }
+
+    public Long getPasswordResetTokenId(String token) {
+        return Long.valueOf(Jwts.parser().setSigningKey(secretPasswordReset).parseClaimsJws(token).getBody().getSubject());
+    }
+
+    public Long getPasswordUpdateTokenId(String token) {
+        return Long.valueOf(Jwts.parser().setSigningKey(secretPasswordUpdate).parseClaimsJws(token).getBody().getSubject());
     }
 
     public String resolveToken(HttpServletRequest request) {
