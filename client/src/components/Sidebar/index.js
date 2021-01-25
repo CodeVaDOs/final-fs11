@@ -3,6 +3,7 @@ import { Drawer, makeStyles } from "@material-ui/core";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
 import FastAccessPanel from "../FastAccessPanel";
 import SidebarMenuItem from "../SideBarMenuItem";
+import TaskList  from '../ManagerTask/TaskList';
 
 const useStyles = makeStyles(theme => ({
   openHandler: props => ({

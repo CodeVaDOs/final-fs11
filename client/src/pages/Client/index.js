@@ -19,56 +19,23 @@ const useStyles = makeStyles({
     margin:'20px'
   }
 });
-const renderAdminPanel =()=> {
-  return(<>
-    <PanelAdminNewUser/>
-    <MassageBoxAdminPanel/>
-    <PanelAdmMemo/>
-  </>);
-};
-const renderManagerPanel =()=> {
-  return(<>
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      alignItems="center"
-    >
-      <Grid item xs={8}><ClientBigCard/></Grid>
-      <Grid item xs={4}>{"PanelClientMediumCard"}</Grid>
-    </Grid>
-    <MassageBoxAdminPanel/>
-    <PanelAdmMemo/>
-  </>);
-};
+
 const renderClientPanel =()=> {
   return(<>
-    {"PanelClientSmallCard"}
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      alignItems="center"
-    >
-      <Grid item xs={8}><ClientBigCard/></Grid>
-      <Grid item xs={4}>{"PanelClientMediumCard"}</Grid>
-    </Grid>
-    <News/>
+    {"Client content"}
   </>);
 };
 
-const Panel =(props)=> {
-  const [userType] = useState('manager');
+const Client =(props)=> {
+  const [userType] = useState('client');
   const { t } = useTranslation();
   const classes = useStyles();
   const propsName = "user.name";
   return(<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
-      {(userType === "admin" && renderAdminPanel())}
       {(userType === "client" && renderClientPanel())}
-      {(userType === "manager" && renderManagerPanel())}
     </Container>
   </>);
 };
-export default Panel;
+export default Client;
