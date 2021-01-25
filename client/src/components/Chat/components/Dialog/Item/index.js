@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import dayjs from "dayjs";
-import { IoIosTrash } from "react-icons/io";
+// import { IoIosTrash } from "react-icons/io";
 import Icon from "../../Icon";
 
 import "./styles.css";
@@ -42,12 +42,12 @@ const Item = ({ isReverse, isRemovable, messages, avatar, onRemove }) => {
                 item.status === "sended" ? "MessageSended" : "MessageReaded"
               }
             />
-            <IoIosTrash
-              data-id={item.id}
-              size={20}
-              className="remove-message"
-              onClick={onRemoveHandle}
-            />
+            {/*<IoIosTrash*/}
+            {/*  data-id={item.id}*/}
+            {/*  size={20}*/}
+            {/*  className="remove-message"*/}
+            {/*  onClick={onRemoveHandle}*/}
+            {/*/>*/}
           </div>
         ))}
       </div>

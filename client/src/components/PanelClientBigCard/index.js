@@ -8,8 +8,6 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Line } from 'react-chartjs-2';
-Chart.defaults.global.legend.display = false;
 
 
 const useStyles = makeStyles((theme)=>({
@@ -121,17 +119,17 @@ const ClientBigCard =()=>{
         </Grid>
       </Grid>
       <Box>
-        <Line data={dataForm.dataGraph}
-          width={590}
-          height={240}
-          options={{ maintainAspectRatio: false,  scales:
-                {
-                  xAxes: [{
-                    gridLines : {
-                      display : false
-                    }
-                  }]
-                } }}/>
+        {/*<Line data={dataForm.dataGraph}*/}
+        {/*  width={590}*/}
+        {/*  height={240}*/}
+        {/*  options={{ maintainAspectRatio: false,  scales:*/}
+        {/*        {*/}
+        {/*          xAxes: [{*/}
+        {/*            gridLines : {*/}
+        {/*              display : false*/}
+        {/*            }*/}
+        {/*          }]*/}
+        {/*        } }}/>*/}
       </Box>
     </Box>);
 
