@@ -1,5 +1,5 @@
 import React from 'react';
-import mapboxgl from 'mapbox-gl';
+// import mapboxgl from 'mapbox-gl';
 
 class Map extends React.Component {
   constructor() {
@@ -10,18 +10,18 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    mapboxgl.accessToken =
-      'pk.eyJ1IjoiYWxpY2VhdGQyZCIsImEiOiJjaXRwa2Z2aW0wMDBoMzNxZnhzMjRweWY4In0.2IxUsrVVbFKal0J8OZSeOg';
-    const map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v9',
-      center: [13.342817, 52.488648],
-      zoom: 14.6
-    });
-
-    map.on('load', (...args) => {
-      this.setState({ map });
-    });
+    // mapboxgl.accessToken =
+    //   'pk.eyJ1IjoiYWxpY2VhdGQyZCIsImEiOiJjaXRwa2Z2aW0wMDBoMzNxZnhzMjRweWY4In0.2IxUsrVVbFKal0J8OZSeOg';
+    // const map = new mapboxgl.Map({
+    //   container: this.mapContainer,
+    //   style: 'mapbox://styles/mapbox/streets-v9',
+    //   center: [13.342817, 52.488648],
+    //   zoom: 14.6
+    // });
+    //
+    // map.on('load', (...args) => {
+    //   this.setState({ map });
+    // });
   }
 
   render() {
