@@ -3,7 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import authReducer from './auth/reducer';
 import { AUTH_ACTIONS } from "./auth/action";
 import { getTokens, setAuthToken } from "../utils";
-import history from 'history/browser';
+
 
 const { applyMiddleware, combineReducers, createStore } = require("redux");
 
@@ -22,9 +22,6 @@ export default () => {
   if (accessToken) {
     setAuthToken(accessToken);
     store.dispatch(AUTH_ACTIONS.getProfile());
-  } else {
-    console.log(history.location);
-    history.push('/login');
   }
 
   return store;
