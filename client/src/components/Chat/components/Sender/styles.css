@@ -1,0 +1,35 @@
+.sender {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 12px;
+}
+
+.sender_item {
+    height: 60px;
+    background: #254A93;
+    border-radius: 0 0 20px 20px;
+}
+
+.sender input {
+    width: 80%;
+    height: 30px;
+    border: 1px solid var(--border);
+    background-color: var(--accent-1);
+    padding: 1rem 1.2rem;
+    transition: border-color 200ms;
+    border-radius: 5px;
+    outline: none;
+    color: var(--color);
+}
+
+.sender input:focus {
+    border-color: var(--primary);
+}
+
+.sender .button {
+    height: 100%;
+    outline: none;
+    color: white;
+
+}
