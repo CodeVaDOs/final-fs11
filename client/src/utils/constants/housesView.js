@@ -1,11 +1,6 @@
 import React from "react";
 import image1 from "../../components/HouseCard/HousesList/img_1.png";
-// import image from "../../components/HouseCard/HousesList/img.png";
-
-export const housesView = {
-  myHouse: "myHouse",
-  control: 'control'
-};
+// import image from "../../components/HouseCard/HousesList/santech.png";
 
 export const options = ["Всі", 'Орендовані', 'Вільні'];
 //pause
@@ -26,22 +21,24 @@ export const camaz = (
 
 // Даные по домам
 
-export const tileData = Array.apply(null, Array(9)).map((_,index) => (
+export const tileData = Array.apply(null, Array(10)).map((_, index) => (
   {
+    id: index,
     img: image1,
     contractDate: index,
     contractId: index,
+    location: index,
     town: index,
-    townLocation: index,
     svg: camaz,
+    days: index * 4,
+    status: index,
+    details: index,
+    price: index * 1000,
+    percent: index * 10,
+    square: index,
+    equipment: index,
+    detail: index,
+
   }
-  // {
-  //   img: image,
-  //   contractDate: index + 1,
-  //   contractId: index + 1,
-  //   town: index + 1,
-  //   townLocation: index + 1,
-  //   svg: pause,
-  // }
 )
 );

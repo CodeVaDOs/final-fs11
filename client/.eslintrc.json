@@ -1,40 +1,59 @@
 {
-    "env": {
-        "browser": true,
-        "es2020": true
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "extends": [
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
-    "rules": {
-        "object-curly-spacing": [2, "always"],
-        "require-jsdoc": 0,
-        "max-len": [2, { "code": 1200, "tabWidth": 2 }],
-        "indent": [2, 2, { "MemberExpression": 1, "SwitchCase": 1 }],
-        "operator-linebreak": 0,
-        "semi": [2, "always"],
-        "camelcase": 0,
-        "new-cap": 0,
-        "react/display-name": 0,
-        "react/no-string-refs": 0,
-        "react/no-deprecated": 0,
-        "react/prop-types": 0,
-        "react/jsx-no-target-blank": 0,
-        "react/js": 0
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
     }
+  },
+  "rules": {
+    "object-curly-spacing": [
+      2,
+      "always"
+    ],
+    "require-jsdoc": 0,
+    "max-len": [
+      2,
+      {
+        "code": 1200,
+        "tabWidth": 2
+      }
+    ],
+    "indent": [
+      2,
+      2,
+      {
+        "MemberExpression": 1,
+        "SwitchCase": 1
+      }
+    ],
+    "operator-linebreak": 0,
+    "semi": [
+      2,
+      "always"
+    ],
+    "camelcase": 0,
+    "new-cap": 0,
+    "react/display-name": 0,
+    "react/no-string-refs": 0,
+    "react/no-deprecated": 0,
+    "react/prop-types": 0,
+    "react/jsx-no-target-blank": 0,
+    "react/js": 0
+  }
 }

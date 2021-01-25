@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
     border: 'none',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    right: 0
   }
 
 }));
