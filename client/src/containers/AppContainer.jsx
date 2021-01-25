@@ -1,8 +1,13 @@
 import React, { lazy, useMemo, Suspense } from "react";
-import { Switch } from "react-router-dom";
+import
+{
+  Switch,
+  useLocation
+} from "react-router-dom";
 import { PageLoader, Preloader } from "@components/Loader";
 import PrivateRoute from "@components/PrivateRoute";
 import { useSelector } from "react-redux";
+import * as ga from "q";
 
 export const routes = [
   {
@@ -51,15 +56,15 @@ export const routes = [
     isPublic: false,
     isAdminRoute: false,
     exact: true,
-    path: "/changepassword",
-    component: lazy(() => import("@pages/ChangePass")),
+    path: "/houses",
+    component: lazy(() => import("@pages/House")),
   },
   {
     isPublic: false,
     isAdminRoute: false,
     exact: true,
-    path: "/houses",
-    component: lazy(() => import("@pages/House")),
+    path: "/clients",
+    component: lazy(() => import("@pages/Client")),
   },
   {
     path: "/",
@@ -67,8 +72,16 @@ export const routes = [
   },
 ];
 
-const AppContainer = ({ lang }) => {
+function usePageViews() {
+  let location = useLocation();
+  React.useEffect(() => {
+    ga.send(["pageview", location.pathname]);
+  }, [location]);
+}
+
+const AppContainer = () => {
   const loading = useSelector((state) => state.auth.loading);
+  usePageViews();
 
   const routeComponents = useMemo(
     () =>
@@ -80,8 +93,8 @@ const AppContainer = ({ lang }) => {
 
   return (
     <>
-      <Preloader loaded={!loading} />
-      <Suspense fallback={<PageLoader loaded={!loading} />}>
+      <Preloader loaded={!loading}/>
+      <Suspense fallback={<PageLoader loaded={!loading}/>}>
         <Switch>{routeComponents}</Switch>
       </Suspense>
     </>

@@ -4,8 +4,18 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
 import Typography from "@material-ui/core/Typography";
+import { useTranslation } from "react-i18next";
+import santech from "../../../../images/santech.png";
+import secur from "../../../../images/secur.png";
+import fasad from "../../../../images/fasad.png";
+import electric from "../../../../images/electric.png";
+import condition from "../../../../images/condition.png";
+import window from "../../../../images/window.png";
+import blago from "../../../../images/blago.png";
+import temper from "../../../../images/temper.png";
+import house from "../../../../images/house.png";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     justifyContent: "space-between",
@@ -19,15 +29,25 @@ const useStyles = makeStyles((theme) => ({
     height: 'fit-content',
     paddingRight: '15px',
     padding: '5px',
-    width: '290px',
+    minWidth: '390px',
     alignItems: "center",
     justifyContent: "space-between",
     display: "flex",
 
   },
   icon: {
+    borderRadius: 13,
     background: "#EEF5FF",
-    marginLeft: "10px"
+    marginLeft: "10px",
+    marginTop: 5,
+    maxWidth: '100px'
+  },
+  btn: {
+    borderRadius: '50%',
+    background: "#EEF5FF",
+    marginLeft: "10px",
+    marginTop: 5,
+    maxWidth: '100px'
   },
   text: {
     fontSize: 16,
@@ -45,65 +65,69 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const services1 = [
-  {
-    id: 1,
-    service: 'Сантехніка',
-    icon: '*_*'
-  },
-  {
-    id: 2,
-    service: 'Система охорони',
-    icon: '*_*'
-  },
-  {
-    id: 3,
-    service: 'Фасадні роботи',
-    icon: '*_*'
-  },
 
-];
-
-const services2 = [
-  {
-    id: 4,
-    service: 'Електрика',
-    icon: '()_()'
-  },
-  {
-    id: 5,
-    service: 'Вентиляція та кондиціонування',
-    icon: '()_()'
-  },
-  {
-    id: 6,
-    service: 'Вікна та двері',
-    icon: '()_()'
-  },
-
-
-];
-const services3 = [
-  {
-    id: 7,
-    service: 'Благоустрій території',
-    icon: '[]_[]'
-  },
-  {
-    id: 8,
-    service: 'Опалення',
-    icon: '[]_[]'
-  },
-  {
-    id: 9,
-    service: 'Інше...',
-    icon: '[]_[]'
-  },
-];
-
-
-export const ManagementServices = (props) => {
+export const ManagementServices = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
+
+  const services1 = [
+    {
+      "id": "1",
+      "service": t('Plumbing'),
+      "icon": santech,
+    },
+    {
+      "id": "2",
+      "service": t('Security system'),
+      "icon": secur,
+    },
+    {
+      "id": "3",
+      "service": t('Facade works'),
+      "icon": fasad,
+    },
+
+  ];
+  const services2 = [
+    {
+      "id": "4",
+      "service": t("Electricity"),
+      "icon": electric,
+
+    },
+    {
+      "id": "5",
+      "service": t("Ventilation and air conditioning"),
+      "icon": condition,
+
+    },
+    {
+      "id": "6",
+      "service": t("Windows and doors"),
+      "icon": window,
+
+    },
+
+
+  ];
+  const services3 = [
+    {
+      "id": 7,
+      "service": t("Landscaping"),
+      "icon": blago,
+    },
+    {
+      "id": 8,
+      "service": t("Heating"),
+      "icon": temper,
+    },
+    {
+      "id": 9,
+      "service": t("Other ..."),
+      "icon": house,
+    },
+  ];
 
   function FormRow() {
     return (
@@ -113,15 +137,13 @@ export const ManagementServices = (props) => {
             {services1.map((s) => (
               <div className={classes.paper} key={s.id}>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.icon}>
-                    {s.icon}
-                  </IconButton>
+                  <img alt={s.service} src={s.icon} className={classes.icon}/>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.icon}>
+                  <IconButton className={classes.btn}>
                     <ArrowForwardIosTwoToneIcon/>
                   </IconButton>
                 </Typography>
@@ -132,15 +154,15 @@ export const ManagementServices = (props) => {
             {services2.map((s) => (
               <div className={classes.paper} key={s.id}>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.icon}>
-                    {s.icon}
-                  </IconButton>
+                  <Typography align="right" paragraph className={classes.details}>
+                    <img alt={s.service} src={s.icon} className={classes.icon}/>
+                  </Typography>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.icon}>
+                  <IconButton className={classes.btn}>
                     <ArrowForwardIosTwoToneIcon/>
                   </IconButton>
                 </Typography>
@@ -151,15 +173,15 @@ export const ManagementServices = (props) => {
             {services3.map((s) => (
               <div className={classes.paper} key={s.id}>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.icon}>
-                    {s.icon}
-                  </IconButton>
+                  <Typography align="right" paragraph className={classes.details}>
+                    <img alt={s.service} src={s.icon} className={classes.icon}/>
+                  </Typography>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.icon}>
+                  <IconButton className={classes.btn}>
                     <ArrowForwardIosTwoToneIcon/>
                   </IconButton>
                 </Typography>

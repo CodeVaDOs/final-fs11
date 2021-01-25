@@ -12,7 +12,10 @@ api.interceptors.response.use(
     const { refreshToken } = getTokens();
     const originalRequest = error.config;
 
-    if (error.response.status === 401 || error.response.status === 500 && !originalRequest._retry) {
+    if (originalRequest._retry) {
+      setAuthToken();
+      setRefreshToken();
+    } else if (error.response.status === 401) {
       originalRequest._retry = true;
 
       return await axios
@@ -26,7 +29,12 @@ api.interceptors.response.use(
           setRefreshToken(data.refreshToken);
           originalRequest.headers.Authorization = data.token;
           return api(originalRequest);
+        })
+        .catch(err => {
+          setAuthToken();
+          setRefreshToken();
         });
+
     }
 
     return Promise.reject(error);
