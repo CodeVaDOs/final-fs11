@@ -1,6 +1,5 @@
 package com.marksem.service;
 
-import com.marksem.dto.response.ResponseUser;
 import com.marksem.entity.user.User;
 import com.marksem.exception.JwtAuthenticationException;
 import com.marksem.repo.UserRepository;
@@ -25,7 +24,6 @@ public class ResetPasswordService {
     private String serverUrl;
     @Value("${url.client}")
     private String clientUrl;
-
     @Value("${jwt.expirationPasswordReset}")
     private long expirationPasswordReset;
 
