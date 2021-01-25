@@ -26,7 +26,8 @@ const logOut = () => (dispatch) => {
 const logIn = (values) => (dispatch) => {
   dispatch({ type: "LOGIN_REQUEST" });
 
-  console.log(values);
+  setAuthToken();
+  setRefreshToken();
 
   api
     .post('auth/login', values)
