@@ -45,7 +45,7 @@ public class ResetPasswordService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
         String token = jwtTokenProvider.createPasswordResetToken(user.getId());
 
-        String href = serverUrl + "/resetPassword" + "?token=" + token;
+        String href = serverUrl + "/resetPassword/" + token;
         helper.setText("<p>Для изменения пароля перейдите по ссылке:</p>" + href, true);
         javaMailSender.send(message);
     }
