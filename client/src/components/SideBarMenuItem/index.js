@@ -5,6 +5,8 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import LangSwitcher from "../LangSwitcher";
 import { makeStyles } from "@material-ui/core";
+import { AUTH_ACTIONS } from "../../redux/auth/action";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -80,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
 const SidebarMenuItem = (props) => {
   const { language = "UA", name = "Name LastName", role = "Role" } = props;
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.container}>
@@ -96,7 +99,9 @@ const SidebarMenuItem = (props) => {
           <h2 className={classes.userName}>{name}</h2>
           <p className={classes.userRole}>{role}</p>
         </div>
-        <img className={classes.userAvatar} src={avatar} alt="user avatar"/>
+        <img onClick={() => {
+          dispatch(AUTH_ACTIONS.logOut());
+        }} className={classes.userAvatar} src={avatar} alt="user avatar"/>
       </div>
     </div>
   );

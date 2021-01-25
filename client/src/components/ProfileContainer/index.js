@@ -9,7 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import SwipeableViews from 'react-swipeable-views';
+// import SwipeableViews from 'react-swipeable-views';
 import {  useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -294,18 +294,18 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
               <Tab label={t("password")} {...a11yProps(1)} />
             </Tabs>
           </AppBar>
-          <SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
-            <TabPanel value={value} index={0} dir={theme.direction}>
-              <ChangeProfile/>
-            </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
-              <ChangePass />
-            </TabPanel>
-          </SwipeableViews>
+          {/*<SwipeableViews*/}
+          {/*  axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}*/}
+          {/*  index={value}*/}
+          {/*  onChangeIndex={handleChangeIndex}*/}
+          {/*>*/}
+          {/*  <TabPanel value={value} index={0} dir={theme.direction}>*/}
+          {/*    <ChangeProfile/>*/}
+          {/*  </TabPanel>*/}
+          {/*  <TabPanel value={value} index={1} dir={theme.direction}>*/}
+          {/*    <ChangePass />*/}
+          {/*  </TabPanel>*/}
+          {/*</SwipeableViews>*/}
         </div>
       </Grid>
     </Grid>
