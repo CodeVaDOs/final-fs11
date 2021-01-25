@@ -25,11 +25,6 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('developers:read')") {
-         return service.readAll().
-    }
-
-    @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
     public List<ResponseUser> readAll() {
         return service.readAll();

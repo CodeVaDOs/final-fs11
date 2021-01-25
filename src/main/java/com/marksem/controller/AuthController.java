@@ -56,10 +56,10 @@ public class AuthController {
         try {
             String resetToken = resetPasswordService.resetPassword(token);
             response.addHeader("token", resetToken);
-            response.sendRedirect("http://www.localhost:3000/#/forgotpassword");
+            response.sendRedirect("http://localhost:3000/#/forgotpassword");
         } catch (RuntimeException e) {
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "token is expired");
-            response.sendRedirect("http://www.localhost:3000/#/forgotpassword");
+            response.sendRedirect("http://localhost:3000/#/forgotpassword");
         }
     }
 
