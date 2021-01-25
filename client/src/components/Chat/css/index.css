@@ -1,0 +1,44 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.light {
+    --color: black;
+    --accent-1: #EEF5FF;
+    --accent-2: #a1a1a1;
+    --background: #1b1c23;
+    --border: #262a30;
+    --primary: #EEF5FF;
+    --success: #5dcb8e;
+    --error: #e8235e;
+    --yellow: #f5a623;
+    --dark: #1b1c23;
+    --primary-color: black;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+body {
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    min-height: 327px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background: white;
+    border-radius: 10%;
+}
