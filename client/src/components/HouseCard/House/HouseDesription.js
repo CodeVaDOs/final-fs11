@@ -24,20 +24,21 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, desription, pause) {
-  return { name, desription, pause };
-}
 
-
-const rows = [
-  createData('Статус ', 'Вільний ', pause),
-  createData('Плоша Будинку', "80 m2"),
-  createData('Локація', 'Яблуниця Івано-Франківська область, вул. Стальського 34'),
-  createData('Комплектація', "Standart"),
-];
-
-export default function HouseDesription() {
+export default function HouseDesription({ house }) {
   const classes = useStyles();
+
+  function createData(name, desription, pause) {
+    return { name, desription, pause };
+  }
+
+
+  const rows = [
+    createData('Статус ', house.status, pause),
+    createData('Плоша Будинку', house.square),
+    createData('Локація', house.location),
+    createData('Комплектація', house.equipment),
+  ];
 
   return (
     <div className={classes.root}>

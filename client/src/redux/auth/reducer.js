@@ -3,7 +3,7 @@ import { getTokens } from "../../utils";
 const { accessToken } = getTokens();
 // authorized: Boolean(accessToken),
 const INIT_STATE = {
-  authorized: Boolean(accessToken),
+  authorized: true,
   loading: false,
   user: {},
 };
@@ -28,6 +28,20 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         authorized: false
+      };
+
+    case "GET_PROFILE":
+      return {
+        ...state,
+        loading: false,
+        user: action.payload,
+      };
+    case "GET_PROFILE_FAILURE":
+      return {
+        ...state,
+        loading: false,
+        authorized: false,
+        user: {}
       };
 
     case "LOGOUT": {
