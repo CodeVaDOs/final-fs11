@@ -1,10 +1,15 @@
 package com.marksem.service;
 
+import com.marksem.dto.response.ResponseUser;
+import com.marksem.entity.user.User;
+import com.marksem.exception.JwtAuthenticationException;
 import com.marksem.repo.UserRepository;
 import com.marksem.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -37,10 +42,35 @@ public class ResetPasswordService {
         helper.setTo(email);
         helper.setSubject("reset password");
 
-        String token = "______token";
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+        String token = jwtTokenProvider.createPasswordResetToken(user.getId());
 
         String href = serverUrl + "/resetPassword" + "?token=" + token;
         helper.setText("<p>Для изменения пароля перейдите по ссылке:</p>" + href, true);
         javaMailSender.send(message);
+    }
+
+    public String resetPassword(String token){
+        if(jwtTokenProvider.validatePasswordResetToken(token)){
+            Long id = jwtTokenProvider.getPasswordResetTokenId(token);
+            return jwtTokenProvider.getPasswordUpdateToken(id);
+        } else {
+            throw new JwtAuthenticationException("token is expired", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    public Long updatePassword(String token, String password){
+        if(jwtTokenProvider.validatePasswordUpdateToken(token)){
+            Long id = jwtTokenProvider.getPasswordUpdateTokenId(token);
+            userRepository.findById(id)
+                    .map(u -> {
+                        u.setPassword(password);
+                        return userRepository.save(u);
+                    })
+                    .orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+            return id;
+        } else {
+            throw new JwtAuthenticationException("token is expired", HttpStatus.UNAUTHORIZED);
+        }
     }
 }
