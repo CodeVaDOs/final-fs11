@@ -54,10 +54,9 @@ public class AuthController {
     @GetMapping("/resetPassword/{token}")
     public void resetPassword(HttpServletResponse response, @PathVariable("token") String token) throws IOException {
         try {
-            String resetToken = resetPasswordService.resetPassword(token);
-            response.sendRedirect("http://localhost:3000/#/forgotpassword?token="+resetToken);
+            response.sendRedirect(String.format("http://localhost:3000/changePassword/%s", resetPasswordService.resetPassword(token)));
         } catch (RuntimeException e) {
-            response.sendRedirect("http://localhost:3000/#/forgotpassword");
+            response.sendRedirect("http://localhost:3000/forgotPassword");
         }
     }
 
