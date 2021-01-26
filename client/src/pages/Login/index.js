@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     height: 45,
     width: 400,
     padding: 5,
-    margin: '5px auto',
+    margin: '15px auto 25px',
     "& label.Mui-focused": {
       color: "#254A93",
       borderRadius: '5px',
@@ -70,20 +70,19 @@ const useStyles = makeStyles({
   },
 });
 
-const Login = (props, { user }) => {
+const Login = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordCorrect] = useState(undefined);
   const refRef = createRef();
   const refRefPas1 = createRef();
 
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { loading, authorized } = useSelector(state => state.auth);
+  const { authorized } = useSelector(state => state.auth);
 
   useEffect(() => {
     if (authorized) {
@@ -96,9 +95,9 @@ const Login = (props, { user }) => {
     // if (props.isEntered === true) {
     //   props.close();
     // }
-    // change path to / forgotpass route
   };
-  const check = (event) => {
+  const submit = (event) => {
+    event.preventDefault();
     if (passwordValue !== "") {
       dispatch(AUTH_ACTIONS.logIn({
         email: emailValue,
@@ -121,11 +120,13 @@ const Login = (props, { user }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const errorMessageWrongPassword = passwordCorrect === false && (
-    <Typography variant="body1">
-      Please enter your password
-    </Typography>
-  );
+  ValidatorForm.addValidationRule('minNumber', (value) => value.length >= 4);
+  // const errorMessageWrongPassword = passwordCorrect === false && (
+  //   <Typography variant="body1">
+  //     Please enter your password
+  //   </Typography>
+  // );
+
   //connect after fetch request
   // const passwordOrMailAreNotCorrect = () => {
   //   if (
@@ -159,7 +160,7 @@ const Login = (props, { user }) => {
             </Typography>
           </Box>
           <Box style={{ width: 400, height: 200, margin: '20px auto' }}>
-            <ValidatorForm noValidate autoComplete="off" instantValidate={false}>
+            <ValidatorForm autoComplete="off" instantValidate={false} onSubmit={submit}>
               <TextValidator
                 className={classes.rootInput}
                 name="email"
@@ -180,8 +181,8 @@ const Login = (props, { user }) => {
                 type={showPassword ? "text" : "password"}
                 onChange={handleChangePassword}
                 name="password"
-                validators={['required']}
-                errorMessages={['This field is required']}
+                validators={['required', 'minNumber']}
+                errorMessages={['This field is required', t('errMinNumber')]}
                 value={passwordValue}
                 style={{ width: "100%", marginTop: "15px" }}
                 onBlur={handleBlurPassword}
@@ -201,14 +202,14 @@ const Login = (props, { user }) => {
                   )
                 }}
               />
-              {errorMessageWrongPassword}
+              {/*{errorMessageWrongPassword}*/}
               {/*{passwordOrMailAreNotCorrect()}*/}
-              <span>&nbsp;&nbsp;&nbsp;</span>
+              {/*<span>&nbsp;&nbsp;&nbsp;</span>*/}
               <Typography variant="body1">
                 {t('forgotPass')}<span>&nbsp;</span>
                 <a
                   style={{ textDecoration: "none" }}
-                  href="#"
+                  href={"/forgotPassword"}
                   onClick={() => {
                     routeChange();
                     // props.close();
@@ -217,10 +218,10 @@ const Login = (props, { user }) => {
                   {t('clickHere')}
                 </a>
               </Typography>
+              <Box style={{ marginTop: "15px" }}>
+                <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"30%"} text={t('signH1Title')} onClick={()=>{}} type = {submit}/>
+              </Box>
             </ValidatorForm>
-          </Box>
-          <Box>
-            <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('signH1Title')} onClick={check}/>
           </Box>
         </Box>
       </Container>

@@ -9,15 +9,12 @@ const getProfile = () => (dispatch) => {
       dispatch({ type: "GET_PROFILE", payload: profile });
     })
     .catch(err => {
+      catchError(err);
       dispatch({ type: "GET_PROFILE_FAILURE" });
     });
 };
 
 const logOut = () => (dispatch) => {
-  api.get('auth/logout')
-    .then(() => {
-      console.log("success logout");
-    });
   setAuthToken();
   setRefreshToken();
   dispatch({ type: "LOGOUT" });
@@ -44,6 +41,33 @@ const logIn = (values) => (dispatch) => {
     });
 };
 
+const forgotPassword = (values) => (dispatch) => {
+  dispatch({ type: "FORGOT_PASSWORD_REQUEST" });
+
+  api
+    .post('auth/forgotPassword', values)
+    .then(() => {
+      dispatch({ type: "FORGOT_PASSWORD_SUCCESS" });
+    })
+    .catch((err) => {
+      catchError(err);
+      dispatch({ type: "FORGOT_PASSWORD_FAILURE" });
+    });
+};
+
+const changePassword = (values, token) => (dispatch) => {
+  dispatch({ type: "CHANGE_PASSWORD_REQUEST" });
+
+  api
+    .post('auth/updatePassword', values, { headers: { "Token": token } })
+    .then(() => {
+      dispatch({ type: "CHANGE_PASSWORD_SUCCESS" });
+    })
+    .catch((err) => {
+      catchError(err);
+      dispatch({ type: "CHANGE_PASSWORD_FAILURE" });
+    });
+};
 // const fetchProfile = () => (dispatch) => {
 //   const { accessToken } = getTokens();
 //   dispatch(ACTIONS.profile.request());
@@ -67,5 +91,7 @@ const logIn = (values) => (dispatch) => {
 export const AUTH_ACTIONS = {
   logIn,
   logOut,
-  getProfile
+  getProfile,
+  forgotPassword,
+  changePassword
 };
