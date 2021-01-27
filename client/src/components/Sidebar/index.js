@@ -50,7 +50,6 @@ const useStyles = makeStyles(theme => ({
 
 const Index = ({ width, open, handleOpen }) => {
   const classes = useStyles({ width, open });
-
   return (
     <>
       <button className={classes.openHandler} onClick={handleOpen}>

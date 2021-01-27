@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     fontFamily: "Roboto",
     margin: '0 auto',
-    marginTop: '40px',
+    marginTop: '10px',
     marginBottom: '40px',
     padding: 0,
     width: '890px',
     borderRadius: '20px 20px 0 0',
     overflow: 'hidden',
-    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.16)'
+    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.16)',
   },
   heading: {
     display: 'flex',
@@ -91,9 +91,14 @@ const ColorButton = withStyles((theme) => ({
 
 export default function News() {
   const classes = useStyles();
+  const [expanded, setExpanded] = useState(true);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   return (
     <div className={classes.root}>
-      <Accordion>
+      <Accordion expanded={expanded} onChange={handleChange('panel1a')}>
         <div className={classes.newsHead}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon className={classes.colored}/>}
@@ -105,10 +110,7 @@ export default function News() {
             </Typography>
           </AccordionSummary>
         </div>
-
-
         <AccordionDetails>
-
           <List className={classes.list}>
             {
               news.map(({ image, title, anons, date }) => (
