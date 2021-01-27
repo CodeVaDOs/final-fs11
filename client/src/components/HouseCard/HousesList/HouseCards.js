@@ -5,12 +5,14 @@ import { ListItem } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
+    boxShadow: "-162px 0px 40px -59px #000000 inset",
     maxWidth: "1100px",
     position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
     overflow: 'hidden',
     flexDirection: 'row',
+
   },
   houseCard: {
     margin: '10px',
