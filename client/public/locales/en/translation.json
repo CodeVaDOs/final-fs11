@@ -72,5 +72,29 @@
   "profilePhone": "Phone",
   "profilePhoneAdd": "Additional phones",
   "birthDay": "Date of Birth",
-  "birthDaySub": "We would like to know when to congratulate you and give gifts"
+  "birthDaySub": "We would like to know when to congratulate you and give gifts",
+  "interested": "Interested",
+  "clientHeader": "My clients",
+  "newClients": "New",
+  "activeClient": "Active",
+  "repeatedClient": "Permanent",
+  "btnDetail": "Detail",
+  "incomeTotal": "Total Income",
+  "monthIncome": "Month Income",
+  "weekIncome": "Week Income",
+  "allHouses": "All houses",
+  "house1": "Location 1",
+  "house2": "Location 2",
+  "more": "More",
+  "review": "Last visitor",
+  "reviewTitle": "Review",
+  "btnExport": "Export",
+  "rentedHouses": "Rented houses",
+  "today": "Today",
+  "year":"This year",
+  "month": "This month",
+  "week": "This week",
+  "rentedHeader": "Rented"
+
+
 }

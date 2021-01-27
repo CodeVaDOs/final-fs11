@@ -41,6 +41,14 @@ export const routes = [
   {
     isPublic: true,
     isAdminRoute: false,
+
+    exact: true,
+    path: "/panel/admin",
+    component: lazy(() => import("@pages/Panel")),
+  },
+  {
+    isPublic: true,
+    isAdminRoute: false,
     exact: true,
     path: "/login",
     component: lazy(() => import("@pages/Login")),

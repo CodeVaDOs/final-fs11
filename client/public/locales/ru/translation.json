@@ -72,5 +72,29 @@
   "profilePhone": "Телефон",
   "profilePhoneAdd": "Дополнительные телефоны",
   "birthDay": "Дата рождения",
-  "birthDaySub": "Чтобы мы знали, когда вас поздравлять и дарить подарки"
+  "birthDaySub": "Чтобы мы знали, когда вас поздравлять и дарить подарки",
+  "interested": "Заинтересованных",
+  "clientHeader": "Мои клиенты",
+  "newClients": "Новые",
+  "activeClient": "Активных",
+  "repeatedClient": "Постоянные",
+  "btnDetail": "Детали",
+  "incomeTotal": "Всего Доход",
+  "monthIncome": "Месячный доход",
+  "weekIncome": "Недельный доход",
+  "allHouses": "Всe дома",
+  "house1": "Дoм 1",
+  "house2": "Дoм 2",
+  "more": "Больше",
+  "review": "Посетитель",
+  "reviewTitle": "Обзор",
+  "btnExport": "Export",
+  "rentedHouses": "Сданные дома",
+  "today": "Сегодня",
+  "year":"Год",
+  "month": "Месяць",
+  "week": "Неделя",
+  "rentedHeader": "Арендованно"
+
+
 }

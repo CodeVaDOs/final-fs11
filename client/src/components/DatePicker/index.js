@@ -1,6 +1,10 @@
-// import 'date-fns';
+import 'date-fns';
 import React, { useState } from 'react';
-// import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const MaterialUIPickers = () => {
   // The first commit of Material-UI
@@ -9,11 +13,21 @@ const MaterialUIPickers = () => {
     setSelectedDate(date);
   };
 
-  return (
-
-
-    <>
-    </>
-  );
+  return (<></>);
+  // <MuiPickersUtilsProvider utils={DateFnsUtils}>
+  //   <KeyboardDatePicker
+  //     style={{ border: "0.5px solid #B1B4BA", marginLeft: "5px", borderRadius:"5px", height:"21px", padding:10 }}
+  //     disableToolbar
+  //     variant="outlined"
+  //     format="MM/dd/yyyy"
+  //     margin="normal"
+  //     id="date-picker-inline"
+  //     value={selectedDate}
+  //     onChange={handleDateChange}
+  //     KeyboardButtonProps={{
+  //       'aria-label': 'change date',
+  //     }}
+  //   />
+  // </MuiPickersUtilsProvider>
 };
 export default MaterialUIPickers;
