@@ -5,7 +5,7 @@ import { ListItem } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
-    minWidth: '100%',
+    maxWidth: "1100px",
     position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',

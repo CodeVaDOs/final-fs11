@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   openHandler: props => ({
     position: 'absolute',
     top: '50px',
-    right: props.open ? '416' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
+    right: props.open ? '446' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
 
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
 
@@ -25,13 +25,14 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     outline: 'none',
 
-    zIndex: 1201
+    zIndex: 12021
   }),
 
   collapseButtonImage: props => ({
     transform: props.open ? 'rotate(90deg)' : 'rotate(90deg) rotateX(180deg)',
     transition: '300ms linear',
-    marginRight: props.open ? '0' : '15px'
+    marginRight: props.open ? '0' : '15px',
+    zIndex: 120122
   }),
 
   drawer: props => ({

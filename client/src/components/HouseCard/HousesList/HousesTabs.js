@@ -43,13 +43,14 @@ const AntTab = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: '18px',
     flexGrow: 1,
   },
   padding: {
     padding: theme.spacing(3),
   },
   container: {
-    width: 'max-content',
+    maxWidth: '1134px',
     height: 'fit-content',
     boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
     borderRadius: '20px',
@@ -68,7 +69,7 @@ export default function HousesTabs() {
   const [{ data, loading }, getData] = useFetch({ url: `houses` });
   useEffect(() => {
     getData();
-  }, [Houses,data]);
+  }, [Houses, data]);
 
   console.log(data, loading);
 

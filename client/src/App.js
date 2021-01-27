@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import AppContainer from "./containers/AppContainer";
 import { useSelector } from "react-redux";
 
-const sidebarWidth = 416;
+const sidebarWidth = 446;
 
 const useStyles = makeStyles((theme) => ({
   root: {
