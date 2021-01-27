@@ -60,6 +60,13 @@ export const routes = [
     component: lazy(() => import("@pages/House")),
   },
   {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/clients",
+    component: lazy(() => import("@pages/Client")),
+  },
+  {
     path: "/",
     component: lazy(() => import("@pages/NotFound")),
   },
