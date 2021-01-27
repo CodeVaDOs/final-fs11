@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
+
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
@@ -39,6 +40,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: 13,
     background: "#EEF5FF",
     marginLeft: "10px",
+    marginR: "10px",
     marginTop: 5,
     maxWidth: '100px'
   },
@@ -70,21 +72,20 @@ export const ManagementServices = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-
   const services1 = [
     {
       "id": "1",
-      "service": t('Plumbing'),
+      "service": t('plumbing'),
       "icon": santech,
     },
     {
       "id": "2",
-      "service": t('Security system'),
+      "service": t('securitySystem'),
       "icon": secur,
     },
     {
       "id": "3",
-      "service": t('Facade works'),
+      "service": t('facadeWorks'),
       "icon": fasad,
     },
 
@@ -98,13 +99,13 @@ export const ManagementServices = () => {
     },
     {
       "id": "5",
-      "service": t("Ventilation and air conditioning"),
+      "service": t("VentilationAndAirConditioning"),
       "icon": condition,
 
     },
     {
       "id": "6",
-      "service": t("Windows and doors"),
+      "service": t("WindowsAndDoors"),
       "icon": window,
 
     },
@@ -124,7 +125,7 @@ export const ManagementServices = () => {
     },
     {
       "id": 9,
-      "service": t("Other ..."),
+      "service": t("Other") + "...",
       "icon": house,
     },
   ];

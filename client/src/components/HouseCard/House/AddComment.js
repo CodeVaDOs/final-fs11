@@ -1,6 +1,7 @@
 import React from 'react';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from "@material-ui/core/styles";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   textarea: {
@@ -21,10 +22,11 @@ const useStyles = makeStyles(() => ({
 
 export default function MinHeightTextarea() {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return <TextareaAutosize
     className={classes.textarea}
     aria-label="minimum height"
     rowsMin={1}
-    placeholder="Залишити коментар..."/>;
+    placeholder={t("addComment")}/>;
 }

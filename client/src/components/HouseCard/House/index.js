@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { Slider } from "./Slider";
 import { Rent } from "./Rent";
 import { Map } from "./Map";
+import { useTranslation } from "react-i18next";
 
 
 const useStyles = makeStyles(() => ({
@@ -183,6 +184,8 @@ const useStyles = makeStyles(() => ({
 export const HouseContainer = ({ house }) => {
 
   const classes = useStyles();
+  const { t } = useTranslation();
+
 
   return (
     <>
@@ -195,11 +198,11 @@ export const HouseContainer = ({ house }) => {
 
           <div className={classes.rightSide}>
             <div className={classes.houseIdInfo}>
-              <p className={classes.id}>{house.id}</p>
+              <p className={classes.id}>{t('id')} {house.id}</p>
               <div className={classes.houseIdInfoButtonBlock}>
                 <PrintIcon style={{ color: '#464C4E' }}/>
                 <a className={classes.ExportButton} href={'#'}>
-                  <p>Експорт</p>
+                  <p>{t('export')} </p>
                   <GetAppIcon style={{ color: '#464C4E' }}/>
                 </a>
               </div>
@@ -209,9 +212,8 @@ export const HouseContainer = ({ house }) => {
             </div>
 
             <div className={classes.houseRentStatisticBlock}>
-
               <div className={classes.diagramBlock}>
-                <div className={classes.statisticRent}>Статистика Оренди</div>
+                <div className={classes.statisticRent}>{t('rentStatistic')}</div>
                 <div className={classes.diagramBody}>
                   <div className={classes.roundOfStatistic}>
                     <CircleOfStatistic percentage={57}/>
@@ -221,7 +223,7 @@ export const HouseContainer = ({ house }) => {
                     <div className={classes.persents}>
                       <p>
                         <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.percent * 10} %</span>
-                        <span className={classes.persentsFromTo}>від минулого місяця</span>
+                        <span className={classes.persentsFromTo}>{t('fromLastMonth')}</span>
                       </p>
                     </div>
                   </div>

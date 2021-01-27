@@ -6,7 +6,7 @@ import { ListItem } from "@material-ui/core";
 const useStyles = makeStyles(() => ({
   root: {
     boxShadow: "-162px 0px 40px -59px #000000 inset",
-    maxWidth: "1100px",
+    maxWidth: "100% ",
     position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
