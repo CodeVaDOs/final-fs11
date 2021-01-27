@@ -54,12 +54,9 @@ public class AuthController {
     @GetMapping("/resetPassword/{token}")
     public void resetPassword(HttpServletResponse response, @PathVariable("token") String token) throws IOException {
         try {
-            String resetToken = resetPasswordService.resetPassword(token);
-            response.addHeader("token", resetToken);
-            response.sendRedirect("http://localhost:3000/#/forgotpassword");
+            response.sendRedirect(String.format("http://localhost:3000/changePassword/%s", resetPasswordService.resetPassword(token)));
         } catch (RuntimeException e) {
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), "token is expired");
-            response.sendRedirect("http://localhost:3000/#/forgotpassword");
+            response.sendRedirect("http://localhost:3000/forgotPassword");
         }
     }
 
