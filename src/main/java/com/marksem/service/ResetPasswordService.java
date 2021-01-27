@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -35,8 +36,8 @@ public class ResetPasswordService {
 
     public void sendMessageToEmail(String email) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
-        helper = new MimeMessageHelper(message, true, "UTF-8");
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
         helper.setTo(email);
         helper.setSubject("reset password");
 
@@ -60,9 +61,10 @@ public class ResetPasswordService {
     public Long updatePassword(String token, String password){
         if(jwtTokenProvider.validatePasswordUpdateToken(token)){
             Long id = jwtTokenProvider.getPasswordUpdateTokenId(token);
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
             userRepository.findById(id)
                     .map(u -> {
-                        u.setPassword(password);
+                        u.setPassword(bCryptPasswordEncoder.encode(password));
                         return userRepository.save(u);
                     })
                     .orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));

@@ -8,6 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
 import EmailIcon from '@material-ui/icons/Email';
+import { useDispatch } from "react-redux";
+import { AUTH_ACTIONS } from "@redux/auth/action";
 const useStyles = makeStyles({
   root: {
     borderRadius: '20px',
@@ -71,16 +73,18 @@ const useStyles = makeStyles({
   }
 });
 
-const ForgotPass =(props)=>{
+const ForgotPass =()=>{
   const { t } = useTranslation();
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [isSent, setIsSent] = useState(false);
   const iconEmail =()=>{return(<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);};
 
+  const dispatch = useDispatch();
+
   const submit = (e) => {
     e.preventDefault();
-    // props.sendForgotPassword(email);
+    dispatch(AUTH_ACTIONS.forgotPassword({ email: email }));
     setIsSent(true);
   };
   const refRef = createRef();
@@ -96,7 +100,6 @@ const ForgotPass =(props)=>{
     <>
       <CssBaseline/>
       <div>
-        <div></div>
         <Typography className={classes.subheader} >
           {t('checkPass')}
         </Typography>
@@ -109,7 +112,7 @@ const ForgotPass =(props)=>{
         <Typography className={classes.text}>
           {t('recoverPass')}
         </Typography>
-        <proValidatorForm className={classes.registerForm} autoComplete="off" instantValidate={false}
+        <ValidatorForm className={classes.registerForm} autoComplete="off" instantValidate={false}
           onSubmit={submit}>
           <div>
             <Typography className={classes.subheader} >
@@ -130,9 +133,9 @@ const ForgotPass =(props)=>{
             />
           </div>
           <Box className={classes.button} >
-            <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('recoverySend')} onClick={()=>{}}/>
+            <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('recoverySend')} onClick={()=>{}} type = {submit}/>
           </Box>
-        </proValidatorForm>
+        </ValidatorForm>
       </Box>
     </Box>
   );
