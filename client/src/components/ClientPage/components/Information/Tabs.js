@@ -7,8 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import { Container } from "@material-ui/core";
 import { Information } from "./index";
+import { ClientHouses } from "../ClientHouses";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "white",
     borderRadius: "0px 30px 30px 0px  ",
@@ -94,7 +95,7 @@ export default function ClientTabs() {
           <Information/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <ClientHouses/>
         </TabPanel>
         <TabPanel value={value} index={2}>
           Item Three
