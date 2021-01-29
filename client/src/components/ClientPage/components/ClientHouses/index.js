@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { tileData } from "../../../../utils/constants/housesView";
+import React from "react";
 import MyHouses from "./MyHouses";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
@@ -8,13 +7,11 @@ const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "white",
     display: 'flex',
-    width: '630px',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'column',
   },
   houseCard: {
     height: '100%',
-
     margin: '4px',
     boxSizing: 'border-box',
     padding: "10px",
@@ -66,24 +63,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const ClientHouses = () => {
+export const ClientHouses = ({ HouseIdx, houseToState }) => {
   const classes = useStyles();
-
-  const [House,] = useState(tileData);
-
-  const [house, setHouse] = useState(tileData[0]);
-
-  function houseToState(e) {
-    setHouse(House[e]);
-  }
 
   return (
     <div className={classes.root}>
-      <MyHouses onHouseClick={houseToState} data={House}/>
+      <MyHouses onHouseClick={houseToState} data={HouseIdx}/>
       <Typography>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       </Typography>
-
     </div>
   );
 };

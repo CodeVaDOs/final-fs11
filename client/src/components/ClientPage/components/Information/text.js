@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import MessageIcon from '@material-ui/icons/Message';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     marginTop: '50px',
     display: "flex",
@@ -82,7 +82,8 @@ export const Text = () => {
             Написати <MessageIcon className={classes.editIcon}/></Button>
           <Button className={classes.btnEdit}>
             Edit <EditIcon className={classes.editIcon}/>
-          </Button></div>
+          </Button>
+        </div>
       </div>
     </>
   );

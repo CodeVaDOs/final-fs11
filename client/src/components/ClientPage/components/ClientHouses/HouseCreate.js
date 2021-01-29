@@ -161,7 +161,6 @@ export const HouseCreate = () => {
       </>
     );
   };
-
   const renderUploadedState = () => {
     return (
       <>
@@ -173,6 +172,7 @@ export const HouseCreate = () => {
       </>
     );
   };
+
   return (
     <div
       className={classes.houseCard}
