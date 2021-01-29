@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import dayjs from "dayjs";
-// import { IoIosTrash } from "react-icons/io";
-import Icon from "../../Icon";
 
 import "./styles.css";
+import Icon from "../../Icon";
+import { IconButton } from "@material-ui/core";
 
 const Item = ({ isReverse, isRemovable, messages, avatar, onRemove }) => {
   const onRemoveHandle = (event) => {
@@ -32,7 +31,7 @@ const Item = ({ isReverse, isRemovable, messages, avatar, onRemove }) => {
           <div className="list-item" key={item.id}>
             <div className="list-item-mes" >
               <div className="text">{item.text}</div>
-              <div className="time">{dayjs(item.date).format("HH:mm")}</div>
+              <div className="time">{item.date}</div>
             </div>
 
             <Icon
@@ -42,12 +41,14 @@ const Item = ({ isReverse, isRemovable, messages, avatar, onRemove }) => {
                 item.status === "sended" ? "MessageSended" : "MessageReaded"
               }
             />
-            {/*<IoIosTrash*/}
-            {/*  data-id={item.id}*/}
-            {/*  size={20}*/}
-            {/*  className="remove-message"*/}
-            {/*  onClick={onRemoveHandle}*/}
-            {/*/>*/}
+            <IconButton
+              data-id={item.id}
+              size={20}
+              className="remove-message"
+              onClick={onRemoveHandle}
+            >
+              🗑️
+            </IconButton>
           </div>
         ))}
       </div>

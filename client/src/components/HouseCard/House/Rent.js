@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import SelecOptions from "./SelectOptions";
 import AddComment from "./AddComment";
 import DatePickers from "./datePicker/DatePicker";
+import { useTranslation } from "react-i18next";
 
 
 const useStyles = makeStyles(() => ({
@@ -30,12 +31,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-export const Rent = (props) => {
+export const Rent = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
-      <p className={classes.p}>Забронювати цей Будинок</p>
+      <p className={classes.p}>{t('rentThisHouse')}</p>
       <DatePickers/>
       <SelecOptions/>
       <AddComment/>

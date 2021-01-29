@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import buttonArrow from "@assert/icons/buttonArrow.svg";
-import { ListItem } from "@material-ui/core";
+import { HouseCreate } from "./HouseCreate";
 
 const useStyles = makeStyles(() => ({
   root: {
-    boxShadow: "-162px 0px 40px -59px #000000 inset",
-    maxWidth: "100% ",
+    maxWidth: "620px ",
     position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
@@ -15,7 +14,8 @@ const useStyles = makeStyles(() => ({
 
   },
   houseCard: {
-    margin: '10px',
+    height: '99%',
+    margin: '4px',
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
@@ -27,7 +27,8 @@ const useStyles = makeStyles(() => ({
 
   },
   houseCardActive: {
-    margin: '10px',
+    height: '99%',
+    margin: '4px',
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
@@ -39,6 +40,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#254A93',
   },
   content: {
+    height: '243px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -74,17 +76,11 @@ const useStyles = makeStyles(() => ({
     lineHeight: "20px",
 
   },
-  gridList: {
-    width: "100%",
-    height: '280px',
-    flexWrap: 'nowrap',
-    transform: 'translateZ(0)',
-    overflowY: "hidden"
-  },
+
   btnNext: () => ({
     position: 'absolute',
     top: '120px',
-    right: 0,
+    right: 210,
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
 
     border: '1px solid #b1b4ba',
@@ -103,7 +99,6 @@ const useStyles = makeStyles(() => ({
     top: '120px',
     left: 0,
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
-
     border: '1px solid #b1b4ba',
     backgroundColor: '#eef5ff',
     borderRadius: '50%',
@@ -114,7 +109,6 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     cursor: 'pointer',
     outline: 'none',
-
     zIndex: 1201
   }),
 
@@ -129,7 +123,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-export default function HouseCards({ data, onHouseClick }) {
+export default function MyHouses({ data, onHouseClick }) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
 
@@ -145,10 +139,11 @@ export default function HouseCards({ data, onHouseClick }) {
     setCurrentImagIdx(index);
   };
 
-  const activeImageSourcesFromState = data.slice(currentImageIdx, currentImageIdx + 5);
-  const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
-    ? [...activeImageSourcesFromState, ...data.slice(0, 5 - activeImageSourcesFromState.length)]
+  const activeImageSourcesFromState = data.slice(currentImageIdx, currentImageIdx + 2);
+  const imageSourcesToDisplay = activeImageSourcesFromState.length < 2
+    ? [...activeImageSourcesFromState, ...data.slice(0, 2 - activeImageSourcesFromState.length)]
     : activeImageSourcesFromState;
+
   return (
     <div className={classes.root}>
       {currentImageIdx < 1 ?
@@ -162,28 +157,28 @@ export default function HouseCards({ data, onHouseClick }) {
           {activeImageSourcesFromState
             .map((house, index) => {
               return (
-                <ListItem
+
+                <div
                   key={index}
-                  onClick={onHouseClick(currentImageIdx)}>
-                  <div
-                    className={index ? classes.houseCard : classes.houseCardActive}
-                  >
-                    <div>
-                      <img
-                        className={classes.img} src={house.img} alt={house.contractId}/>
-                      <div className={classes.houseCardBody}>
-                        <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                        <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                        <span className={classes.locationData}> {house.town}</span>
-                        <span className={classes.locationData}> {house.location}</span>
-                      </div>
+                  onClick={onHouseClick(currentImageIdx)}
+                  className={index ? classes.houseCard : classes.houseCardActive}
+                >
+                  <div>
+                    <img
+                      className={classes.img} src={house.img} alt={house.contractId}/>
+                    <div className={classes.houseCardBody}>
+                      <span className={classes.cardContract}> Контракт {house.contractDate}</span>
+                      <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                      <span className={classes.locationData}> {house.town}</span>
+                      <span className={classes.locationData}> {house.location}</span>
                     </div>
                   </div>
-                </ListItem>
-              )
-              ;
-
+                </div>
+              );
             })}
+          <HouseCreate/>
+
+
         </div>
       </div>
       {imageSourcesToDisplay.length > 5 ?

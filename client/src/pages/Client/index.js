@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import News from '../../components/News';
 import ClientBigCard from '../../components/PanelClientBigCard';
 import Grid from "@material-ui/core/Grid";
+import { ClientPage } from "../../components/ClientPage";
 
 const useStyles = makeStyles({
   header: {
@@ -16,25 +17,26 @@ const useStyles = makeStyles({
     fontSize: '18px',
     fontWeight: 'bold',
     color: '#293134',
-    margin:'20px'
+    margin: '20px'
   }
 });
 
-const renderClientPanel =()=> {
-  return(<>
+const renderClientPanel = () => {
+  return (<>
     {"Client content"}
   </>);
 };
 
-const Client =(props)=> {
+const Client = (props) => {
   const [userType] = useState('client');
   const { t } = useTranslation();
   const classes = useStyles();
   const propsName = "user.name";
-  return(<>
+  return (<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
       {(userType === "client" && renderClientPanel())}
+      <ClientPage/>
     </Container>
   </>);
 };

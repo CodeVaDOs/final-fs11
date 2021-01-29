@@ -1,10 +1,11 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { useTranslation } from "react-i18next";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '95%',
     borderRadius: '10%',
@@ -23,8 +24,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SelecOptions() {
   const classes = useStyles();
+  const { t } = useTranslation();
+  const additionaServices = [
+    { title: t('plumbing'), id: 1 },
+    { title: t('securitySystem'), id: 1995 },
+    { title: t('facadeWorks'), id: 1948 },
+    { title: t("Electricity"), year: 1921 },
+    { title: t("VentilationAndAirConditioning"), id: 2009 },
+    { title: t("WindowsAndDoors"), id: 2000 },
+    { title: t("Landscaping"), id: 2009 },
+    { title: t("Heating"), id: 1975 },
+    { title: t("Other"), id: 1975 },
+  ];
+  useEffect(() => {
 
-
+  }, [additionaServices, t]);
   return (
     <div className={classes.root}>
       <Autocomplete
@@ -38,7 +52,7 @@ export default function SelecOptions() {
         options={additionaServices}
         getOptionLabel={(option) => option.title}
         renderInput={(params) => (
-          <TextField className={classes.textField} {...params} variant="outlined" label="Замовити Додаткові Послуги"/>
+          <TextField className={classes.textField} {...params} variant="outlined" label={t('addPoslug')}/>
         )}
       />
     </div>
@@ -46,14 +60,3 @@ export default function SelecOptions() {
 }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const additionaServices = [
-  { title: "Сантехніка", id: 1 },
-  { title: 'Система охорони', id: 1995 },
-  { title: 'Фасадні роботи', id: 1948 },
-  { title: 'Електрика', year: 1921 },
-  { title: 'Вентиляція та кодиціонування', id: 2009 },
-  { title: 'Вікна та двері', id: 2000 },
-  { title: 'Благоустрій території', id: 2009 },
-  { title: 'Опалення', id: 1975 },
-  { title: 'Ну і всьо', id: 1975 },
-];

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { pause } from "../../../utils/constants/housesView";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles({
 
 export default function HouseDesription({ house }) {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   function createData(name, desription, pause) {
     return { name, desription, pause };
@@ -34,10 +36,10 @@ export default function HouseDesription({ house }) {
 
 
   const rows = [
-    createData('Статус ', house.status, pause),
-    createData('Плоша Будинку', house.square),
-    createData('Локація', house.location),
-    createData('Комплектація', house.equipment),
+    createData(t('status'), house.status, pause),
+    createData(t('square'), house.square),
+    createData(t('location'), house.location),
+    createData(t('equipment'), house.equipment),
   ];
 
   return (

@@ -21,8 +21,8 @@ export const camaz = (
 
 // Даные по домам
 
-export const tileData = Array.apply(null, Array(10)).map((_, index) => (
-  {
+export const tileData =
+  Array.apply(null, Array(20)).map((_, index) => ({
     id: index,
     img: image1,
     contractDate: index,
@@ -40,5 +40,5 @@ export const tileData = Array.apply(null, Array(10)).map((_, index) => (
     detail: index,
 
   }
-)
-);
+  )
+  );

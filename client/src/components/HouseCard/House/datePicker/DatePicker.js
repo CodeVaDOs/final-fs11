@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -39,13 +40,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DatePickers() {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.container}>
       <div>
         <TextField
           id="date"
-          label="Заїзд"
+          label={t('bout')}
           type="date"
           defaultValue="2021-01-20"
           className={classes.textField}
@@ -58,7 +60,7 @@ export default function DatePickers() {
       <div>
         <TextField
           id="date"
-          label="Виїзд"
+          label={t('departure')}
           type="date"
           defaultValue="2021-01-30"
           className={classes.textFieldR}
@@ -70,7 +72,7 @@ export default function DatePickers() {
 
       <div>
         <button className={classes.btn}>
-          Забронювати
+          {t("toBook")}
         </button>
       </div>
 
