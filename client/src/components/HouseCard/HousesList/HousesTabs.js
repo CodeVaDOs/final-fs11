@@ -10,6 +10,7 @@ import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
 import { tileData } from "../../../utils/constants/housesView";
 import { useFetch } from "../../../hooks/useFetch";
+import { useTranslation } from "react-i18next";
 
 const AntTabs = withStyles({
   indicator: {
@@ -43,13 +44,14 @@ const AntTab = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: '18px',
     flexGrow: 1,
   },
   padding: {
     padding: theme.spacing(3),
   },
   container: {
-    width: 'max-content',
+    maxWidth: '1134px',
     height: 'fit-content',
     boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
     borderRadius: '20px',
@@ -62,13 +64,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HousesTabs() {
   const classes = useStyles();
+  const { t } = useTranslation();
   const [value, setValue] = useState('one');
   const [Houses,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
   const [{ data, loading }, getData] = useFetch({ url: `houses` });
   useEffect(() => {
     getData();
-  }, [Houses,data]);
+  }, [Houses, data]);
 
   console.log(data, loading);
 
@@ -84,8 +87,8 @@ export default function HousesTabs() {
     <div className={classes.root}>
       <div>
         <AntTabs value={value} onChange={handleChange} aria-label="ant example">
-          <AntTab value="one" label="Мої будинки" wrapped/>
-          <AntTab value="two" label="Управління"/>
+          <AntTab value="one" label={t("myHouses")} wrapped/>
+          <AntTab value="two" label={t("control")}/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
           <HouseCard onHouseClick={houseToState} data={Houses}/>

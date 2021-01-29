@@ -1,20 +1,15 @@
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 export const normalizeDialog = (dialog) => {
   const newDialog = [];
 
   dialog.forEach((item, i) => {
     if (i === 0 || dialog[i - 1]) {
-      const first = dayjs((i === 0 ? item : dialog[i - 1]).date);
-      const diff = first.diff(item.date, "day");
-
-      if (i === 0 || diff) {
-        newDialog.push({
-          type: "title",
-          id: `item-title-${item.id}`,
-          date: item.date,
-        });
-      }
+      newDialog.push({
+        type: "title",
+        id: `item-title-${item.id}`,
+        date: item.date,
+      });
     }
 
     if (i === 0 || item.is !== dialog[i - 1].is) {
