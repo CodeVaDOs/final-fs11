@@ -33,6 +33,7 @@ api.interceptors.response.use(
         .catch(err => {
           setAuthToken();
           setRefreshToken();
+          history.push("/login");
         });
 
     }

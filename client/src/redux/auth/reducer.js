@@ -1,9 +1,9 @@
 import { getTokens } from "../../utils";
 
 const { accessToken } = getTokens();
-// authorized: Boolean(accessToken),
+
 const INIT_STATE = {
-  authorized: true,
+  authorized: Boolean(accessToken),
   loading: false,
   user: {},
 };
@@ -13,7 +13,7 @@ export default (state = INIT_STATE, action) => {
     case "LOGIN_REQUEST":
       return {
         ...state,
-        isLoading: true,
+        loading: true,
       };
 
     case "LOGIN_SUCCESS":
@@ -36,6 +36,7 @@ export default (state = INIT_STATE, action) => {
         loading: false,
         user: action.payload,
       };
+
     case "GET_PROFILE_FAILURE":
       return {
         ...state,
@@ -44,12 +45,47 @@ export default (state = INIT_STATE, action) => {
         user: {}
       };
 
-    case "LOGOUT": {
+    case "LOGOUT":
       return {
         ...INIT_STATE,
         authorized: false,
       };
-    }
+
+    case "FORGOT_PASSWORD_REQUEST":
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case "FORGOT_PASSWORD_SUCCESS":
+      return {
+        ...state,
+        loading: false
+      };
+
+    case "FORGOT_PASSWORD_FAILURE":
+      return {
+        ...state,
+        loading: false
+      };
+
+    case "CHANGE_PASSWORD_REQUEST":
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case "CHANGE_PASSWORD_SUCCESS":
+      return {
+        ...state,
+        loading: false
+      };
+
+    case "CHANGE_PASSWORD_FAILURE":
+      return {
+        ...state,
+        loading: false
+      };
 
     default:
       return state;
