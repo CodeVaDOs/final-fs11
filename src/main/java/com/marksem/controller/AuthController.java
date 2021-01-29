@@ -5,7 +5,7 @@ import com.marksem.dto.request.RequestResetPassword;
 import com.marksem.dto.request.RequestUpdatePassword;
 import com.marksem.service.AuthService;
 import com.marksem.service.ResetPasswordService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -13,18 +13,28 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
     private final ResetPasswordService resetPasswordService;
 
+    @Value("${url.client}")
+    private String clientUrl;
+    @Value("${clientChangePasswordPath}")
+    private String clientChangePasswordPath;
+
+    public AuthController(AuthService authService, ResetPasswordService resetPasswordService) {
+        this.authService = authService;
+        this.resetPasswordService = resetPasswordService;
+    }
+
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(@RequestBody RequestAuth request) {
+    public ResponseEntity<?> authenticate(@RequestBody @Valid RequestAuth request) {
         try {
             return ResponseEntity.ok(authService.authenticate(request.getEmail(), request.getPassword()));
         } catch (AuthenticationException e) {
@@ -37,12 +47,12 @@ public class AuthController {
         try {
             return ResponseEntity.ok(authService.refresh(token));
         } catch (RuntimeException e) {
-            return new ResponseEntity<>("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("JWT token is expired or invalid", HttpStatus.FORBIDDEN);
         }
     }
 
     @PostMapping("/forgotPassword")
-    public  ResponseEntity<?> forgotPassword(@RequestBody RequestResetPassword request){
+    public  ResponseEntity<?> forgotPassword(@RequestBody @Valid RequestResetPassword request){
         try {
             resetPasswordService.sendMessageToEmail(request.getEmail());
             return new ResponseEntity<>(HttpStatus.OK);
@@ -53,15 +63,11 @@ public class AuthController {
 
     @GetMapping("/resetPassword/{token}")
     public void resetPassword(HttpServletResponse response, @PathVariable("token") String token) throws IOException {
-        try {
-            response.sendRedirect(String.format("http://localhost:3000/changePassword/%s", resetPasswordService.resetPassword(token)));
-        } catch (RuntimeException e) {
-            response.sendRedirect("http://localhost:3000/forgotPassword");
-        }
+        response.sendRedirect(String.format("%s%s/%s", clientUrl, clientChangePasswordPath, resetPasswordService.resetPassword(token)));
     }
 
     @PostMapping("/updatePassword")
-    public ResponseEntity<?> updatePassword(@RequestBody RequestUpdatePassword request, @RequestHeader("Token") String token) {
+    public ResponseEntity<?> updatePassword(@RequestBody @Valid RequestUpdatePassword request, @RequestHeader("Token") String token) {
         try {
             return ResponseEntity.ok(resetPasswordService.updatePassword(token, request.getPassword()));
         } catch (RuntimeException e) {

@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<ResponseUser> create(@Valid @RequestBody RequestUser u) {
+    public ResponseEntity<ResponseUser> create(@RequestBody @Valid RequestUser u) {
         return ResponseEntity.ok(service.create(u));
     }
 

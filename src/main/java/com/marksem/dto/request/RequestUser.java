@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -14,13 +16,12 @@ import javax.validation.constraints.NotBlank;
 public class RequestUser extends BaseEntity {
     private Long id;
 
-    @Email
+    @Email(message = "not email")
     private String email;
 
-    @NotBlank
+    @Size(min = 4, message = "password is too short")
     private String password;
 
-    @NotBlank
     private Role role;
 
     public User toEntity() {

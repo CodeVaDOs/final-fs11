@@ -90,3 +90,4 @@ jwt:
   expirationPasswordUpdate: 3600
   header: Authorization
 
+clientChangePasswordPath: /changePassword
