@@ -8,6 +8,8 @@ import ButtonStyle from "../Button";
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import MaterialUIPickers from "../DatePicker";
+import DatePickers from "../HouseCard/House/datePicker/DatePicker";
+import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles({
   rootProfile: {
     borderRadius: '20px',
@@ -16,6 +18,11 @@ const useStyles = makeStyles({
     width: 600,
     textDecoration: "none",
     backgroundColor:"#fff",
+  },
+  textField: {
+    width: "135px",
+    marginLeft: "5px",
+    marginTop: "25px"
   },
   textProfile: {
     fontFamily: "Roboto, sans-serif",
@@ -62,7 +69,7 @@ const useStyles = makeStyles({
     height: 45,
     width: 400,
     padding: 5,
-    margin: '5px auto',
+    margin: '10px auto',
     "& label.Mui-focused": {
       color: "#254A93",
       borderRadius: '5px',
@@ -167,7 +174,15 @@ const ChangeProfile =() => {
             <ValidatorForm noValidate autoComplete="off" instantValidate={false}>
               { inputData.map(i =>
                 (i.name === "dateBirth") ?
-                  <MaterialUIPickers/>
+                  <TextField
+                    id="date"
+                    type="date"
+                    defaultValue="2021-01-20"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                   :
                   (i.name === "phone" || i.name === "secondPhone") ?
                     <TextValidator
