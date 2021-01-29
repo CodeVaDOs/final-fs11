@@ -108,9 +108,9 @@ const useStyles = makeStyles((theme)=>({
     color: '#293134'
   },
 }));
-const ClientBigCard =()=>{
+const ClientBigCard =({ userType })=>{
   const classes = useStyles();
-  const [userType] = useState('client');
+  const type = userType;
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     staticPeriodType:"year",
@@ -323,8 +323,8 @@ const ClientBigCard =()=>{
     );
   };
   return(<>
-    {(userType === "client" && renderClientPanel())||
-    (userType === "manager" && renderManagerPanel())}
+    {(type === "client" && renderClientPanel())||
+    (type === "manager" && renderManagerPanel())}
   </>);
 };
 export default ClientBigCard;

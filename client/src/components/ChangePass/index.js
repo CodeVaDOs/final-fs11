@@ -65,7 +65,7 @@ const useStyles = makeStyles({
     height: 45,
     width: 400,
     padding: 5,
-    margin: '5px auto',
+    margin: '10px auto',
     "& label.Mui-focused": {
       color: "#254A93",
       borderRadius: '5px',
