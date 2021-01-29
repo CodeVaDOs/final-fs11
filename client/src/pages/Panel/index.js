@@ -9,7 +9,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import News from '../../components/News';
 import ClientBigCard from '../../components/PanelClientBigCard';
 import Grid from "@material-ui/core/Grid";
-
+import PanelClientSmallCard from '../../components/PanelClientSmallCard';
+import Box from "@material-ui/core/Box";
+import PanelClientMediumCard from '../../components/PanelClientMediumCard';
 const useStyles = makeStyles({
   header: {
     fontFamily: 'Roboto, sans-serif',
@@ -27,47 +29,53 @@ const renderAdminPanel =()=> {
   </>);
 };
 const renderManagerPanel =()=> {
-  return(<>
+  return(<Box style={{ width:"890px", height:"350px" }}>
     <Grid
       container
       direction="row"
-      justify="center"
-      alignItems="center"
+      justify="flex-start"
+      alignItems="flex-start"
     >
-      <Grid item xs={8}><ClientBigCard/></Grid>
-      <Grid item xs={4}>{"PanelClientMediumCard"}</Grid>
+      <Grid item xs={7}><ClientBigCard/></Grid>
+      <Grid item xs={5}>
+        <Box style={{ width: "290px", marginLeft: "-25px", marginTop:"5px" }}>
+          <PanelClientSmallCard/>
+        </Box>
+      </Grid>
     </Grid>
     <MassageBoxAdminPanel/>
     <PanelAdmMemo/>
-  </>);
+  </Box>);
 };
 const renderClientPanel =()=> {
-  return(<>
-    {"PanelClientSmallCard"}
+  return(<Box style={{ width:"900px", height:"1000px" }}>
+    <Box style={{ width: "890px" }}>
+      <PanelClientSmallCard/>
+    </Box>
     <Grid
       container
       direction="row"
-      justify="center"
-      alignItems="center"
+      justify="flex-start"
+      alignItems="flex-start"
     >
       <Grid item xs={8}><ClientBigCard/></Grid>
-      <Grid item xs={4}>{"PanelClientMediumCard"}</Grid>
+      <Grid item xs={4}><PanelClientMediumCard/></Grid>
     </Grid>
     <News/>
-  </>);
+  </Box>);
 };
 
 const Panel =(props)=> {
-  const [userType] = useState('manager');
+  const [userType] = useState('client');
   const { t } = useTranslation();
   const classes = useStyles();
   const propsName = "user.name";
   return(<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
-      {(userType === "admin" && renderAdminPanel())}
-      {(userType === "client" && renderClientPanel())}
-      {(userType === "manager" && renderManagerPanel())}
+      {(userType === "admin" && renderAdminPanel())||
+      (userType === "client" && renderClientPanel())||
+      (userType === "manager" && renderManagerPanel())}
     </Container>
   </>);
 };

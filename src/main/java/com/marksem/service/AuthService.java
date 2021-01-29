@@ -35,11 +35,11 @@ public class AuthService {
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
-    public RefreshToken read(Long id) {
+    public RefreshToken readRefreshToken(Long id) {
         return refreshTokenRepository.findById(id).orElseThrow(() -> new JwtAuthenticationException("refreshToken not found", HttpStatus.FORBIDDEN));
     }
 
-    public RefreshToken create(User user) {
+    public RefreshToken createRefreshToken(User user) {
         return refreshTokenRepository.save(new RefreshToken(validityRefreshToken, user));
     }
 
@@ -54,7 +54,7 @@ public class AuthService {
     public Map<Object, Object> createTokens(User u){
         String token = jwtTokenProvider.createToken(u.getEmail(), u.getRole().name());
 
-        RefreshToken createdRefreshToken = this.create(u);
+        RefreshToken createdRefreshToken = this.createRefreshToken(u);
         String refreshToken = jwtTokenProvider.createRefreshToken(createdRefreshToken.getId());
 
         Map<Object, Object> tokens = new HashMap<>();
@@ -72,7 +72,7 @@ public class AuthService {
 
     public Map<Object, Object> refresh(String refreshToken){
         Long refreshTokenId = jwtTokenProvider.getRefreshTokenId(refreshToken);
-        RefreshToken rt = read(refreshTokenId);
+        RefreshToken rt = readRefreshToken(refreshTokenId);
 
         if(rt.getExpirationDate().before(new Date()) || rt.getIsUsed()){
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
