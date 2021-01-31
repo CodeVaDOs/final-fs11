@@ -6,4 +6,8 @@ public class NoDataFoundException extends RuntimeException {
 
         super(String.format("%s with Id %d not found", entityName, id));
     }
+    public NoDataFoundException(String message) {
+
+        super(message);
+    }
 }
