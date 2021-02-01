@@ -169,11 +169,11 @@ const ClientStatisticRent=()=>{
       ]
     }
   });
-  const handleChangeProperty= (e) => {
-    setDataForm({
-      propertyId:e.target.value
-    });
-  };
+  // const handleChangeProperty= (e) => {
+  //   setDataForm({
+  //     propertyId:e.target.value
+  //   });
+  // };
   const classes = useStyles();
   return(
     <Box>

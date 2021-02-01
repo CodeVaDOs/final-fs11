@@ -59,7 +59,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Index = ({ width, open, handleOpen }) => {
-  const [startDate, setStartDate] = useState(new Date());
   const classes = useStyles({ width, open });
   return (
     <>
