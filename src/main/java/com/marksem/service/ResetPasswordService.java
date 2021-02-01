@@ -2,6 +2,7 @@ package com.marksem.service;
 
 import com.marksem.entity.user.User;
 import com.marksem.exception.JwtAuthenticationException;
+import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.UserRepository;
 import com.marksem.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,8 @@ public class ResetPasswordService {
     private String clientUrl;
     @Value("${jwt.expirationPasswordReset}")
     private long expirationPasswordReset;
+    @Value("${serverChangePasswordPath}")
+    private String serverChangePasswordPath;
 
     public ResetPasswordService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, JavaMailSender javaMailSender) {
         this.userRepository = userRepository;
@@ -41,10 +44,10 @@ public class ResetPasswordService {
         helper.setTo(email);
         helper.setSubject("reset password");
 
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
         String token = jwtTokenProvider.createPasswordResetToken(user.getId());
 
-        String href = serverUrl + "/resetPassword/" + token;
+        String href = String.format("%s/%s/%s",serverUrl, serverChangePasswordPath, token);
         helper.setText("<p>Для изменения пароля перейдите по ссылке:</p>" + href, true);
         javaMailSender.send(message);
     }

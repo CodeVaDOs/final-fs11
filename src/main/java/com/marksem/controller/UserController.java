@@ -32,9 +32,8 @@ public class UserController {
 
     @GetMapping("profile")
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseUser> getProfile() {
-        return service.readAll().stream().limit(1)
-                .collect(Collectors.toList());
+    public ResponseEntity<ResponseUser> getProfile(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.read(token));
     }
 
     @GetMapping("{id}")
