@@ -18,7 +18,6 @@ const Archive = () => {
   return (
     <div>
       <h1> {t('archive')} </h1>
-      <News/>
     </div>
   );
 };

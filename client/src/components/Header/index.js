@@ -26,7 +26,8 @@ const useStyles = makeStyles({
 
   linksContainer: {
     display: "flex",
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
     alignItems: 'center',
     minWidth: '285px'
   },

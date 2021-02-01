@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 import Box from '@material-ui/core/Box';
@@ -93,10 +93,10 @@ const useStyles = makeStyles({
   },
 });
 
-const PanelClientSmallCard =()=>{
+const PanelClientSmallCard =({ userType })=>{
   const classes = useStyles();
   const { t } = useTranslation();
-  const [userType] = useState('client');
+  const type = userType;
   const dataClient = [
     {
       "id":"1",
@@ -259,8 +259,8 @@ const PanelClientSmallCard =()=>{
     </Box>);
   };
   return(<>
-    {(userType === "client" && renderClientPanel()) ||
-     (userType === "manager" && renderManagerPanel())}
+    {(type === "client" && renderClientPanel()) ||
+     (type === "manager" && renderManagerPanel())}
   </>);
 };
 export default PanelClientSmallCard;
