@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Drawer, makeStyles } from "@material-ui/core";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
 import FastAccessPanel from "../FastAccessPanel";
 import SidebarMenuItem from "../SideBarMenuItem";
 import { UserChat } from "../Chat/index";
-
+import Box from '@material-ui/core/Box';
+import Typography from "@material-ui/core/Typography";
+import "react-datepicker/dist/react-datepicker.css";
+import Calendar from '../../components/Calendar';
 const useStyles = makeStyles(theme => ({
+  header: {
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: '#254A93',
+    textAlign:"center",
+    marginTop: "10px"
+  },
   openHandler: props => ({
     position: 'absolute',
     top: '50px',
     right: props.open ? '446' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
 
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
-
-
     border: '1px solid #b1b4ba',
     backgroundColor: '#eef5ff',
     borderRadius: '50%',
@@ -50,6 +59,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Index = ({ width, open, handleOpen }) => {
+  const [startDate, setStartDate] = useState(new Date());
   const classes = useStyles({ width, open });
   return (
     <>
@@ -61,6 +71,10 @@ const Index = ({ width, open, handleOpen }) => {
         <SidebarMenuItem/>
         <FastAccessPanel/>
         <UserChat/>
+        <Box>
+          <Typography className={classes.header}>{"Календар бронювання"}</Typography>
+          <Calendar/>
+        </Box>
       </Drawer>
     </>
   );

@@ -119,7 +119,20 @@
   "year":"This year",
   "month": "This month",
   "week": "This week",
-  "rentedHeader": "Rented"
-
-
+  "rentedHeader": "Rented",
+  "rentLiOne": "Rental statistics",
+  "rentLiTwo": "Add new statistics",
+  "showItem": "Show",
+  "allHouse": "All houses",
+  "houseOne": "ID 00170",
+  "houseTwo": "ID 00177",
+  "clientHeaderCard": "Yield statistics",
+  "setIncome": "Income",
+  "setExpense": "Costs",
+  "allProfit": "Total Income",
+  "profHouse": "Houses: ",
+  "profPeriod": "Period: ",
+  "profRent": "Tenants: ",
+  "expense": "Costs for the selected period",
+  "mostExpense": "More costs: "
 }

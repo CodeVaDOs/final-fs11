@@ -35,7 +35,6 @@ CircularProgressWithLabel.propTypes = {
 };
 
 export default function CircularStatic(props) {
-  const { progress, size, thickness } = props;
-
-  return <CircularProgressWithLabel size={size} thickness={thickness} value={60} progress={progress} />;
+  const { color, progress, size, thickness } = props;
+  return <CircularProgressWithLabel size={size} thickness={thickness} value={60} progress={progress} style={{ 'color': `${color}` }}/>;
 }

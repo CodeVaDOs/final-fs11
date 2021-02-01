@@ -322,7 +322,6 @@ const PanelAdminNewUser =()=> {
                       onChange={i.onChange}
                     />)
               }
-
             </ValidatorForm>
           </Box>
           <Box style={{ marginTop:"20px" }}>

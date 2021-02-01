@@ -120,6 +120,20 @@
   "addPoslug": "Замовити Додаткові Послуги",
   "bout": "Заїзд",
   "departure": "Виїзд",
-  "toBook": "Забронювати"
-
+  "toBook": "Забронювати",
+  "rentLiOne": "Статистика оренди",
+  "rentLiTwo": "Додати нову статистику",
+  "showItem": "Показати",
+  "allHouse": "Всі будинки",
+  "houseOne": "ID 00170",
+  "houseTwo": "ID 00177",
+  "clientHeaderCard": "Статистика дохідності",
+  "setIncome": "Прибуток",
+  "setExpense": "Витрати",
+  "allProfit": "Загальний дохід",
+  "profHouse": "Будинки: ",
+  "profPeriod": "Період: ",
+  "profRent": "Орендарі: ",
+  "expense": "Витрати за обраний період",
+  "mostExpense": "Найбільше витрат: "
 }
