@@ -63,7 +63,7 @@ public class AuthController {
 
     @GetMapping("/resetPassword/{token}")
     public void resetPassword(HttpServletResponse response, @PathVariable("token") String token) throws IOException {
-        response.sendRedirect(String.format("%s%s/%s", clientUrl, clientChangePasswordPath, resetPasswordService.resetPassword(token)));
+        response.sendRedirect(String.format("%s/%s/%s", clientUrl, clientChangePasswordPath, resetPasswordService.resetPassword(token)));
     }
 
     @PostMapping("/updatePassword")

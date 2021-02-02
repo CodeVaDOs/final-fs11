@@ -11,13 +11,12 @@ import java.util.List;
 
 @Data
 public class SecurityUser implements UserDetails {
-
     private final String username;
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
     private final boolean isActive = true;
 
-    public SecurityUser(Long id, String username, String password, List<SimpleGrantedAuthority> authorities) {
+    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
@@ -61,10 +60,6 @@ public class SecurityUser implements UserDetails {
     public static UserDetails fromUser(User user) {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(),
-                true,
-                true,
-                true,
-                true,
                 user.getRole().getAuthorities()
         );
     }

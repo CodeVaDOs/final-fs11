@@ -1,0 +1,53 @@
+spring:
+  profiles: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: danitfinalfs11
+    password: danit__finalfs11
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 50000
+          timeout: 50000
+          writetimeout: 50000
+          starttls:
+            enable: true
+  #  datasource:
+  #    url: jdbc:postgresql://ec2-52-205-145-201.compute-1.amazonaws.com:5432/dfbohplvljtqie
+  #    driver-class-name: org.postgresql.Driver
+  #    username: mlpeugyvcdinfn
+  #    password: e1a1ff54ded8c5b22e835e7b0c616d43db806e72a3d1f1344f04c8c6cda82c72
+  #  jpa:
+  #    show-sql: true
+  #    hibernate:
+  #      ddl-auto: update
+  #    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  #    database: postgresql
+  datasource:
+    password: Gohojokolo159
+    url: jdbc:postgresql://___________________:5432/final_project_dev  #WRITE HOST
+    username: super_user
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  secret: proselyt4
+  secretRefresh: 7xfn849ff
+  secretPasswordReset: oo9ii7gg4
+  secretPasswordUpdate: dd955l3mm
+  expiration: 7200
+  expirationRefresh: 604800
+  expirationPasswordReset: 86400
+  expirationPasswordUpdate: 3600
+  header: Authorization
+
+url:
+  server: http://localhost:8080
+  client: http://localhost:3000
+
+clientChangePasswordPath: changePassword
+serverChangePasswordPath: api/v1/auth/resetPassword
