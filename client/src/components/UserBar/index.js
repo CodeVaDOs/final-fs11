@@ -124,7 +124,6 @@ export default function UserBar({ name, describe, sms, notification, avatar }) {
         </React.Fragment>
       </List>
       {renderMenu}
-
     </React.Fragment>
   );
 }

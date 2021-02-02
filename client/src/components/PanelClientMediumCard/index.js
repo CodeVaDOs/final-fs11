@@ -100,7 +100,6 @@ const PanelClientMediumCard =()=>{
             <AccountCircleIcon style={{ color:"#B1B4BA", width:"34px", height:"34px", marginTop:"10px" }}/>
           </Grid>
         </Grid>
-
         <Typography className={classes.subHeader}>{"June 27 - June 30"}</Typography>
         <Box style={{ marginLeft:"15px", marginTop:"5px" }}>
           <StarBorderIcon style={{ color:"#F88B38" }}/>

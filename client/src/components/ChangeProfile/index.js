@@ -7,8 +7,6 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import ButtonStyle from "../Button";
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import MaterialUIPickers from "../DatePicker";
-import DatePickers from "../HouseCard/House/datePicker/DatePicker";
 import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles({
   rootProfile: {

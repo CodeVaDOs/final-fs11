@@ -120,5 +120,20 @@
   "year":"Год",
   "month": "Месяць",
   "week": "Неделя",
-  "rentedHeader": "Арендованно"
+  "rentedHeader": "Арендованно",
+  "rentLiOne": "Статистика аренды",
+  "rentLiTwo": "Добавить новую статистику",
+  "showItem": "Показать",
+  "allHouse": "Все дома",
+  "houseOne": "ID 00170",
+  "houseTwo": "ID 00177",
+  "clientHeaderCard": "Статистика доходности",
+  "setIncome": "Прибыль",
+  "setExpense": "Расходы",
+  "allProfit": "Общий доход",
+  "profHouse": "Дома: ",
+  "profPeriod": "Период: ",
+  "profRent": "Арендаторы: ",
+  "expense": "Расходы за выбранный период",
+  "mostExpense": "Больше расходов: "
 }
