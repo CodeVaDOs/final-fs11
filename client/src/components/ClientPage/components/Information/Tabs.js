@@ -14,8 +14,6 @@ import { MyContracts } from "../Documents/MyContracts";
 
 const useStyles = makeStyles(() => ({
   root: {
-
-    // borderLeft: '1px solid black',
     marginLeft: '3px',
     display: "flex",
     margin: "2px",
@@ -120,8 +118,7 @@ export default function ClientTabs() {
           </Container>
           <Container
             className={classes.columnProfile}>
-            <div className={classes.br}
-            >
+            <div className={classes.br}>
               <Tabs
                 value={value}
                 onChange={handleChange}

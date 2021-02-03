@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     padding: "10px",
     borderRadius: '20px',
     minWidth: '182px',
+    maxWidth: '182px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -91,10 +91,13 @@ export default function HousesTabs() {
           <AntTab value="two" label={t("control")}/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <HouseCard onHouseClick={houseToState} data={Houses}/>
-          <Container className={classes.container}>
-            <HouseContainer house={house}/>
+          <Container>
+            <HouseCard onHouseClick={houseToState} data={Houses}/>
+            <Container className={classes.container}>
+              <HouseContainer house={house}/>
+            </Container>
           </Container>
+
         </TabPanel>
         <TabPanel value={value} index="two">
           <ControlNotificationContainer/>
