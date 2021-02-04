@@ -80,7 +80,7 @@ const useStyles = makeStyles(() => ({
   btnNext: () => ({
     position: 'absolute',
     top: '120px',
-    right: 210,
+    right: 5,
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
 
     border: '1px solid #b1b4ba',
@@ -120,10 +120,13 @@ const useStyles = makeStyles(() => ({
     transform: 'rotate(90deg)',
     transition: '300ms linear',
   }),
+  subGrid: {
+    marginTop: 20
+  },
 }));
 
 
-export default function MyHouses({ data, onHouseClick }) {
+export default function MyHouses({ data, onHouseClick, rent }) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
 
@@ -157,7 +160,6 @@ export default function MyHouses({ data, onHouseClick }) {
           {activeImageSourcesFromState
             .map((house, index) => {
               return (
-
                 <div
                   key={index}
                   onClick={onHouseClick(currentImageIdx)}
@@ -172,22 +174,23 @@ export default function MyHouses({ data, onHouseClick }) {
                       <span className={classes.locationData}> {house.town}</span>
                       <span className={classes.locationData}> {house.location}</span>
                     </div>
+
+
                   </div>
                 </div>
               );
             })}
-          <HouseCreate/>
-
-
+          {rent ? null : <HouseCreate/>}
+          {imageSourcesToDisplay.length > 5 ?
+            "" :
+            <button className={classes.btnNext} onClick={nextSlide}>
+              <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
+            </button>
+          }
         </div>
       </div>
-      {imageSourcesToDisplay.length > 5 ?
-        "" :
-        <button className={classes.btnNext} onClick={nextSlide}>
-          <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
-        </button>
-      }
     </div>
+
   );
 }
 

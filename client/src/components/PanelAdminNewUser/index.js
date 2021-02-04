@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from "@material-ui/core/Typography";
 import LocalSeeIcon from '@material-ui/icons/LocalSee';
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
@@ -107,9 +107,9 @@ const PanelAdminNewUser =()=> {
   };
   //Form Data Managment
   const [dataForm, setDataForm] = useState({
-    typeClient:true,
-    typeManager:false,
-    name: '',
+    typeClient: true,
+    typeManager: false,
+    id: '',
     email: '',
     password: '',
     confpassword: ''
@@ -146,7 +146,7 @@ const PanelAdminNewUser =()=> {
     let url = reader.readAsDataURL(file);
     console.log(url);
 
-    reader.onloadend = (e) => setUploadImg({
+    reader.onloadend = () => setUploadImg({
       mainState: "uploaded",
       selectedFile: [reader.result],
       imageUploaded: 1
@@ -158,7 +158,7 @@ const PanelAdminNewUser =()=> {
       imageUploaded: 1
     });
   };
-  const imageResetHandler = event => {
+  const imageResetHandler = () => {
     setUploadImg({
       mainState: "initial",
       selectedFile: null,
@@ -239,8 +239,8 @@ const PanelAdminNewUser =()=> {
     return (
       <>
         <CardActionArea onClick={imageResetHandler}>
-          <img width={"180px"} height={"220px"} style={{ borderRadius: '20px' }}
-            src={uploadImg.selectedFile}
+          <img width={"180px"} height={"220px"} alt={'s'} style={{ borderRadius: '20px' }}
+               src={uploadImg.selectedFile}
           />
         </CardActionArea>
       </>

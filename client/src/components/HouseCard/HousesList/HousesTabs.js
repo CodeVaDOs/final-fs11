@@ -42,16 +42,15 @@ const AntTab = withStyles((theme) => ({
   selected: {},
 }))((props) => <Tab disableRipple {...props} />);
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
+    minWidth: 'inherit',
     marginTop: '18px',
-    flexGrow: 1,
   },
   padding: {
-    padding: theme.spacing(3),
   },
   container: {
-    maxWidth: '1134px',
+    maxWidth: '890px',
     height: 'fit-content',
     boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
     borderRadius: '20px',
@@ -91,10 +90,13 @@ export default function HousesTabs() {
           <AntTab value="two" label={t("control")}/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <HouseCard onHouseClick={houseToState} data={Houses}/>
-          <Container className={classes.container}>
-            <HouseContainer house={house}/>
+          <Container>
+            <HouseCard onHouseClick={houseToState} data={Houses}/>
+            <Container className={classes.container}>
+              <HouseContainer house={house}/>
+            </Container>
           </Container>
+
         </TabPanel>
         <TabPanel value={value} index="two">
           <ControlNotificationContainer/>

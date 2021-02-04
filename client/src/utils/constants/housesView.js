@@ -1,5 +1,7 @@
 import React from "react";
 import image1 from "../../components/HouseCard/HousesList/img_1.png";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import PrintIcon from "@material-ui/icons/Print";
 // import image from "../../components/HouseCard/HousesList/santech.png";
 
 export const options = ["Всі", 'Орендовані', 'Вільні'];
@@ -22,23 +24,43 @@ export const camaz = (
 // Даные по домам
 
 export const tileData =
-  Array.apply(null, Array(20)).map((_, index) => ({
-    id: index,
-    img: image1,
-    contractDate: index,
-    contractId: index,
-    location: index,
-    town: index,
-    svg: camaz,
-    days: index * 4,
-    status: index,
-    details: index,
-    price: index * 1000,
-    percent: index * 10,
-    square: index,
-    equipment: index,
-    detail: index,
+  Array.apply(null, Array(20))
+    .map(
+      (_, index) => (
+        {
+          id: index,
+          img: image1,
+          contractDate: index,
+          contractId: index,
+          location: index,
+          town: index,
+          svg: camaz,
+          days: index * 4,
+          status: index,
+          details: index,
+          price: index * 1000,
+          percent: index * 10,
+          square: index,
+          equipment: index,
+          detail: index,
 
-  }
-  )
-  );
+        }
+      )
+    );
+
+export const dat =
+  Array
+    .apply(null, Array(20))
+    .map((_, index) =>
+      (
+        {
+          id: index,
+          date: index + '.' + index + '.' + index - index + '.' + index + ' ' + index,
+          location: "Яблуниця, Івано-Франківськ",
+          expensive: 20.554 * index,
+          price: 3.567 * index,
+          svg: (<GetAppIcon style={{ color: '#254A93' }}/>),
+          days: (<PrintIcon style={{ color: '#254A93' }}/>),
+        }
+      )
+    );

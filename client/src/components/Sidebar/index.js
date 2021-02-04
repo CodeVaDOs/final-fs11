@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Drawer, makeStyles } from "@material-ui/core";
 import buttonArrow from "@assert/icons/buttonArrow.svg";
 import FastAccessPanel from "../FastAccessPanel";
@@ -6,8 +6,8 @@ import SidebarMenuItem from "../SideBarMenuItem";
 import { UserChat } from "../Chat/index";
 import Box from '@material-ui/core/Box';
 import Typography from "@material-ui/core/Typography";
-import "react-datepicker/dist/react-datepicker.css";
 import Calendar from '../../components/Calendar';
+
 const useStyles = makeStyles(theme => ({
   header: {
     fontFamily: 'Roboto, sans-serif',
@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
   }),
 
   drawer: props => ({
+    overflowX: 'hidden',
     width: props.width,
     backgroundColor: '#eef5ff',
     borderLeft: '1px solid #b1b4ba',

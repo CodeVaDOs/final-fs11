@@ -34,12 +34,12 @@ const NativeSelects =()=>{
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="uncontrolled-native"></InputLabel>
+        <InputLabel htmlFor="uncontrolled-native"/>
         <NativeSelect
           defaultValue={'ua'}
           disableUnderline={true}
           inputProps={{
-            name: 'name',
+            id: 'name',
             id: 'uncontrolled-native',
           }}
           onChange={(e) => {
