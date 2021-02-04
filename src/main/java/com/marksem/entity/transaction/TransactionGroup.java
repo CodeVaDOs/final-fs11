@@ -20,10 +20,10 @@ public class TransactionGroup extends BaseEntity {
     @Column(name = "to_date")
     private Long toDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id")
     private House house;
 
-    @OneToMany(mappedBy = "transactionGroup")
+    @OneToMany(mappedBy = "transactionGroup", fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
 }

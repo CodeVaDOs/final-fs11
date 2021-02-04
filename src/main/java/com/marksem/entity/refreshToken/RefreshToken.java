@@ -24,7 +24,7 @@ public class RefreshToken extends BaseEntity {
     @Column(name = "is_used")
     private Boolean isUsed;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

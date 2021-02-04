@@ -1,6 +1,7 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestBooking;
+import com.marksem.dto.response.ResponseBooking;
 import com.marksem.entity.booking.Booking;
 import com.marksem.service.BookingService;
 import lombok.RequiredArgsConstructor;
@@ -19,33 +20,25 @@ public class BookingController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<Booking> readAll() {
+    public List<ResponseBooking> readAll() {
         return service.readAll();
     }
 
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<Booking> read(@PathVariable("id") Long id) {
-        try {
-            return ResponseEntity.ok(service.read(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ResponseBooking> read(@PathVariable("id") Long id) {
+         return ResponseEntity.ok(service.read(id));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public Booking create(@RequestBody RequestBooking b) {
-        return service.create(b);
+    public ResponseEntity<ResponseBooking> create(@RequestBody RequestBooking b) {
+        return ResponseEntity.ok(service.create(b));
     }
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasAuthority('developers:write')")
     public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
-        try {
-            return ResponseEntity.ok(service.delete(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+       return ResponseEntity.ok(service.delete(id));
     }
 }

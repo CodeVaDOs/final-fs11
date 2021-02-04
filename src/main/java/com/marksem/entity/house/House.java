@@ -26,20 +26,20 @@ public class House extends BaseEntity {
     @Column(name = "avg_rating")
     private Double avgRating;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
     private List<TransactionGroup> transactionGroups = new ArrayList<>();
 
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
     private List<Document> documents = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_model_id")
     private HouseModel houseModel;
 }
