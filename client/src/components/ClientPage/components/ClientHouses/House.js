@@ -202,7 +202,10 @@ const useStyles = makeStyles(() => ({
     padding: 3,
     position: 'absolute',
     right: 10
-  }
+  },
+  subGrid: {
+    marginTop: 20
+  },
 
 }));
 
@@ -224,6 +227,7 @@ export const House = ({ house }) => {
           <div className={classes.houseDescription}>
             <HouseDesription house={house}/>
           </div>
+
           <div className={classes.btns}>
             <Button className={classes.btnSend}>
               Написати <MessageIcon className={classes.editIcon}/></Button>

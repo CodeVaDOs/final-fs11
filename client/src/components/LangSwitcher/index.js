@@ -39,7 +39,7 @@ const NativeSelects =()=>{
           defaultValue={'ua'}
           disableUnderline={true}
           inputProps={{
-            name: 'name',
+            id: 'name',
             id: 'uncontrolled-native',
           }}
           onChange={(e) => {
