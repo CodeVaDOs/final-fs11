@@ -19,7 +19,6 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${DATA_BASE_USERNAME:?SET_ENVIOMENT_DATA_BASE_USERNAME_URL_IN_SYSTEM}
     password: ${DATA_BASE_PASSWORD:?SET_ENVIOMENT_DATA_BASE_PASSWORD_URL_IN_SYSTEM}
-    initialization-mode: always
   jpa:
     hibernate:
       ddl-auto: create
