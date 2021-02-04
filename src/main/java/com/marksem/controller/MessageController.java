@@ -1,15 +1,15 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestMessage;
-import com.marksem.entity.message.Message;
+import com.marksem.dto.response.ResponseMessage;
 import com.marksem.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("api/v1/messages")
@@ -19,20 +19,26 @@ public class MessageController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<Message> readAll() {
-        return service.readAll();
+    public List<ResponseMessage> readAllByUser(Principal principal) {
+        return service.readAllByUser(principal.getName());
     }
 
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<Message> read(@PathVariable("id") Long id) {
+    public ResponseEntity<ResponseMessage> read(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.read(id));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<Message> create(@RequestBody RequestMessage m) {
+    public ResponseEntity<ResponseMessage> create(@RequestBody RequestMessage m) {
         return ResponseEntity.ok(service.create(m));
+    }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseEntity<ResponseMessage> update(@RequestBody RequestMessage m) {
+        return ResponseEntity.ok(service.update(m));
     }
 
     @DeleteMapping("{id}")

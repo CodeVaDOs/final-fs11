@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class HouseModel extends BaseEntity {
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_type_id")
     private HouseType houseType;
 }

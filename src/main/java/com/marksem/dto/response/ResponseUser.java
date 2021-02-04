@@ -1,5 +1,6 @@
 package com.marksem.dto.response;
 
+import com.marksem.entity.contact.Contact;
 import com.marksem.entity.user.Language;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
@@ -17,11 +18,11 @@ public class ResponseUser extends BaseEntity {
     private Role role;
     private Long managerId;
     private String name;
-    private Long birthday;
+    private Date birthday;
     private String urlAvatar;
     private Language language;
-    private List<ResponseHouse> houses;
     private List<ResponseContact> contacts;
+    private List<ResponseHouse> houses;
     private List<ResponseNotification> notifications;
 
     public static ResponseUser toDto(User u) {
