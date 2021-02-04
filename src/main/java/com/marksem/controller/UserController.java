@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -32,8 +32,8 @@ public class UserController {
 
     @GetMapping("profile")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<ResponseUser> getProfile(@RequestHeader("Authorization") String token) {
-        return ResponseEntity.ok(service.read(token));
+    public ResponseEntity<ResponseUser> getProfile(Principal principal) {
+        return ResponseEntity.ok(service.getProfile(principal.getName()));
     }
 
     @GetMapping("{id}")

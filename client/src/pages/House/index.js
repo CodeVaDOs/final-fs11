@@ -1,10 +1,10 @@
 import React from 'react';
-import HouseComponent from "../../components/HouseCard/HouseComponent";
+import HousesTabs from "../../components/HouseCard/HousesList/HousesTabs";
 
 const Houses = () => {
   return (
     <>
-      <HouseComponent/>
+      <HousesTabs/>
     </>
   );
 };

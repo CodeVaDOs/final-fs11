@@ -20,13 +20,15 @@ import java.util.*;
 @AllArgsConstructor
 public class User extends BaseEntity {
     private String password;
+
+    @Column(unique = true)
     private String email;
 
     @Column(name = "manager_id")
     private Long managerId;
 
     private String name;
-    private Long birthday;
+    private Date birthday;
 
     @Column(name = "url_avatar")
     private String urlAvatar;
@@ -37,14 +39,14 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<House> houses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Contact> contacts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Notification> notifications = new ArrayList<>();
 }

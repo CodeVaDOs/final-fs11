@@ -2,18 +2,19 @@ import React from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import PrintIcon from '@material-ui/icons/Print';
 import HouseDesription from "./HouseDesription";
-import { CircleOfStatistic } from "./CircleOfStatistic";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Typography from "@material-ui/core/Typography";
 import { Slider } from "./Slider";
 import { Rent } from "./Rent";
 import { Map } from "./Map";
 import { useTranslation } from "react-i18next";
+import Grid from "@material-ui/core/Grid";
+import CircularStatic from "../../IncomeCard/CircularProgress";
 
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: '100%',
+    minWidth: 'inherit',
     display: 'flex',
     alignItems: "center",
     justifyContent: 'center',
@@ -177,7 +178,9 @@ const useStyles = makeStyles(() => ({
     marginBottom: '10px',
     marginTop: '10px',
     font: 'Roboto'
-  }
+  }, subGrid: {
+    marginTop: 20
+  },
 }));
 
 
@@ -216,7 +219,10 @@ export const HouseContainer = ({ house }) => {
                 <div className={classes.statisticRent}>{t('rentStatistic')}</div>
                 <div className={classes.diagramBody}>
                   <div className={classes.roundOfStatistic}>
-                    <CircleOfStatistic percentage={57}/>
+
+                    <Grid className={classes.subGrid} item xs={3}>
+                      <CircularStatic size={90} thickness={2} progress={house.days} color={"#4AD584"}/>
+                    </Grid>
                   </div>
                   <div className={classes.persentsBlock}>
                     <div className={classes.days}>{house.days}</div>

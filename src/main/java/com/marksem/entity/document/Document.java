@@ -20,9 +20,11 @@ public class Document extends BaseEntity {
     @Column(name = "url_file")
     private String urlFile;
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private DocumentType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id")
     private House house;
 }

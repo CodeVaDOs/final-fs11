@@ -2,10 +2,13 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestUser;
 import com.marksem.dto.response.ResponseUser;
+import com.marksem.entity.user.User;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.UserRepository;
 import com.marksem.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +18,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository repo;
-    private final JwtTokenProvider jwtTokenProvider;
 
     public ResponseUser create(RequestUser u) {
         return ResponseUser.toDto(repo.save(u.toEntity()));
+    }
+
+    public User getUserByEmail(String email){
+        return repo.findByEmail(email).orElseThrow(() ->  new NoDataFoundException("User doesn't exists"));
     }
 
     public ResponseUser read(Long id) {
@@ -27,11 +33,8 @@ public class UserService {
                 .orElseThrow(() ->  new NoDataFoundException("user", id));
     }
 
-    public ResponseUser read(String token) {
-        String email = jwtTokenProvider.getUsername(token);
-        return repo.findByEmail(email)
-                .map(ResponseUser::toDto)
-                .orElseThrow(() ->  new NoDataFoundException(String.format("User with email %s doesn't exists", email)));
+    public ResponseUser getProfile(String email) {
+        return ResponseUser.toDto(getUserByEmail(email));
     }
 
     public List<ResponseUser> readAll() {
@@ -44,6 +47,8 @@ public class UserService {
                     e.setPassword(u.getPassword());
                     e.setEmail(u.getEmail());
                     e.setRole(u.getRole());
+                    e.setManagerId(u.getManagerId());
+                    e.setName(u.getName());
                     return ResponseUser.toDto(repo.save(e));
                 })
                 .orElseThrow(() ->  new NoDataFoundException("user", u.getId()));
@@ -53,5 +58,6 @@ public class UserService {
         repo.deleteById(id);
         return id;
     }
+
 }
 

@@ -7,14 +7,14 @@ import { useSelector } from "react-redux";
 
 const sidebarWidth = 446;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: "row",
   },
 
   mainContainer: props => ({
-    width: '100%',
+    width:'100%',
     marginLeft: '20px',
     marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 30 + 'px' : '30px',
     transition: 'margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
