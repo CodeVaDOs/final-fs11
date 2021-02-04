@@ -71,7 +71,7 @@ export default function HousesTabs() {
   const [{ data, loading }, getData] = useFetch({ url: `houses` });
   useEffect(() => {
     getData();
-  }, [Houses, data]);
+  }, []);
 
   console.log(data, loading);
 
