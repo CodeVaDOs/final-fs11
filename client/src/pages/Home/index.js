@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
+import PanelAdminNewUser from "../../components/PanelAdminNewUser";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -12,7 +13,7 @@ const Home = () => {
   }
   return (
     <div>
-      <Button onClick={onClick}>Error</Button>
+      <PanelAdminNewUser/>
     </div>
   );
 

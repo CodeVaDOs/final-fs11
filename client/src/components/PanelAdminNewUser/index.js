@@ -15,6 +15,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { CardActionArea, CardContent, Fab } from "@material-ui/core";
+import { useFetch } from "../../hooks/useFetch";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -27,8 +29,8 @@ const useStyles = makeStyles({
       color: "#254A93",
       borderRadius: '5px',
     },
-    "& .MuiOutlinedInput-input":{
-      padding:"15.5px 14px"
+    "& .MuiOutlinedInput-input": {
+      padding: "15.5px 14px"
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
@@ -46,8 +48,8 @@ const useStyles = makeStyles({
     height: '401px',
     borderRadius: '20px',
     boxShadow: '0px 2px 4px #00000033',
-    marginBottom:"12px",
-    backgroundColor:"#fff"
+    marginBottom: "12px",
+    backgroundColor: "#fff"
   },
   subGrid: {
     height: '400px',
@@ -83,23 +85,34 @@ const useStyles = makeStyles({
     fontFamily: 'Roboto, sans-serif',
     fontSize: '12px',
     fontWeight: 'normal',
-    textTransform:'lowercase',
+    textTransform: 'lowercase',
     color: '#fff',
     marginTop: '-10px',
     marginLeft: '12px'
   },
-  active:{
-    background:"red"
+  active: {
+    background: "red"
   }
 });
 
-const PanelAdminNewUser =()=> {
+const PanelAdminNewUser = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const iconName =()=>{ return(<><PersonIcon style={{ marginBottom: "-5px" }}/>{t("fullName")}</>);};
-  const iconEmail =()=>{return(<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);};
-  const iconPass =()=>{return(<><LockIcon style={{ marginBottom: "-5px" }}/>{t("RegPass")}</>);};
-  const iconPassRep =()=>{return(<><LockIcon style={{ marginBottom: "-5px" }}/>{t("regPassRep")}</>);};
+  const iconName = () => {
+    return (<><PersonIcon style={{ marginBottom: "-5px" }}/>{t("fullName")}</>);
+  };
+  const iconEmail = () => {
+    return (<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);
+  };
+  const iconPass = () => {
+    return (<><LockIcon style={{ marginBottom: "-5px" }}/>{t("RegPass")}</>);
+  };
+  const iconPassRep = () => {
+    return (<><LockIcon style={{ marginBottom: "-5px" }}/>{t("regPassRep")}</>);
+  };
+
+
+
   //Password Visibility
   const [showPassword, setShowPassword] = useState(false);
   const handleMouseDownPassword = (event) => {
@@ -107,8 +120,8 @@ const PanelAdminNewUser =()=> {
   };
   //Form Data Managment
   const [dataForm, setDataForm] = useState({
-    typeClient:true,
-    typeManager:false,
+    typeClient: true,
+    typeManager: false,
     name: '',
     email: '',
     password: '',
@@ -120,17 +133,30 @@ const PanelAdminNewUser =()=> {
       [e.target.name]: e.target.value
     });
   };
+
+  const [{ data, loading }, sendData] = useFetch({
+    instant: false,
+    method: "POST",
+    url: "users",
+    data: {
+      email: dataForm.email,
+      name: dataForm.name,
+      password: dataForm.password,
+      role: dataForm.typeClient && !dataForm.typeManager ? "MANAGER" : "USER",
+      managerId: useSelector(state => state.auth.user.id)
+    }
+  });
   //Buttons State Managment
   const toggle = () => {
-    if(dataForm.typeClient !== true && dataForm.typeManager !== false){
+    if (dataForm.typeClient !== true && dataForm.typeManager !== false) {
       setDataForm({
-        typeClient:true,
-        typeManager:false,
+        typeClient: true,
+        typeManager: false,
       });
     } else {
       setDataForm({
-        typeClient:false,
-        typeManager:true,
+        typeClient: false,
+        typeManager: true,
       });
     }
   };
@@ -170,6 +196,8 @@ const PanelAdminNewUser =()=> {
     console.log('post to backend with new user');
     e.preventDefault();
     console.log(dataForm.name, dataForm.email, dataForm.password, dataForm.confpassword, uploadImg.selectedFile);
+
+    sendData();
   };
   //Email Validation
   const refRefEmail = createRef();
@@ -208,7 +236,7 @@ const PanelAdminNewUser =()=> {
     }
   ];
   //Upload Photo Managment
-  const renderInitialState =()=> {
+  const renderInitialState = () => {
     return (
       <>
         <CardContent>
@@ -218,15 +246,15 @@ const PanelAdminNewUser =()=> {
               id="contained-button-file"
               multiple
               type="file"
-              style={{ display:"none" }}
+              style={{ display: "none" }}
               onChange={handleUploadClick}
             />
             <label htmlFor="contained-button-file">
               <Fab component="span" onChange={handleUploadClick} className={classes.greyButton}>
-                <LocalSeeIcon style={{ color: "#FFF", marginTop:"-23px", marginLeft:'10px' }}/>
-                <div style={ { marginTop:"36px", marginLeft:"-48px" } }>
+                <LocalSeeIcon style={{ color: "#FFF", marginTop: "-23px", marginLeft: '10px' }}/>
+                <div style={{ marginTop: "36px", marginLeft: "-48px" }}>
                   <Typography className={classes.smallText}>{t('change')}</Typography>
-                  <Typography className={classes.smallText} style={{ marginLeft:'20px', marginTop:'-4px' }}>{t('Photo')}</Typography>
+                  <Typography className={classes.smallText} style={{ marginLeft: '20px', marginTop: '-4px' }}>{t('Photo')}</Typography>
                 </div>
               </Fab>
             </label>
@@ -235,18 +263,17 @@ const PanelAdminNewUser =()=> {
       </>
     );
   };
-  const renderUploadedState=()=> {
+  const renderUploadedState = () => {
     return (
       <>
         <CardActionArea onClick={imageResetHandler}>
-          <img width={"180px"} height={"220px"} style={{ borderRadius: '20px' }}
-            src={uploadImg.selectedFile}
+          <img width={"180px"} height={"220px"} style={{ borderRadius: '20px' }} src={uploadImg.selectedFile}
           />
         </CardActionArea>
       </>
     );
   };
-  return(<>
+  return (<>
     <Box className={classes.formControl}>
       <Grid
         container
@@ -254,21 +281,21 @@ const PanelAdminNewUser =()=> {
         justify="flex-start"
         alignItems="flex-start"
       >
-        <Grid className={classes.subGrid} item xs={4} >
+        <Grid className={classes.subGrid} item xs={4}>
           <Box className={classes.photoContainer}>
             {(uploadImg.mainState === "initial" && renderInitialState()) ||
             (uploadImg.mainState === "uploaded" && renderUploadedState())}
           </Box>
         </Grid>
-        <Grid className={classes.subGrid}  item xs={8} >
+        <Grid className={classes.subGrid} item xs={8}>
           <Typography className={classes.title}>{t('newUserTitle')}</Typography>
-          <Box style={{ marginTop:"8px", marginBottom:"0px" }}>
+          <Box style={{ marginTop: "8px", marginBottom: "0px" }}>
             <ButtonStyle btnState={dataForm.typeClient} w={"100px"} h={"30px"} ml={"25px"} fw="400" fs="14px" text={t('client')} onClick={toggle}/>
             <ButtonStyle btnState={dataForm.typeManager} w={"100px"} h={"30px"} ml={"56px"} fw="400" fs="14px" text={t('manager')} onClick={toggle}/>
           </Box>
           <Box>
             <ValidatorForm noValidate autoComplete="off" instantValidate={false} onSubmit={check}>
-              { inputData.map(i =>
+              {inputData.map(i =>
                 (i.name === "password" || i.name === "confpassword") ?
                   <TextValidator
                     className={classes.root}
@@ -290,13 +317,13 @@ const PanelAdminNewUser =()=> {
                             onClick={() => setShowPassword(!showPassword)}
                             onMouseDown={handleMouseDownPassword}
                           >
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                            {showPassword ? <Visibility/> : <VisibilityOff/>}
                           </IconButton>
                         </InputAdornment>
                       )
                     }}
-                  />:
-                  (i.name === "email")?
+                  /> :
+                  (i.name === "email") ?
                     <TextValidator
                       className={classes.root}
                       key={i.id}
@@ -309,7 +336,7 @@ const PanelAdminNewUser =()=> {
                       onChange={i.onChange}
                       onBlur={handleBlurEmail}
                       ref={refRefEmail}
-                    />:
+                    /> :
                     <TextValidator
                       className={classes.root}
                       key={i.id}
@@ -324,7 +351,7 @@ const PanelAdminNewUser =()=> {
               }
             </ValidatorForm>
           </Box>
-          <Box style={{ marginTop:"20px" }}>
+          <Box style={{ marginTop: "20px" }}>
             <ButtonStyle w={"161px"} h={"39px"} bgcolor={"#254A93"} ml={"10px"} text={t('create')} onClick={check}/>
           </Box>
         </Grid>
