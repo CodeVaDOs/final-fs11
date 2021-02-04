@@ -22,7 +22,7 @@ spring:
     initialization-mode: always
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 jwt:
   header: Authorization
   secret: ${JWT_SECRET:?SET_ENVIOMENT_DJWT_SECRET_IN_SYSTEM}
