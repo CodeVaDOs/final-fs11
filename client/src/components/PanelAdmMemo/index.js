@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Bell from '../../assert/icons/bellRing.svg';
 
 
 const useStyles = makeStyles((theme)=>({
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme)=>({
       borderRadius: '10px',
     },
     "& .MuiOutlinedInput-multiline": {
-      padding: "7px 15px",
+      padding: "6px 15px",
       color:'#99A0A3'
     },
     "& .MuiOutlinedInput-root": {
@@ -142,7 +143,7 @@ const PanelAdmMemo =()=>{
     <Box className={classes.formControl}>
       <Box className={classes.titleContainer}>
         <Typography className={classes.title}>
-          {t('memoTitle')} <img src="./bellRing.svg" style={{ marginBottom:"-8px", marginLeft:"7px" }} alt="bell"/>
+          {t('memoTitle')} <img src={Bell} style={{ marginBottom:"-8px", marginLeft:"7px" }} alt="bell"/>
         </Typography>
         <Grid
           container

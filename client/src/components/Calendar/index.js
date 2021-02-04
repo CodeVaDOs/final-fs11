@@ -13,11 +13,7 @@ const useStyles = makeStyles({
     fontSize: 20,
   },
   box: {
-    width: 356,
-    height: 313,
-    boxShadow: "0px 2px 4px #00000033",
     borderRadius: "20px",
-    backgroundColor:"#fff",
     marginTop:"20px"
   }
 });
