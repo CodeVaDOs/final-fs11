@@ -158,7 +158,7 @@ export default function ClientTabs() {
 
         </div>
         {bottomView === 1 ? <House house={house}/> : null}
-        {bottomView === 2 ? <MyContracts/> : null}
+        {bottomView === 2 ? <MyContracts visibleFalse={false}/> : null}
         {bottomView === 3 ?
           <div>
             <ClientStatisticRent/>
