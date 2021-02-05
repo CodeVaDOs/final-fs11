@@ -6,7 +6,7 @@ import SidebarMenuItem from "../SideBarMenuItem";
 import { UserChat } from "../Chat/index";
 import Box from '@material-ui/core/Box';
 import Typography from "@material-ui/core/Typography";
-import "react-datepicker/dist/react-datepicker.css";
+//import "react-datepicker/dist/react-datepicker.css";
 import Calendar from '../../components/Calendar';
 const useStyles = makeStyles(theme => ({
   header: {
