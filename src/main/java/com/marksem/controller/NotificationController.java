@@ -2,16 +2,13 @@ package com.marksem.controller;
 
 import com.marksem.dto.request.RequestNotification;
 import com.marksem.dto.response.ResponseNotification;
-import com.marksem.entity.notification.Notification;
 import com.marksem.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("api/v1/notifications")
@@ -19,10 +16,16 @@ import java.util.NoSuchElementException;
 public class NotificationController {
     private final NotificationService service;
 
+//    @GetMapping
+//    @PreAuthorize("hasAuthority('developers:read')")
+//    public List<ResponseNotification> readAllByUser(Principal principal) {
+//        return service.readAllByUser(principal.getName());
+//    }
+
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseNotification> readAllByUser(Principal principal) {
-        return service.readAllByUser(principal.getName());
+    public List<ResponseNotification> readAll() {
+        return service.readAll();
     }
 
     @GetMapping("{id}")

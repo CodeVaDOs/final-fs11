@@ -1,38 +1,37 @@
 package com.marksem.controller;
 
-import com.marksem.dto.request.RequestBooking;
-import com.marksem.dto.response.ResponseBooking;
-import com.marksem.service.BookingService;
+import com.marksem.dto.request.RequestTransaction;
+import com.marksem.dto.response.ResponseTransaction;
+import com.marksem.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/bookings")
+@RequestMapping("api/v1/transactions")
 @RequiredArgsConstructor
-public class BookingController {
-    private final BookingService service;
+public class TransactionController {
+    private final TransactionService service;
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseBooking> readAll() {
+    public List<ResponseTransaction> readAll() {
         return service.readAll();
     }
 
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<ResponseBooking> read(@PathVariable("id") Long id) {
+    public ResponseEntity<ResponseTransaction> read(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.read(id));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<ResponseBooking> create(@RequestBody RequestBooking b, Principal principal) {
-        return ResponseEntity.ok(service.create(b, principal.getName()));
+    public ResponseEntity<ResponseTransaction> create(@RequestBody RequestTransaction t) {
+        return ResponseEntity.ok(service.create(t));
     }
 
     @DeleteMapping("{id}")

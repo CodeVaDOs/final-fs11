@@ -42,4 +42,7 @@ public class House extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_model_id")
     private HouseModel houseModel;
+
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
+    private List<HouseMaintenance> houseMaintenances = new ArrayList<>();
 }

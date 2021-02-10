@@ -4,7 +4,6 @@ import com.marksem.entity.house.House;
 import com.marksem.entity.house.HouseModel;
 import com.marksem.entity.user.User;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 
@@ -19,9 +18,9 @@ public class RequestHouse extends BaseEntity {
     private String description;
     private Double avgRating;
     private Long ownerId;
-//    private HouseModel houseModel;
+    private Long houseModelId;
 
-    public House toEntity(User u) {
+    public House toEntity(User u, HouseModel hm) {
         return House.builder()
                 .location(this.location)
                 .equipment(this.equipment)
@@ -29,7 +28,7 @@ public class RequestHouse extends BaseEntity {
                 .description(this.description)
                 .avgRating(this.avgRating)
                 .owner(u)
-//                .houseModel(this.houseModel)
+                .houseModel(hm)
                 .bookings(new ArrayList<>())
                 .transactionGroups(new ArrayList<>())
                 .documents(new ArrayList<>())

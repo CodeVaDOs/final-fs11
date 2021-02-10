@@ -2,8 +2,6 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestBooking;
 import com.marksem.dto.response.ResponseBooking;
-import com.marksem.dto.response.ResponseHouse;
-import com.marksem.entity.booking.Booking;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.BookingRepository;
 import com.marksem.repo.HouseRepository;
@@ -21,13 +19,13 @@ public class BookingService {
     private final HouseRepository houseRepo;
     private final UserRepository userRepo;
 
-    public ResponseBooking create(RequestBooking b) {
-        return userRepo.findById(b.getRenterId())
+    public ResponseBooking create(RequestBooking b, String email) {
+        return userRepo.findByEmail(email)
                 .map(u-> houseRepo.findById(b.getHouseId())
                                 .map(h -> bookingRepo.save(b.toEntity(h, u)))
                                 .map(ResponseBooking::toDto)
-                                .orElseThrow(()->new NoDataFoundException("house", b.getRenterId())))
-                .orElseThrow(()->new NoDataFoundException("user", b.getRenterId()));
+                                .orElseThrow(()->new NoDataFoundException("house", b.getHouseId())))
+                .orElseThrow(()->new NoDataFoundException(String.format("user with email %s not found", email)));
     }
 
     public ResponseBooking read(Long id) {
