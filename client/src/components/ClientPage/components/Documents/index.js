@@ -48,30 +48,54 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Documents = () => {
+export const Documents = ({ visible }) => {
   const classes = useStyles();
-
 
   return (
     <>
-      <div className={classes.root}>
-        <div><h2 style={{ fontFamily: "Roboto", fontSize: '18px' }}>Створити документ</h2></div>
-        <div className={classes.row}>
-          <h3>Створити</h3>
-          <SelectDocument options={['Контракт']}/>
-        </div>
-        <div className={classes.row}>
-          <h3>Будинок</h3>
-          <SelectDocument options={['Marksem M - 2 House large 00102']}/>
-        </div>
-        <DocumentItem
-          title={'Контракт__001'}
-          shortDescription={'Короткий опис документа'}
-          type={'edit'}
-        />
-        <Button className={classes.btnSend}>
-          Написати <MessageIcon className={classes.editIcon}/></Button>
-      </div>
+
+      {
+        visible ?
+          <div className={classes.root}>
+            <div><h2 style={{ fontFamily: "Roboto", fontSize: '18px' }}>Присвoiти контракт</h2></div>
+            <div className={classes.row}>
+              <h3>Клiент</h3>
+              <SelectDocument options={['Овсiенко Дмитро Вiкторович', 'Дмитро Овсiенко Вiкторович']}/>
+            </div>
+            <div className={classes.row}>
+              <h3>Будинок</h3>
+              <SelectDocument options={['Marksem M - 2 House large 00102']}/>
+            </div>
+            <DocumentItem
+              title={'Контракт__001'}
+              shortDescription={'Короткий опис документа'}
+              type={'edit'}
+            />
+            <Button className={classes.btnSend}>
+              Зберегти</Button>
+          </div> :
+          <div className={classes.root}>
+            <div><h2 style={{ fontFamily: "Roboto", fontSize: '18px' }}>Створити документ</h2></div>
+            <div className={classes.row}>
+              <h3>Створити</h3>
+              <SelectDocument options={['Контракт']}/>
+            </div>
+            <div className={classes.row}>
+              <h3>Будинок</h3>
+              <SelectDocument options={['Marksem M - 2 House large 00102']}/>
+            </div>
+            <DocumentItem
+              title={'Контракт__001'}
+              shortDescription={'Короткий опис документа'}
+              type={'edit'}
+            />
+            <Button className={classes.btnSend}>
+              Написати <MessageIcon className={classes.editIcon}/></Button>
+          </div>
+
+      }
+
+
     </>
   );
 };

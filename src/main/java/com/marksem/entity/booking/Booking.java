@@ -6,6 +6,7 @@ import com.marksem.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -16,24 +17,24 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Booking extends BaseEntity {
     @Column(name = "from_date")
-    private Long fromDate;
+    private Date fromDate;
 
     @Column(name = "to_date")
-    private Long toDate;
+    private Date toDate;
 
     @Column(name = "renter_photo_url")
     private String renterPhotoUrl;
 
     private Boolean isOwner;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id")
     private House house;
 
-    @OneToOne(mappedBy = "booking")
+    @OneToOne(mappedBy = "booking", fetch = FetchType.LAZY)
     private FeedBack feedback;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "renter_id")
     private User renter;
 }

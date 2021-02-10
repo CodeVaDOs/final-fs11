@@ -1,6 +1,10 @@
 import React from 'react';
+import { DocumentsComponent } from "../../components/DocumentsComponent";
 
 const Index =()=> {
-  return(<>DOCUMENT PAGE</>);
+  return (
+    <>
+      <DocumentsComponent/>
+    </>);
 };
 export default Index;

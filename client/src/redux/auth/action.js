@@ -34,6 +34,7 @@ const logIn = (values) => (dispatch) => {
       setAuthToken(data.token);
       setRefreshToken(data.refreshToken);
       dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
+      dispatch(getProfile());
     })
     .catch((err) => {
       catchError(err);

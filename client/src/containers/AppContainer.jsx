@@ -28,13 +28,6 @@ export const routes = [
     isPublic: false,
     isAdminRoute: false,
     exact: true,
-    path: "/archive",
-    component: lazy(() => import("@pages/Archive")),
-  },
-  {
-    isPublic: false,
-    isAdminRoute: false,
-    exact: true,
     path: "/documents",
     component: lazy(() => import("@pages/Document")),
   },

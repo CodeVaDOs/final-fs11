@@ -11,10 +11,10 @@ import { tileData } from "../../../../utils/constants/housesView";
 import { House } from "../ClientHouses/House";
 import { Documents } from "../Documents";
 import { MyContracts } from "../Documents/MyContracts";
+import ClientStatisticRent from "../../../ClientStatisticRent";
 
 const useStyles = makeStyles(() => ({
   root: {
-
     // borderLeft: '1px solid black',
     marginLeft: '3px',
     display: "flex",
@@ -120,15 +120,15 @@ export default function ClientTabs() {
           </Container>
           <Container
             className={classes.columnProfile}>
-            <div className={classes.br}
-            >
+            <div className={classes.br}>
               <Tabs
                 value={value}
                 onChange={handleChange}
               >
                 <Tab label="Iнформацiя" {...a11yProps(0)} />
                 <Tab label="Будинки" {...a11yProps(1)} />
-                <Tab label="Документики" {...a11yProps(2)} />
+                <Tab label="Документи" {...a11yProps(2)} />
+                <Tab label="Оренда" {...a11yProps(3)} />
               </Tabs>
             </div>
             <TabPanel
@@ -136,16 +136,33 @@ export default function ClientTabs() {
               <Information/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <ClientHouses houseToState={houseToState} HouseIdx={HouseIdx}/>
+              <ClientHouses
+                houseToState={houseToState}
+                HouseIdx={HouseIdx}
+                rent={false}
+
+              />
             </TabPanel>
             <TabPanel value={value} index={2}>
               <Documents/>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <ClientHouses
+                houseToState={houseToState}
+                HouseIdx={HouseIdx}
+                buttonSend={true}
+                rent={true}
+              />
             </TabPanel>
           </Container>
 
         </div>
         {bottomView === 1 ? <House house={house}/> : null}
-        {bottomView === 2 ? <MyContracts/> : null}
+        {bottomView === 2 ? <MyContracts visibleFalse={false}/> : null}
+        {bottomView === 3 ?
+          <div>
+            <ClientStatisticRent/>
+          </div> : null}
       </div>
     </>
   );

@@ -136,8 +136,6 @@ export const DocumentItem = ({ title, shortDescription, type }) => {
       <div className={classes.documentDescription}>
         <div className={classes.title}>{title}</div>
         <div className={classes.shortDescription}>{shortDescription}</div>
-
-
         <div className={classes.btnClick}>
           {type === 'edit' ?
             edit :

@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { ClientPage } from "../../components/ClientPage";
-import ClientStatisticRent from "../../components/ClientStatisticRent";
 const useStyles = makeStyles({
   header: {
     fontFamily: 'Roboto, sans-serif',
@@ -23,7 +22,6 @@ const Client = () => {
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
       <ClientPage/>
-      <ClientStatisticRent/>
     </Container>
   </>);
 };

@@ -5,9 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import { Bar } from "react-chartjs-2";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-Chart.defaults.global.legend.display = false;
-Chart.defaults.global.tooltips.backgroundColor = "#EEF5FF";
-Chart.defaults.global.tooltips.titleFontColor = "#293134";
 import CircularStatic from "../IncomeCard/CircularProgress";
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import InputLabel from "@material-ui/core/InputLabel";
@@ -15,8 +12,17 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import { useTranslation } from "react-i18next";
+import { More } from "../ClientPage/components/More";
+import Tab from "../ClientPage/components/Tabs/Tab";
+import Tabs from "../ClientPage/components/Tabs/Tabs";
+import { NewStatistic } from "../ClientPage/components/NewStatistic";
+
+Chart.defaults.global.legend.display = false;
+Chart.defaults.global.tooltips.backgroundColor = "#EEF5FF";
+Chart.defaults.global.tooltips.titleFontColor = "#293134";
 const useStyles = makeStyles({
   aboveContainer: {
+
     marginBottom: "-10px",
     marginLeft: "10px"
   },
@@ -60,9 +66,7 @@ const useStyles = makeStyles({
     color: '#ACB5B9',
     marginLeft: "-17px",
   },
-  subGrid: {
-    marginTop: 20
-  },
+
   dateBox: {
     backgroundColor: "#EEF5FF",
     height: 43,
@@ -138,6 +142,9 @@ const useStyles = makeStyles({
       color: "#293134"
     },
   },
+  root:{
+    height:"100%"
+  }
 });
 const ClientStatisticRent=()=>{
   const { t } = useTranslation();
@@ -174,218 +181,235 @@ const ClientStatisticRent=()=>{
   //     propertyId:e.target.value
   //   });
   // };
+  const [key, setKey] = useState(0);
+
   const classes = useStyles();
-  return(
-    <Box>
-      <Grid
-        className={classes.aboveContainer}
-        container
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
-      >
-        <Grid className={classes.subGrid} item xs={3} >
-          <Typography className={classes.aboveHeader}>{t("rentLiOne")}</Typography>
-        </Grid>
-        <Grid className={classes.subGrid} item xs={4} >
-          <Typography className={classes.aboveHeader}>{t("rentLiTwo")}</Typography>
-        </Grid>
-        <Grid className={classes.subGrid} item xs={2}></Grid>
-        <Grid className={classes.subGrid} item xs={1}>
-          <Typography className={classes.aboveSelectorTxt}>{t('showItem')}</Typography>
-        </Grid>
-        <Grid className={classes.subGrid} item xs={2}>
-          <FormControl variant="filled" className={classes.formControlSelect}>
-            <InputLabel id="demo-simple-select-filled-label"></InputLabel>
-            <Select className={classes.rootSelect}
-              defaultValue={dataForm.propertyId}
-              labelId="demo-simple-select-filled-label"
-              id="demo-simple-select-filled"
-              value={dataForm.propertyId}
-              // onChange={handleChangeProperty}
-            >
-              <MenuItem value={'all'}>{t('allHouse')}</MenuItem>
-              <MenuItem value={'id1'}>{t('houseOne')}</MenuItem>
-              <MenuItem value={'id2'}>{t('houseTwo')}</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
-      <Box className={classes.rentContainer}>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
+  return (
+    <div className={classes.root}>
+      <Box>
+        <Tabs
+          activeKey={key}
+          onSelect={(k) => {
+            setKey(k);
+          }}
         >
-          <Grid className={classes.subGrid} item xs={4} >
-            <Typography className={classes.rentHeader}>{t("clientHeaderCard")}</Typography>
-          </Grid>
-          <Grid className={classes.subGrid} item xs={5}>
-            <Box className={classes.dateBox}>
+          <Tab eventKey={0} title="Статистика Оренди">
+            <Grid
+              className={classes.aboveContainer}
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="flex-start"
+            >
+              <Grid className={classes.subGrid} item xs={1}>
+                <Typography className={classes.aboveSelectorTxt}>{t('showItem')}</Typography>
+              </Grid>
+              <Grid className={classes.subGrid} item xs={2}>
+                <FormControl variant="filled" className={classes.formControlSelect}>
+                  <InputLabel id="demo-simple-select-filled-label"/>
+                  <Select
+                    className={classes.rootSelect}
+                    defaultValue={dataForm.propertyId}
+                    labelId="demo-simple-select-filled-label"
+                    id="demo-simple-select-filled"
+                    value={dataForm.propertyId}
+                    // onChange={handleChangeProperty}
+                  >
+                    <MenuItem value={'all'}>{t('allHouse')}</MenuItem>
+                    <MenuItem value={'id1'}>{t('houseOne')}</MenuItem>
+                    <MenuItem value={'id2'}>{t('houseTwo')}</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Box className={classes.rentContainer}>
               <Grid
                 container
                 direction="row"
                 justify="center"
                 alignItems="center"
               >
-                <Grid className={classes.subGrid} item xs={6} >
-                  <TextField
-                    id="date"
-                    type="date"
-                    defaultValue={dataForm.dateFrom}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
+                <Grid className={classes.subGrid} item xs={4}>
+                  <Typography className={classes.rentHeader}>{t("clientHeaderCard")}</Typography>
                 </Grid>
-                <Grid className={classes.subGrid} item xs={6} >
-                  <TextField
-                    id="date"
-                    type="date"
-                    defaultValue={dataForm.dateTo}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
-                  />
+                <Grid className={classes.subGrid} item xs={5}>
+                  <Box className={classes.dateBox}>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="center"
+                      alignItems="center"
+                    >
+                      <Grid className={classes.subGrid} item xs={6}>
+                        <TextField
+                          id="date"
+                          type="date"
+                          defaultValue={dataForm.dateFrom}
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid className={classes.subGrid} item xs={6}>
+                        <TextField
+                          id="date"
+                          type="date"
+                          defaultValue={dataForm.dateTo}
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true
+                          }}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Grid>
+                <Grid className={classes.subGrid} item xs={3}>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                  >
+                    <Grid className={classes.subGrid} item xs={2}>
+                      <Box style={{ width: "15px", height: "15px", backgroundColor: "#4AD584" }}/>
+                    </Grid>
+                    <Grid className={classes.subGrid} item xs={4}>
+                      <Typography className={classes.rentGrayText}>{t("setIncome")}</Typography>
+                    </Grid>
+                    <Grid className={classes.subGrid} item xs={2}>
+                      <Box style={{ width: "15px", height: "15px", backgroundColor: "#F88B38" }}/>
+                    </Grid>
+                    <Grid className={classes.subGrid} item xs={4}>
+                      <Typography className={classes.rentGrayText}>{t("setExpense")}</Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Box>
-          </Grid>
-          <Grid className={classes.subGrid} item xs={3}>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid className={classes.subGrid} item xs={2} >
-                <Box style={{ width:"15px", height:"15px", backgroundColor:"#4AD584" }}></Box>
-              </Grid>
-              <Grid className={classes.subGrid} item xs={4} >
-                <Typography className={classes.rentGrayText}>{t("setIncome")}</Typography>
-              </Grid>
-              <Grid className={classes.subGrid} item xs={2} >
-                <Box style={{ width:"15px", height:"15px", backgroundColor:"#F88B38" }}></Box>
-              </Grid>
-              <Grid className={classes.subGrid} item xs={4} >
-                <Typography className={classes.rentGrayText}>{t("setExpense")}</Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Box style={{ padding: "20px" }}>
-          <Bar
-            data={dataForm.dataBar}
-            width={620}
-            height={180}
-            options={{
-              responsive: true,
-              legend: {
-                display: false
-              },
-              maintainAspectRatio: true,
-              scales: {
-                xAxes: [{
-                  gridLines : {
-                    display : false
-                  }
-                }],
-                yAxes: [{
-                  ticks: {
-                    callback(value, index) {
-                      if (index % 2 == 0) return '';
-                      return value;
+              <Box style={{ padding: "20px" }}>
+                <Bar
+                  data={dataForm.dataBar}
+                  width={620}
+                  height={180}
+                  options={{
+                    responsive: true,
+                    legend: {
+                      display: false
                     },
-                  },
-                  beginAtZero: true,
-                  gridLines: {
-                    drawTicks: false,
-                  },
-                }]
-              },
-              tooltips: {
-                callbacks: {
-                  labelColor: function(tooltipItem, chart) {
-                    return {
-                      borderColor:'#254A93',
-                      backgroundColor: '#254A93'
-                    };
-                  },
-                  labelTextColor: function(tooltipItem, chart) {
-                    return '#293134';
-                  }
-                }
-              }
-            }}
-          />
-        </Box>
-        <Box>
-          <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="flex-start"
-          >
-            <Grid className={classes.subGrid} item xs={6} >
-              <Box className={classes.summaryCard}>
+                    maintainAspectRatio: true,
+                    scales: {
+                      xAxes: [{
+                        gridLines: {
+                          display: false
+                        }
+                      }],
+                      yAxes: [{
+                        ticks: {
+                          callback(value, index) {
+                            if (index % 2 === 0) return '';
+                            return value;
+                          },
+                        },
+                        beginAtZero: true,
+                        gridLines: {
+                          drawTicks: false,
+                        },
+                      }]
+                    },
+                    tooltips: {
+                      callbacks: {
+                        labelColor: function (tooltipItem, chart) {
+                          return {
+                            borderColor: '#254A93',
+                            backgroundColor: '#254A93'
+                          };
+                        },
+                        labelTextColor: function (tooltipItem, chart) {
+                          return '#293134';
+                        }
+                      }
+                    }
+                  }}
+                />
+              </Box>
+              <Box className={classes.root}>
                 <Grid
                   container
                   direction="row"
                   justify="flex-start"
                   alignItems="flex-start"
                 >
-                  <Grid className={classes.subGrid} item xs={9} >
-                    <Box>
-                      <Typography className={classes.cardHeader}>{t("allProfit")}</Typography>
-                    </Box>
-                    <Box style={{ marginTop:"10px" }}>
-                      <Typography className={classes.cardHeaderSmall}>{t("profHouse")}<span className={classes.cardHeaderSmallGray}>{" M-2 ID0170, ID 00177"}</span></Typography>
-                    </Box>
-                    <Box style={{ marginTop:"10px" }}>
-                      <Typography className={classes.cardHeaderSmall}>{t("profPeriod")}<span className={classes.cardHeaderSmallGray}>{"21 Червня 2019 - 31 Грудня 2020"}</span></Typography>
-                    </Box>
-                    <Box style={{ marginTop:"10px" }}>
-                      <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
+                  <Grid className={classes.subGrid} item xs={6}>
+                    <Box className={classes.summaryCard}>
+                      <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                      >
+                        <Grid className={classes.subGrid} item xs={9}>
+                          <Box>
+                            <Typography className={classes.cardHeader}>{t("allProfit")}</Typography>
+                          </Box>
+                          <Box style={{ marginTop: "10px" }}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profHouse")}<span className={classes.cardHeaderSmallGray}>{" M-2 ID0170, ID 00177"}</span></Typography>
+                          </Box>
+                          <Box style={{ marginTop: "10px" }}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profPeriod")}<span className={classes.cardHeaderSmallGray}>{"21 Червня 2019 - 31 Грудня 2020"}</span></Typography>
+                          </Box>
+                          <Box style={{ marginTop: "10px" }}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
+                          </Box>
+                        </Grid>
+                        <Grid className={classes.subGrid} item xs={3}>
+                          <CircularStatic size={80} thickness={2} progress={"18.573"} color={"#F88B38"}/>
+                        </Grid>
+                      </Grid>
                     </Box>
                   </Grid>
-                  <Grid className={classes.subGrid} item xs={3} >
-                    <CircularStatic size={80} thickness={2} progress={"18.573"} color={"#F88B38"}/>
+                  <Grid className={classes.subGrid} item xs={6}>
+                    <Box className={classes.summaryCard}>
+                      <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                      >
+                        <Grid className={classes.subGrid} item xs={9}>
+                          <Box>
+                            <Typography className={classes.cardHeader}>{t("expense")}</Typography>
+                            <Typography className={classes.cardSubHeader}>{"1 Січня - 31 Грудня"}</Typography>
+                          </Box>
+                          <Box style={{ marginTop: "10px" }}>
+                            <Typography className={classes.cardHeaderSmall}>{t("mostExpense")}<span className={classes.cardHeaderSmallRed}>{"Червень"}</span> <ArrowDownwardIcon style={{ color: "#FA505D", fontSize: "20px", marginBottom: "-7px" }}/></Typography>
+                          </Box>
+                          <Box style={{ marginTop: "10px" }}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
+                          </Box>
+                        </Grid>
+                        <Grid className={classes.subGrid} item xs={3}>
+                          <CircularStatic size={80} thickness={2} progress={"9.573"} color={"#4AD584"}/>
+                        </Grid>
+                      </Grid>
+                    </Box>
                   </Grid>
                 </Grid>
+                <More/>
+
               </Box>
-            </Grid>
-            <Grid className={classes.subGrid} item xs={6} >
-              <Box className={classes.summaryCard}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="flex-start"
-                >
-                  <Grid className={classes.subGrid} item xs={9} >
-                    <Box>
-                      <Typography className={classes.cardHeader}>{t("expense")}</Typography>
-                      <Typography className={classes.cardSubHeader}>{"1 Січня - 31 Грудня"}</Typography>
-                    </Box>
-                    <Box style={{ marginTop:"10px" }}>
-                      <Typography className={classes.cardHeaderSmall}>{t("mostExpense")}<span className={classes.cardHeaderSmallRed}>{"Червень"}</span> <ArrowDownwardIcon style={{ color:"#FA505D", fontSize: "20px", marginBottom: "-7px" }}/></Typography>
-                    </Box>
-                    <Box style={{ marginTop:"10px" }}>
-                      <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
-                    </Box>
-                  </Grid>
-                  <Grid className={classes.subGrid} item xs={3} >
-                    <CircularStatic size={80} thickness={2} progress={"9.573"} color={"#4AD584"}/>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
+
+            </Box>
+          </Tab>
+          <Tab eventKey={1} title="Додати нову статистику">
+            <NewStatistic/>
+          </Tab>
+
+        </Tabs>
+
       </Box>
-    </Box>);
+
+    </div>
+  );
 };
 export default ClientStatisticRent;

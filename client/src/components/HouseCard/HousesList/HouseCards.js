@@ -4,9 +4,13 @@ import buttonArrow from "@assert/icons/buttonArrow.svg";
 import { ListItem } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
+  bh: {
+    opacity: 0.4,
+    boxShadow: "-162px 0px 40px -59px grey inset",
+  },
   root: {
-    boxShadow: "-162px 0px 40px -59px #000000 inset",
-    maxWidth: "100% ",
+    width: "1000px",
+    height: '270px',
     position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
@@ -15,9 +19,7 @@ const useStyles = makeStyles(() => ({
 
   },
   houseCard: {
-    margin: '10px',
     boxSizing: 'border-box',
-    padding: "10px",
     borderRadius: '20px',
     minWidth: '182px',
     display: 'flex',
@@ -27,7 +29,7 @@ const useStyles = makeStyles(() => ({
 
   },
   houseCardActive: {
-    margin: '10px',
+    marginLeft: '5px',
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
@@ -74,17 +76,11 @@ const useStyles = makeStyles(() => ({
     lineHeight: "20px",
 
   },
-  gridList: {
-    width: "100%",
-    height: '280px',
-    flexWrap: 'nowrap',
-    transform: 'translateZ(0)',
-    overflowY: "hidden"
-  },
   btnNext: () => ({
     position: 'absolute',
     top: '120px',
     right: 0,
+    zIndex: 10,
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
 
     border: '1px solid #b1b4ba',
@@ -101,7 +97,7 @@ const useStyles = makeStyles(() => ({
   btnPrev: () => ({
     position: 'absolute',
     top: '120px',
-    left: 0,
+    left: -2,
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
 
     border: '1px solid #b1b4ba',
@@ -164,13 +160,22 @@ export default function HouseCards({ data, onHouseClick }) {
               return (
                 <ListItem
                   key={index}
-                  onClick={onHouseClick(currentImageIdx)}>
+                  onClick={onHouseClick(currentImageIdx)}
+                  className={index === 4 ? classes.bh : ""}>
                   <div
                     className={index ? classes.houseCard : classes.houseCardActive}
                   >
                     <div>
-                      <img
-                        className={classes.img} src={house.img} alt={house.contractId}/>
+                      {
+                        index === 4 ?
+                          <div className={classes.bh}>
+                            <img
+                              className={classes.img} src={house.img} alt={house.contractId}/>
+                          </div> :
+                          <img
+                            className={classes.img} src={house.img} alt={house.contractId}/>
+                      }
+
                       <div className={classes.houseCardBody}>
                         <span className={classes.cardContract}> Контракт {house.contractDate}</span>
                         <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
@@ -180,9 +185,7 @@ export default function HouseCards({ data, onHouseClick }) {
                     </div>
                   </div>
                 </ListItem>
-              )
-              ;
-
+              );
             })}
         </div>
       </div>
@@ -193,6 +196,7 @@ export default function HouseCards({ data, onHouseClick }) {
         </button>
       }
     </div>
+
   );
 }
 
