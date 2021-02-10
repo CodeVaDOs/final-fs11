@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import Grid from "@material-ui/core/Grid";
 import { More } from "@components/ClientPage/components/More";
 import ClientBigCard from '@components/PanelClientBigCard';
-import PanelClientSmallCard from '@components/PanelClientSmallCard';
 const useStyles = makeStyles({
   indicator: {
     backgroundColor: '#254A93',
