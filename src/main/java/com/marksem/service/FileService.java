@@ -15,4 +15,8 @@ public class FileService {
     return this.fileRepository.upload(file, token);
   }
 
+  public boolean delete(String filename, String token) { return this.fileRepository.delete(filename, token); }
+
+  public String update(MultipartFile file, String token) { return this.fileRepository.update(file, token); }
+
 }

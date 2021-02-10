@@ -32,7 +32,7 @@ public class FileRepository {
     File tempFile;
     try {
       String extension = "." + FilenameUtils.getExtension(file.getOriginalFilename());
-      tempFile = File.createTempFile(file.getOriginalFilename().split("\\.")[0], extension);
+      tempFile = File.createTempFile(file.getOriginalFilename().split("\\.")[0] + "__", extension);
       file.transferTo(tempFile);
       body.add("file", new FileSystemResource(tempFile));
     } catch (IOException e) {
@@ -50,13 +50,17 @@ public class FileRepository {
   }
 
   public boolean delete(String filename, String token) {
-//    HttpHeaders httpHeaders = new HttpHeaders();
-//    httpHeaders.set("Authorization", token);
-//
-//
-//    ResponseEntity<String> exchange = restTemplate.exchange(
-//        this.fileServerUrl + "/deleteFile", HttpMethod.DELETE, String.class)
-    throw new RuntimeException("Must be implemented");
+    HttpHeaders httpHeaders = new HttpHeaders();
+    httpHeaders.set("Authorization", token);
+
+    ResponseEntity<String> exchange = restTemplate.exchange(
+        this.fileServerUrl + "/deleteFile/" + filename, HttpMethod.DELETE, new HttpEntity<>(httpHeaders), String.class);
+
+    return exchange.getStatusCode() == HttpStatus.OK;
+  }
+
+  public String update(MultipartFile file, String token) {
+    return this.upload(file, token);
   }
 
 }
