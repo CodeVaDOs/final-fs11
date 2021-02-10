@@ -35,6 +35,7 @@ jwt:
 url:
   server: ${SERVER_URL:?SET_ENVIOMENT_SERVER_URL_IN_SYSTEM}
   client: ${CLIENT_URL:?SET_ENVIOMENT_CLIENT_URL_IN_SYSTEM}
+  fileServer: ${FILE_SERVER_URL:?SET_ENVIROMENT_FILE_SRVER_IN_SYSTEM}
 
 clientChangePasswordPath: changePassword
 serverChangePasswordPath: api/v1/auth/resetPassword

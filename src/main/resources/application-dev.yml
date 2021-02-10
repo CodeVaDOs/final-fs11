@@ -48,6 +48,7 @@ jwt:
 url:
   server: http://localhost:8080
   client: http://localhost:3000
+  fileServer: http://localhost:8090
 
 clientChangePasswordPath: changePassword
 serverChangePasswordPath: api/v1/auth/resetPassword
