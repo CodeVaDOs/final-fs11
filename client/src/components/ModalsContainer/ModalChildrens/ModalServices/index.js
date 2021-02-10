@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -18,6 +18,7 @@ import house from "@assert/modal-icons/8.svg";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles({
@@ -59,7 +60,6 @@ const useStyles = makeStyles({
     flexDirection: 'row'
   },
   paper: {
-    backgroundColor: 'white',
     margin: "5px",
     borderRadius: '20px',
     boxShadow:"0px 1px 3px #00000033",
@@ -123,22 +123,22 @@ const Index=()=> {
   const { t } = useTranslation();
   const services1 = [
     {
-      "id": "1",
+      "id": 1,
       "service": t("table"),
       "icon": table,
     },
     {
-      "id": "2",
+      "id": 2,
       "service": t("taxi"),
       "icon": taxi,
     },
     {
-      "id": "3",
+      "id": 3,
       "service": t("tree"),
       "icon": tree,
     },
     {
-      "id": "4",
+      "id": 4,
       "service": t("fishing"),
       "icon": fishing,
     },
@@ -146,55 +146,76 @@ const Index=()=> {
   ];
   const services2 = [
     {
-      "id": "1",
+      "id": 5,
       "service": t("food"),
       "icon": food,
 
     },
     {
-      "id": "2",
+      "id": 6,
       "service": t("bike"),
       "icon": bike,
 
     },
     {
-      "id": "3",
+      "id": 7,
       "service": t("cleaner"),
       "icon": cleaner,
 
     },
     {
-      "id": "4",
+      "id": 8,
       "service": t("tour"),
       "icon": tour,
 
     },
-
-
   ];
   const services3 = [
     {
-      "id": 1,
+      "id": 9,
       "service": t("swimming"),
       "icon": swimming,
     },
     {
-      "id": 2,
+      "id": 10,
       "service": t("flowers"),
       "icon": flowers,
     },
     {
-      "id": 3,
+      "id": 11,
       "service": t("child"),
       "icon": child,
     },
     {
-      "id": 4,
+      "id": 12,
       "service": t("house"),
       "icon": house,
     },
   ];
   const classes = useStyles();
+  const [input, setInput] = useState({
+    selected:"",
+    input:"none"
+  });
+  const clickHandler =(id)=>{
+    setInput({
+      selected:id,
+      input:"block"
+    });
+    console.log(id);
+  };
+
+  const [inputValue, setInputValue] = useState({
+    value:""
+  });
+  const onChangeInput =(event)=>{
+    setInputValue({
+      value:event.target.value
+    });
+    console.log(inputValue.value);
+  };
+
+
   return(<Box className={classes.containerSer}>
     <Box style={{ textAlign:"center" }}>
       <Typography className={classes.headerSer}>{t("serTitle")}</Typography>
@@ -208,7 +229,7 @@ const Index=()=> {
       <Grid className={classes.root} item>
         <Grid className={classes.subGrid} item xs={4}>
           {services1.map((s) => (
-            <Box className={classes.paper} key={s.id}>
+            <Box style={{ backgroundColor: input.selected === s.id ? "#EEF5FF" : "white" }}  className={classes.paper} key={s.id}>
               <Typography align="right" paragraph className={classes.details}>
                 <Box className={classes.orangeBox}>
                   <img alt={s.service} src={s.icon} className={classes.icon}/>
@@ -219,7 +240,7 @@ const Index=()=> {
               </Typography>
               <Typography align="right" paragraph className={classes.details}>
                 <IconButton className={classes.btn}>
-                  <ArrowForwardIosTwoToneIcon/>
+                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id)}/>
                 </IconButton>
               </Typography>
             </Box>
@@ -227,7 +248,7 @@ const Index=()=> {
         </Grid>
         <Grid className={classes.subGrid} item xs={4}>
           {services2.map((s) => (
-            <Box className={classes.paper} key={s.id}>
+            <Box style={{ backgroundColor: input.selected === s.id ? "#EEF5FF" : "white" }}  className={classes.paper} key={s.id}>
               <Typography align="right" paragraph className={classes.details}>
                 <Typography align="right" paragraph className={classes.details}>
                   <Box className={classes.greenBox}>
@@ -240,7 +261,7 @@ const Index=()=> {
               </Typography>
               <Typography align="right" paragraph className={classes.details}>
                 <IconButton className={classes.btn}>
-                  <ArrowForwardIosTwoToneIcon/>
+                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id)}/>
                 </IconButton>
               </Typography>
             </Box>
@@ -248,7 +269,7 @@ const Index=()=> {
         </Grid>
         <Grid className={classes.subGrid} item xs={4}>
           {services3.map((s) => (
-            <Box className={classes.paper} key={s.id}>
+            <Box style={{ backgroundColor: input.selected === s.id ? "#EEF5FF" : "white" }} className={classes.paper} key={s.id}>
               <Typography align="right" paragraph className={classes.details}>
                 <Typography align="right" paragraph className={classes.details}>
                   <Box className={classes.blueBox}>
@@ -261,13 +282,16 @@ const Index=()=> {
               </Typography>
               <Typography align="right" paragraph className={classes.details}>
                 <IconButton className={classes.btn}>
-                  <ArrowForwardIosTwoToneIcon/>
+                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id)}/>
                 </IconButton>
               </Typography>
             </Box>
           ))}
         </Grid>
       </Grid>
+    </Box>
+    <Box style={{ textAlign:"center", display:`${input.input}` }}>
+      <TextField fullWidth={200} id="outlined-basic" label="" variant="outlined" onChange={onChangeInput}/>
     </Box>
   </Box>);
 };

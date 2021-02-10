@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     minHeight: 170,
     maxHeight: 170,
     height: "170px",
-    background: "var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box",
+    background: "#fff",
     boxShadow: "0px 1px 3px #00000033",
     borderRadius: "20px",
     opacity: 1,

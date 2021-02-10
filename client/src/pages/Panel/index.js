@@ -26,8 +26,8 @@ const Panel =()=> {
   return(<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
-      <Box style={{ width:"900px", height:"1000px" }}>
-        <Box style={{ width: "890px" }}>
+      <Box>
+        <Box>
           <PanelClientSmallCard/>
         </Box>
         <Grid

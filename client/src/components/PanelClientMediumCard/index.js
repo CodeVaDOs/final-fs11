@@ -11,7 +11,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 const useStyles = makeStyles({
   mediumCardContainer: {
     height: '310px',
-    width: '280px',
+    width: '100%',
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
     backgroundColor:'#fff',

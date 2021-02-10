@@ -396,9 +396,7 @@ const ClientStatisticRent=()=>{
                   </Grid>
                 </Grid>
                 <More/>
-
               </Box>
-
             </Box>
           </Tab>
           <Tab eventKey={1} title="Додати нову статистику">

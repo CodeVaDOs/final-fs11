@@ -7,8 +7,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: "100%",
+  rootBox: {
+    width: "100%",
     borderRadius: "15px",
     paddingLeft: "25px",
     position: "relative",
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 const ControlNotification = ({ title, body }) => {
   const classes = useStyles();
 
-  return (<Card className={classes.root}>
+  return (<Card className={classes.rootBox}>
     <CardHeader
       className={classes.header}
       title={title}

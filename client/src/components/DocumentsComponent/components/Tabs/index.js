@@ -44,8 +44,9 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "transparent",
     width: "100%",
+    marginTop:"20px"
   },
 }));
 
@@ -64,7 +65,7 @@ export default function FullWidthTabs() {
 
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -90,6 +91,6 @@ export default function FullWidthTabs() {
           Item Three
         </TabPanel>
       </SwipeableViews>
-    </div>
+    </Box>
   );
 }

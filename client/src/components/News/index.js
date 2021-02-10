@@ -9,6 +9,7 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { news } from "../../utils/constants/newsList";
+import Box from "@material-ui/core/Box";
 
 const blue = '#254A93';
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '10px',
     marginBottom: '40px',
     padding: 0,
-    width: '890px',
+    width: '100%',
     borderRadius: '20px 20px 0 0',
     overflow: 'hidden',
     boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.16)',
@@ -97,9 +98,9 @@ export default function News() {
     setExpanded(isExpanded ? panel : false);
   };
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Accordion expanded={expanded} onChange={handleChange('panel1a')}>
-        <div className={classes.newsHead}>
+        <Box className={classes.newsHead}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon className={classes.colored}/>}
             aria-controls="panel1a-content"
@@ -109,7 +110,7 @@ export default function News() {
               <div className={classes.heading}>Новини <EventNoteIcon/></div>
             </Typography>
           </AccordionSummary>
-        </div>
+        </Box>
         <AccordionDetails>
           <List className={classes.list}>
             {
@@ -161,6 +162,6 @@ export default function News() {
           </List>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </Box>
   );
 }
