@@ -22,20 +22,28 @@ public class NotificationService {
         return userRepo.findById(n.getUserId())
                 .map(u -> notificationRepo.save(new Notification(n.getText(), n.getIsRead(), n.getImportance(), u)))
                 .map(ResponseNotification::toDto)
-                .orElseThrow(()->new NoDataFoundException("notification", n.getUserId()));
+                .orElseThrow(() -> new NoDataFoundException("user", n.getUserId()));
     }
 
     public ResponseNotification update(RequestNotification n) {
         return notificationRepo.findById(n.getId())
-                .map(i->{i.setText(n.getText()); i.setIsRead(n.getIsRead()); i.setImportance(n.getImportance());return notificationRepo.save(i);})
+                .map(i->{
+                    i.setText(n.getText());
+                    i.setIsRead(n.getIsRead());
+                    i.setImportance(n.getImportance());
+                    return notificationRepo.save(i);})
                 .map(ResponseNotification::toDto)
-                .orElseThrow(()->new NoDataFoundException("notification", n.getUserId()));
+                .orElseThrow(() -> new NoDataFoundException("notification", n.getId()));
     }
 
     public ResponseNotification read(Long id) {
         return notificationRepo.findById(id)
                 .map(ResponseNotification::toDto)
-                .orElseThrow(() ->  new NoDataFoundException("notification", id));
+                .orElseThrow(() -> new NoDataFoundException("notification", id));
+    }
+
+    public List<ResponseNotification> readAll() {
+        return notificationRepo.findAll().stream().map(ResponseNotification::toDto).collect(Collectors.toList());
     }
 
     public List<ResponseNotification> readAllByUser(String email) {

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,13 +46,13 @@ public class ResetPasswordService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
         String token = jwtTokenProvider.createPasswordResetToken(user.getId());
 
-        String href = String.format("%s/%s/%s",serverUrl, serverChangePasswordPath, token);
+        String href = String.format("%s/%s/%s", serverUrl, serverChangePasswordPath, token);
         helper.setText("<p>Для изменения пароля перейдите по ссылке:</p>" + href, true);
         javaMailSender.send(message);
     }
 
-    public String resetPassword(String token){
-        if(jwtTokenProvider.validatePasswordResetToken(token)){
+    public String resetPassword(String token) {
+        if (jwtTokenProvider.validatePasswordResetToken(token)) {
             Long id = jwtTokenProvider.getPasswordResetTokenId(token);
             return jwtTokenProvider.getPasswordUpdateToken(id);
         } else {
@@ -61,17 +60,17 @@ public class ResetPasswordService {
         }
     }
 
-    public Long updatePassword(String token, String password){
-        if(jwtTokenProvider.validatePasswordUpdateToken(token)){
+    public Long updatePassword(String token, String password) {
+        if (jwtTokenProvider.validatePasswordUpdateToken(token)) {
             Long id = jwtTokenProvider.getPasswordUpdateTokenId(token);
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
-            userRepository.findById(id)
+            return userRepository.findById(id)
                     .map(u -> {
                         u.setPassword(bCryptPasswordEncoder.encode(password));
-                        return userRepository.save(u);
+                        userRepository.save(u);
+                        return u.getId();
                     })
-                    .orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
-            return id;
+                    .orElseThrow(() -> new NoDataFoundException("user", id));
         } else {
             throw new JwtAuthenticationException("token is expired", HttpStatus.UNAUTHORIZED);
         }

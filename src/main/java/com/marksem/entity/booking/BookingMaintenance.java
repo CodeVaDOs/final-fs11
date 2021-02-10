@@ -10,15 +10,20 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "feed_backs")
+@Table(name = "booking_maintenances")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedBack extends BaseEntity {
-    @OneToOne(fetch = FetchType.LAZY)
+public class BookingMaintenance extends BaseEntity {
+    @Enumerated(EnumType.STRING)
+    private BookingMaintenanceType type;
+
+    private String text;
+
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id")
     private Booking booking;
-
-    private String review;
-    private int rating;
 }

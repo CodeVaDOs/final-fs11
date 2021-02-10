@@ -1,6 +1,5 @@
 package com.marksem.repo;
 
-import com.marksem.entity.message.Message;
 import com.marksem.entity.notification.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,5 @@
 package com.marksem.dto.response;
 
-import com.marksem.entity.contact.Contact;
 import com.marksem.entity.user.Language;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;

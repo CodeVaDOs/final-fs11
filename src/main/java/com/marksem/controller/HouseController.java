@@ -2,7 +2,6 @@ package com.marksem.controller;
 
 import com.marksem.dto.request.RequestHouse;
 import com.marksem.dto.response.ResponseHouse;
-import com.marksem.entity.house.House;
 import com.marksem.service.HouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("api/v1/houses")

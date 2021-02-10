@@ -7,9 +7,9 @@ import com.marksem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
@@ -24,8 +24,8 @@ public class TotalController {
     @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<?> getAccessPanelInfo(Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
-        if (user.getRole().equals(Role.USER)){
-            return ResponseEntity.ok(totalService.getAccessPanelUserInfo(user.getId()));
+        if (user.getRole().equals(Role.USER)) {
+            return ResponseEntity.ok(totalService.getAccessPanelUserInfo());
         } else {
             return ResponseEntity.ok(totalService.getAccessPanelManagerInfo(user.getId()));
         }

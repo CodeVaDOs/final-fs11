@@ -17,7 +17,7 @@ public class TotalService {
     private final HouseRepository houseRepository;
     private final BookingRepository bookingRepository;
 
-    public ResponseAccessPanelUserInfo getAccessPanelUserInfo(Long id){
+    public ResponseAccessPanelUserInfo getAccessPanelUserInfo(){
         long quantityOfHouses = houseRepository.count();
         long quantityOfBookings = bookingRepository.getBookingsQuantity();
         return new ResponseAccessPanelUserInfo(quantityOfHouses, quantityOfHouses - quantityOfBookings);

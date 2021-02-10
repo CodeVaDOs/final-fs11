@@ -3,8 +3,6 @@ package com.marksem.dto.request;
 import com.marksem.entity.notification.Importance;
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
