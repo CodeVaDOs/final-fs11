@@ -10,15 +10,15 @@ import { Map } from "./Map";
 import { useTranslation } from "react-i18next";
 import Grid from "@material-ui/core/Grid";
 import CircularStatic from "../../IncomeCard/CircularProgress";
-
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(() => ({
   root: {
-    minWidth: 'inherit',
-    display: 'flex',
-    alignItems: "center",
-    justifyContent: 'center',
-    flexDirection: 'column',
+    width: "100%",
+    backgroundColor:"#fff",
+    boxShadow:"0px 2px 4px #00000033",
+    borderRadius:"20px",
+    textAlign:"start",
     marginBottom: '15px',
     marginTop: '5px',
     font: 'Roboto'
@@ -192,58 +192,54 @@ export const HouseContainer = ({ house }) => {
 
   return (
     <>
-      <div className={classes.root}>
-        <div className={classes.topSide}>
-          <div className={classes.leftSide}>
+      <Box className={classes.root}>
+        <Box className={classes.topSide}>
+          <Box className={classes.leftSide}>
             <Slider/>
-          </div>
-
-
-          <div className={classes.rightSide}>
-            <div className={classes.houseIdInfo}>
+          </Box>
+          <Box className={classes.rightSide}>
+            <Box className={classes.houseIdInfo}>
               <p className={classes.id}>{t('id')} {house.id}</p>
-              <div className={classes.houseIdInfoButtonBlock}>
+              <Box className={classes.houseIdInfoButtonBlock}>
                 <PrintIcon style={{ color: '#464C4E' }}/>
                 <a className={classes.ExportButton} href={'#'}>
                   <p>{t('export')} </p>
                   <GetAppIcon style={{ color: '#464C4E' }}/>
                 </a>
-              </div>
-            </div>
-            <div className={classes.houseDescription}>
+              </Box>
+            </Box>
+            <Box className={classes.houseDescription}>
               <HouseDesription house={house}/>
-            </div>
-
-            <div className={classes.houseRentStatisticBlock}>
-              <div className={classes.diagramBlock}>
-                <div className={classes.statisticRent}>{t('rentStatistic')}</div>
-                <div className={classes.diagramBody}>
-                  <div className={classes.roundOfStatistic}>
-
+            </Box>
+            <Box className={classes.houseRentStatisticBlock}>
+              <Box className={classes.diagramBlock}>
+                <Box className={classes.statisticRent}>{t('rentStatistic')}</Box>
+                <Box className={classes.diagramBody}>
+                  <Box className={classes.roundOfStatistic}>
                     <Grid className={classes.subGrid} item xs={3}>
                       <CircularStatic size={90} thickness={2} progress={house.days} color={"#4AD584"}/>
                     </Grid>
-                  </div>
-                  <div className={classes.persentsBlock}>
-                    <div className={classes.days}>{house.days}</div>
-                    <div className={classes.persents}>
+                  </Box>
+                  <Box className={classes.persentsBlock}>
+                    <Box className={classes.days}>{house.days}</Box>
+                    <Box className={classes.persents}>
                       <p>
                         <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.percent * 10} %</span>
                         <span className={classes.persentsFromTo}>{t('fromLastMonth')}</span>
                       </p>
-                    </div>
-                  </div>
-                  <div className={classes.moneyInDollars}>
+                    </Box>
+                  </Box>
+                  <Box className={classes.moneyInDollars}>
                     <p>$ {house.price}K</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
 
-        </div>
+        </Box>
 
-        <div className={classes.textBlock}>
+        <Box className={classes.textBlock}>
           <Typography component={'span'} className={classes.title}>
             Деталі
           </Typography>
@@ -253,21 +249,16 @@ export const HouseContainer = ({ house }) => {
           <Typography component={'span'} className={classes.title}>
             Локація
           </Typography>
-        </div>
-
-
-        <div className={classes.bottomSide}>
-
-          <div className={classes.leftSide}>
+        </Box>
+        <Box className={classes.bottomSide}>
+          <Box className={classes.leftSide}>
             <Map/>
-          </div>
-          <div className={classes.rightSide}>
+          </Box>
+          <Box className={classes.rightSide}>
             <Rent/>
-          </div>
-
-        </div>
-
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 };

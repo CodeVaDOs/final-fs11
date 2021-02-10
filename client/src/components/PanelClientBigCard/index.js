@@ -18,7 +18,7 @@ Chart.defaults.global.tooltips.titleFontColor = "#293134";
 const useStyles = makeStyles((theme)=>({
   mainContainer: {
     height: '310px',
-    width: '590px',
+    width: '100%',
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
     backgroundColor:'#fff',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme)=>({
   },
   mainManagerContainer: {
     height: '350px',
-    width: '590px',
+    width: '100%',
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
     backgroundColor:'#fff',
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme)=>({
     color: '#fff',
     backgroundColor:'#4AD584',
     border:'1px solid #4AD584',
-    marginLeft: "460px",
+    marginLeft: "80%",
     marginTop: "10px",
     fontFamily: 'Roboto, sans-serif',
     fontSize: '12x',
@@ -181,7 +181,7 @@ const ClientBigCard =({ userType })=>{
         </Grid>
         <Box style={{ marginLeft:"15px" }}>
           <Line data={dataForm.dataGraph}
-            width={600}
+            width={1}
             height={200}
             options={{
               maintainAspectRatio: false,
@@ -219,7 +219,7 @@ const ClientBigCard =({ userType })=>{
               }
             }}/>
         </Box>
-        <Box>
+        <Box style={{ textAlign:"end" }}>
           <Button className={classes.btnGreen} onClick={()=>{}}>{t('btnExport')}<GetAppIcon style={{ fontSize:"18px", marginLeft:"5px" }}/></Button>
         </Box>
       </Box>

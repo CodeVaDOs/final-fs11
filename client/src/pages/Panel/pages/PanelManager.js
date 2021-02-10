@@ -27,7 +27,7 @@ const PanelManager =()=> {
   return(<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
-      <Box style={{ width:"890px", height:"350px" }}>
+      <Box>
         <Grid
           container
           direction="row"
@@ -36,7 +36,7 @@ const PanelManager =()=> {
         >
           <Grid item xs={7}><ClientBigCard userType={"manager"}/></Grid>
           <Grid item xs={5}>
-            <Box style={{ width: "290px", marginLeft: "-25px", marginTop:"5px" }}>
+            <Box style={{ textAlign:"start" }}>
               <PanelClientSmallCard userType={"manager"}/>
             </Box>
           </Grid>

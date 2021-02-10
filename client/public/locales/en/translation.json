@@ -163,5 +163,12 @@
   "swimming": "Booking a sun lounger by the pool",
   "flowers": "Flower delivery",
   "child": "Invite a babysitter for the baby",
-  "house": "Other"
+  "house": "Other",
+  "headerReq": "Request for management services",
+  "subTitleReq": "Please describe what we can do for you, choose the house and the date of the specialist's visit",
+  "greyTextReq": "After confirmation, the manager will receive your request and contact you for details. Have a good day!",
+  "houseReq":"House",
+  "inputDefault": "Leave a comment ...",
+  "btnService": "Order Additional Services",
+  "btnSer2": "Order Management Service"
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-
+import  Container  from "../../components/Container";
 const NotFound = () => {
   return (
-    <div>
+    <Container>
       <h1>NotFound</h1>
-    </div>
+    </Container>
   );
 };
 

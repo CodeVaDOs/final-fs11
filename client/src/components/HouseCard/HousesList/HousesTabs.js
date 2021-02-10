@@ -5,12 +5,12 @@ import Tab from '@material-ui/core/Tab';
 import HouseCard from "./HouseCards";
 import TabPanel from "./TabPanel";
 import ControlNotificationContainer from "./ControlNotification/ControlNotificationContainer";
-import { Container } from "@material-ui/core";
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
 import { tileData } from "../../../utils/constants/housesView";
 import { useFetch } from "../../../hooks/useFetch";
 import { useTranslation } from "react-i18next";
+import Box from "@material-ui/core/Box";
 
 const AntTabs = withStyles({
   indicator: {
@@ -21,7 +21,7 @@ const AntTabs = withStyles({
 const AntTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
-    minWidth: 72,
+    width: "100%",
     marginRight: theme.spacing(4),
     fontFamily: [
       'Roboto',
@@ -44,13 +44,13 @@ const AntTab = withStyles((theme) => ({
 
 const useStyles = makeStyles(() => ({
   root: {
-    minWidth: 'inherit',
+    width: '100%',
     marginTop: '18px',
   },
   padding: {
   },
   container: {
-    maxWidth: '890px',
+    width: '100%',
     height: 'fit-content',
     boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
     borderRadius: '20px',
@@ -83,27 +83,24 @@ export default function HousesTabs() {
   }
 
   return (
-    <div className={classes.root}>
-      <div>
+    <Box className={classes.root}>
+      <Box>
         <AntTabs value={value} onChange={handleChange} aria-label="ant example">
           <AntTab value="one" label={t("myHouses")} wrapped/>
           <AntTab value="two" label={t("control")}/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <Container>
+          <Box>
             <HouseCard onHouseClick={houseToState} data={Houses}/>
-            <Container className={classes.container}>
-              <HouseContainer house={house}/>
-            </Container>
-          </Container>
-
+            <HouseContainer house={house}/>
+          </Box>
         </TabPanel>
         <TabPanel value={value} index="two">
           <ControlNotificationContainer/>
           <ManagementServices/>
         </TabPanel>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

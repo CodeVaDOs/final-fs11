@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme)=>({
     marginTop: theme.spacing(2),
   },
   formControl: {
-    width: '890px',
+    width: '100%',
     height: '339px',
     borderRadius: '20px',
     boxShadow: '0px 2px 4px #00000033',
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme)=>({
   rootInput: {
     borderRadius: 10,
     height: 165,
-    width: 850,
+    width: "100%",
     color:'#99A0A3',
     backgroundColor:'#F7FAFF',
     marginLeft:"-20px",
@@ -200,7 +200,7 @@ const PanelAdmMemo =()=>{
             onChange={handleChangeData}
           />
         </form>
-        <Box style={{ marginTop:"20px" }}>
+        <Box style={{ textAlign: "end", marginTop:"20px" }}>
           <ButtonStyle w={"100px"} h={"30px"} fs={14} fw={400} bgcolor={"#254A93"} ml={"730px"} text={t('sendBtn')} onClick={onSubmit}/>
         </Box>
       </Box>

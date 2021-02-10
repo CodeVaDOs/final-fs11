@@ -10,7 +10,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 const useStyles = makeStyles({
   cardContainer: {
     height: '170px',
-    width: '280px',
+    width: '300%',
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
     backgroundColor:'#fff',
@@ -209,7 +209,7 @@ const PanelClientSmallCard =({ userType })=>{
     );
   };
   const renderManagerPanel =()=>{
-    return(<Box style={{ marginLeft:"110px" }}>
+    return(<Box>
       <Grid
         container
         direction="column"

@@ -22,7 +22,7 @@ import ChangeProfile from "../ChangeProfile";
 
 const useStyles = makeStyles((theme)=>({
   profileControl: {
-    width: '890px',
+    width: '100%',
     height: '556px',
     borderRadius: '20px',
     boxShadow: '0px 2px 4px #00000033',

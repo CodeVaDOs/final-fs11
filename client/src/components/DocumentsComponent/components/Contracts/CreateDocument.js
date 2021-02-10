@@ -2,10 +2,10 @@ import React from "react";
 import { DocumentItem } from "../../../ClientPage/components/Documents/DocumentItem";
 import { Documents } from "../../../ClientPage/components/Documents";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Box from '@material-ui/core/Box';
 const useStyles = makeStyles(() => ({
   root: {
-    // borderLeft: '1px solid black',
+    backgroundColor:"white",
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -20,14 +20,13 @@ export const CreateDocument = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <DocumentItem
         title={'Контракт 23_03_2020 H013…Овсієнко.pdf'}
         shortDescription={'Договір о довгостроковій...'}/>
-      <div className={classes.margin}>
+      <Box className={classes.margin}>
         <Documents visible={true}/>
-
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
