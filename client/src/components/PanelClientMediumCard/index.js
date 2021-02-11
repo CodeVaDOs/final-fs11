@@ -7,20 +7,20 @@ import Button from "@material-ui/core/Button";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Grid from "@material-ui/core/Grid";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import ReplyIcon from '@material-ui/icons/Reply';
 
 const useStyles = makeStyles({
   mediumCardContainer: {
     height: '310px',
-    width: '100%',
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
     backgroundColor:'#fff',
-    marginTop: "10px",
-    marginLeft: '5px'
+    margin:"10px"
   },
   cardHeader: {
     fontFamily: 'Roboto, sans-serif',
-    fontSize: '18px',
+    fontSize: '14px',
     fontWeight: 'bold',
     color: '#293134',
     marginLeft: "20px",
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
   cardReview: {
     fontFamily: 'Roboto, sans-serif',
-    fontSize: '14px',
+    fontSize: '12px',
     fontWeight: 'bold',
     color: '#293134',
     marginLeft: "20px",
@@ -36,11 +36,12 @@ const useStyles = makeStyles({
   },
   feedback: {
     fontFamily: 'Roboto, sans-serif',
-    fontSize: '14px',
+    fontSize: '12px',
     fontWeight: 'normal',
     color: '#6E7375',
     marginLeft: "20px",
-    marginTop: "10px"
+    marginTop: "10px",
+    paddingRight:"8px"
   },
   subHeader: {
     fontFamily: 'Roboto, sans-serif',
@@ -51,7 +52,7 @@ const useStyles = makeStyles({
   },
   cardAvatar: {
     fontFamily: 'Roboto, sans-serif',
-    fontSize: '16px',
+    fontSize: '14px',
     fontWeight: 'normal',
     color: '#293134',
     marginTop: "14px",
@@ -76,31 +77,30 @@ const useStyles = makeStyles({
   },
 
 });
-
-const PanelClientMediumCard =()=>{
+const PanelClientMediumCard =({ id, title, user, date, subName, body, typeCard, widthT })=>{
   const classes = useStyles();
   const { t } = useTranslation();
   const [userType] = useState('client');
 
   const renderClientPanel =()=>{
     return(
-      <Box className={classes.mediumCardContainer}>
+      <Box className={classes.mediumCardContainer} style={{ width: widthT === 1 ? "96%": "290px" }} key={id}>
         <Grid
           container
           direction="row"
           justify="flex-start"
           alignItems="flex-start">
-          <Grid item xs={5}>
-            <Typography className={classes.cardHeader}>{t("review")}</Typography>
+          <Grid item xs={6}>
+            <Typography className={classes.cardHeader}>{title}</Typography>
           </Grid>
-          <Grid item xs={5}>
-            <Typography className={classes.cardAvatar}>{"Анатолий"}</Typography>
+          <Grid item xs={4}>
+            <Typography className={classes.cardAvatar}>{user}</Typography>
           </Grid>
           <Grid item xs={2}>
             <AccountCircleIcon style={{ color:"#B1B4BA", width:"34px", height:"34px", marginTop:"10px" }}/>
           </Grid>
         </Grid>
-        <Typography className={classes.subHeader}>{"June 27 - June 30"}</Typography>
+        <Typography className={classes.subHeader}>{date}</Typography>
         <Box style={{ marginLeft:"15px", marginTop:"5px" }}>
           <StarBorderIcon style={{ color:"#F88B38" }}/>
           <StarBorderIcon style={{ color:"#F88B38" }}/>
@@ -108,11 +108,17 @@ const PanelClientMediumCard =()=>{
           <StarBorderIcon style={{ color:"#F88B38" }}/>
           <StarBorderIcon style={{ color:"#F88B38" }}/>
         </Box>
-        <Typography className={classes.cardReview}>{t("reviewTitle")}</Typography>
-        <Typography className={classes.feedback}>{"This place is amazing! Super clean, stylish, and not too far from all of the best Ukraine has to offer. The host was friendly and helpful. Would definitely stay here again on a return trip to Ukraine."}</Typography>
-        <Box style={{ marginTop:"8px" }}>
-          <Button className={classes.btn} onClick={()=>{}}>{t('more')}</Button>
-        </Box>
+        <Typography className={classes.cardReview}>{subName}</Typography>
+        <Typography className={classes.feedback}>{body}</Typography>
+        {typeCard === "btn"?
+          <Box style={{ margin:"10% -20%", display: "block" }}>
+            <Button className={classes.btn} onClick={()=>{}}>{t('more')}</Button>
+          </Box>:
+          <Box style={{ marginTop:"20px", display: "block", marginLeft:"40%" }}>
+            <FavoriteBorderIcon style={{ color:"#B1B4BA", marginLeft:"10px" }}/>
+            <ReplyIcon style={{ color:"#B1B4BA",  marginLeft:"10px"  }}/>
+          </Box>
+        }
       </Box>
     );
   };
