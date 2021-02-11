@@ -34,6 +34,12 @@ public class TransactionController {
         return ResponseEntity.ok(service.create(t));
     }
 
+    @PutMapping
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseEntity<ResponseTransaction> update(@RequestBody RequestTransaction t) {
+        return ResponseEntity.ok(service.update(t));
+    }
+
     @DeleteMapping("{id}")
     @PreAuthorize("hasAuthority('developers:write')")
     public ResponseEntity<Long> delete(@PathVariable("id") Long id) {

@@ -21,17 +21,28 @@ public class BookingService {
 
     public ResponseBooking create(RequestBooking b, String email) {
         return userRepo.findByEmail(email)
-                .map(u-> houseRepo.findById(b.getHouseId())
-                                .map(h -> bookingRepo.save(b.toEntity(h, u)))
-                                .map(ResponseBooking::toDto)
-                                .orElseThrow(()->new NoDataFoundException("house", b.getHouseId())))
-                .orElseThrow(()->new NoDataFoundException(String.format("user with email %s not found", email)));
+                .map(u -> houseRepo.findById(b.getHouseId())
+                        .map(h -> bookingRepo.save(b.toEntity(h, u)))
+                        .map(ResponseBooking::toDto)
+                        .orElseThrow(() -> new NoDataFoundException("house", b.getHouseId())))
+                .orElseThrow(() -> new NoDataFoundException(String.format("user with email %s not found", email)));
+    }
+
+    public ResponseBooking update(RequestBooking b) {
+        return bookingRepo.findById(b.getId())
+                .map(i -> {
+                    i.setFromDate(b.getFromDate());
+                    i.setToDate(b.getToDate());
+                    return bookingRepo.save(i);
+                })
+                .map(ResponseBooking::toDto)
+                .orElseThrow(() -> new NoDataFoundException("booking", b.getId()));
     }
 
     public ResponseBooking read(Long id) {
         return bookingRepo.findById(id)
                 .map(ResponseBooking::toDto)
-                .orElseThrow(() ->  new NoDataFoundException("booking", id));
+                .orElseThrow(() -> new NoDataFoundException("booking", id));
     }
 
     public List<ResponseBooking> readAll() {
