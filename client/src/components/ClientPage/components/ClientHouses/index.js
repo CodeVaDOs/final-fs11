@@ -8,6 +8,7 @@ import Flex from "react-calendar/dist/umd/Flex";
 
 const useStyles = makeStyles(() => ({
   root: {
+    width:"90%",
     backgroundColor: "white",
     display: 'flex',
     alignItems: 'flex-start',
