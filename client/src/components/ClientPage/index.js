@@ -3,7 +3,10 @@ import ClientTabs from "./components/Information/Tabs";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
-  root: {
+  div: {
+    width: '100%',
+    padding:0,
+    margin:0
   },
 
 }));
@@ -13,7 +16,8 @@ export const ClientPage = () => {
 
   return (
     <>
-      <div className={classes.root}>
+      <h4>Aндрій Олександрович</h4>
+      <div className={classes.div}>
         <ClientTabs/>
       </div>
     </>

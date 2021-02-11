@@ -50,10 +50,11 @@ const useStyles = makeStyles((theme) => ({
 
 export const Documents = ({ visible }) => {
   const classes = useStyles();
-
+  const createDocument = () => {
+    console.log('createDocument func');
+  };
   return (
     <>
-
       {
         visible ?
           <div className={classes.root}>
@@ -71,7 +72,9 @@ export const Documents = ({ visible }) => {
               shortDescription={'Короткий опис документа'}
               type={'edit'}
             />
-            <Button className={classes.btnSend}>
+            <Button
+              onClick={createDocument}
+              className={classes.btnSend}>
               Зберегти</Button>
           </div> :
           <div className={classes.root}>

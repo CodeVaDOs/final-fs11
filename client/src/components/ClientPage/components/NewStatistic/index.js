@@ -5,7 +5,6 @@ import { AddNewStatistic } from "./AddNewStatistic";
 
 const useStyles = makeStyles(() => ({
   root: {
-    position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
     flexDirection: 'row',

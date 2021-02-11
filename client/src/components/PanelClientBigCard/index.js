@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme)=>({
     fontWeight: 'normal',
   },
   smallGrid:{
-    width: "397px",
+    maxWidth: "397px",
     height: "72px",
     marginLeft:"35px"
   },
@@ -163,7 +163,7 @@ const ClientBigCard =({ userType })=>{
           <Grid className={classes.subGrid} item xs={2}>{t("house2")}</Grid>
           <Grid className={classes.subGrid} item xs={3}>
             <FormControl variant="filled" className={classes.formControlSelect}>
-              <InputLabel id="demo-simple-select-filled-label"></InputLabel>
+              <InputLabel id="demo-simple-select-filled-label"/>
               <Select className={classes.rootSelect}
                 defaultValue={dataForm.staticPeriodType}
                 labelId="demo-simple-select-filled-label"
@@ -194,7 +194,7 @@ const ClientBigCard =({ userType })=>{
                 yAxes: [{
                   ticks: {
                     callback(value, index) {
-                      if (index % 2 == 0) return '';
+                      if (index % 2 === 0) return '';
                       return value;
                     },
                   },
