@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,18 +20,21 @@ public class MessageService {
 
     public ResponseMessage create(RequestMessage m) {
         return userRepo.findById(m.getFromUserId())
-                .map(fu->userRepo.findById(m.getToUserId())
+                .map(fu -> userRepo.findById(m.getToUserId())
                         .map(tu -> messageRepo.save(new Message(fu, tu, m.getText())))
                         .map(ResponseMessage::toDto)
-                        .orElseThrow(()->new NoDataFoundException("message", m.getToUserId())))
-                .orElseThrow(()->new NoDataFoundException("message", m.getFromUserId()));
+                        .orElseThrow(() -> new NoDataFoundException("user", m.getToUserId())))
+                .orElseThrow(() -> new NoDataFoundException("user", m.getFromUserId()));
     }
 
     public ResponseMessage update(RequestMessage m) {
         return messageRepo.findById(m.getId())
-                .map(i->{i.setText(m.getText()); return messageRepo.save(i);})
+                .map(i -> {
+                    i.setText(m.getText());
+                    return messageRepo.save(i);
+                })
                 .map(ResponseMessage::toDto)
-                .orElseThrow(()->new NoDataFoundException("message", m.getId()));
+                .orElseThrow(() -> new NoDataFoundException("message", m.getId()));
     }
 
     public ResponseMessage read(Long id) {

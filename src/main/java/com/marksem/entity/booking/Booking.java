@@ -6,7 +6,9 @@ import com.marksem.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -22,9 +24,6 @@ public class Booking extends BaseEntity {
     @Column(name = "to_date")
     private Date toDate;
 
-    @Column(name = "renter_photo_url")
-    private String renterPhotoUrl;
-
     private Boolean isOwner;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,4 +36,7 @@ public class Booking extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "renter_id")
     private User renter;
+
+    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
+    private List<BookingMaintenance> bookingMaintenances = new ArrayList<>();
 }

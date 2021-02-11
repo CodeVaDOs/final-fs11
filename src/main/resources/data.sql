@@ -22,3 +22,34 @@ insert into users (
     'manager@ukr.net',
     'MANAGER',
     '$2y$12$v8iSQU5dd9g6kEBrsWxZme950DVfzMZAq4TG1vBlBbjc8xRW/Zs8i');
+insert into contacts (
+    phone, type, user_id) values (
+    '0673334433',
+    'ADDITIONAL',
+    1);
+insert into contacts (
+    phone, type, user_id) values (
+    '0502221122',
+    'MAIN',
+    1);
+insert into house_types (
+    name) values (
+    'modern');
+insert into house_types (
+    name) values (
+    'old_fashion');
+insert into house_types (
+    name) values (
+    'classic');
+insert into house_models (
+    name, house_type_id) values (
+    'Gatsby', 2);
+insert into house_models (
+    name, house_type_id) values (
+    'Al Capone', 2);
+insert into house_models (
+    name, house_type_id) values (
+    'Stradivari', 3);
+insert into house_models (
+    name, house_type_id) values (
+    'Elon Musk', 1);

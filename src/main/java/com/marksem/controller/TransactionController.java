@@ -1,8 +1,8 @@
 package com.marksem.controller;
 
-import com.marksem.dto.request.RequestNotification;
-import com.marksem.dto.response.ResponseNotification;
-import com.marksem.service.NotificationService;
+import com.marksem.dto.request.RequestTransaction;
+import com.marksem.dto.response.ResponseTransaction;
+import com.marksem.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,39 +11,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/notifications")
+@RequestMapping("api/v1/transactions")
 @RequiredArgsConstructor
-public class NotificationController {
-    private final NotificationService service;
-
-//    @GetMapping
-//    @PreAuthorize("hasAuthority('developers:read')")
-//    public List<ResponseNotification> readAllByUser(Principal principal) {
-//        return service.readAllByUser(principal.getName());
-//    }
+public class TransactionController {
+    private final TransactionService service;
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseNotification> readAll() {
+    public List<ResponseTransaction> readAll() {
         return service.readAll();
     }
 
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<ResponseNotification> read(@PathVariable("id") Long id) {
+    public ResponseEntity<ResponseTransaction> read(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.read(id));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseNotification create(@RequestBody RequestNotification n) {
-        return service.create(n);
+    public ResponseEntity<ResponseTransaction> create(@RequestBody RequestTransaction t) {
+        return ResponseEntity.ok(service.create(t));
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseNotification update(@RequestBody RequestNotification n) {
-        return service.update(n);
+    public ResponseEntity<ResponseTransaction> update(@RequestBody RequestTransaction t) {
+        return ResponseEntity.ok(service.update(t));
     }
 
     @DeleteMapping("{id}")
