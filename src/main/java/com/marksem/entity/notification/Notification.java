@@ -2,10 +2,7 @@ package com.marksem.entity.notification;
 
 import com.marksem.entity.BaseEntity;
 import com.marksem.entity.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "notifications")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notification extends BaseEntity {
@@ -21,6 +19,6 @@ public class Notification extends BaseEntity {
     private Importance importance;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
 }

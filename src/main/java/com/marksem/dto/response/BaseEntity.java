@@ -1,6 +1,8 @@
 package com.marksem.dto.response;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
@@ -10,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseEntity {
-    public Long id;
+    private Long id;
     private Long version;
     private String createdBy;
     private String updatedBy;

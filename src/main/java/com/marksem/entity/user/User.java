@@ -46,7 +46,7 @@ public class User extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Contact> contacts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Notification> notifications = new ArrayList<>();
 }

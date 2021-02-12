@@ -1,17 +1,15 @@
 package com.marksem.entity.house;
 
 import com.marksem.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "house_maintenances")
+@Table(name = "house_maintenance")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseMaintenance extends BaseEntity {
@@ -21,7 +19,7 @@ public class HouseMaintenance extends BaseEntity {
     private String text;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id")
