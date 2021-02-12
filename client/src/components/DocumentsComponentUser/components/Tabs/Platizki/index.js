@@ -134,8 +134,12 @@ export const MyBills = () => {
       documents.filter((d) => {
         return search.includes(d.title);
       }));
-  }, [search, documents, _DATAFilter]);
+  }, [search]);
 
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
   if (loading) {
     return <p>Завантажую платіжки...</p>;
   }
@@ -144,16 +148,16 @@ export const MyBills = () => {
       <div className={classes.root}>
         <div className={classes.topSide}>
           <div>
-            <form className={classes.search} noValidate autoComplete="off">
+            <div className={classes.search}>
               <div>
                 <SearchIcon className={classes.searchIcon}/>
               </div>
               <TextField
                 className={classes.inputRoot}
                 type="search"
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={searchHandler}
               />
-            </form>
+            </div>
           </div>
           <div className={classes.cleatfix}>
             <div className={classes.row}>

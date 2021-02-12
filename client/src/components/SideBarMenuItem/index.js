@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#eef5ff",
-    maxWidth: "415px",
-    width: "415px",
+    maxWidth: "360px",
+    width: "410px",
     height: "68px",
-    padding: "30px",
+    padding: "5px",
   },
   settingsContainer: {
     display: "flex",
@@ -91,8 +91,8 @@ const SidebarMenuItem = (props) => {
           <img className={classes.flag} src={flag} alt="country flag"/>
           <LangSwitcher/>
         </div>
-        <MailOutlineIcon color="inherit" style={{ marginLeft: "1rem" }}/>
-        <NotificationsIcon color="inherit" style={{ marginLeft: "1rem" }}/>
+        <MailOutlineIcon color="inherit" style={{ marginLeft: "0.5rem" }}/>
+        <NotificationsIcon color="inherit" style={{ marginLeft: "0.5rem" }}/>
       </div>
       <div className={classes.userContainer}>
         <div className={classes.userCredit}>

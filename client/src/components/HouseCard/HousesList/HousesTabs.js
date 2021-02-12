@@ -10,7 +10,7 @@ import { ManagementServices } from "./ManagementServices/ManagmentServices";
 import { tileData } from "../../../utils/constants/housesView";
 import { useFetch } from "../../../hooks/useFetch";
 import { useTranslation } from "react-i18next";
-import Box from "@material-ui/core/Box";
+import { Container } from "@material-ui/core";
 
 const AntTabs = withStyles({
   indicator: {
@@ -47,17 +47,6 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     marginTop: '18px',
   },
-  padding: {
-  },
-  container: {
-    width: '100%',
-    height: 'fit-content',
-    boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
-    borderRadius: '20px',
-    fontFamily: 'Roboto',
-    display: 'flex',
-
-  },
 }));
 
 
@@ -73,34 +62,32 @@ export default function HousesTabs() {
   }, []);
 
   console.log(data, loading);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   function houseToState(e) {
     setHouse(Houses[e]);
   }
 
   return (
-    <Box className={classes.root}>
-      <Box>
+    <Container className={classes.root}>
+      <div>
         <AntTabs value={value} onChange={handleChange} aria-label="ant example">
           <AntTab value="one" label={t("myHouses")} wrapped/>
           <AntTab value="two" label={t("control")}/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <Box>
+          <div>
             <HouseCard onHouseClick={houseToState} data={Houses}/>
             <HouseContainer house={house}/>
-          </Box>
+          </div>
         </TabPanel>
-        <TabPanel value={value} index="two">
+        <TabPanel value={value} index="two" style={{ width: '140vh' }}>
           <ControlNotificationContainer/>
           <ManagementServices/>
         </TabPanel>
-      </Box>
-    </Box>
+      </div>
+    </Container>
   );
 }
 

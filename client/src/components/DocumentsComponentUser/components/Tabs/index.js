@@ -65,7 +65,7 @@ export default function FullWidthTabs() {
   };
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -77,6 +77,7 @@ export default function FullWidthTabs() {
         <Tab label="Експлуатацiя" {...a11yProps(2)} />
       </Tabs>
       <SwipeableViews
+        style={{ width: "950px", margin: "0 auto" }}
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
@@ -91,6 +92,6 @@ export default function FullWidthTabs() {
           <MyExploitation/>
         </TabPanel>
       </SwipeableViews>
-    </Box>
+    </div>
   );
 }

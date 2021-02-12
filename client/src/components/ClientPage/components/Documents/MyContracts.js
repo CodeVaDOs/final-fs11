@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(() => ({
   root: {
+    width: '100%',
     display: "flex",
     flexDirection: "column"
   },
@@ -33,7 +34,7 @@ const useStyles = makeStyles(() => ({
   },
   search: {
     position: "relative",
-    width: 390,
+    width: 200,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -55,6 +56,7 @@ const useStyles = makeStyles(() => ({
     marginRight: 10
   },
   row: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'left',

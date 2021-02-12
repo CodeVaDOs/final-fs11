@@ -21,12 +21,11 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     zIndex: 9999999999,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: 'space-between',
     alignItems: 'center'
   },
   mainContainerDocuments: {
-    marginTop: 145,
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
     gridTemplateRows: " repeat(3, 1fr)",
@@ -34,9 +33,8 @@ const useStyles = makeStyles(() => ({
     gridRowGap: 0,
   },
   search: {
-    position: "absolute",
-    right: 0,
-    width: 390,
+    position: "relative",
+    width: 290,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -99,7 +97,6 @@ export const MyContractsUser = () => {
   let [page, setPage] = useState(1);
   let [paged, setPageD] = useState(1);
   const [createDocument, setCreateDocument] = useState(false);
-
   const PER_PAGE = 15;
   const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
     {
@@ -139,8 +136,12 @@ export const MyContractsUser = () => {
       documents.filter((d) => {
         return search.includes(d.title);
       }));
-  }, [search, documents, _DATAFilter]);
+  }, [search]);
 
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
   if (loading) {
     return <p>Завантажую контракти...</p>;
   }
@@ -154,40 +155,27 @@ export const MyContractsUser = () => {
           <CreateDocument/>
           :
           <div>
-            <Button
-              className={classes.btnAdd}
-              onClick={createContract}
-            >
-              Додати контракт <DescriptionIcon className={classes.editIcon}/>
-            </Button>
-
             <div className={classes.topSide}>
-              <div>
-                <form className={classes.search} noValidate autoComplete="off">
-                  <div>
-                    <SearchIcon className={classes.searchIcon}/>
-                  </div>
-                  <TextField
-                    className={classes.inputRoot}
-                    type="search"
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                </form>
+              <Button
+                className={classes.btnAdd}
+                onClick={createContract}
+              >
+                Додати контракт <DescriptionIcon className={classes.editIcon}/>
+              </Button>
+              <div className={classes.search} >
+                <div>
+                  <SearchIcon className={classes.searchIcon}/>
+                </div>
+                <TextField
+                  className={classes.inputRoot}
+                  onChange={searchHandler}
+                />
               </div>
-              <div className={classes.cleatfix}>
-                <div className={classes.row}>
-                  <SelectDocument options={['Прибирання', "Електроенергія", "Вода", "Інше"]}/>
-                </div>
-                <div className={classes.row}>
-                  <h3>Показати</h3>
-                  <SelectDocument options={['Marksem M - 2 House large 00102']}/>
-                </div>
 
-                <div className={classes.row}>
-                  <h3>Сортувати</h3>
-                  <SelectDocument
-                    options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
-                </div>
+              <div className={classes.row}>
+                <h3>Сортувати</h3>
+                <SelectDocument
+                  options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
               </div>
 
             </div>
