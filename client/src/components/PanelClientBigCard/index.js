@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme)=>({
     marginRight: '10px',
   },
   mainManagerContainer: {
-    height: '350px',
+    height: '100%',
     width: '100%',
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
@@ -77,11 +77,14 @@ const useStyles = makeStyles((theme)=>({
     backgroundColor:'#4AD584',
     border:'1px solid #4AD584',
     marginLeft: "80%",
-    marginTop: "10px",
+    marginTop: "-20%",
     fontFamily: 'Roboto, sans-serif',
     fontSize: '12x',
     textTransform: "none",
     fontWeight: 'normal',
+    "&:hover":{
+      color:"#4AD584"
+    },
   },
   btnGrey: {
     width:100,
@@ -108,7 +111,7 @@ const useStyles = makeStyles((theme)=>({
     color: '#293134'
   },
 }));
-const ClientBigCard =({ userType })=>{
+const ClientBigCard =({ userType, display="block" })=>{
   const classes = useStyles();
   const type = userType;
   const { t } = useTranslation();
@@ -219,7 +222,7 @@ const ClientBigCard =({ userType })=>{
               }
             }}/>
         </Box>
-        <Box style={{ textAlign:"end" }}>
+        <Box style={{ margin: "2% 80%" }}>
           <Button className={classes.btnGreen} onClick={()=>{}}>{t('btnExport')}<GetAppIcon style={{ fontSize:"18px", marginLeft:"5px" }}/></Button>
         </Box>
       </Box>
@@ -234,10 +237,10 @@ const ClientBigCard =({ userType })=>{
           justify="center"
           alignItems="flex-start"
         >
-          <Grid className={classes.subGrid} item xs={10} >
+          <Grid className={classes.subGrid} item xs={9} >
             <Typography className={classes.header}>{t("rentedHeader")}</Typography>
           </Grid>
-          <Grid className={classes.subGrid} item xs={2}>
+          <Grid className={classes.subGrid} item xs={3}>
             <FormControl variant="filled" className={classes.formControlSelect}>
               <InputLabel id="demo-simple-select-filled-label"></InputLabel>
               <Select className={classes.rootSelect}
@@ -295,30 +298,33 @@ const ClientBigCard =({ userType })=>{
               }
             }}/>
         </Box>
-        <Typography  style={{ marginLeft:"35px" }} className={classes.textBlack}>{"Всього орендовано за рік"}</Typography>
-        <Grid
-          container
-          className={classes.smallGrid}
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-        >
-          <Grid item xs={4}>
-            <Typography className={classes.textBlack}>{"1231"}</Typography>
-            <Typography className={classes.textGrey}>{"Орендарів"}</Typography>
+        <Box style={{ display: display }}>
+          <Typography  style={{ marginLeft:"35px" }} className={classes.textBlack}>{t("yearRent")}</Typography>
+          <Grid
+            container
+            className={classes.smallGrid}
+            direction="row"
+            justify="center"
+            alignItems="flex-start"
+          >
+            <Grid item xs={4}>
+              <Typography className={classes.textBlack}>{"1231"}</Typography>
+              <Typography className={classes.textGrey}>{t("renter")}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography className={classes.textBlack}>{"253"}</Typography>
+              <Typography className={classes.textGrey}>{t("dayRent")}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography className={classes.textBlack}>{"253"}</Typography>
+              <Typography className={classes.textGrey}>{t("hoseRent")}</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <Typography className={classes.textBlack}>{"253"}</Typography>
-            <Typography className={classes.textGrey}>{"Днів в оренді"}</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography className={classes.textBlack}>{"253"}</Typography>
-            <Typography className={classes.textGrey}>{"Будинків орендовано"}</Typography>
-          </Grid>
-        </Grid>
-        <Box style={{ marginTop:"-60px" }}>
-          <Button className={classes.btnGreen} onClick={()=>{}}>{"Детально"}</Button>
+          <Box>
+            <Button className={classes.btnGreen} onClick={()=>{}}>{t("details")}</Button>
+          </Box>
         </Box>
+
       </Box>
     );
   };

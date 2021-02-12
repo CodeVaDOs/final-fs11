@@ -19,7 +19,7 @@ function CircularProgressWithLabel(props) {
         justifyContent="center"
       >
         <Typography variant="p" color="initial" style={{ fontSize: "0.8rem", fontWeight: 700 }}>
-          ${`${props.progress}K`}
+          {`${props.progress}`}
         </Typography>
       </Box>
     </Box>

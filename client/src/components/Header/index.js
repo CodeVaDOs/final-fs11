@@ -139,20 +139,27 @@ const Header = () => {
       },
       {
         id: 8,
+        text:t("menuStatistic"),
+        icon: icons.analytic,
+        to: '/statistic',
+        isMain: false
+      },
+      {
+        id: 9,
         text:t("menuHouses"),
         icon: icons.photo,
         to: '/houses',
         isMain: false
       },
       {
-        id: 9,
+        id: 10,
         text:t("menuEmployee"),
         icon: icons.photo,
         to: '/employees',
         isMain: false
       },
       {
-        id: 10,
+        id: 11,
         text: t("menuHistory"),
         icon: icons.photo,
         to: '/history',

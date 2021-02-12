@@ -28,7 +28,7 @@ const Panel =()=> {
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
       <Box>
         <Box>
-          <PanelClientSmallCard/>
+          <PanelClientSmallCard userType={"client"}/>
         </Box>
         <Grid
           container
@@ -37,7 +37,16 @@ const Panel =()=> {
           alignItems="flex-start"
         >
           <Grid item xs={8}><ClientBigCard userType={"client"}/></Grid>
-          <Grid item xs={4}><PanelClientMediumCard/></Grid>
+          <Grid item xs={4}><PanelClientMediumCard 
+            id={1}
+            title={"Останній відгук"}
+            user ={"Anatolii"}
+            date={"27 Червня - 30 Червня"}
+            body={"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"}
+            subName={"Огляд"}
+            typeCard={"btn"}
+            widthT={1}
+          /></Grid>
         </Grid>
         <News/>
       </Box>
