@@ -20,7 +20,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         authorized: true,
-        loading: falsee
+        loading: false
       };
 
     case "LOGIN_FAILURE":
