@@ -6,9 +6,9 @@ import { SelectDocument } from "./SelectDocument";
 import { DocumentItem } from "./DocumentItem";
 import { Button } from "@material-ui/core";
 import DescriptionIcon from '@material-ui/icons/Description';
-import usePagination from "../../../DocumentsComponent/components/Contracts/usePagination";
+import usePagination from "../../../../hooks/usePagination";
 import { Pagination } from "@material-ui/lab";
-import { CreateDocument } from "../../../DocumentsComponent/components/Contracts/CreateDocument";
+import { CreateDocument } from "../../../DocumentsComponent/components/Tabs/Contracts/CreateDocument";
 
 const useStyles = makeStyles((theme) => ({
   root: {

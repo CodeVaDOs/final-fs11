@@ -6,8 +6,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Contracts } from "../Contracts";
-import { Platizki } from "../Platizki";
+import { Contracts } from "./Contracts";
+import { MyBills } from "./Platizki";
+import { MyExploitation } from "./Exploitation";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,7 +43,7 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "transparent",
     width: "100%",
@@ -62,7 +63,6 @@ export default function FullWidthTabs() {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
 
   return (
     <Box className={classes.root}>
@@ -85,10 +85,10 @@ export default function FullWidthTabs() {
           <Contracts/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Platizki/>
+          <MyBills/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+          <MyExploitation/>
         </TabPanel>
       </SwipeableViews>
     </Box>
