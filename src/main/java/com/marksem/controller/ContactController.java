@@ -1,14 +1,13 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestContact;
+import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseContact;
 import com.marksem.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/contacts")
@@ -18,8 +17,8 @@ public class ContactController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseContact> readAll() {
-        return service.readAll();
+    public ResponseEntity<PageableResponse<ResponseContact>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(service.readAll(page, size));
     }
 
     @GetMapping("{id}")

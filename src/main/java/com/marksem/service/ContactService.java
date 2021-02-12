@@ -1,14 +1,18 @@
 package com.marksem.service;
 
 import com.marksem.dto.request.RequestContact;
+import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseContact;
+import com.marksem.entity.contact.Contact;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.ContactRepository;
 import com.marksem.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,8 +45,11 @@ public class ContactService {
                 .orElseThrow(() -> new NoDataFoundException("contact", id));
     }
 
-    public List<ResponseContact> readAll() {
-        return contactRepo.findAll().stream().map(ResponseContact::toDto).collect(Collectors.toList());
+    public PageableResponse<ResponseContact> readAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Contact> contacts = contactRepo.findAll(pageable);
+        return new PageableResponse<>(contacts.getTotalElements(),
+                contacts.getContent().stream().map(ResponseContact::toDto).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

@@ -1,14 +1,13 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestHouse;
+import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseHouse;
 import com.marksem.service.HouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/houses")
@@ -18,8 +17,8 @@ public class HouseController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseHouse> readAll() {
-        return service.readAll();
+    public ResponseEntity<PageableResponse<ResponseHouse>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(service.readAll(page, size));
     }
 
     @GetMapping("{id}")
