@@ -4,7 +4,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { useTranslation } from "react-i18next";
-
+import en from "../../assert/flags/usaflag.png";
+import flag from '../../images/flag.png';
+import Avatar from '@material-ui/core/Avatar';
+import FolderIcon from '@material-ui/icons/Folder';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(0),
@@ -25,7 +28,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NativeSelects =()=>{
+const NativeSelects =({ lang })=>{
+  const checkLang=(lang)=>{
+    let l;
+    if(lang === "UKRAINIAN") return l="ua";
+    if(lang === "ENGLISH") return l="en";
+    if(lang === "RUSSIAN") return l="ru";
+  };
+  console.log(checkLang(lang));
   const classes = useStyles();
   const { i18n } = useTranslation();
   const changeLanguage=(e)=>{
@@ -36,7 +46,7 @@ const NativeSelects =()=>{
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="uncontrolled-native"/>
         <NativeSelect
-          defaultValue={'ua'}
+          defaultValue={checkLang(lang)}
           disableUnderline={true}
           inputProps={{
             id: 'uncontrolled-native',
@@ -45,9 +55,9 @@ const NativeSelects =()=>{
             changeLanguage(e);
           }}
         >
-          <option value={"en"}>EN</option>
-          <option value={"ru"}>RU</option>
           <option value={"ua"}>UA</option>
+          <option value={"ru"}>RU</option>
+          <option value={"en"}>EN</option>
         </NativeSelect>
       </FormControl>
     </div>

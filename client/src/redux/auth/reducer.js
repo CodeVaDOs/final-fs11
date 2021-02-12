@@ -3,7 +3,7 @@ import { getTokens } from "../../utils";
 const { accessToken } = getTokens();
 // authorized: Boolean(accessToken),
 const INIT_STATE = {
-  authorized: Boolean(accessToken),
+  authorized: false,
   loading: false,
   user: {},
 };
@@ -20,7 +20,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         authorized: true,
-        loading: false
+        loading: falsee
       };
 
     case "LOGIN_FAILURE":
