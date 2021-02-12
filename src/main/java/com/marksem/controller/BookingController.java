@@ -1,6 +1,7 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestBooking;
+import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseBooking;
 import com.marksem.service.BookingService;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/bookings")
@@ -19,8 +19,8 @@ public class BookingController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseBooking> readAll() {
-        return service.readAll();
+    public ResponseEntity<PageableResponse<ResponseBooking>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(service.readAll(page, size));
     }
 
     @GetMapping("{id}")
@@ -33,6 +33,12 @@ public class BookingController {
     @PreAuthorize("hasAuthority('developers:write')")
     public ResponseEntity<ResponseBooking> create(@RequestBody RequestBooking b, Principal principal) {
         return ResponseEntity.ok(service.create(b, principal.getName()));
+    }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseEntity<ResponseBooking> update(@RequestBody RequestBooking b) {
+        return ResponseEntity.ok(service.update(b));
     }
 
     @DeleteMapping("{id}")

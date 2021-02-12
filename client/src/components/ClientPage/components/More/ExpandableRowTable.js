@@ -12,13 +12,11 @@ import PrintIcon from "@material-ui/icons/Print";
 const useStyles = makeStyles({
   table: {
     borderRadius: '20px',
-    margin: 20
+    marginBottom: "20px"
   },
   root: {
     height: '100%',
-    display: "flex",
-    alignItems: "center",
-    justifyContent: 'center'
+    width: "100%",
   },
 
 });
@@ -125,7 +123,7 @@ const ExpandableRowTable = () => {
   return (
     <MUIDataTable
       className={classes.table}
-      title={"Детально"}
+      title={''}
       data={data}
       columns={columns}
       options={options}

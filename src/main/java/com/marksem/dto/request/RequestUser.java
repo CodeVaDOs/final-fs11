@@ -2,11 +2,14 @@ package com.marksem.dto.request;
 
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.validation.constraints.*;
-import java.util.ArrayList;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -35,9 +38,6 @@ public class RequestUser extends BaseEntity {
                 .role(this.role)
                 .managerId(managerId)
                 .name(this.name)
-                .contacts(new ArrayList<>())
-                .houses(new ArrayList<>())
-                .notifications(new ArrayList<>())
                 .build();
     }
 }

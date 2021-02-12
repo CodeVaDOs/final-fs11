@@ -1,17 +1,15 @@
 package com.marksem.entity.booking;
 
 import com.marksem.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "booking_maintenances")
+@Table(name = "booking_maintenance")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookingMaintenance extends BaseEntity {
@@ -21,7 +19,7 @@ public class BookingMaintenance extends BaseEntity {
     private String text;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id")

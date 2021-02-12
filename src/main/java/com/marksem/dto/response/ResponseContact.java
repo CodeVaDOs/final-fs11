@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Builder
 @AllArgsConstructor
-public class ResponseContact extends BaseEntity{
+public class ResponseContact extends BaseEntity {
     private String phone;
     private ContactType type;
 

@@ -9,6 +9,9 @@ import Box from '@material-ui/core/Box';
 import Grid from "@material-ui/core/Grid";
 import { More } from "@components/ClientPage/components/More";
 import ClientBigCard from '@components/PanelClientBigCard';
+import ManagerRentStatistic from '@components/ManagerRentStatistic';
+import { useTranslation } from "react-i18next";
+
 const useStyles = makeStyles({
   indicator: {
     backgroundColor: '#254A93',
@@ -18,6 +21,7 @@ const useStyles = makeStyles({
     backgroundColor: "transparent",
     textTransform:"none",
     marginTop:"20px",
+    padding: "0px",
     "& .MuiTab-textColorPrimary.Mui-selected": {
       color:"#254A93",
       textTransform:"none",
@@ -41,6 +45,9 @@ const useStyles = makeStyles({
     "& .MuiBox-root-100": {
       height: "480px",
       padding:0,
+    },
+    "& .MuiBox-root":{
+      padding:0,
     }
   },
   textBlack:{
@@ -48,7 +55,7 @@ const useStyles = makeStyles({
     fontSize: '18px',
     fontWeight: 'bold',
     color: '#293134',
-    marginLeft: "2%"
+    marginLeft: "2%",
   }
 });
 const a11yProps=(index)=> {
@@ -79,7 +86,7 @@ const TabPanel=(props)=> {
 const Index =()=> {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-
+  const { t } = useTranslation();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -88,12 +95,12 @@ const Index =()=> {
     <Box className={classes.root}>
       <AppBar position="static" color="default" style={{ boxShadow:"none" }}>
         <Tabs  classes={{ indicator: classes.indicator }} value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Статистика" {...a11yProps(0)} />
-          <Tab label="Заявки" {...a11yProps(1)} />
-          <Tab label="Будинки" {...a11yProps(2)} />
+          <Tab label={t("statisticTab")} {...a11yProps(0)} />
+          <Tab label={t("orderTab")} {...a11yProps(1)} />
+          <Tab label={t("houseTab")} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={0} style={{ padding:"0px" }}>
         <Grid
           container
           direction="row"
@@ -101,12 +108,15 @@ const Index =()=> {
           alignItems="flex-start"
         >
           <Grid item xs={8}>
-            <ClientBigCard userType={"manager"}/>
+            <ClientBigCard userType={"manager"} display={"none"}/>
           </Grid>
           <Grid item xs={4}>
-
+            <ManagerRentStatistic />
           </Grid>
         </Grid>
+        <Box style={{ marginTop:"15px", marginBottom:"10px", marginLeft: "-2%" }}>
+          <Typography className={classes.textBlack}>{t("details")}</Typography>
+        </Box>
         <More/>
       </TabPanel>
       <TabPanel value={value} index={1}></TabPanel>

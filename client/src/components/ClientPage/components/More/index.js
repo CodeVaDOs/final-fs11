@@ -1,13 +1,11 @@
 import React from "react";
 import ExpandableRowTable from "./ExpandableRowTable";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles({});
 export const More = () => {
-
   return (
-    <div>
+    <Box>
       <ExpandableRowTable/>
-    </div>
+    </Box>
   );
 };

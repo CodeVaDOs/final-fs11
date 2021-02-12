@@ -3,9 +3,9 @@ package com.marksem.dto.request;
 import com.marksem.entity.house.House;
 import com.marksem.entity.house.HouseModel;
 import com.marksem.entity.user.User;
-import lombok.*;
-
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -29,9 +29,6 @@ public class RequestHouse extends BaseEntity {
                 .avgRating(this.avgRating)
                 .owner(u)
                 .houseModel(hm)
-                .bookings(new ArrayList<>())
-                .transactionGroups(new ArrayList<>())
-                .documents(new ArrayList<>())
                 .build();
     }
 }

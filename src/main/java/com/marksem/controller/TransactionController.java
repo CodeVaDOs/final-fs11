@@ -1,7 +1,9 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestTransaction;
+import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseTransaction;
+import com.marksem.dto.response.ResponseUser;
 import com.marksem.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,8 @@ public class TransactionController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseTransaction> readAll() {
-        return service.readAll();
+    public ResponseEntity<PageableResponse<ResponseTransaction>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(service.readAll(page, size));
     }
 
     @GetMapping("{id}")
@@ -32,6 +34,12 @@ public class TransactionController {
     @PreAuthorize("hasAuthority('developers:write')")
     public ResponseEntity<ResponseTransaction> create(@RequestBody RequestTransaction t) {
         return ResponseEntity.ok(service.create(t));
+    }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseEntity<ResponseTransaction> update(@RequestBody RequestTransaction t) {
+        return ResponseEntity.ok(service.update(t));
     }
 
     @DeleteMapping("{id}")

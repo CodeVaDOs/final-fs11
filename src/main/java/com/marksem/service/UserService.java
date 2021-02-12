@@ -1,11 +1,17 @@
 package com.marksem.service;
 
 import com.marksem.dto.request.RequestUser;
+import com.marksem.dto.response.PageableResponse;
+import com.marksem.dto.response.ResponseBooking;
 import com.marksem.dto.response.ResponseUser;
+import com.marksem.entity.booking.Booking;
 import com.marksem.entity.user.User;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +40,11 @@ public class UserService {
         return ResponseUser.toDto(getUserByEmail(email));
     }
 
-    public List<ResponseUser> readAll() {
-        return repo.findAll().stream().map(ResponseUser::toDto).collect(Collectors.toList());
+    public PageableResponse<ResponseUser> readAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> users = repo.findAll(pageable);
+        return new PageableResponse<>(users.getTotalElements(),
+                users.getContent().stream().map(ResponseUser::toDto).collect(Collectors.toList()));
     }
 
     public ResponseUser update(RequestUser u) {

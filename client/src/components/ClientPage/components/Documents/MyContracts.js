@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
@@ -6,6 +6,8 @@ import { SelectDocument } from "./SelectDocument";
 import { DocumentItem } from "./DocumentItem";
 import { Button } from "@material-ui/core";
 import DescriptionIcon from '@material-ui/icons/Description';
+import usePagination from "../../../DocumentsComponent/components/Contracts/usePagination";
+import { Pagination } from "@material-ui/lab";
 import { CreateDocument } from "../../../DocumentsComponent/components/Contracts/CreateDocument";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,20 +22,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   mainContainerDocuments: {
-    flexWrap: "wrap",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridTemplateRows: " repeat(3, 1fr)",
+    gridColumnGap: 30,
+    gridRowGap: 0,
   },
   search: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: 'row',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(0),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -42,17 +47,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    paddingLeft: 30,
     height: '100%',
-    position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   inputRoot: {
+    width: 300,
+    display: 'flex',
     border: 'black',
-
+    backgroundColor: "white",
+    borderRadius: 10,
     color: 'inherit',
   },
   inputInput: {
@@ -88,21 +95,36 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     opacity: 1,
   },
+  documents: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+  }
 }));
-
 
 export const MyContracts = ({ visibleFalse }) => {
   const classes = useStyles();
   const [createDocument, setCreateDocument] = useState(false);
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 21;
+
   const documents =
-    Array.apply(null, Array(20)).map((_, index) => (
-      <div style={{ margin: "10px" }} key={index}>
-        <DocumentItem
-          title={'Контракт 23_03_2020 H013…Овсієнко.pdf'}
-          shortDescription={'Договір о довгостроковій...'}
-        />
-      </div>
-    ));
+    Array.apply(null, Array(200)).map((_, index) => (
+      {
+        id: index,
+        title: index,
+        detail: index,
+      }));
+
+  const count = Math.ceil(documents.length / PER_PAGE);
+  const _DATA = usePagination(documents, PER_PAGE);
+
+  useEffect(() => {
+  }, [documents, _DATA]);
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
   const createContract = () => {
     setCreateDocument(true);
   };
@@ -156,9 +178,28 @@ export const MyContracts = ({ visibleFalse }) => {
               />
             </div>
           }
-          <div className={classes.mainContainerDocuments}>
-            {documents}
+          <div className={classes.documents}>
+            <div className={classes.mainContainerDocuments}>
+              {_DATA.currentData().map((v) => {
+                return (
+                  <DocumentItem
+                    key={v.id}
+                    title={v.title}
+                    shortDescription={v.detail}
+                  />
+                );
+              })}
+
+            </div>
+            <Pagination
+              count={count}
+              variant="outlined"
+              color="#ff9100"
+              page={page}
+              onChange={handleChange}
+            />
           </div>
+
         </div> :
         <div className={classes.root}>
           <CreateDocument/>

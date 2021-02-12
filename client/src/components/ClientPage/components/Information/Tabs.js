@@ -16,18 +16,17 @@ import ClientStatisticRent from "../../../ClientStatisticRent";
 const useStyles = makeStyles(() => ({
   root: {
     // borderLeft: '1px solid black',
+    width: "100%",
     marginLeft: '3px',
     display: "flex",
     margin: "2px",
     flexDirection: 'row',
-    justifyContent: 'space-between',
     textTransform: 'capitalize',
   },
   br: {
     textTransform: 'capitalize',
     padding: 0,
     margin: 0,
-    width: '100%',
     backgroundColor: "white",
     color: 'black',
     borderRadius: "0px 30px 0px 0px  ",
@@ -39,13 +38,14 @@ const useStyles = makeStyles(() => ({
   },
   user: {
     backgroundColor: "white",
-    minHeight: '390px',
-    maxHeight: '390px',
-    minWidth: "350px",
-    maxWidth: "350px",
+    minHeight: '268px',
+    maxHeight: '268px',
+    minWidth: "268px",
+    maxWidth: "268px",
     border: '2px solid black'
   },
   columnStart: {
+    width: '100%',
     margin: '10px',
     display: 'flex',
     flexDirection: 'column',
@@ -115,9 +115,9 @@ export default function ClientTabs() {
     <>
       <div className={classes.columnStart}>
         <div className={classes.root}>
-          <Container className={classes.user}>
+          <div className={classes.user}>
             Tartakovsky Component
-          </Container>
+          </div>
           <Container
             className={classes.columnProfile}>
             <div className={classes.br}>
@@ -140,7 +140,6 @@ export default function ClientTabs() {
                 houseToState={houseToState}
                 HouseIdx={HouseIdx}
                 rent={false}
-
               />
             </TabPanel>
             <TabPanel value={value} index={2}>
@@ -157,12 +156,15 @@ export default function ClientTabs() {
           </Container>
 
         </div>
-        {bottomView === 1 ? <House house={house}/> : null}
-        {bottomView === 2 ? <MyContracts visibleFalse={false}/> : null}
-        {bottomView === 3 ?
-          <div>
-            <ClientStatisticRent/>
-          </div> : null}
+        <div style={{ width: '100%' }}>
+          {bottomView === 1 ? <House house={house}/> : null}
+          {bottomView === 2 ? <MyContracts visibleFalse={false}/> : null}
+          {bottomView === 3 ?
+            <div style={{ width: '95%' }}>
+              <ClientStatisticRent/>
+            </div> : null}
+        </div>
+
       </div>
     </>
   );

@@ -2,10 +2,7 @@ package com.marksem.entity.contact;
 
 import com.marksem.entity.BaseEntity;
 import com.marksem.entity.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "contacts")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Contact extends BaseEntity {

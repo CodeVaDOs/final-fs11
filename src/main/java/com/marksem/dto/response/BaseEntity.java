@@ -1,6 +1,8 @@
 package com.marksem.dto.response;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.MappedSuperclass;
 import java.util.Date;

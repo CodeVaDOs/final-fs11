@@ -17,9 +17,12 @@ public class RequestTransaction extends BaseEntity {
     private Long id;
     @NotEmpty
     private Long transactionGroupId;
+    @NotEmpty
     private Double amount;
+    @NotEmpty
     private Currency currency;
     private String comment;
+    @NotEmpty
     private Long transactionTypeId;
 
     public Transaction toEntity(TransactionGroup tg, TransactionType tt) {

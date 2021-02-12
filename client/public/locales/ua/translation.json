@@ -11,6 +11,7 @@
   "menuEmployee": "Працівники",
   "menuArchive": "Архів",
   "menuHistory": "Історія",
+  "menuStatistic": "Статистика",
   "search": "Пошук",
   "signInHere": "Увійти",
   "Email": "Електронна пошта",
@@ -171,6 +172,15 @@
   "houseReq":"Будинок",
   "inputDefault": "Залишити коментар...",
   "btnService": "Замовити Додаткові Послуги",
-  "btnSer2": "Замовити Послугу Управління"
-
+  "btnSer2": "Замовити Послугу Управління",
+  "details": "Детально",
+  "yearRent": "Всього орендовано за рік",
+  "renter": "Орендарів",
+  "dayRent": "Днів в оренді",
+  "hoseRent": "Будинків орендовано",
+  "statisticTab": "Статистика",
+  "orderTab": "Заявки",
+  "houseTab": "Будинки",
+  "incomeTab": "Дохід",
+  "feedbackTab": "Відгуки"
 }

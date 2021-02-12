@@ -1,6 +1,8 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestUser;
+import com.marksem.dto.response.PageableResponse;
+import com.marksem.dto.response.ResponseBooking;
 import com.marksem.dto.response.ResponseUser;
 import com.marksem.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +28,8 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ResponseUser> readAll() {
-        return service.readAll();
+    public ResponseEntity<PageableResponse<ResponseUser>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(service.readAll(page, size));
     }
 
     @GetMapping("profile")
