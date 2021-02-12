@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import { SelectDocument } from "./SelectDocument";
 import { DocumentItem } from "./DocumentItem";
-import { Button } from "@material-ui/core";
-import DescriptionIcon from '@material-ui/icons/Description';
 import usePagination from "../../../../hooks/usePagination";
 import { Pagination } from "@material-ui/lab";
-import { CreateDocument } from "../../../DocumentsComponent/components/Tabs/Contracts/CreateDocument";
+import TextField from "@material-ui/core/TextField";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column"
@@ -28,51 +25,34 @@ const useStyles = makeStyles((theme) => ({
     gridColumnGap: 30,
     gridRowGap: 0,
   },
-  search: {
+  cleatfix: {
+    position: "relative",
     display: "flex",
+    flexDirection: "row",
+    alignItems: 'center'
+  },
+  search: {
+    position: "relative",
+    width: 390,
+    display: "flex",
+    flexDirection: "row",
     alignItems: "center",
-    flexDirection: 'row',
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(0),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
+    justifyContent: "space-between",
+    margin: 15,
+    border: "1px solid #B1B4BA",
+    borderRadius: 10,
+    backgroundColor: "#EEF5FF",
+    height: 40
   },
   searchIcon: {
-    paddingLeft: 30,
-    height: '100%',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: 30,
+    margin: 10
   },
   inputRoot: {
-    width: 300,
-    display: 'flex',
-    border: 'black',
-    backgroundColor: "white",
-    borderRadius: 10,
-    color: 'inherit',
-  },
-  inputInput: {
-    border: 'black',
-
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
+    width: "100%",
+    backgroundColor: "#EEF5FF",
+    border: "none",
+    marginRight: 10
   },
   row: {
     display: 'flex',
@@ -102,9 +82,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const MyContracts = ({ visibleFalse }) => {
+export const MyContracts = () => {
   const classes = useStyles();
-  const [createDocument, setCreateDocument] = useState(false);
   let [page, setPage] = useState(1);
   const PER_PAGE = 21;
 
@@ -125,88 +104,53 @@ export const MyContracts = ({ visibleFalse }) => {
     setPage(p);
     _DATA.jump(p);
   };
-  const createContract = () => {
-    setCreateDocument(true);
-  };
   return (
     <>
-      {createDocument === false ?
-        <div className={classes.root}>
-          {visibleFalse === false ?
-            <div className={classes.topSide}>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon/>
-                </div>
-                <InputBase
-                  placeholder="Search…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                />
+      <div className={classes.root}>
+        <div className={classes.topSide}>
+          <div className={classes.cleatfix}>
+            <form className={classes.search} noValidate autoComplete="off">
+              <div>
+                <SearchIcon className={classes.searchIcon}/>
               </div>
-              <SelectDocument options={['null']}/>
-              <div className={classes.row}>
-                <h3>Показати</h3>
-                <SelectDocument options={['Marksem M - 2 House large 00102']}/>
-              </div>
-              <div className={classes.row}>
-                <h3>Сортувати</h3>
-                <SelectDocument
-                  options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
-              </div>
-            </div>
-            : <div className={classes.search}>
-              <Button
-                className={classes.btnAdd}
-                onClick={createContract}
-              >
-                Додати контракт <DescriptionIcon className={classes.editIcon}/>
-              </Button>
-              <div className={classes.searchIcon}>
-                <SearchIcon/>
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
+              <TextField
+                className={classes.inputRoot}
+                type="search"
               />
-            </div>
-          }
-          <div className={classes.documents}>
-            <div className={classes.mainContainerDocuments}>
-              {_DATA.currentData().map((v) => {
-                return (
-                  <DocumentItem
-                    key={v.id}
-                    title={v.title}
-                    shortDescription={v.detail}
-                  />
-                );
-              })}
-
-            </div>
-            <Pagination
-              count={count}
-              variant="outlined"
-              color="#ff9100"
-              page={page}
-              onChange={handleChange}
-            />
+            </form>
+            <SelectDocument options={['null']}/>
           </div>
 
-        </div> :
-        <div className={classes.root}>
-          <CreateDocument/>
+          <div className={classes.row}>
+            <h3>Показати</h3>
+            <SelectDocument options={['Marksem M - 2 House large 00102']}/>
+          </div>
+          <div className={classes.row}>
+            <h3>Сортувати</h3>
+            <SelectDocument
+              options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
+          </div>
         </div>
-      }
-
-
+        <div className={classes.documents}>
+          <div className={classes.mainContainerDocuments}>
+            {_DATA.currentData().map((v) => {
+              return (
+                <DocumentItem
+                  key={v.id}
+                  title={v.title}
+                  shortDescription={v.detail}
+                />
+              );
+            })}
+          </div>
+          <Pagination
+            count={count}
+            variant="outlined"
+            color="#ff9100"
+            page={page}
+            onChange={handleChange}/>
+        </div>
+      </div>
     </>
   );
 };

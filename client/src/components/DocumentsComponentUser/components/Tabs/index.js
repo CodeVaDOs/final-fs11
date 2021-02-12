@@ -6,7 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Contracts } from "./Contracts";
+import { MyContractsUser } from "./Contracts";
 import { MyBills } from "./Platizki";
 import { MyExploitation } from "./Exploitation";
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "transparent",
     width: "100%",
-    marginTop:"20px"
+    marginTop: "20px"
   },
 }));
 
@@ -82,7 +82,7 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Contracts/>
+          <MyContractsUser/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <MyBills/>
