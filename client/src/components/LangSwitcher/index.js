@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NativeSelects =({ lang })=>{
-  const checkLang=(lang)=>{
-    let l;
-    if(lang === "UKRAINIAN") return l="ua";
-    if(lang === "ENGLISH") return l="en";
-    if(lang === "RUSSIAN") return l="ru";
+  const checkLang=(type)=>{
+    let lan;
+    if(type === "UKRAINIAN") return lan="ua";
+    if(type === "ENGLISH") return lan="en";
+    if(type === "RUSSIAN") return lan="ru";
   };
   console.log(checkLang(lang));
   const classes = useStyles();
