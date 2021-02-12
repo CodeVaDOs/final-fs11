@@ -15,13 +15,14 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     fontWeight: 'bold',
     color: '#254A93',
-    textAlign:"center",
-    marginTop: "10px"
+    textAlign: "center",
+    marginTop: "20px"
+
   },
   openHandler: props => ({
     position: 'absolute',
     top: '50px',
-    right: props.open ? '446' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
+    right: props.open ? '418' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
 
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
     border: '1px solid #b1b4ba',

@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseEntity {
-    private Long id;
+    public Long id;
     private Long version;
     private String createdBy;
     private String updatedBy;

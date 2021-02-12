@@ -16,13 +16,14 @@ import { More } from "../ClientPage/components/More";
 import Tab from "../ClientPage/components/Tabs/Tab";
 import Tabs from "../ClientPage/components/Tabs/Tabs";
 import { NewStatistic } from "../ClientPage/components/NewStatistic";
+import Container from "@material-ui/core/Container";
 
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.backgroundColor = "#EEF5FF";
 Chart.defaults.global.tooltips.titleFontColor = "#293134";
+
 const useStyles = makeStyles({
   aboveContainer: {
-
     marginBottom: "-10px",
     marginLeft: "10px"
   },
@@ -142,10 +143,12 @@ const useStyles = makeStyles({
       color: "#293134"
     },
   },
-  root:{
-    height:"100%"
+  root: {
+    height: "100%",
+    width: "100%"
   }
 });
+
 const ClientStatisticRent=()=>{
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
@@ -185,7 +188,7 @@ const ClientStatisticRent=()=>{
 
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Container>
       <Box>
         <Tabs
           activeKey={key}
@@ -193,7 +196,7 @@ const ClientStatisticRent=()=>{
             setKey(k);
           }}
         >
-          <Tab eventKey={0} title="Статистика Оренди">
+          <Tab style={{ width: "95%" }} eventKey={0} title="Статистика Оренди">
             <Grid
               className={classes.aboveContainer}
               container
@@ -407,7 +410,7 @@ const ClientStatisticRent=()=>{
 
       </Box>
 
-    </div>
+    </Container>
   );
 };
 export default ClientStatisticRent;
