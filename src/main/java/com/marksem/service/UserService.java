@@ -5,10 +5,7 @@ import com.marksem.dto.response.ResponseUser;
 import com.marksem.entity.user.User;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.UserRepository;
-import com.marksem.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,18 +16,18 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository repo;
 
-    public ResponseUser create(RequestUser u) {
-        return ResponseUser.toDto(repo.save(u.toEntity()));
+    public ResponseUser create(RequestUser u, String email) {
+        return ResponseUser.toDto(repo.save(u.toEntity(getUserByEmail(email).getId())));
     }
 
-    public User getUserByEmail(String email){
-        return repo.findByEmail(email).orElseThrow(() ->  new NoDataFoundException("User doesn't exists"));
+    public User getUserByEmail(String email) {
+        return repo.findByEmail(email).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
     }
 
     public ResponseUser read(Long id) {
         return repo.findById(id)
                 .map(ResponseUser::toDto)
-                .orElseThrow(() ->  new NoDataFoundException("user", id));
+                .orElseThrow(() -> new NoDataFoundException("user", id));
     }
 
     public ResponseUser getProfile(String email) {
@@ -47,11 +44,10 @@ public class UserService {
                     e.setPassword(u.getPassword());
                     e.setEmail(u.getEmail());
                     e.setRole(u.getRole());
-                    e.setManagerId(u.getManagerId());
                     e.setName(u.getName());
                     return ResponseUser.toDto(repo.save(e));
                 })
-                .orElseThrow(() ->  new NoDataFoundException("user", u.getId()));
+                .orElseThrow(() -> new NoDataFoundException("user", u.getId()));
     }
 
     public Long delete(Long id) {

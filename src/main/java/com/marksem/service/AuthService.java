@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -45,13 +44,14 @@ public class AuthService {
 
     public void markUsed(Long id) {
         refreshTokenRepository.findById(id)
-            .map(t -> {
-                t.setIsUsed(true);
-                return refreshTokenRepository.save(t);
-            })
-            .orElseThrow(() ->  new NoDataFoundException("refreshToken", id));}
+                .map(t -> {
+                    t.setIsUsed(true);
+                    return refreshTokenRepository.save(t);
+                })
+                .orElseThrow(() -> new NoDataFoundException("refreshToken", id));
+    }
 
-    public Map<Object, Object> createTokens(User u){
+    public Map<Object, Object> createTokens(User u) {
         String token = jwtTokenProvider.createToken(u.getEmail(), u.getRole().name());
 
         RefreshToken createdRefreshToken = this.createRefreshToken(u);
@@ -64,21 +64,21 @@ public class AuthService {
         return tokens;
     }
 
-    public Map<Object, Object> authenticate(String email, String password){
+    public Map<Object, Object> authenticate(String email, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
         return createTokens(user);
     }
 
-    public Map<Object, Object> refresh(String refreshToken){
+    public Map<Object, Object> refresh(String refreshToken) {
         Long refreshTokenId = jwtTokenProvider.getRefreshTokenId(refreshToken);
         RefreshToken rt = readRefreshToken(refreshTokenId);
 
-        if(rt.getExpirationDate().before(new Date()) || rt.getIsUsed()){
+        if (rt.getExpirationDate().before(new Date()) || rt.getIsUsed()) {
             throw new JwtAuthenticationException("refreshToken is expired", HttpStatus.UNAUTHORIZED);
         } else {
             markUsed(refreshTokenId);
-            User user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+            User user = userRepository.findById(rt.getUser().getId()).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
             return createTokens(user);
         }
     }

@@ -2,13 +2,9 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestHouse;
 import com.marksem.dto.response.ResponseHouse;
-import com.marksem.dto.response.ResponseMessage;
-import com.marksem.dto.response.ResponseUser;
-import com.marksem.entity.house.House;
-import com.marksem.entity.message.Message;
 import com.marksem.exception.NoDataFoundException;
+import com.marksem.repo.HouseModelRepository;
 import com.marksem.repo.HouseRepository;
-import com.marksem.repo.MessageRepository;
 import com.marksem.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,12 +17,15 @@ import java.util.stream.Collectors;
 public class HouseService {
     private final HouseRepository houseRepo;
     private final UserRepository userRepo;
+    private final HouseModelRepository houseModelRepo;
 
     public ResponseHouse create(RequestHouse h) {
         return userRepo.findById(h.getOwnerId())
-                .map(u -> houseRepo.save(h.toEntity(u)))
+                .map(u -> houseModelRepo.findById(h.getHouseModelId())
+                                .map(hm -> houseRepo.save(h.toEntity(u, hm)))
+                                .orElseThrow(()->new NoDataFoundException("houseModel", h.getHouseModelId())))
                 .map(ResponseHouse::toDto)
-                .orElseThrow(()->new NoDataFoundException("house", h.getOwnerId()));
+                .orElseThrow(()->new NoDataFoundException("user", h.getOwnerId()));
     }
 
     public ResponseHouse update(RequestHouse h) {

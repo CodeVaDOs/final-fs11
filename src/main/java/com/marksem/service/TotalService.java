@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TotalService {
-    private final UserRepository userRepo;
+    private final UserRepository userRepository;
     private final DocumentRepository documentRepository;
     private final HouseRepository houseRepository;
     private final BookingRepository bookingRepository;
 
-    public ResponseAccessPanelUserInfo getAccessPanelUserInfo(Long id){
+    public ResponseAccessPanelUserInfo getAccessPanelUserInfo(){
         long quantityOfHouses = houseRepository.count();
         long quantityOfBookings = bookingRepository.getBookingsQuantity();
         return new ResponseAccessPanelUserInfo(quantityOfHouses, quantityOfHouses - quantityOfBookings);
     }
 
     public ResponseAccessPanelManagerInfo getAccessPanelManagerInfo(Long id){
-        long quantityOfClients = userRepo.countByManagerId(id);
+        long quantityOfClients = userRepository.countByManagerId(id);
         long quantityOfContracts = documentRepository.getContractsQuantity(id);
         return new ResponseAccessPanelManagerInfo(quantityOfClients, quantityOfContracts);
     }

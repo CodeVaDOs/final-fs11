@@ -5,8 +5,8 @@ import com.marksem.dto.response.ResponseUser;
 import com.marksem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -20,8 +20,8 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<ResponseUser> create(@RequestBody @Valid RequestUser u) {
-        return ResponseEntity.ok(service.create(u));
+    public ResponseEntity<ResponseUser> create(@RequestBody @Valid RequestUser u, Principal principal) {
+        return ResponseEntity.ok(service.create(u, principal.getName()));
     }
 
     @GetMapping
