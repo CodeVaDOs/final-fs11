@@ -2,9 +2,7 @@ package com.marksem.service;
 
 import com.marksem.dto.request.RequestUser;
 import com.marksem.dto.response.PageableResponse;
-import com.marksem.dto.response.ResponseBooking;
 import com.marksem.dto.response.ResponseUser;
-import com.marksem.entity.booking.Booking;
 import com.marksem.entity.user.User;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repo.UserRepository;
@@ -14,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,8 +19,8 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository repo;
 
-    public ResponseUser create(RequestUser u, String email) {
-        return ResponseUser.toDto(repo.save(u.toEntity(getUserByEmail(email).getId())));
+    public ResponseUser create(RequestUser u, String url, String email) {
+        return ResponseUser.toDto(repo.save(u.toEntity(getUserByEmail(email).getId(), url)));
     }
 
     public User getUserByEmail(String email) {
@@ -47,9 +44,10 @@ public class UserService {
                 users.getContent().stream().map(ResponseUser::toDto).collect(Collectors.toList()));
     }
 
-    public ResponseUser update(RequestUser u) {
+    public ResponseUser update(RequestUser u, String url) {
         return repo.findById(u.getId())
                 .map(e -> {
+                    if (url != null) e.setUrlAvatar(url);
                     e.setPassword(u.getPassword());
                     e.setEmail(u.getEmail());
                     e.setRole(u.getRole());
