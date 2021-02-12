@@ -209,7 +209,7 @@ const Index =()=> {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const [dataForm, setDataForm] = useState({
+  const [dataForm] = useState({
     propertyId:'all'
   });
   // const handleChangeProperty= (e) => {

@@ -148,7 +148,7 @@ const useStyles = makeStyles({
 });
 const ClientStatisticRent=()=>{
   const { t } = useTranslation();
-  const [dataForm, setDataForm] = useState({
+  const [dataForm] = useState({
     dateFrom:"2021-01-01",
     dateTo:"2021-01-31",
     propertyId:'all',
