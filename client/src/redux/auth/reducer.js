@@ -1,9 +1,8 @@
 import { getTokens } from "../../utils";
 
 const { accessToken } = getTokens();
-// authorized: Boolean(accessToken),
 const INIT_STATE = {
-  authorized: false,
+  authorized: Boolean(accessToken),
   loading: false,
   user: {},
 };
@@ -19,8 +18,8 @@ export default (state = INIT_STATE, action) => {
     case "LOGIN_SUCCESS":
       return {
         ...state,
-        authorized: true,
-        loading: false
+        authorized: true
+        // loading: false
       };
 
     case "LOGIN_FAILURE":
@@ -28,6 +27,12 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         authorized: false
+      };
+
+    case "GET_PROFILE_REQUEST":
+      return {
+        ...state,
+        loading: true,
       };
 
     case "GET_PROFILE":

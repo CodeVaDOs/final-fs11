@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 
 export const usePermission = () => {
-  return useSelector(state => state.auth.user.role) || "USER"
-}
+  console.log(useSelector(state => state));
+  return useSelector(state => state.auth.user.role) || "USER";
+};
