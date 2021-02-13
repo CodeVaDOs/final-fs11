@@ -8,7 +8,7 @@ import Flex from "react-calendar/dist/umd/Flex";
 
 const useStyles = makeStyles(() => ({
   root: {
-    width:"90%",
+    width:"10vh",
     backgroundColor: "white",
     display: 'flex',
     alignItems: 'flex-start',
@@ -98,7 +98,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   flexFix: {
-    width: '700px',
+    width: '600px',
     display: "flex",
     alignItems: 'center',
     justifyContent: 'space-between'

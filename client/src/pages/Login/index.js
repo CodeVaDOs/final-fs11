@@ -1,5 +1,5 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, useRouteMatch, useLocation } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import Typography from "@material-ui/core/Typography";
@@ -73,8 +73,14 @@ const useStyles = makeStyles({
 const Login = () => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+
+  const searchParams = new URLSearchParams(useLocation().search);
+  const email = searchParams.get("email");
+  const password = searchParams.get("pass");
+
+  console.log(email, password);
+  const [emailValue, setEmailValue] = useState(email || "");
+  const [passwordValue, setPasswordValue] = useState(password || "");
   const [showPassword, setShowPassword] = useState(false);
   const refRef = createRef();
   const refRefPas1 = createRef();
@@ -219,7 +225,8 @@ const Login = () => {
                 </a>
               </Typography>
               <Box style={{ marginTop: "15px" }}>
-                <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"30%"} text={t('signH1Title')} onClick={()=>{}} type = {submit}/>
+                <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"30%"} text={t('signH1Title')} onClick={() => {
+                }} type={submit}/>
               </Box>
             </ValidatorForm>
           </Box>

@@ -9,9 +9,8 @@ const useStyles = makeStyles(() => ({
     boxShadow: "-162px 0px 40px -59px grey inset",
   },
   root: {
-    width: "1000px",
+    width: "100vh",
     height: '270px',
-    position: 'relative',
     display: 'flex',
     fontFamily: 'Roboto',
     overflow: 'hidden',

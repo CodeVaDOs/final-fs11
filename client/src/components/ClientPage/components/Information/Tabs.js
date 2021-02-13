@@ -16,7 +16,7 @@ import ClientStatisticRent from "../../../ClientStatisticRent";
 const useStyles = makeStyles(() => ({
   root: {
     // borderLeft: '1px solid black',
-    width: "100%",
+    width: "100vh",
     marginLeft: '3px',
     display: "flex",
     margin: "2px",
@@ -156,11 +156,13 @@ export default function ClientTabs() {
           </Container>
 
         </div>
-        <div style={{ width: '100%' }}>
+        <div>
           {bottomView === 1 ? <House house={house}/> : null}
-          {bottomView === 2 ? <MyContracts visibleFalse={false}/> : null}
+          <div style={{ width: '100%' }}>
+            {bottomView === 2 ? <MyContracts/> : null}
+          </div>
           {bottomView === 3 ?
-            <div style={{ width: '95%' }}>
+            <div style={{ width: '100%' }}>
               <ClientStatisticRent/>
             </div> : null}
         </div>

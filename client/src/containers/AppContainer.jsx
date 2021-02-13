@@ -10,13 +10,13 @@ import { useSelector } from "react-redux";
 import * as ga from "q";
 
 export const routes = [
-  {
-    isPublic: false,
-    isAdminRoute: false,
-    exact: true,
-    path: "/",
-    component: lazy(() => import("@pages/Home")),
-  },
+  // {
+  //   isPublic: false,
+  //   isAdminRoute: false,
+  //   exact: true,
+  //   path: "/",
+  //   component: lazy(() => import("@pages/Home")),
+  // },
   {
     isPublic: false,
     isAdminRoute: false,
@@ -74,14 +74,14 @@ export const routes = [
     component: lazy(() => import("@pages/Panel")),
   },
   {
-    isPublic: true,
+    isPublic: false,
     isAdminRoute: false,
     exact: true,
     path: "/panel/manager",
     component: lazy(() => import("@pages/Panel/pages/PanelManager")),
   },
   {
-    isPublic: true,
+    isPublic: false,
     isAdminRoute: false,
     exact: true,
     path: "/panel/admin",
@@ -124,6 +124,7 @@ export const routes = [
   },
   {
     path: "/",
+    notFound: true,
     component: lazy(() => import("@pages/NotFound")),
   },
 ];

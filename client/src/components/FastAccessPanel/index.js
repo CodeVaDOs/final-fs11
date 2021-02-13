@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import BlueHouse from "../../images/blueHouse.png";
@@ -11,6 +11,7 @@ import CallMadeIcon from '@material-ui/icons/CallMade';
 import Client from "../../images/client.png";
 import Contracts from "../../images/contracts.png";
 import Grid from '@material-ui/core/Grid';
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   boxControl: {
@@ -41,8 +42,8 @@ const useStyles = makeStyles({
     marginTop: "10px"
   },
 });
-const FastAccessPanel =()=>{
-  const [userType] = useState('manager');
+const FastAccessPanel =(props)=>{
+  const userType = props.user.role;
   const classes = useStyles();
   const { t } = useTranslation();
   const handleClick =()=>{
@@ -141,7 +142,14 @@ const FastAccessPanel =()=>{
     </>);
   };
   return(<>
-    {(userType === "client" && isClient()) || (userType === "manager" && isManager())}
+    {(userType === "USER" && isClient()) || (userType === "MANAGER" && isManager()) || (userType === "ADMIN" && isManager()) }
   </>);
 };
-export default FastAccessPanel;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+
+export default connect(mapStateToProps, null)(FastAccessPanel);
