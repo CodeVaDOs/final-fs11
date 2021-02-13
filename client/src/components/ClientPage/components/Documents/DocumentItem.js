@@ -17,9 +17,8 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     top: "436px",
     left: "335px",
-    maxWidth: " 310px",
-    minWidth: " 300px",
     minHeight: 170,
+    width: 290,
     maxHeight: 170,
     height: "170px",
     background: "#fff",
@@ -75,6 +74,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
   },
   buttonBlock: {
+    width: '80%',
     display: 'flex',
     flexDirection: 'row',
   },
@@ -98,10 +98,12 @@ const useStyles = makeStyles(() => ({
     right: 10
   },
   blue: {
+    transform: "scale(0.9)",
     color: '#254A93'
   },
   btnWidth: {
-    width: '10px',
+    cursor: "pointer",
+    width: '5vh',
     height: '25px',
     padding: 0,
     margin: 0,
@@ -116,22 +118,21 @@ export const DocumentItem = ({ title, shortDescription, type }) => {
     </Button>
   );
   const buttonBlock = (<div className={classes.buttonBlock}>
-    <Button className={classes.btnWidth}>
+    <a className={classes.btnWidth}>
       <EditIcon className={classes.blue}/>
-    </Button>
+    </a>
 
-    <Button className={classes.btnWidth}>
+    <a className={classes.btnWidth}>
       <GetAppIcon className={classes.blue}/>
-    </Button>
+    </a>
 
-    <Button className={classes.btnWidth}>
+    <a className={classes.btnWidth}>
       <PrintIcon className={classes.blue}/>
-    </Button>
+    </a>
 
   </div>);
   return (
     <div className={classes.root}>
-
       <DocSvg/>
       <div className={classes.documentDescription}>
         <div className={classes.title}>{title}</div>
