@@ -23,16 +23,16 @@ spring:
       ddl-auto: update
     show-sql: true
 
-jwt:
-  secret: proselyt4
-  secretRefresh: 7xfn849ff
-  secretPasswordReset: oo9ii7gg4
-  secretPasswordUpdate: dd955l3mm
-  expiration: 7200
-  expirationRefresh: 604800
-  expirationPasswordReset: 86400
-  expirationPasswordUpdate: 3600
-  header: Authorization
+
+jwt.secret: proselyt4
+jwt.secretRefresh: 7xfn849ff
+jwt.secretPasswordReset: oo9ii7gg4
+jwt.secretPasswordUpdate: dd955l3mm
+jwt.expiration: 7200
+jwt.expirationRefresh: 604800
+jwt.expirationPasswordReset: 86400
+jwt.expirationPasswordUpdate: 3600
+jwt.header: Authorization
 
 url:
   server: http://localhost:8080
