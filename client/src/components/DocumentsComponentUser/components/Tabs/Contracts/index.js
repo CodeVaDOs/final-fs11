@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import usePagination from "../../../../../hooks/usePagination";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { Button } from "@material-ui/core";
 import { CreateDocument } from "./CreateDocument";
-import { Pagination } from "@material-ui/lab";
-import { DocumentItem } from "../../../../ClientPage/components/Documents/DocumentItem";
+import { useDispatch, useSelector } from "react-redux";
+import { documentsAction } from "../../../../../redux/documents/action";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -94,54 +93,39 @@ const useStyles = makeStyles(() => ({
 
 export const MyContractsUser = () => {
   const classes = useStyles();
-  let [page, setPage] = useState(1);
-  let [paged, setPageD] = useState(1);
-  const [createDocument, setCreateDocument] = useState(false);
-  const PER_PAGE = 15;
-  const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
-    {
-      id: index,
-      title: index,
-      detail: index,
-    }))
-  );
-  const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
-  const [filteredExploitation, setFilteredExploitation] = useState([]);
-
-
+  const dispatch = useDispatch();
+  const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    dispatch(documentsAction.getDocuments());
+    console.log(loading);
+    if (loading) {
+      console.log('documents.list', documents.list);
+
+    }
   }, []);
+  const [createDocument, setCreateDocument] = useState(false);
+  console.log(loading);
+  // const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
+  //   {
+  //     id: index,
+  //     title: index,
+  //     detail: index,
+  //   }))
+  // );
+  // const [search, setSearch] = useState("");
+  // const [filteredExploitation, setFilteredExploitation] = useState([]);
+  // useEffect(() => {
+  //   setFilteredExploitation(
+  //     documents.filter((d) => {
+  //       return search.includes(d.title);
+  //     }));
+  // }, [search]);
 
-  const count_D = Math.ceil(documents.length / PER_PAGE);
-  const _DATA_D = usePagination(documents, PER_PAGE);
-  const countFilter = Math.ceil(filteredExploitation.length / PER_PAGE);
-  const _DATAFilter = usePagination(filteredExploitation, PER_PAGE);
-
-  const handleChange = (e, p) => {
-    setPage(p);
-    _DATAFilter.jump(p);
+  const searchHandler = () => {
+    // e.preventDefault();
+    // setSearch(e.target.value);
   };
-  const handleChangeD = (e, p) => {
-    setPageD(p);
-    _DATA_D.jump(p);
-  };
 
-  useEffect(() => {
-    setFilteredExploitation(
-      documents.filter((d) => {
-        return search.includes(d.title);
-      }));
-  }, [search]);
-
-  const searchHandler = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
   if (loading) {
     return <p>Завантажую контракти...</p>;
   }
@@ -171,62 +155,26 @@ export const MyContractsUser = () => {
                   onChange={searchHandler}
                 />
               </div>
-
               <div className={classes.row}>
                 <h3>Сортувати</h3>
                 <SelectDocument
                   options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
               </div>
-
             </div>
-
-            {
-              search[0] ?
-                <div className={classes.documents}>
-                  <div className={classes.mainContainerDocuments}>
-                    {_DATAFilter.currentData()
-                      .map((v) => {
-                        return (
-                          <DocumentItem
-                            key={v.id}
-                            title={v.title}
-                            shortDescription={v.detail}
-                          />
-                        );
-                      })}
-                  </div>
-                  <Pagination
-                    count={countFilter}
-                    variant="outlined"
-                    color="#ff9100"
-                    page={page}
-                    onChange={handleChange}
-                  />
-                </div> :
-                <div className={classes.documents}>
-                  <div className={classes.mainContainerDocuments}>
-                    {_DATA_D.currentData()
-                      .map((v) => {
-                        return (
-                          <DocumentItem
-                            key={v.id}
-                            title={v.title}
-                            shortDescription={v.detail}
-                          />
-                        );
-                      })
-                    }
-
-                  </div>
-                  <Pagination
-                    count={count_D}
-                    variant="outlined"
-                    color="#ff9100"
-                    page={paged}
-                    onChange={handleChangeD}
-                  />
-                </div>
-            }
+            <div className={classes.documents}>
+              <div className={classes.mainContainerDocuments}>
+                {/*{documents.list*/}
+                {/*  .map((v, index) => {*/}
+                {/*    return (*/}
+                {/*      <DocumentItem*/}
+                {/*        key={index}*/}
+                {/*        title={v.name}*/}
+                {/*        shortDescription={v.type}*/}
+                {/*      />*/}
+                {/*    );*/}
+                {/*  })}*/}
+              </div>
+            </div>
           </div>
         }
       </div>
