@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,7 +8,6 @@ import ControlNotificationContainer from "./ControlNotification/ControlNotificat
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
 import { tileData } from "../../../utils/constants/housesView";
-import { useFetch } from "../../../hooks/useFetch";
 import { useTranslation } from "react-i18next";
 import { Container } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -57,11 +56,8 @@ export default function HousesTabs() {
   const [value, setValue] = useState('one');
   const [Houses,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
-  const [{ data, loading }, getData] = useFetch({ url: `houses` });
-  useEffect(() => {
-  }, []);
-
-  console.log(data, loading);
+  // const [{ data, loading }, getData] = useFetch({ url: `houses` });
+  // console.log(data, loading);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -73,7 +69,6 @@ export default function HousesTabs() {
 
   const AddHouseToList = () => {
     getData();
-
     console.log('house add');
     console.log('data', data);
 
