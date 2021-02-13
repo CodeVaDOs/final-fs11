@@ -1,78 +1,42 @@
 import React from "react";
-import avatar from '../../images/avatar.png';
-import flag from '../../images/flag.png';
+import { connect } from "react-redux";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import LangSwitcher from "../LangSwitcher";
 import { makeStyles } from "@material-ui/core";
 import { AUTH_ACTIONS } from "../../redux/auth/action";
 import { useDispatch } from "react-redux";
-
+import Grid from "@material-ui/core/Grid";
+import { Box } from "@material-ui/core";
+import avatar from '../../images/avatar.png';
 const useStyles = makeStyles((theme) => ({
   container: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#eef5ff",
-    maxWidth: "360px",
-    width: "410px",
+    backgroundColor: "transparent",
+    width: "100%",
     height: "68px",
-    padding: "5px",
-  },
-  settingsContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    color: "#6E7375",
-  },
-
-  switcher: {
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-
-  flag: {
-    borderRadius: "50%",
-    width: "19px",
-    height: "19px",
-  },
-  langSelect: {
-    fontSize: "12px",
-    marginLeft: "7px",
-    color: "#6E7375",
-  },
-  userContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  userCredit: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-end",
-    marginRight: "10px",
+    marginLeft: "-10px",
+    marginTop:"10px"
   },
   userName: {
     fontSize: "14px",
     color: "#254A93",
     whiteSpace: "pre",
     textAlign: "right",
+    marginTop:"-10px",
+    marginRight: "7px"
   },
 
   userRole: {
     color: "#99A0A3",
     fontSize: "11px",
+    textAlign:"center",
+    marginTop:"-10px",
+    marginRight:"-40px"
   },
   userAvatar: {
     width: "68px",
     height: "68px",
+    marginTop:"-20px",
     boxSizing: "border-box",
     borderRadius: "50%",
     objectFit: "cover",
@@ -80,31 +44,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SidebarMenuItem = (props) => {
-  const { language = "UA", name = "Name LastName", role = "Role" } = props;
+  const defaultName = "User Name";
   const classes = useStyles();
   const dispatch = useDispatch();
-
   return (
-    <div className={classes.container}>
-      <div className={classes.settingsContainer}>
-        <div className={classes.switcher}>
-          <img className={classes.flag} src={flag} alt="country flag"/>
-          <LangSwitcher/>
-        </div>
-        <MailOutlineIcon color="inherit" style={{ marginLeft: "0.5rem" }}/>
-        <NotificationsIcon color="inherit" style={{ marginLeft: "0.5rem" }}/>
-      </div>
-      <div className={classes.userContainer}>
-        <div className={classes.userCredit}>
-          <h2 className={classes.userName}>{name}</h2>
-          <p className={classes.userRole}>{role}</p>
-        </div>
+    <Grid className={classes.container}
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="flex-start"
+    >
+      <Grid item xs={3}>
+        <LangSwitcher lang={props.user.language === null ? "UKRAINIAN":props.user.language}/>
+      </Grid>
+      <Grid item xs={1}>
+        <MailOutlineIcon color="inherit" style={{ marginLeft: "1rem", color:"#C7C7C7" }}/>
+      </Grid>
+      <Grid item xs={1}>
+        <NotificationsIcon color="inherit" style={{ marginLeft: "1rem", color:"#C7C7C7" }}/>
+      </Grid>
+      <Grid item xs={4}>
+        <Box>
+          <Box>
+            <h2 className={classes.userName}>{props.user.name === null ? defaultName:props.user.name }</h2>
+          </Box>
+          <Box><p className={classes.userRole}>{props.user.role}</p></Box>
+        </Box>
+      </Grid>
+      <Grid item xs={3}>
         <img onClick={() => {
           dispatch(AUTH_ACTIONS.logOut());
-        }} className={classes.userAvatar} src={avatar} alt="user avatar"/>
-      </div>
-    </div>
+        }} className={classes.userAvatar} src={props.user.avatar === undefined ? avatar:props.user.avatar} alt="user avatar"/>
+      </Grid>
+    </Grid>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
 
-export default SidebarMenuItem;
+export default connect(mapStateToProps, null)(SidebarMenuItem);

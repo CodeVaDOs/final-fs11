@@ -3,6 +3,7 @@ import { catchError, setAuthToken, setRefreshToken } from "../../utils";
 
 
 const getProfile = () => (dispatch) => {
+  dispatch({ type: "GET_PROFILE_REQUEST" });
   api.get('users/profile')
     .then((profile) => {
       console.log("Fetched profile: ", profile);
@@ -13,7 +14,7 @@ const getProfile = () => (dispatch) => {
       dispatch({ type: "GET_PROFILE_FAILURE" });
     });
 };
-
+export default getProfile();
 const logOut = () => (dispatch) => {
   setAuthToken();
   setRefreshToken();

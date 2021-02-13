@@ -6,10 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -17,6 +19,7 @@ import javax.validation.constraints.Size;
 public class RequestUser extends BaseEntity {
     private Long id;
 
+    private MultipartFile avatar;
     @Email(message = "not email")
     private String email;
 
@@ -29,7 +32,7 @@ public class RequestUser extends BaseEntity {
     @NotNull(message = "name is require")
     private String name;
 
-    public User toEntity(Long managerId) {
+    public User toEntity(Long managerId, String url) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
 
         return User.builder()
@@ -38,6 +41,10 @@ public class RequestUser extends BaseEntity {
                 .role(this.role)
                 .managerId(managerId)
                 .name(this.name)
+                .urlAvatar(url)
+                .notifications(new ArrayList<>())
+                .houses(new ArrayList<>())
+                .contacts(new ArrayList<>())
                 .build();
     }
 }

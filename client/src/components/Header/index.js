@@ -6,6 +6,7 @@ import HeaderLink from './components/HeaderLink';
 import searchIcon from '../../assert/icons/search-icon.svg';
 import buttonArrow from '../../assert/icons/buttonArrow.svg';
 import { icons } from '../../assert/header-icons';
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   header: {
@@ -78,7 +79,7 @@ const useStyles = makeStyles({
   })
 });
 
-const Header = () => {
+const Header = (props) => {
   const { t } = useTranslation();
 
   const [isOpenHeader, handleHeader] = useState(true);
@@ -88,14 +89,14 @@ const Header = () => {
     mainLinks: [
       {
         id: 1,
-        text:t('menuHome'),
+        text: t('menuHome'),
         icon: icons.main,
         to: '/',
         isMain: true
       },
       {
         id: 2,
-        text:t('menuSettings'),
+        text: t('menuSettings'),
         icon: icons.settings,
         to: '/setting',
         isMain: true
@@ -104,66 +105,91 @@ const Header = () => {
     additionalLinks: [
       {
         id: 3,
-        text:t("menuPanel"),
+        text: t("menuPanel"),
         icon: icons.panel,
         to: '/panel',
-        isMain: false
+        isMain: false,
+        role: "USER",
+      },
+      {
+        id: 31,
+        text: t("menuPanel"),
+        icon: icons.panel,
+        to: '/panel/manager',
+        isMain: false,
+        role: "MANAGER"
+      },
+      {
+        id: 32,
+        text: t("menuPanel"),
+        icon: icons.panel,
+        to: '/panel/admin',
+        isMain: false,
+        role: "ADMIN"
       },
       {
         id: 4,
-        text:t("menuClients"),
-        icon: icons.clients,
-        to: '/clients',
-        isMain: false
+        text: t("menuHouses"),
+        icon: icons.photo,
+        to: '/houses',
+        isMain: false,
+        role: 'USER:ADMIN',
       },
       {
         id: 5,
-        text:t("menuDocuments"),
-        icon: icons.documents,
-        to: '/documents',
-        isMain: false
+        text: t("menuClients"),
+        icon: icons.clients,
+        to: '/clients',
+        isMain: false,
+        role: "ADMIN:MANAGER",
       },
       {
         id: 6,
-        text:t("menuFinance"),
-        icon: icons.finance,
-        to: '/finances',
-        isMain: false
+        text: t("menuDocuments"),
+        icon: icons.documents,
+        to: '/documents',
+        isMain: false,
+        role: "USER:ADMIN:MANAGER",
       },
       {
         id: 7,
-        text:t("menuRent"),
-        icon: icons.analytic,
-        to: '/rent',
-        isMain: false
+        text: t("menuFinance"),
+        icon: icons.finance,
+        to: '/finances',
+        isMain: false,
+        role: "ADMIN:MANAGER",
       },
       {
         id: 8,
-        text:t("menuStatistic"),
+        text: t("menuRent"),
         icon: icons.analytic,
-        to: '/statistic',
-        isMain: false
+        to: '/rent',
+        isMain: false,
+        role: "ADMIN:MANAGER",
       },
       {
         id: 9,
-        text:t("menuHouses"),
-        icon: icons.photo,
-        to: '/houses',
-        isMain: false
+        text: t("menuStatistic"),
+        icon: icons.analytic,
+        to: '/statistic',
+        isMain: false,
+        role: "USER",
       },
       {
         id: 10,
-        text:t("menuEmployee"),
+        text: t("menuEmployee"),
         icon: icons.photo,
         to: '/employees',
-        isMain: false
+        isMain: false,
+        role: "ADMIN",
       },
       {
         id: 11,
         text: t("menuHistory"),
         icon: icons.photo,
         to: '/history',
-        isMain: false
+        isMain: false,
+        role: "ADMIN",
       },
     ]
   };
@@ -173,8 +199,9 @@ const Header = () => {
       <HeaderLink key={link.id} {...link}/>), []);
 
   const additionalList = useMemo(() =>
-    links.additionalLinks.map(link =>
-      <HeaderLink key={link.id} {...link}/>), []
+    links.additionalLinks
+      .filter(link => link.role.split(':').includes(props.user.role))
+      .map(link => <HeaderLink key={link.id} {...link}/>), []
   );
 
   return (
@@ -186,11 +213,10 @@ const Header = () => {
         </div>
         <div className={classes.searchContainer}>
           <img className={classes.searchImg} src={searchIcon} alt="search icon"/>
-          <input className={classes.searchInput} placeholder= {t("search")} type="text"/>
+          <input className={classes.searchInput} placeholder={t("search")} type="text"/>
         </div>
       </div>
-      <Collapse classes={{
-      }} in={isOpenHeader} appear={true}>
+      <Collapse classes={{}} in={isOpenHeader} appear={true}>
         <div className={classes.collapseContainer}>
           <div className={classes.linksContainer}>
             {additionalList}
@@ -203,5 +229,10 @@ const Header = () => {
     </header>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps, null)(Header);
 
-export default React.memo(Header);

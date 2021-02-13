@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -27,6 +28,7 @@ public class RequestTransactionGroup extends BaseEntity {
         return TransactionGroup.builder()
                 .fromDate(this.fromDate)
                 .toDate(this.toDate)
+                .transactions(new ArrayList<>())
                 .house(h)
                 .build();
     }

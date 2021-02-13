@@ -1,55 +1,70 @@
 package com.marksem.controller;
 
-import com.marksem.dto.request.RequestContact;
-import com.marksem.dto.response.ResponseContact;
-import com.marksem.service.ContactService;
+import com.marksem.dto.request.RequestDocument;
+import com.marksem.dto.response.PageableResponse;
+import com.marksem.dto.response.ResponseDocument;
+import com.marksem.dto.response.ResponseException;
+import com.marksem.service.DocumentService;
+import com.marksem.service.FileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/v1/documents")
 @RequiredArgsConstructor
 public class DocumentController {
-//    private final DocumentService service;
-//
-//    @GetMapping
-//    @PreAuthorize("hasAuthority('developers:read')")
-//    public List<ResponseDocument> readAll() {
-//        return service.readAll();
-//    }
-//
-//    @GetMapping("{id}")
-//    @PreAuthorize("hasAuthority('developers:read')")
-//    public ResponseEntity<ResponseDocument> read(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok(service.read(id));
-//    }
+    private final FileService fileService;
+    private final DocumentService documentService;
 
-//    @PostMapping
-//    @PreAuthorize("hasAuthority('developers:write')")
-//    public ResponseEntity<ResponseDocument> create(@RequestBody MultiValueMap<String, String> formData) {
-//        return ResponseEntity.ok(service.create(d));
-//    }
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String postFormData(@RequestParam MultiValueMap<String, String> formData) {
-        return "this is formdata" + formData;
+    @PostMapping
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseEntity<?> create(@ModelAttribute @Valid RequestDocument doc, @RequestHeader("Authorization") String token) {
+        try {
+            String urlFile = fileService.upload(doc.getFile(), token);
+            return ResponseEntity.ok(documentService.create(doc, urlFile));
+        } catch (Exception ex) {
+            return ResponseEntity
+                    .status(ex.hashCode())
+                    .body(new ResponseException(ex.getMessage()));
+        }
     }
 
-//    @PutMapping
-//    @PreAuthorize("hasAuthority('developers:write')")
-//    public ResponseEntity<ResponseDocument> update(@RequestBody RequestDocument d) {
-//        return ResponseEntity.ok(service.update(d));
-//    }
-//
-//    @DeleteMapping("{id}")
-//    @PreAuthorize("hasAuthority('developers:write')")
-//    public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok(service.delete(id));
-//    }
+    @GetMapping
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<PageableResponse<ResponseDocument>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(documentService.readAll(page, size));
+    }
+
+    @GetMapping("{id}")
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<ResponseDocument> read(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(documentService.read(id));
+    }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseEntity<?> update(@ModelAttribute RequestDocument d, @RequestHeader("Authorization") String token) {
+        String urlFile = null;
+        if (d.getFile() != null) {
+            try {
+                urlFile = fileService.update(d.getFile(), token);
+            } catch (Exception ex) {
+                return ResponseEntity
+                        .status(ex.hashCode())
+                        .body(new ResponseException(ex.getMessage()));
+            }
+        }
+        return ResponseEntity.ok(documentService.update(d, urlFile));
+    }
+
+    @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(documentService.delete(id));
+    }
+
 }

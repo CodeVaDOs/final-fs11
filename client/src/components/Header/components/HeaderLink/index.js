@@ -30,9 +30,10 @@ const useStyles = makeStyles({
 
 const Index = ({ to, icon, text, isMain }) => {
   const location = useLocation();
-  const isActive = location.pathname === to;
+  const isActive = location.pathname.includes(to) && !location.pathname.includes('setting') || isMain && location.pathname.includes('setting') && to.includes('setting');
 
   const classes = useStyles({ isActive, isMain });
+
 
   return (
     <Link className={classes.link} to={to}>
