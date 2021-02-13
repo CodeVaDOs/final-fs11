@@ -14,7 +14,8 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "only-warn"
   ],
   "settings": {
     "react": {
