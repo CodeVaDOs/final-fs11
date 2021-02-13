@@ -98,7 +98,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   flexFix: {
-    width: '100vh',
+    width: '600px',
     display: "flex",
     alignItems: 'center',
     justifyContent: 'space-between'

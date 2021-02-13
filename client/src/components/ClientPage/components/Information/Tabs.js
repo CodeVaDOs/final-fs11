@@ -162,7 +162,7 @@ export default function ClientTabs() {
             {bottomView === 2 ? <MyContracts/> : null}
           </div>
           {bottomView === 3 ?
-            <div style={{ width: '100vh' }}>
+            <div style={{ width: '100%' }}>
               <ClientStatisticRent/>
             </div> : null}
         </div>
