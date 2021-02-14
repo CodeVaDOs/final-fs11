@@ -12,6 +12,8 @@ import { House } from "../ClientHouses/House";
 import { Documents } from "../Documents";
 import { MyContracts } from "../Documents/MyContracts";
 import ClientStatisticRent from "../../../ClientStatisticRent";
+import { CreateNewHouse } from "../CreateNewHouse";
+import EditUser from "../../../../pages/Client/components/EditUser";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,11 +40,7 @@ const useStyles = makeStyles(() => ({
   },
   user: {
     backgroundColor: "white",
-    minHeight: '268px',
-    maxHeight: '268px',
-    minWidth: "268px",
-    maxWidth: "268px",
-    border: '2px solid black'
+    minWidth: '285px',
   },
   columnStart: {
     width: '100%',
@@ -100,7 +98,7 @@ export default function ClientTabs() {
   const [value, setValue] = React.useState(0);
   const [HouseIdx,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
-  const [bottomView, setHousesDescription] = useState(null);
+  const [bottomView, setHousesDescription] = useState(0);
 
   function houseToState(e) {
     setHouse(HouseIdx[e]);
@@ -116,7 +114,7 @@ export default function ClientTabs() {
       <div className={classes.columnStart}>
         <div className={classes.root}>
           <div className={classes.user}>
-            Tartakovsky Component
+            <EditUser/>
           </div>
           <Container
             className={classes.columnProfile}>
@@ -157,6 +155,7 @@ export default function ClientTabs() {
 
         </div>
         <div>
+          {bottomView === 0 ? <CreateNewHouse/> : null}
           {bottomView === 1 ? <House house={house}/> : null}
           <div style={{ width: '100%' }}>
             {bottomView === 2 ? <MyContracts/> : null}

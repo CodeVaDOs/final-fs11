@@ -5,6 +5,7 @@ import classNames from "classnames";
 import "./styles.css";
 import Icon from "../../Icon";
 import { IconButton } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const Item = ({ isReverse, isRemovable, messages, avatar, onRemove }) => {
   const onRemoveHandle = (event) => {
@@ -47,7 +48,7 @@ const Item = ({ isReverse, isRemovable, messages, avatar, onRemove }) => {
               className="remove-message"
               onClick={onRemoveHandle}
             >
-              🗑️
+              <DeleteIcon/>
             </IconButton>
           </div>
         ))}

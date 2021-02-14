@@ -1,6 +1,7 @@
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import authReducer from './auth/reducer';
+import docReducer from './documents/reducer';
 import { AUTH_ACTIONS } from "./auth/action";
 import { getTokens, setAuthToken } from "../utils";
 
@@ -8,8 +9,10 @@ import { getTokens, setAuthToken } from "../utils";
 const { applyMiddleware, combineReducers, createStore } = require("redux");
 
 console.log(authReducer);
+console.log(docReducer);
 const reducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  documents: docReducer
 });
 
 export default () => {
