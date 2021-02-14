@@ -182,5 +182,9 @@
   "orderTab": "Заявки",
   "houseTab": "Будинки",
   "incomeTab": "Дохід",
-  "feedbackTab": "Відгуки"
+  "feedbackTab": "Відгуки",
+  "personalManager": "Персональний менеджер",
+  "calendarB": "Календар бронювання",
+  "tasks": "Задачі на День",
+  "detailSecond": "Детально"
 }
