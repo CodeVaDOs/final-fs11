@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public class ResponseTransaction extends BaseEntity {
 
-    private ResponseTransactionGroup transactionGroup;
+    private Long transactionGroupId;
     private Double amount;
     private Currency currency;
     private String comment;
@@ -21,7 +21,7 @@ public class ResponseTransaction extends BaseEntity {
 
     public static ResponseTransaction toDto(Transaction n) {
         return ResponseTransaction.builder()
-                .transactionGroup(ResponseTransactionGroup.toDto(n.getTransactionGroup()))
+                .transactionGroupId(n.getTransactionGroup().getId())
                 .amount(n.getAmount())
                 .currency(n.getCurrency())
                 .comment(n.getComment())

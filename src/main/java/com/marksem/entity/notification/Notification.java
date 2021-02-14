@@ -16,6 +16,8 @@ import javax.persistence.*;
 public class Notification extends BaseEntity {
     private String text;
     private Boolean isRead;
+
+    @Enumerated(EnumType.STRING)
     private Importance importance;
 
     @ManyToOne(fetch = FetchType.LAZY)

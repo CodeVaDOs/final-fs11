@@ -21,10 +21,10 @@ public class ResponseHouse extends BaseEntity {
     private Double avgRating;
     private Long ownerId;
     private ResponseHouseModel houseModel;
-    private List<ResponseHouseMaintenance> maintenance;
-    private List<ResponseBooking> bookings;
-    private List<ResponseTransactionGroup> transactionGroups;
-    private List<ResponseDocument> documents;
+//    private List<ResponseHouseMaintenance> maintenance;
+//    private List<ResponseBooking> bookings;
+//    private List<ResponseTransactionGroup> transactionGroups;
+//    private List<ResponseDocument> documents;
     private List<ResponseHouseImage> houseImages;
 
     public static ResponseHouse toDto(House h) {
@@ -36,10 +36,10 @@ public class ResponseHouse extends BaseEntity {
                 .avgRating(h.getAvgRating())
                 .ownerId(h.getOwner().getId())
                 .houseModel(ResponseHouseModel.toDto(h.getHouseModel()))
-                .maintenance(h.getHouseMaintenance().stream().map(ResponseHouseMaintenance::toDto).collect(Collectors.toList()))
-                .bookings(h.getBookings().stream().map(ResponseBooking::toDto).collect(Collectors.toList()))
-                .transactionGroups(h.getTransactionGroups().stream().map(ResponseTransactionGroup::toDto).collect(Collectors.toList()))
-                .documents(h.getDocuments().stream().map(ResponseDocument::toDto).collect(Collectors.toList()))
+//                .maintenance(h.getHouseMaintenance().stream().map(ResponseHouseMaintenance::toDto).collect(Collectors.toList()))
+//                .bookings(h.getBookings().stream().map(ResponseBooking::toDto).collect(Collectors.toList()))
+//                .transactionGroups(h.getTransactionGroups().stream().map(ResponseTransactionGroup::toDto).collect(Collectors.toList()))
+//                .documents(h.getDocuments().stream().map(ResponseDocument::toDto).collect(Collectors.toList()))
                 .houseImages(h.getHouseImages().stream().map(ResponseHouseImage::toDto).collect(Collectors.toList()))
                 .build();
     }

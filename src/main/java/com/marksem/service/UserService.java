@@ -10,6 +10,7 @@ import com.marksem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -49,8 +50,8 @@ public class UserService {
         return ResponseUser.toDto(getUserByEmail(email));
     }
 
-    public PageableResponse<ResponseUser> readAll(int page, int size, Role role) {
-        Page<User> users = repository.findAllByRole(role, PageRequest.of(page, size));
+    public PageableResponse<ResponseUser> readAll(int page, int size, Role role, String searchString, Sort.Direction direction, String sortBy) {
+        Page<User> users = repository.findByNameContainingIgnoreCaseAndRole(searchString, role, PageRequest.of(page, size, direction, sortBy));
         return new PageableResponse<>(users.getTotalElements(),
                 users.getContent().stream().map(ResponseUser::toDto).collect(Collectors.toList()));
     }

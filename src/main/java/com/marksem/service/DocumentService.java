@@ -10,7 +10,7 @@ import com.marksem.repository.HouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -46,8 +46,8 @@ public class DocumentService {
                 .orElseThrow(() -> new NoDataFoundException("document", id));
     }
 
-    public PageableResponse<ResponseDocument> readAll(int page, int size) {
-        Page<Document> documents = documentRepository.findAll(PageRequest.of(page, size));
+    public PageableResponse<ResponseDocument> readAll(int page, int size, String searchString, Sort.Direction direction, String sortBy) {
+        Page<Document> documents = documentRepository.findByNameContainingIgnoreCase(searchString, PageRequest.of(page, size, direction, sortBy));
         return new PageableResponse<>(documents.getTotalElements(),
                 documents.getContent().stream().map(ResponseDocument::toDto).collect(Collectors.toList()));
     }

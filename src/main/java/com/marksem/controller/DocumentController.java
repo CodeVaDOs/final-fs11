@@ -7,6 +7,7 @@ import com.marksem.dto.response.ResponseException;
 import com.marksem.service.DocumentService;
 import com.marksem.service.FileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,12 @@ public class DocumentController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<PageableResponse<ResponseDocument>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(documentService.readAll(page, size));
+    public ResponseEntity<PageableResponse<ResponseDocument>> readAll(@RequestParam(defaultValue = "0") int page,
+                                                                      @RequestParam(defaultValue = "10") int size,
+                                                                      @RequestParam(defaultValue = "") String searchString,
+                                                                      @RequestParam(defaultValue = "id") String sortBy,
+                                                                      @RequestParam(defaultValue = "ASC") Sort.Direction direction) {
+        return ResponseEntity.ok(documentService.readAll(page, size, searchString, direction, sortBy));
     }
 
     @GetMapping("{id}")
