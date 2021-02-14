@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   }
 });
 
-const ButtonStyle =({ btnState, w, h, ml, fw="500", fs="18px", text, onClick, type = "button" })=>{
+const ButtonStyle =({ btnState, w, h, ml, fw="500", fs="18px", text, children, onClick, type = "button" })=>{
   const classes = useStyles();
   const divStyle = {
     width:w,
@@ -48,6 +48,6 @@ const ButtonStyle =({ btnState, w, h, ml, fw="500", fs="18px", text, onClick, ty
     fontWeight:fw,
     fontSize:fs
   };
-  return(<Button style={divStyle} className={ btnState === true ? classes.active: classes.root} type={type} onClick={onClick}>{text}</Button>);
+  return(<Button style={divStyle} className={ btnState === true ? classes.active: classes.root} type={type} onClick={onClick}>{text || children}</Button>);
 };
 export default ButtonStyle;

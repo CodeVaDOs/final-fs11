@@ -123,6 +123,13 @@ export const routes = [
     component: lazy(() => import("@pages/Client")),
   },
   {
+    isPublic: false,
+    isAdminRoute: true,
+    exact: true,
+    path: "/employee",
+    component: lazy(() => import("@pages/Employee")),
+  },
+  {
     path: "/",
     notFound: true,
     component: lazy(() => import("@pages/NotFound")),
