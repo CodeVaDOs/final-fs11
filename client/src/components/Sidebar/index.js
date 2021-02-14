@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import TaskPanel from '../../components/TasksPanel';
 const useStyles = makeStyles(theme => ({
   openHandler: props => ({
-    position: 'absolute',
+    position: 'fixed',
     top: '50px',
     right: props.open ? '418' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
     transition: 'right 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',

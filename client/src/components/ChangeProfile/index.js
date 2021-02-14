@@ -99,7 +99,6 @@ const ChangeProfile =() => {
     secondPhone: '',
     email: '',
     dateBirth: ''
-
   });
   const handleChange = (e) => {
     setDataForm({
