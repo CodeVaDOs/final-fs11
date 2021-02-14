@@ -1,6 +1,6 @@
 package com.marksem.entity.user;
 
-import com.marksem.entity.*;
+import com.marksem.entity.BaseEntity;
 import com.marksem.entity.contact.Contact;
 import com.marksem.entity.house.House;
 import com.marksem.entity.notification.Notification;
@@ -9,7 +9,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(exclude = "contacts", callSuper = true)
 @Entity

@@ -3,23 +3,20 @@ package com.marksem.service;
 import com.marksem.entity.user.User;
 import com.marksem.exception.JwtAuthenticationException;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.UserRepository;
+import com.marksem.repository.UserRepository;
 import com.marksem.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 @Service
 public class ResetPasswordService {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final JavaMailSender javaMailSender;
+    private final MessageService messageService;
 
     @Value("${url.server}")
     private String serverUrl;
@@ -30,25 +27,20 @@ public class ResetPasswordService {
     @Value("${serverChangePasswordPath}")
     private String serverChangePasswordPath;
 
-    public ResetPasswordService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, JavaMailSender javaMailSender) {
+    public ResetPasswordService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, MessageService messageService) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.javaMailSender = javaMailSender;
+        this.messageService = messageService;
     }
 
     public void sendMessageToEmail(String email) throws MessagingException {
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
-        helper.setTo(email);
-        helper.setSubject("reset password");
-
         User user = userRepository.findByEmail(email).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
         String token = jwtTokenProvider.createPasswordResetToken(user.getId());
 
         String href = String.format("%s/%s/%s", serverUrl, serverChangePasswordPath, token);
-        helper.setText("<p>Для изменения пароля перейдите по ссылке:</p>" + href, true);
-        javaMailSender.send(message);
+        String text = "<p>Для изменения пароля перейдите по ссылке:</p>" + href;
+
+        messageService.send(email, "reset password", text);
     }
 
     public String resetPassword(String token) {

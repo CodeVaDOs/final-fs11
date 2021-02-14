@@ -5,7 +5,7 @@ import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseTask;
 import com.marksem.entity.task.Task;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.TaskRepository;
+import com.marksem.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,37 +17,36 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TaskService {
-    private final TaskRepository repo;
+    private final TaskRepository repository;
 
     public ResponseTask create(RequestTask m) {
-        return ResponseTask.toDto(repo.save(m.toEntity()));
+        return ResponseTask.toDto(repository.save(m.toEntity()));
     }
 
     public ResponseTask update(RequestTask m) {
-        return repo.findById(m.getId())
+        return repository.findById(m.getId())
                 .map(i -> {
                     i.setText(m.getText());
-                    return repo.save(i);
+                    return repository.save(i);
                 })
                 .map(ResponseTask::toDto)
                 .orElseThrow(() -> new NoDataFoundException("task", m.getId()));
     }
 
     public ResponseTask read(Long id) {
-        return repo.findById(id)
+        return repository.findById(id)
                 .map(ResponseTask::toDto)
                 .orElseThrow(() -> new NoDataFoundException("task", id));
     }
 
     public PageableResponse<ResponseTask> readAllByUser(String email, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Task> tasks = repo.findAllByCreatedBy(email, pageable);
+        Page<Task> tasks = repository.findAllByCreatedBy(email, PageRequest.of(page, size));
         return new PageableResponse<>(tasks.getTotalElements(),
                 tasks.getContent().stream().map(ResponseTask::toDto).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {
-        repo.deleteById(id);
+        repository.deleteById(id);
         return id;
     }
 }

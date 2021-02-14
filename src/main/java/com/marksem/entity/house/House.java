@@ -8,7 +8,8 @@ import com.marksem.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -44,5 +45,8 @@ public class House extends BaseEntity {
     private HouseModel houseModel;
 
     @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
-    private List<HouseMaintenance> houseMaintenances = new ArrayList<>();
+    private List<HouseImage> houseImages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
+    private List<HouseMaintenance> houseMaintenance = new ArrayList<>();
 }

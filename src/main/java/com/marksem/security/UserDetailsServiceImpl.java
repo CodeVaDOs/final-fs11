@@ -2,7 +2,7 @@ package com.marksem.security;
 
 import com.marksem.entity.user.User;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.UserRepository;
+import com.marksem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

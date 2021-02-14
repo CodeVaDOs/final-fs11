@@ -1,4 +1,4 @@
-package com.marksem.repo;
+package com.marksem.repository;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.marksem.repo;
+package com.marksem.repository;
 
 import com.marksem.entity.contact.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
