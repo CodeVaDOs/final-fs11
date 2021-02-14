@@ -16,14 +16,14 @@ public class ResponseNotification extends BaseEntity {
     private String text;
     private Boolean isRead;
     private Importance importance;
-    private User receiver;
+    private Long receiverId;
 
     public static ResponseNotification toDto(Notification n) {
         return ResponseNotification.builder()
                 .text(n.getText())
                 .isRead(n.getIsRead())
                 .importance(n.getImportance())
-                .receiver(n.getReceiver())
+                .receiverId(n.getReceiver().getId())
                 .build();
     }
 }

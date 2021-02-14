@@ -1,11 +1,10 @@
 import React from 'react';
-import HousesTabs from "../../components/HouseCard/HousesList/HousesTabs";
-import Container from "../../components/Container";
+import { HouseComponent } from "../../components/HouseCard/HouseComponent";
 const Houses = () => {
   return (
-    <Container>
-      <HousesTabs/>
-    </Container>
+    <>
+      <HouseComponent/>
+    </>
   );
 };
 export default Houses;

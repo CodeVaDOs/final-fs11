@@ -12,11 +12,12 @@ import { House } from "../ClientHouses/House";
 import { Documents } from "../Documents";
 import { MyContracts } from "../Documents/MyContracts";
 import ClientStatisticRent from "../../../ClientStatisticRent";
+import { CreateNewHouse } from "../CreateNewHouse";
 
 const useStyles = makeStyles(() => ({
   root: {
     // borderLeft: '1px solid black',
-    width: "100%",
+    width: "100vh",
     marginLeft: '3px',
     display: "flex",
     margin: "2px",
@@ -100,7 +101,7 @@ export default function ClientTabs() {
   const [value, setValue] = React.useState(0);
   const [HouseIdx,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
-  const [bottomView, setHousesDescription] = useState(null);
+  const [bottomView, setHousesDescription] = useState(0);
 
   function houseToState(e) {
     setHouse(HouseIdx[e]);
@@ -156,11 +157,14 @@ export default function ClientTabs() {
           </Container>
 
         </div>
-        <div style={{ width: '100%' }}>
+        <div>
+          {bottomView === 0 ? <CreateNewHouse/> : null}
           {bottomView === 1 ? <House house={house}/> : null}
-          {bottomView === 2 ? <MyContracts visibleFalse={false}/> : null}
+          <div style={{ width: '100%' }}>
+            {bottomView === 2 ? <MyContracts/> : null}
+          </div>
           {bottomView === 3 ?
-            <div style={{ width: '95%' }}>
+            <div style={{ width: '100%' }}>
               <ClientStatisticRent/>
             </div> : null}
         </div>

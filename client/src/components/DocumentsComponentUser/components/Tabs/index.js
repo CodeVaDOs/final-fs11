@@ -6,8 +6,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Contracts } from "../Contracts";
-import { Platizki } from "../Platizki";
+import { MyContractsUser } from "./Contracts";
+import { MyBills } from "./Platizki";
+import { MyExploitation } from "./Exploitation";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,11 +43,11 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "transparent",
     width: "100%",
-    marginTop:"20px"
+    marginTop: "20px"
   },
 }));
 
@@ -58,14 +59,12 @@ export default function FullWidthTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const handleChangeIndex = (index) => {
     setValue(index);
   };
 
-
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -77,20 +76,21 @@ export default function FullWidthTabs() {
         <Tab label="Експлуатацiя" {...a11yProps(2)} />
       </Tabs>
       <SwipeableViews
+        style={{ width: "950px", margin: "0 auto" }}
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Contracts/>
+          <MyContractsUser/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Platizki/>
+          <MyBills/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+          <MyExploitation/>
         </TabPanel>
       </SwipeableViews>
-    </Box>
+    </div>
   );
 }

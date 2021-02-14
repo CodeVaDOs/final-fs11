@@ -89,14 +89,14 @@ const Header = (props) => {
     mainLinks: [
       {
         id: 1,
-        text:t('menuHome'),
+        text: t('menuHome'),
         icon: icons.main,
         to: '/',
         isMain: true
       },
       {
         id: 2,
-        text:t('menuSettings'),
+        text: t('menuSettings'),
         icon: icons.settings,
         to: '/setting',
         isMain: true
@@ -105,103 +105,83 @@ const Header = (props) => {
     additionalLinks: [
       {
         id: 3,
-        text:t("menuPanel"),
+        text: t("menuPanel"),
         icon: icons.panel,
         to: '/panel',
         isMain: false,
-        isUser: true,
-        isAdmin: false,
-        isManager: false
+        role: "USER",
       },
       {
         id: 31,
-        text:t("menuPanel"),
+        text: t("menuPanel"),
         icon: icons.panel,
         to: '/panel/manager',
         isMain: false,
-        isUser: false,
-        isAdmin: false,
-        isManager: true
+        role: "MANAGER"
       },
       {
         id: 32,
-        text:t("menuPanel"),
+        text: t("menuPanel"),
         icon: icons.panel,
         to: '/panel/admin',
         isMain: false,
-        isUser: false,
-        isAdmin: true,
-        isManager: false
+        role: "ADMIN"
       },
       {
         id: 4,
-        text:t("menuHouses"),
+        text: t("menuHouses"),
         icon: icons.photo,
         to: '/houses',
         isMain: false,
-        isUser: true,
-        isAdmin: true,
-        isManager: false
+        role: 'USER:ADMIN',
       },
       {
         id: 5,
-        text:t("menuClients"),
+        text: t("menuClients"),
         icon: icons.clients,
         to: '/clients',
         isMain: false,
-        isUser: false,
-        isAdmin: true,
-        isManager: true
+        role: "ADMIN:MANAGER",
       },
       {
         id: 6,
-        text:t("menuDocuments"),
+        text: t("menuDocuments"),
         icon: icons.documents,
         to: '/documents',
         isMain: false,
-        isUser: true,
-        isAdmin: true,
-        isManager: true
+        role: "USER:ADMIN:MANAGER",
       },
       {
         id: 7,
-        text:t("menuFinance"),
+        text: t("menuFinance"),
         icon: icons.finance,
         to: '/finances',
         isMain: false,
-        isUser: false,
-        isAdmin: true,
-        isManager: true
+        role: "ADMIN:MANAGER",
       },
       {
         id: 8,
-        text:t("menuRent"),
+        text: t("menuRent"),
         icon: icons.analytic,
         to: '/rent',
         isMain: false,
-        isUser: false,
-        isAdmin: true,
-        isManager: true
+        role: "ADMIN:MANAGER",
       },
       {
         id: 9,
-        text:t("menuStatistic"),
+        text: t("menuStatistic"),
         icon: icons.analytic,
         to: '/statistic',
         isMain: false,
-        isUser: true,
-        isAdmin: false,
-        isManager: false
+        role: "USER",
       },
       {
         id: 10,
-        text:t("menuEmployee"),
+        text: t("menuEmployee"),
         icon: icons.photo,
         to: '/employees',
         isMain: false,
-        isUser: false,
-        isAdmin: true,
-        isManager: false
+        role: "ADMIN",
       },
       {
         id: 11,
@@ -209,9 +189,7 @@ const Header = (props) => {
         icon: icons.photo,
         to: '/history',
         isMain: false,
-        isUser: false,
-        isAdmin: true,
-        isManager: false
+        role: "ADMIN",
       },
     ]
   };
@@ -219,27 +197,12 @@ const Header = (props) => {
   const mainList = useMemo(() =>
     links.mainLinks.map(link =>
       <HeaderLink key={link.id} {...link}/>), []);
-  
-  const additionalListClient = useMemo(() =>
-    links.additionalLinks.map(link =>{
-      if(link.isUser === true)
-        return <HeaderLink key={link.id} {...link}/>;
-    }), []
-  );
-  const additionalListManager = useMemo(() =>
-    links.additionalLinks.map(link =>{
-      if(link.isManager === true)
-        return <HeaderLink key={link.id} {...link}/>;
-    }), []
-  );
-  const additionalListAdmin = useMemo(() =>
-    links.additionalLinks.map(link =>{
-      if(link.isAdmin === true)
-        return <HeaderLink key={link.id} {...link}/>;
-    }), []
-  );
 
-
+  const additionalList = useMemo(() =>
+    links.additionalLinks
+      .filter(link => link.role.split(':').includes(props.user.role))
+      .map(link => <HeaderLink key={link.id} {...link}/>), []
+  );
 
   return (
     <header className={classes.header}>
@@ -250,16 +213,13 @@ const Header = (props) => {
         </div>
         <div className={classes.searchContainer}>
           <img className={classes.searchImg} src={searchIcon} alt="search icon"/>
-          <input className={classes.searchInput} placeholder= {t("search")} type="text"/>
+          <input className={classes.searchInput} placeholder={t("search")} type="text"/>
         </div>
       </div>
-      <Collapse classes={{
-      }} in={isOpenHeader} appear={true}>
+      <Collapse classes={{}} in={isOpenHeader} appear={true}>
         <div className={classes.collapseContainer}>
           <div className={classes.linksContainer}>
-            {(props.user.role === "USER" && additionalListClient) ||
-            (props.user.role === "MANAGER" && additionalListManager) ||
-            (props.user.role === "ADMIN" && additionalListAdmin)}
+            {additionalList}
           </div>
         </div>
       </Collapse>
