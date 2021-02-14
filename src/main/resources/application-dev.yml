@@ -27,7 +27,7 @@ spring:
   #    database: postgresql
   datasource:
     password: Gohojokolo159
-    url: jdbc:postgresql://64.225.103.252:5432/final_project_dev  #WRITE HOST
+    url: jdbc:postgresql://_____________________/final_project_dev  #WRITE HOST
     username: super_user
   jpa:
     hibernate:

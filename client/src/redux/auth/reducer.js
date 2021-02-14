@@ -3,7 +3,7 @@ import { getTokens } from "../../utils";
 const { accessToken } = getTokens();
 // authorized: Boolean(accessToken),
 const INIT_STATE = {
-  authorized: false,
+  authorized: Boolean(accessToken),
   loading: false,
   user: {},
 };
