@@ -177,5 +177,14 @@
   "yearRent": "Всего арендовано за год",
   "renter": "Арендаторов",
   "dayRent": "Дней в аренде",
-  "hoseRent": "Домов арендовано"
+  "hoseRent": "Домов арендовано",
+  "statisticTab": "Статистика",
+  "orderTab": "Заявки",
+  "houseTab": "Дома",
+  "incomeTab": "Доход",
+  "feedbackTab": "Отзывы",
+  "personalManager": "Персональный менеджер",
+  "calendarB": "Календарь бронирования",
+  "tasks": "Задачи на День",
+  "detailSecond": "Подробно"
 }
