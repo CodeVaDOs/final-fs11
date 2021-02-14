@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'left',
     "& :nth-child(1)": {
-      width: "200px"
+      width: "150px"
     }
   },
   btnSend: {

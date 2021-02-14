@@ -1,12 +1,10 @@
 import React from 'react';
 import HousesTabs from "./HousesList/HousesTabs";
 
-const HouseComponent = () => {
-
+export const HouseComponent = () => {
   return (
     <>
       <HousesTabs/>
     </>
   );
 };
-export default HouseComponent;

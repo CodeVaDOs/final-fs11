@@ -14,6 +14,8 @@ import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(() => ({
   root: {
+    paddingLeft:20,
+    paddingRight:20,
     width: "100%",
     backgroundColor:"#fff",
     boxShadow:"0px 2px 4px #00000033",

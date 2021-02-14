@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,9 +8,9 @@ import ControlNotificationContainer from "./ControlNotification/ControlNotificat
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
 import { tileData } from "../../../utils/constants/housesView";
-import { useFetch } from "../../../hooks/useFetch";
 import { useTranslation } from "react-i18next";
-import Box from "@material-ui/core/Box";
+import { Container } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const AntTabs = withStyles({
   indicator: {
@@ -47,17 +47,6 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     marginTop: '18px',
   },
-  padding: {
-  },
-  container: {
-    width: '100%',
-    height: 'fit-content',
-    boxShadow: "2px 2px 2px 2px rgba(0,0,0, 0.16)",
-    borderRadius: '20px',
-    fontFamily: 'Roboto',
-    display: 'flex',
-
-  },
 }));
 
 
@@ -67,40 +56,43 @@ export default function HousesTabs() {
   const [value, setValue] = useState('one');
   const [Houses,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
-  const [{ data, loading }, getData] = useFetch({ url: `houses` });
-  useEffect(() => {
-    getData();
-  }, []);
-
-  console.log(data, loading);
-
+  // const [{ data, loading }, getData] = useFetch({ url: `houses` });
+  // console.log(data, loading);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   function houseToState(e) {
+
     setHouse(Houses[e]);
   }
 
+  const AddHouseToList = () => {
+    getData();
+    console.log('house add');
+    console.log('data', data);
+
+  };
   return (
-    <Box className={classes.root}>
-      <Box>
+    <Container className={classes.root}>
+      <div>
         <AntTabs value={value} onChange={handleChange} aria-label="ant example">
           <AntTab value="one" label={t("myHouses")} wrapped/>
           <AntTab value="two" label={t("control")}/>
         </AntTabs>
         <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <Box>
+          <div>
+            <Button onClick={AddHouseToList}>POST + house</Button>
             <HouseCard onHouseClick={houseToState} data={Houses}/>
             <HouseContainer house={house}/>
-          </Box>
+          </div>
         </TabPanel>
-        <TabPanel value={value} index="two">
+        <TabPanel value={value} index="two" style={{ width: '140vh' }}>
           <ControlNotificationContainer/>
           <ManagementServices/>
         </TabPanel>
-      </Box>
-    </Box>
+      </div>
+    </Container>
   );
 }
 

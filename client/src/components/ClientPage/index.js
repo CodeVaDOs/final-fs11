@@ -16,10 +16,7 @@ export const ClientPage = () => {
 
   return (
     <>
-      <h4>Aндрій Олександрович</h4>
-      <div className={classes.div}>
-        <ClientTabs/>
-      </div>
+      <ClientTabs/>
     </>
   );
 };

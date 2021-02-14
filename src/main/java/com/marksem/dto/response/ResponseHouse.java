@@ -18,8 +18,8 @@ public class ResponseHouse extends BaseEntity {
     private String area;
     private String description;
     private Double avgRating;
-    private User owner;
-    private HouseModel houseModel;
+    private Long ownerId;
+    private ResponseHouseModel houseModel;
 
     public static ResponseHouse toDto(House h) {
         return ResponseHouse.builder()
@@ -28,8 +28,8 @@ public class ResponseHouse extends BaseEntity {
                 .area(h.getArea())
                 .description(h.getDescription())
                 .avgRating(h.getAvgRating())
-                .owner(h.getOwner())
-                .houseModel(h.getHouseModel())
+                .ownerId(h.getOwner().getId())
+                .houseModel(ResponseHouseModel.toDto(h.getHouseModel()))
                 .build();
     }
 }
