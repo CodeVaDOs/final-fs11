@@ -1,9 +1,13 @@
 package com.marksem.service;
 
-import com.marksem.repo.FileRepository;
+import com.marksem.exception.RestTemplateException;
+import com.marksem.repository.FileRepository;
 import lombok.AllArgsConstructor;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,8 +23,10 @@ public class FileService {
 
 
   public String upload(MultipartFile file, String token) {
-    String responseJson = this.fileRepository.upload(file, token);
-    return this.getFileUrlFromResponseJson(responseJson);
+    try {
+      String responseJson = this.fileRepository.upload(file, token);
+      return this.getFileUrlFromResponseJson(responseJson);
+    } catch (HttpStatusCodeException ex){ throw new RestTemplateException(ex.getMessage(), ex.getStatusCode(), ex.getStatusText());}
   }
 
   public boolean delete(String filename, String token) {
@@ -39,7 +45,7 @@ public class FileService {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return responseMap.get("fileName");
+    return responseMap.get("filePath");
   }
 
 }

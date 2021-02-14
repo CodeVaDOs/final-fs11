@@ -6,6 +6,10 @@ import com.marksem.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -19,6 +23,7 @@ public class RequestHouse extends BaseEntity {
     private Double avgRating;
     private Long ownerId;
     private Long houseModelId;
+    private List<MultipartFile> images = new ArrayList<>();
 
     public House toEntity(User u, HouseModel hm) {
         return House.builder()
@@ -29,6 +34,11 @@ public class RequestHouse extends BaseEntity {
                 .avgRating(this.avgRating)
                 .owner(u)
                 .houseModel(hm)
+                .bookings(new ArrayList<>())
+                .transactionGroups(new ArrayList<>())
+                .documents(new ArrayList<>())
+                .houseImages(new ArrayList<>())
+                .houseMaintenance(new ArrayList<>())
                 .build();
     }
 }

@@ -5,8 +5,8 @@ import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseHouseMaintenance;
 import com.marksem.entity.house.HouseMaintenance;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.HouseMaintenanceRepository;
-import com.marksem.repo.HouseRepository;
+import com.marksem.repository.HouseMaintenanceRepository;
+import com.marksem.repository.HouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,43 +18,42 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class HouseMaintenanceService {
-    private final HouseRepository houseRepo;
-    private final HouseMaintenanceRepository houseMaintenanceRepo;
+    private final HouseRepository houseRepository;
+    private final HouseMaintenanceRepository houseMaintenanceRepository;
 
     public ResponseHouseMaintenance create(RequestHouseMaintenance hm) {
-        return houseRepo.findById(hm.getHouseId())
-                .map(h -> houseMaintenanceRepo.save(hm.toEntity(h)))
+        return houseRepository.findById(hm.getHouseId())
+                .map(h -> houseMaintenanceRepository.save(hm.toEntity(h)))
                 .map(ResponseHouseMaintenance::toDto)
                 .orElseThrow(() -> new NoDataFoundException("house", hm.getHouseId()));
     }
 
     public ResponseHouseMaintenance update(RequestHouseMaintenance hm) {
-        return houseMaintenanceRepo.findById(hm.getId())
+        return houseMaintenanceRepository.findById(hm.getId())
                 .map(i -> {
                     i.setText(hm.getText());
                     i.setType(hm.getType());
                     i.setIsActive(hm.getIsActive());
-                    return houseMaintenanceRepo.save(i);
+                    return houseMaintenanceRepository.save(i);
                 })
                 .map(ResponseHouseMaintenance::toDto)
                 .orElseThrow(() -> new NoDataFoundException("house maintenance", hm.getId()));
     }
 
     public ResponseHouseMaintenance read(Long id) {
-        return houseMaintenanceRepo.findById(id)
+        return houseMaintenanceRepository.findById(id)
                 .map(ResponseHouseMaintenance::toDto)
                 .orElseThrow(() -> new NoDataFoundException("house maintenance", id));
     }
 
     public PageableResponse<ResponseHouseMaintenance> readAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<HouseMaintenance> maintenance = houseMaintenanceRepo.findAll(pageable);
+        Page<HouseMaintenance> maintenance = houseMaintenanceRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(maintenance.getTotalElements(),
                 maintenance.getContent().stream().map(ResponseHouseMaintenance::toDto).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {
-        houseMaintenanceRepo.deleteById(id);
+        houseMaintenanceRepository.deleteById(id);
         return id;
     }
 }

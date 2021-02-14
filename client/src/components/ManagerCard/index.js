@@ -10,11 +10,12 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    borderRadius: '10%',
-    margin: "10px",
-    width: "400px",
+    width: "356px",
+    borderRadius:"20px",
+    marginTop:"20px",
+    marginBottom:"10px",
     backgroundColor: theme.palette.background.paper,
-    boxShadow: "5px 5px 2px 1px rgba(0, 0, 112, .05)"
+    boxShadow: "0px 1px 3px #00000033"
   },
   myManager: {
     width: "380px",
@@ -24,7 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
   },
   managerAvatar: {
-    transform: "scale(1.2)",
+    width:"67px",
+    height:"67px",
+    borderRadius: "50%"
   },
   li: {
     maxHeight: "25px",
@@ -33,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   liImage: {
     maxWidth: "20px",
     overflow: "hidden"
-    // marginLeft: "55px"
   },
 
   line: {
@@ -52,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ManagerCard({ name, tel, email }) {
+export default function ManagerCard({ name, tel, email, avt }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -67,7 +69,7 @@ export default function ManagerCard({ name, tel, email }) {
 
         <Grid item md={2}>
           <Avatar className={classes.managerAvatar}>
-            <AccountCircleIcon color="primary"/>
+            {avt === null?  <AccountCircleIcon color="primary"/>: <img src={avt}/>}
           </Avatar>
         </Grid>
 

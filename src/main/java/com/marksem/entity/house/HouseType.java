@@ -1,8 +1,10 @@
 package com.marksem.entity.house;
 
 import com.marksem.entity.BaseEntity;
-import com.marksem.entity.house.HouseModel;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

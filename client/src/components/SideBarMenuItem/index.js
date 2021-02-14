@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
 import avatar from '../../images/avatar.png';
+
 const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: "transparent",

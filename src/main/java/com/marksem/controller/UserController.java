@@ -2,9 +2,8 @@ package com.marksem.controller;
 
 import com.marksem.dto.request.RequestUser;
 import com.marksem.dto.response.PageableResponse;
-import com.marksem.dto.response.ResponseException;
 import com.marksem.dto.response.ResponseUser;
-import com.marksem.service.FileService;
+import com.marksem.entity.user.Role;
 import com.marksem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,28 +18,20 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final FileService fileService;
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<?> create(@ModelAttribute @Valid RequestUser u, @RequestHeader("Authorization") String token, Principal principal) {
-        String urlAvatar = null;
-        if (u.getAvatar() != null) {
-            try {
-                urlAvatar = fileService.upload(u.getAvatar(), token);
-            } catch (Exception ex) {
-                return ResponseEntity
-                        .status(ex.hashCode())
-                        .body(new ResponseException(ex.getMessage()));
-            }
-        }
-        return ResponseEntity.ok(userService.create(u, urlAvatar, principal.getName()));
+    public ResponseEntity<ResponseUser> create(@ModelAttribute @Valid RequestUser u,
+                                               @RequestHeader("Authorization") String token, Principal principal) {
+        return ResponseEntity.ok(userService.create(u, principal.getName(), token));
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<PageableResponse<ResponseUser>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(userService.readAll(page, size));
+    public ResponseEntity<PageableResponse<ResponseUser>> readAll(@RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size,
+                                                                  @RequestParam(defaultValue = "USER") Role role) {
+        return ResponseEntity.ok(userService.readAll(page, size, role));
     }
 
     @GetMapping("profile")
@@ -57,18 +48,8 @@ public class UserController {
 
     @PutMapping()
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<?> update(@ModelAttribute RequestUser u, @RequestHeader("Authorization") String token) {
-        String urlAvatar = null;
-        if (u.getAvatar() != null) {
-            try {
-                urlAvatar = fileService.update(u.getAvatar(), token);
-            } catch (Exception ex) {
-                return ResponseEntity
-                        .status(ex.hashCode())
-                        .body(new ResponseException(ex.getMessage()));
-            }
-        }
-        return ResponseEntity.ok(userService.update(u, urlAvatar));
+    public ResponseEntity<ResponseUser> update(@ModelAttribute RequestUser u, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(userService.update(u, token));
     }
 
     @DeleteMapping("{id}")

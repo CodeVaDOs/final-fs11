@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -20,6 +21,7 @@ public class RequestUser extends BaseEntity {
     private Long id;
 
     private MultipartFile avatar;
+
     @Email(message = "not email")
     private String email;
 
@@ -31,6 +33,8 @@ public class RequestUser extends BaseEntity {
 
     @NotNull(message = "name is require")
     private String name;
+
+    private List<RequestContact> contacts = new ArrayList<>();
 
     public User toEntity(Long managerId, String url) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);

@@ -5,12 +5,11 @@ import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseBookingMaintenance;
 import com.marksem.entity.booking.BookingMaintenance;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.BookingMaintenanceRepository;
-import com.marksem.repo.BookingRepository;
+import com.marksem.repository.BookingMaintenanceRepository;
+import com.marksem.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -18,43 +17,42 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class BookingMaintenanceService {
-    private final BookingRepository bookingRepo;
-    private final BookingMaintenanceRepository bookingMaintenanceRepo;
+    private final BookingRepository bookingRepository;
+    private final BookingMaintenanceRepository bookingMaintenanceRepository;
 
     public ResponseBookingMaintenance create(RequestBookingMaintenance bm) {
-        return bookingRepo.findById(bm.getBookingId())
-                .map(b -> bookingMaintenanceRepo.save(bm.toEntity(b)))
+        return bookingRepository.findById(bm.getBookingId())
+                .map(b -> bookingMaintenanceRepository.save(bm.toEntity(b)))
                 .map(ResponseBookingMaintenance::toDto)
                 .orElseThrow(() -> new NoDataFoundException("booking", bm.getBookingId()));
     }
 
     public ResponseBookingMaintenance update(RequestBookingMaintenance bm) {
-        return bookingMaintenanceRepo.findById(bm.getId())
+        return bookingMaintenanceRepository.findById(bm.getId())
                 .map(i -> {
                     i.setText(bm.getText());
                     i.setType(bm.getType());
                     i.setIsActive(bm.getIsActive());
-                    return bookingMaintenanceRepo.save(i);
+                    return bookingMaintenanceRepository.save(i);
                 })
                 .map(ResponseBookingMaintenance::toDto)
                 .orElseThrow(() -> new NoDataFoundException("booking maintenance", bm.getId()));
     }
 
     public ResponseBookingMaintenance read(Long id) {
-        return bookingMaintenanceRepo.findById(id)
+        return bookingMaintenanceRepository.findById(id)
                 .map(ResponseBookingMaintenance::toDto)
                 .orElseThrow(() -> new NoDataFoundException("booking maintenance", id));
     }
 
     public PageableResponse<ResponseBookingMaintenance> readAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<BookingMaintenance> maintenance = bookingMaintenanceRepo.findAll(pageable);
+        Page<BookingMaintenance> maintenance = bookingMaintenanceRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(maintenance.getTotalElements(),
                 maintenance.getContent().stream().map(ResponseBookingMaintenance::toDto).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {
-        bookingMaintenanceRepo.deleteById(id);
+        bookingMaintenanceRepository.deleteById(id);
         return id;
     }
 }
