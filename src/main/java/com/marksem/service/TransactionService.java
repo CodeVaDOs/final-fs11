@@ -5,9 +5,9 @@ import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseTransaction;
 import com.marksem.entity.transaction.Transaction;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.TransactionGroupRepository;
-import com.marksem.repo.TransactionRepository;
-import com.marksem.repo.TransactionTypeRepository;
+import com.marksem.repository.TransactionGroupRepository;
+import com.marksem.repository.TransactionRepository;
+import com.marksem.repository.TransactionTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,8 +51,7 @@ public class TransactionService {
     }
 
     public PageableResponse<ResponseTransaction> readAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Transaction> transactions = transactionRepository.findAll(pageable);
+        Page<Transaction> transactions = transactionRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(transactions.getTotalElements(),
                 transactions.getContent().stream().map(ResponseTransaction::toDto).collect(Collectors.toList()));
     }

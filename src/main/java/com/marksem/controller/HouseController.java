@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("api/v1/houses")
 @RequiredArgsConstructor
@@ -29,8 +31,8 @@ public class HouseController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<ResponseHouse> create(@RequestBody RequestHouse h) {
-        return ResponseEntity.ok(service.create(h));
+    public ResponseEntity<ResponseHouse> create(@ModelAttribute @Valid RequestHouse h, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.create(h, token));
     }
 
     @PutMapping

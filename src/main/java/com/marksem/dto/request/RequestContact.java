@@ -18,7 +18,7 @@ public class RequestContact extends BaseEntity {
     private String phone;
     @NotEmpty
     private ContactType type;
-    @NotEmpty
+
     private Long userId;
 
     public Contact toEntity(User user) {
