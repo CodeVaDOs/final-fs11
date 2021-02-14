@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prepod
+    active: dev
 
 springdoc:
   swagger-ui:
