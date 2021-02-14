@@ -2,6 +2,18 @@ import api from "@utils/api";
 import { catchError, setAuthToken, setRefreshToken } from "../../utils";
 
 
+const updateUser = (data) => (dispatch) => {
+  api({
+    method: "put",
+    url: 'users',
+    data,
+    headers: {'Content-Type': 'multipart/form-data' }
+  })
+    .then(res => res.json())
+    .then(json => console.log(json))
+    .catch(err => console.log(err))
+}
+
 const getProfile = () => (dispatch) => {
   dispatch({ type: "GET_PROFILE_REQUEST" });
   api.get('users/profile')
@@ -95,5 +107,6 @@ export const AUTH_ACTIONS = {
   logOut,
   getProfile,
   forgotPassword,
-  changePassword
+  changePassword,
+  updateUser
 };

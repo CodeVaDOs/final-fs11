@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
   },
   openHandler: props => ({
-    position: 'absolute',
+    position: 'fixed',
     top: '50px',
     right: props.open ? '418' - 39 / 2 + 'px' : '-' + 39 / 2 + 'px',
 
