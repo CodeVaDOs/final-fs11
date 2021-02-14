@@ -176,5 +176,14 @@
   "yearRent": "Total leased for a year",
   "renter": "Tenants",
   "dayRent": "Days for rent",
-  "hoseRent": "Houses are rented"
+  "hoseRent": "Houses are rented",
+  "statisticTab": "Statistics",
+  "orderTab": "Requests",
+  "houseTab": "Houses",
+  "incomeTab": "Income",
+  "feedbackTab": "Reviews",
+  "personalManager": "Personal manager",
+  "calendarB": "Booking calendar",
+  "tasks": "Tasks for the Day",
+  "detailSecond": "In detail"
 }
