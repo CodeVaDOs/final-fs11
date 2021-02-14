@@ -7,7 +7,8 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import { Button } from "@material-ui/core";
 import { CreateDocument } from "./CreateDocument";
 import { useDispatch, useSelector } from "react-redux";
-import { documentsAction } from "../../../../../redux/documents/action";
+import { documentsAction } from '../../../../../redux/documents/action';
+import { DocumentItem } from '../../../../ClientPage/components/Documents/DocumentItem';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -97,14 +98,8 @@ export const MyContractsUser = () => {
   const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
     dispatch(documentsAction.getDocuments());
-    console.log(loading);
-    if (loading) {
-      console.log('documents.list', documents.list);
-
-    }
   }, []);
   const [createDocument, setCreateDocument] = useState(false);
-  console.log(loading);
   // const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
   //   {
   //     id: index,
@@ -136,8 +131,7 @@ export const MyContractsUser = () => {
     <>
       <div className={classes.root}>
         {createDocument ?
-          <CreateDocument/>
-          :
+          <CreateDocument/> :
           <div>
             <div className={classes.topSide}>
               <Button
@@ -163,16 +157,17 @@ export const MyContractsUser = () => {
             </div>
             <div className={classes.documents}>
               <div className={classes.mainContainerDocuments}>
-                {/*{documents.list*/}
-                {/*  .map((v, index) => {*/}
-                {/*    return (*/}
-                {/*      <DocumentItem*/}
-                {/*        key={index}*/}
-                {/*        title={v.name}*/}
-                {/*        shortDescription={v.type}*/}
-                {/*      />*/}
-                {/*    );*/}
-                {/*  })}*/}
+                {documents.list
+                  .map((v, index) => {
+                    return (
+                      <DocumentItem
+                        key={index}
+                        title={v.name}
+                        shortDescription={v.type}
+                      />
+                    );
+                  })
+                }
               </div>
             </div>
           </div>
