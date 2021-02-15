@@ -20,7 +20,7 @@ public class HouseModelService {
     public ResponseHouseModel create(RequestHouseModel hm) {
         return houseTypeRepository.findById(hm.getHouseTypeId())
                 .map(ht -> houseModelRepository.save(hm.toEntity(ht)))
-                .map(ResponseHouseModel::toDto)
+                .map(ResponseHouseModel::new)
                 .orElseThrow(() -> new NoDataFoundException("house type", hm.getHouseTypeId()));
     }
 
@@ -30,18 +30,18 @@ public class HouseModelService {
                     i.setName(hm.getName());
                     return houseModelRepository.save(i);
                 })
-                .map(ResponseHouseModel::toDto)
+                .map(ResponseHouseModel::new)
                 .orElseThrow(() -> new NoDataFoundException("house model", hm.getId()));
     }
 
     public ResponseHouseModel read(Long id) {
         return houseModelRepository.findById(id)
-                .map(ResponseHouseModel::toDto)
+                .map(ResponseHouseModel::new)
                 .orElseThrow(() -> new NoDataFoundException("house model", id));
     }
 
     public List<ResponseHouseModel> readAll() {
-        return houseModelRepository.findAll().stream().map(ResponseHouseModel::toDto).collect(Collectors.toList());
+        return houseModelRepository.findAll().stream().map(ResponseHouseModel::new).collect(Collectors.toList());
     }
 
     public Long delete(Long id) {

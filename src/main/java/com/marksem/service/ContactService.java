@@ -25,7 +25,7 @@ public class ContactService {
     public ResponseContact create(RequestContact c) {
         return userRepository.findById(c.getUserId())
                 .map(u -> contactRepository.save(c.toEntity(u)))
-                .map(ResponseContact::toDto)
+                .map(ResponseContact::new)
                 .orElseThrow(() -> new NoDataFoundException("user", c.getUserId()));
     }
 
@@ -40,20 +40,20 @@ public class ContactService {
                     i.setType(c.getType());
                     return contactRepository.save(i);
                 })
-                .map(ResponseContact::toDto)
+                .map(ResponseContact::new)
                 .orElseThrow(() -> new NoDataFoundException("contact", c.getId()));
     }
 
     public ResponseContact read(Long id) {
         return contactRepository.findById(id)
-                .map(ResponseContact::toDto)
+                .map(ResponseContact::new)
                 .orElseThrow(() -> new NoDataFoundException("contact", id));
     }
 
     public PageableResponse<ResponseContact> readAll(int page, int size) {
         Page<Contact> contacts = contactRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(contacts.getTotalElements(),
-                contacts.getContent().stream().map(ResponseContact::toDto).collect(Collectors.toList()));
+                contacts.getContent().stream().map(ResponseContact::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

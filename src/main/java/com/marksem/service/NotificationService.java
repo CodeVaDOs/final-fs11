@@ -24,7 +24,7 @@ public class NotificationService {
     public ResponseNotification create(RequestNotification n) {
         return userRepository.findById(n.getReceiverId())
                 .map(u -> notificationRepository.save(n.toEntity(u)))
-                .map(ResponseNotification::toDto)
+                .map(ResponseNotification::new)
                 .orElseThrow(() -> new NoDataFoundException("user", n.getReceiverId()));
     }
 
@@ -36,20 +36,20 @@ public class NotificationService {
                     i.setImportance(n.getImportance());
                     return notificationRepository.save(i);
                 })
-                .map(ResponseNotification::toDto)
+                .map(ResponseNotification::new)
                 .orElseThrow(() -> new NoDataFoundException("notification", n.getId()));
     }
 
     public ResponseNotification read(Long id) {
         return notificationRepository.findById(id)
-                .map(ResponseNotification::toDto)
+                .map(ResponseNotification::new)
                 .orElseThrow(() -> new NoDataFoundException("notification", id));
     }
 
     public PageableResponse<ResponseNotification> readAll(int page, int size) {
         Page<Notification> notifications = notificationRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(notifications.getTotalElements(),
-                notifications.getContent().stream().map(ResponseNotification::toDto).collect(Collectors.toList()));
+                notifications.getContent().stream().map(ResponseNotification::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {
