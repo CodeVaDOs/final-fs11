@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
   root: {
     // borderLeft: '1px solid black',
     width: "100vh",
+    height:500,
     marginLeft: '3px',
     display: "flex",
     margin: "2px",
@@ -161,7 +162,7 @@ export default function ClientTabs() {
             {bottomView === 2 ? <MyContracts/> : null}
           </div>
           {bottomView === 3 ?
-            <div style={{ width: '100%' }}>
+            <div style={{ width: '150vh' }}>
               <ClientStatisticRent/>
             </div> : null}
         </div>

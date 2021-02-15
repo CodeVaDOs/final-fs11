@@ -23,41 +23,15 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center'
   },
   mainContainerDocuments: {
-    marginTop: 145,
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
     gridTemplateRows: " repeat(3, 1fr)",
     gridColumnGap: 30,
     gridRowGap: 0,
   },
-  search: {
-    position: "absolute",
-    right: 0,
-    width: 390,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    margin: 15,
-    border: "1px solid #B1B4BA",
-    borderRadius: 10,
-    backgroundColor: "#EEF5FF",
-    height: 40
-  },
-  searchIcon: {
-    fontSize: 30,
-    margin: 10
-  },
-  inputRoot: {
-    width: "100%",
-    backgroundColor: "#EEF5FF",
-    border: "none",
-    marginRight: 10
-  },
   cleatfix: {
-    position: "absolute",
+    position: "relative",
     right: 0,
-    marginTop: 60,
     display: "flex",
     flexDirection: "row",
     alignItems: 'center'
@@ -91,7 +65,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const MyBills = () => {
+export const MyBills = ({search,setSearch}) => {
   const classes = useStyles();
   let [page, setPage] = useState(1);
   let [paged, setPageD] = useState(1);
@@ -104,9 +78,7 @@ export const MyBills = () => {
     }))
   );
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
   const [filteredExploitation, setFilteredExploitation] = useState([]);
-
 
   useEffect(() => {
     setLoading(true);
@@ -147,18 +119,7 @@ export const MyBills = () => {
     <>
       <div className={classes.root}>
         <div className={classes.topSide}>
-          <div>
-            <div className={classes.search}>
-              <div>
-                <SearchIcon className={classes.searchIcon}/>
-              </div>
-              <TextField
-                className={classes.inputRoot}
-                type="search"
-                onChange={searchHandler}
-              />
-            </div>
-          </div>
+
           <div className={classes.cleatfix}>
             <div className={classes.row}>
               <SelectDocument options={['Прибирання', "Електроенергія", "Вода", "Інше"]}/>
