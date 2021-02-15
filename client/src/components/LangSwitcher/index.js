@@ -6,22 +6,8 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import { useTranslation } from "react-i18next";
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(0),
-    marginLeft: 30,
-    marginTop: -22,
-    minWidth: 10,
-    "@media (min-width:320px)": {
-      marginLeft: 15,
-      marginTop: 10
-    },
-    "@media (min-width:1100px)": {
-      marginLeft: 30,
-      marginTop: -22,
-    },
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+    margin: 0,
+  }
 }));
 
 const NativeSelects =({ lang })=>{
@@ -40,7 +26,6 @@ const NativeSelects =({ lang })=>{
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="uncontrolled-native"/>
         <NativeSelect
           defaultValue={checkLang(lang)}
           disableUnderline={true}
