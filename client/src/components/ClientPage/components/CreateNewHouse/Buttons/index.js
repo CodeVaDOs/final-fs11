@@ -6,11 +6,13 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 const useStyles = makeStyles(() => ({
   btn: {
     borderRadius: 0,
+    width:'100%'
   },
   btnGroup: {
+    display:"flex",
+    justifyContent:'space-around',
+    width: "100%",
     borderRadius: 0,
-    border: '1px solid blue'
-
   },
   btnActive: {
     backgroundColor: 'blue'
@@ -35,10 +37,7 @@ export default function CustomizedDividers({ labels }) {
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-
   const classes = useStyles();
-  const change = ()=>{
-  }
   return (
     <div>
       <StyledToggleButtonGroup
@@ -47,24 +46,17 @@ export default function CustomizedDividers({ labels }) {
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
-        className={classes.btnGroup}
-      >
+        className={classes.btnGroup}>
         {
-          labels.map((item, index) => {
-            return (
-              <ToggleButton
-                onClick={change}
-                key={index}
-                value={index}
-              >
-                <span>
-                                  {item}
+          labels.map((item, index) => (
+            <ToggleButton
+              key={index}
+              className={classes.btn}
 
-                </span>
-              </ToggleButton>
-            );
-
-          })
+              value={index}>
+              {item}
+            </ToggleButton>
+          ))
         }
       </StyledToggleButtonGroup>
     </div>
