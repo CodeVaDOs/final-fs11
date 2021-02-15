@@ -18,10 +18,6 @@ const Client = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const propsName = "user.name";
-
-  return (
-    <div></div>
-  );
   return (<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Card from "@material-ui/core/Card";
-import { CardContent, FormLabel, makeStyles } from "@material-ui/core";
+import { CardContent, makeStyles } from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import TextField from "@material-ui/core/TextField";
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
-import Helpers, { getFormData, jsonToFormData, objectToFormData, toFormData } from "../../../utils/formData";
+import Helpers from "../../../utils/formData";
 import { AUTH_ACTIONS } from "../../../redux/auth/action";
 
 const useStyles = makeStyles({
@@ -118,7 +118,8 @@ const EditUser = () => {
         </InputMask>
 
         {additionalPhone.map(({ phone }, index) => (
-          <InputMask key={index}
+          <InputMask
+            key={index}
             mask="+38(099)999-99-99"
             disabled={false}
             maskChar=" "

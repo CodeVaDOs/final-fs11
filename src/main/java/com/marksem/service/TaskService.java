@@ -9,7 +9,6 @@ import com.marksem.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ public class TaskService {
     private final TaskRepository repository;
 
     public ResponseTask create(RequestTask m) {
-        return ResponseTask.toDto(repository.save(m.toEntity()));
+        return new ResponseTask(repository.save(m.toEntity()));
     }
 
     public ResponseTask update(RequestTask m) {
@@ -29,20 +28,20 @@ public class TaskService {
                     i.setText(m.getText());
                     return repository.save(i);
                 })
-                .map(ResponseTask::toDto)
+                .map(ResponseTask::new)
                 .orElseThrow(() -> new NoDataFoundException("task", m.getId()));
     }
 
     public ResponseTask read(Long id) {
         return repository.findById(id)
-                .map(ResponseTask::toDto)
+                .map(ResponseTask::new)
                 .orElseThrow(() -> new NoDataFoundException("task", id));
     }
 
     public PageableResponse<ResponseTask> readAllByUser(String email, int page, int size) {
         Page<Task> tasks = repository.findAllByCreatedBy(email, PageRequest.of(page, size));
         return new PageableResponse<>(tasks.getTotalElements(),
-                tasks.getContent().stream().map(ResponseTask::toDto).collect(Collectors.toList()));
+                tasks.getContent().stream().map(ResponseTask::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

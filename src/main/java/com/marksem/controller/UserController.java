@@ -6,6 +6,7 @@ import com.marksem.dto.response.ResponseUser;
 import com.marksem.entity.user.Role;
 import com.marksem.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,11 @@ public class UserController {
     @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<PageableResponse<ResponseUser>> readAll(@RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "10") int size,
-                                                                  @RequestParam(defaultValue = "USER") Role role) {
-        return ResponseEntity.ok(userService.readAll(page, size, role));
+                                                                  @RequestParam(defaultValue = "USER") Role role,
+                                                                  @RequestParam(defaultValue = "") String searchString,
+                                                                  @RequestParam(defaultValue = "id") String sortBy,
+                                                                  @RequestParam(defaultValue = "ASC") Sort.Direction direction) {
+        return ResponseEntity.ok(userService.readAll(page, size, role, searchString, direction, sortBy));
     }
 
     @GetMapping("profile")

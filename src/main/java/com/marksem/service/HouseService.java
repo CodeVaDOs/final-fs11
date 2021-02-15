@@ -38,7 +38,7 @@ public class HouseService {
                             return saved;
                         })
                         .orElseThrow(() -> new NoDataFoundException("houseModel", h.getHouseModelId())))
-                .map(ResponseHouse::toDto)
+                .map(ResponseHouse::new)
                 .orElseThrow(() -> new NoDataFoundException("user", h.getOwnerId()));
     }
 
@@ -56,21 +56,21 @@ public class HouseService {
                     e.setArea(h.getArea());
                     e.setAvgRating(h.getAvgRating());
                     e.setDescription(h.getDescription());
-                    return ResponseHouse.toDto(houseRepository.save(e));
+                    return new ResponseHouse(houseRepository.save(e));
                 })
                 .orElseThrow(() -> new NoDataFoundException("house", h.getId()));
     }
 
     public ResponseHouse read(Long id) {
         return houseRepository.findById(id)
-                .map(ResponseHouse::toDto)
+                .map(ResponseHouse::new)
                 .orElseThrow(() -> new NoDataFoundException("house", id));
     }
 
     public PageableResponse<ResponseHouse> readAll(int page, int size) {
         Page<House> houses = houseRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(houses.getTotalElements(),
-                houses.getContent().stream().map(ResponseHouse::toDto).collect(Collectors.toList()));
+                houses.getContent().stream().map(ResponseHouse::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

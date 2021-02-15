@@ -17,6 +17,7 @@ export const updateUser = (data) => (dispatch) => {
     .catch(err => {
       catchError(err);
       dispatch({ type: "EDIT_PROFILE_ERROR" });});
+
 };
 
 const getProfile = () => (dispatch) => {

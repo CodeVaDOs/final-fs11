@@ -23,14 +23,14 @@ const Index = () => {
   };
 
   return (
-    <Container>
+    <div>
       {loading ? <CircularProgress/> : data.list.map(user => <UserCard key={user.id} user={user}/>)}
       <Pagination
         page={page}
         count={data.total / 5}
         onChange={handleSetPage}
       />
-    </Container>
+    </div>
   );
 
 };

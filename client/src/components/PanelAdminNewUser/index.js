@@ -95,7 +95,7 @@ const useStyles = makeStyles({
   }
 });
 
-const PanelAdminNewUser = () => {
+const PanelAdminNewUser = (input) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const iconName = () => {
@@ -134,17 +134,28 @@ const PanelAdminNewUser = () => {
     });
   };
 
+  const getFormData = (data) => {
+    const form_data = new FormData();
+
+    for ( const key in data ) {
+      form_data.append(key, data[key]);
+    }
+
+    return form_data;
+  }
+
   const [{ data, loading }, sendData] = useFetch({
     instant: false,
     method: "POST",
     url: "users",
-    data: {
+    headers: {'Content-Type': 'multipart/form-data' },
+    data: getFormData({
       email: dataForm.email,
       name: dataForm.name,
       password: dataForm.password,
       role: dataForm.typeClient && !dataForm.typeManager ? "MANAGER" : "USER",
       managerId: useSelector(state => state.auth.user.id)
-    }
+    })
   });
   //Buttons State Managment
   const toggle = () => {
@@ -197,6 +208,7 @@ const PanelAdminNewUser = () => {
     e.preventDefault();
     console.log(dataForm.name, dataForm.email, dataForm.password, dataForm.confpassword, uploadImg.selectedFile);
 
+    // serialize()
     sendData();
   };
   //Email Validation
