@@ -2,48 +2,60 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomizedDividers from "./Buttons";
 import { Slider } from "../../../HouseCard/House/Slider";
+import { Typography } from "@material-ui/core";
+import CheckboxLabels from "./Checkboxes";
 
 
 const useStyles = makeStyles(() => ({
   div: {
     fontFamily: 'Roboto',
     width: '100%',
-    padding: 0,
-    margin: 0,
     display: "flex",
     flexDirection: "column",
   },
   heading: {
     display: 'flex',
-    alignItems: "center",
     justifyContent: "center",
     width: "100%",
     fontSize: 18,
     color: "#0D0D0D",
+
   },
   mainContainer: {
+    flexWrap: "nowrap",
     width: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     flexDirection: "row",
   },
   leftPart: {
-    width: "50%",
-    overflow: "hidden",
     display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
+    flexDirection: "column",
   },
   rightPart: {
     display: "flex",
     justifyContent: "center",
-    flexDirection: "row",
+    flexDirection: "column",
   },
   row: {
     display: "flex",
-    justifyContent: "flex-start",
+    justifyContent: "space-around",
     flexDirection: "row",
-    marginRight: 40
+    marginBottom: 10
+  },
+  text: {
+    fontFamily: "Roboto",
+    fontSize: "16px",
+    color: "grey"
+  },
+  column: {
+    textTransform: "uppercase",
+    fontWeight: 500,
+    fontSize: 20,
+    display: "flex",
+    margin: 5,
+    flexDirection: "column",
+
   }
 }));
 
@@ -87,7 +99,31 @@ export const CreateNewHouse = () => {
           {/*right part*/}
           <div className={classes.rightPart}>
             <CustomizedDividers labels={["Екстер\'єр\n", "Інтер\'єр\n", "Планування"]}/>
+            <div>
+              <Typography className={classes.text}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis deleniti ea fugit harum maxime quidem rerum tempore ullam veritatis voluptatem.
+              </Typography>
+            </div>
+            <div>
+              <Typography className={classes.text}>
+                <h2>Інтер'єр у будинку</h2>
+
+              </Typography>
+              <CustomizedDividers labels={["Барокко", "Барокко", "Барокко", "Барокко"]}/>
+            </div>
+            <div className={classes.row}>
+
+              <div className={classes.column}>
+                <Typography>Колір меблів та текстилю</Typography>
+                <CheckboxLabels/>
+              </div>
+              <div className={classes.column}>
+                <Typography>Колір фасаду стін</Typography>
+                <CheckboxLabels/>
+              </div>
+            </div>
           </div>
+
         </div>
 
       </div>
