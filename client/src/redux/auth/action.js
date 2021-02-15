@@ -7,12 +7,12 @@ const updateUser = (data) => (dispatch) => {
     method: "put",
     url: 'users',
     data,
-    headers: {'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' }
   })
     .then(res => res.json())
     .then(json => console.log(json))
-    .catch(err => console.log(err))
-}
+    .catch(err => console.log(err));
+};
 
 const getProfile = () => (dispatch) => {
   dispatch({ type: "GET_PROFILE_REQUEST" });

@@ -33,7 +33,9 @@ public class ResponseUser extends BaseEntity {
         this.birthday = u.getBirthday();
         this.urlAvatar = u.getUrlAvatar();
         this.language = u.getLanguage();
+
 //        this.houses = u.getHouses().stream().map(ResponseHouse::new).collect(Collectors.toList());
+
         this.contacts = u.getContacts().stream().map(ResponseContact::new).collect(Collectors.toList());
         this.notifications = u.getNotifications().stream().map(ResponseNotification::new).collect(Collectors.toList());
     }

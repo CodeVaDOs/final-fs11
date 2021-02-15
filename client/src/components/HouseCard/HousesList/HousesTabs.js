@@ -68,7 +68,6 @@ export default function HousesTabs() {
   }
 
   const AddHouseToList = () => {
-    getData();
     console.log('house add');
     console.log('data', data);
 

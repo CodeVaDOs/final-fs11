@@ -4,13 +4,13 @@ export default class Helpers {
     let model = {};
     for (let propertyName in data) {
       if (data.hasOwnProperty(propertyName) && data[propertyName] instanceof File) {
-        files[propertyName] = data[propertyName]
+        files[propertyName] = data[propertyName];
       } else {
-        model[propertyName] = data[propertyName]
+        model[propertyName] = data[propertyName];
       }
     }
 
-    model = JSON.parse(JSON.stringify(model))
+    model = JSON.parse(JSON.stringify(model));
     let formData = form || new FormData();
 
     for (let propertyName in model) {

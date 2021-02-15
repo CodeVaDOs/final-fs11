@@ -18,6 +18,7 @@ public class ResponseHouse extends BaseEntity {
     private Double avgRating;
     private Long ownerId;
     private ResponseHouseModel houseModel;
+
 //    private List<ResponseHouseImage> houseImages;
 //    private List<ResponseHouseMaintenance> maintenance;
 //    private List<ResponseBooking> bookings;
@@ -33,6 +34,7 @@ public class ResponseHouse extends BaseEntity {
         this.avgRating = h.getAvgRating();
         this.ownerId = h.getOwner().getId();
         this.houseModel = new ResponseHouseModel(h.getHouseModel());
+
 //        this.houseImages = h.getHouseImages().stream().map(ResponseHouseImage::new).collect(Collectors.toList());
 //        this.maintenance = h.getHouseMaintenance().stream().map(ResponseHouseMaintenance::new).collect(Collectors.toList());
 //        this.bookings = h.getBookings().stream().map(ResponseBooking::new).collect(Collectors.toList());
