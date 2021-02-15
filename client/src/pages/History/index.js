@@ -10,7 +10,7 @@ import Container from "../../components/Container";
 const Index =()=> {
   const { t } = useTranslation();
   return(<Container>
-    <h1> {"HISTORY PAGE"} </h1>
+    <div> {"HISTORY PAGE"} </div>
     {/*Houses page on Map location*/}
     <ModalsContainer buttonOk={t( "returnBtn")} buttonCancel={t("changeLocal")} buttonActivateDialog={t("changeLocal")} body={<ModalHouseLocation/>}/>
     {/*Houses page on Map location second modal confirm after back-emd response*/}

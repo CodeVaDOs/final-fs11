@@ -2,16 +2,22 @@ import api from "@utils/api";
 import { catchError, setAuthToken, setRefreshToken } from "../../utils";
 
 
-const updateUser = (data) => (dispatch) => {
+export const updateUser = (data) => (dispatch) => {
+  dispatch({ type: "EDIT_PROFILE_REQUEST" });
   api({
-    method: "put",
+    method: 'put',
     url: 'users',
     data,
     headers: { 'Content-Type': 'multipart/form-data' }
   })
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.log(err));
+    .then(data => {
+      console.log("PUT profile: ", data);
+      dispatch({type: "EDIT_PROFILE_SUCCESS", payload: data});
+    })
+    .catch(err => {
+      catchError(err);
+      dispatch({ type: "EDIT_PROFILE_ERROR" });});
+
 };
 
 const getProfile = () => (dispatch) => {

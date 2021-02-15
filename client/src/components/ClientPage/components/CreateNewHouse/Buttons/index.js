@@ -52,7 +52,6 @@ export default function CustomizedDividers({ labels }) {
             <ToggleButton
               key={index}
               className={classes.btn}
-
               value={index}>
               {item}
             </ToggleButton>
