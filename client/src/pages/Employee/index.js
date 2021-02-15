@@ -20,7 +20,7 @@ const Index = () => {
       url: `/users?role=MANAGER&page=${newPage - 1}&size=5`
     });
     setPage(newPage);
-  }
+  };
 
   return (
     <div>
@@ -30,7 +30,7 @@ const Index = () => {
         page={page}
         count={data.total / 5}
         onChange={handleSetPage}
-       />
+      />
     </div>
   );
 

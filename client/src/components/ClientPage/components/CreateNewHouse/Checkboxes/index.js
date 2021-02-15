@@ -31,13 +31,14 @@ const LightBlueCheckbox = withStyles({
     background: "#1E87F033",
     color: "#1E87F033",
     '&$checked': {
-      background: "#4cff00",
       color: "#1E87F033",
+      width: 20,
+      height: 20,
     },
   },
   checked: {
-    width: 20,
-    height: 20,
+    width: 0,
+    height: 0,
   },
 })((props) => <Checkbox color="default" {...props} />);
 const RedCheckbox = withStyles({
@@ -49,7 +50,6 @@ const RedCheckbox = withStyles({
     color: "rgb(207,54,97)",
     '&$checked': {
       background: "#4cff00",
-
       color: "rgb(207,54,97)",
     },
   },
@@ -67,7 +67,6 @@ const YellowCheckbox = withStyles({
     color: "rgb(234,221,137)",
     '&$checked': {
       background: "#4cff00",
-
       color: "rgb(234,221,137)",
     },
   },
@@ -105,7 +104,6 @@ const BrownCheckbox = withStyles({
     color: "rgb(90,76,65)",
     '&$checked': {
       background: "#4cff00",
-
       color: "rgb(90,76,65)",
     },
   },
@@ -117,7 +115,6 @@ const BrownCheckbox = withStyles({
 const LightCheckbox = withStyles({
   root: {
     margin: 5,
-
     borderRadius: 0,
     border: 0,
     background: "rgb(141,135,130)",
