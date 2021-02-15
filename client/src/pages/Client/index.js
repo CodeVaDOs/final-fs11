@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { ClientPage } from "../../components/ClientPage";
-import EditUser from "./components/EditUser";
 const useStyles = makeStyles({
   header: {
     fontFamily: 'Roboto, sans-serif',
@@ -20,9 +19,6 @@ const Client = () => {
   const classes = useStyles();
   const propsName = "user.name";
 
-  return (
-    <div></div>
-  )
   return (<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>

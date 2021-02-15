@@ -1,5 +1,5 @@
 import React from "react";
-import './tabs.css';
+import './tabs.scss';
 
 let hashKeys = {};
 const Tabs = (props) => {
