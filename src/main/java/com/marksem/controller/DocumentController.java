@@ -4,6 +4,7 @@ import com.marksem.dto.request.RequestDocument;
 import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseDocument;
 import com.marksem.dto.response.ResponseException;
+import com.marksem.entity.document.DocumentType;
 import com.marksem.service.DocumentService;
 import com.marksem.service.FileService;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +41,9 @@ public class DocumentController {
                                                                       @RequestParam(defaultValue = "10") int size,
                                                                       @RequestParam(defaultValue = "") String searchString,
                                                                       @RequestParam(defaultValue = "id") String sortBy,
-                                                                      @RequestParam(defaultValue = "ASC") Sort.Direction direction) {
-        return ResponseEntity.ok(documentService.readAll(page, size, searchString, direction, sortBy));
+                                                                      @RequestParam(defaultValue = "ASC") Sort.Direction direction,
+                                                                      @RequestParam DocumentType type) {
+        return ResponseEntity.ok(documentService.readAll(page, size, searchString, direction, sortBy, type));
     }
 
     @GetMapping("{id}")

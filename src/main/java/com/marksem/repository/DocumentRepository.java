@@ -1,6 +1,7 @@
 package com.marksem.repository;
 
 import com.marksem.entity.document.Document;
+import com.marksem.entity.document.DocumentType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +14,5 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
             nativeQuery = true)
     long getContractsQuantity(@Param("id") Long id);
 
-    Page<Document> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Page<Document> findByNameContainingIgnoreCaseAndType(String name, DocumentType type, Pageable pageable);
 }
