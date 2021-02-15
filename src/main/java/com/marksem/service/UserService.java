@@ -61,7 +61,6 @@ public class UserService {
                 .map(e -> {
                     if (u.getAvatar() != null) e.setUrlAvatar(fileService.update(u.getAvatar(), token));
                     e.setEmail(u.getEmail());
-                    e.setRole(u.getRole());
                     e.setName(u.getName());
                     return new ResponseUser(repository.save(e));
                 })
