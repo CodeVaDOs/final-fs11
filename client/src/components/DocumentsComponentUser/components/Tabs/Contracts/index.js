@@ -67,7 +67,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const MyContractsUser = () => {
+export const MyContractsUser = ({ search, setSearch }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { loading, documents } = useSelector(state => state.documents);
