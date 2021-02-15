@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box';
 import { MyContractsUser } from "./Contracts";
 import { MyBills } from "./Platizki";
 import { MyExploitation } from "./Exploitation";
+import SearchIcon from "@material-ui/icons/Search";
+import TextField from "@material-ui/core/TextField";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,6 +51,38 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     marginTop: "20px"
   },
+  search: {
+    position: "relative",
+    width: "400px",
+    right: 0,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    margin: 15,
+    border: "1px solid #B1B4BA",
+    borderRadius: 10,
+    backgroundColor: "#EEF5FF",
+    height: 40
+  },
+  searchIcon: {
+    fontSize: 30,
+    margin: 10
+  },
+  inputRoot: {
+    marginTop: 1,
+    height: 28,
+    width: "100%",
+    backgroundColor: "#EEF5FF",
+    border: "0",
+    marginRight: 10
+  },
+  clearfix:{
+    display:'flex',
+    flexDirection:"row",
+    alignItems:"center",
+    height:60
+  }
 }));
 
 export default function FullWidthTabs() {
@@ -62,19 +96,39 @@ export default function FullWidthTabs() {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+  const searchHandler = (event) => {
+    event.preventDefault();
+    // e.preventDefault();
+    setSearch(event.target.value);
+  };
+  const [search, setSearch] = useState("");
 
   return (
     <div className={classes.root}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        <Tab label="Контракти" {...a11yProps(0)} />
-        <Tab label="Платiжки" {...a11yProps(1)} />
-        <Tab label="Експлуатацiя" {...a11yProps(2)} />
-      </Tabs>
+      <div className={classes.clearfix}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab label="Контракти" {...a11yProps(0)} />
+          <Tab label="Платiжки" {...a11yProps(1)} />
+          <Tab label="Експлуатацiя" {...a11yProps(2)} />
+
+        </Tabs>
+        <div className={classes.search}>
+          <div>
+            <SearchIcon className={classes.searchIcon}/>
+          </div>
+          <TextField
+            focused={false}
+            className={classes.inputRoot}
+            onChange={searchHandler}
+          />
+        </div>
+      </div>
+
       <SwipeableViews
         style={{ width: "950px", margin: "0 auto" }}
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -82,15 +136,16 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <MyContractsUser/>
+          <MyContractsUser search={search} setSearch={setSearch}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <MyBills/>
+          <MyBills search={search} setSearch={setSearch}/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <MyExploitation/>
+          <MyExploitation search={search} setSearch={setSearch}/>
         </TabPanel>
       </SwipeableViews>
+
     </div>
   );
 }

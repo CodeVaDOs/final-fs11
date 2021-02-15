@@ -2,7 +2,10 @@ import { documentTypes } from "./types";
 
 const INIT_STATE = {
   loading: false,
-  documents: [],
+  documents: {
+    list: [],
+    total: 1
+  }
 };
 
 export default (state = INIT_STATE, action) => {
