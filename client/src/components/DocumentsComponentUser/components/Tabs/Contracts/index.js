@@ -72,8 +72,8 @@ export const MyContractsUser = ({ search, setSearch }) => {
   const dispatch = useDispatch();
   const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
-    dispatch(documentsAction.getDocuments('CONTRACT'));
-  }, []);
+    dispatch(documentsAction.getDocuments('CONTRACT', search));
+  }, [search]);
   // const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
   //   {
   //     id: index,

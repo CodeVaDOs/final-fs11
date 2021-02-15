@@ -6,6 +6,11 @@ import { Pagination } from "@material-ui/lab";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
+import { useDispatch, useSelector } from "react-redux";
+import { documentsAction } from "../../../../../redux/documents/action";
+import { CreateDocument } from "../Contracts/CreateDocument";
+import { Button } from "@material-ui/core";
+import DescriptionIcon from "@material-ui/icons/Description";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -65,125 +70,84 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const MyBills = ({search,setSearch}) => {
+export const MyBills = ({ search,setSearch }) => {
   const classes = useStyles();
-  let [page, setPage] = useState(1);
-  let [paged, setPageD] = useState(1);
-  const PER_PAGE = 15;
-  const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
-    {
-      id: index,
-      title: index,
-      detail: index,
-    }))
-  );
-  const [loading, setLoading] = useState(false);
-  const [filteredExploitation, setFilteredExploitation] = useState([]);
-
+  const dispatch = useDispatch();
+  const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  const count_D = Math.ceil(documents.length / PER_PAGE);
-  const _DATA_D = usePagination(documents, PER_PAGE);
-  const countFilter = Math.ceil(filteredExploitation.length / PER_PAGE);
-  const _DATAFilter = usePagination(filteredExploitation, PER_PAGE);
-
-  const handleChange = (e, p) => {
-    setPage(p);
-    _DATAFilter.jump(p);
-  };
-  const handleChangeD = (e, p) => {
-    setPageD(p);
-    _DATA_D.jump(p);
-  };
-
+    dispatch(documentsAction.getDocuments('PAYMENT_ORDER', search));
+  }, [search]);
+  // const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
+  //   {
+  //     id: index,
+  //     title: index,
+  //     detail: index,
+  //   }))
+  // );
+  const [filteredExploitation, setFilteredExploitation] = useState([]);
   useEffect(() => {
     setFilteredExploitation(
-      documents.filter((d) => {
+      documents.list.filter((d) => {
         return search.includes(d.title);
       }));
   }, [search]);
 
-  const searchHandler = (e) => {
+  const searchHandler = () => {
     e.preventDefault();
     setSearch(e.target.value);
   };
+
   if (loading) {
-    return <p>Завантажую платіжки...</p>;
+    return <h5>Завантажую платіжки...</h5>;
   }
+
   return (
     <>
       <div className={classes.root}>
-        <div className={classes.topSide}>
+        <div>
+          {documents.list.length === 0 ?
+            <h5>У Вас пока контрактов нет...</h5> :
+            <div>
+              <div className={classes.topSide}>
 
-          <div className={classes.cleatfix}>
-            <div className={classes.row}>
-              <SelectDocument options={['Прибирання', "Електроенергія", "Вода", "Інше"]}/>
-            </div>
-            <div className={classes.row}>
-              <h3>Показати</h3>
-              <SelectDocument options={['Marksem M - 2 House large 00102']}/>
+                <div className={classes.cleatfix}>
+                  <div className={classes.row}>
+                    <SelectDocument options={['Прибирання', "Електроенергія", "Вода", "Інше"]}/>
+                  </div>
+                  <div className={classes.row}>
+                    <h3>Показати</h3>
+                    <SelectDocument options={['Marksem M - 2 House large 00102']}/>
+                  </div>
+
+                  <div className={classes.row}>
+                    <h3>Сортувати</h3>
+                    <SelectDocument
+                      options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
+                  </div>
+                </div>
+
+              </div>
+              <div className={classes.documents}>
+                <div className={classes.mainContainerDocuments}>
+                  {documents.list
+                    .map((v, index) => {
+                      return (
+                        <DocumentItem
+                          key={index}
+                          title={v.name}
+                          shortDescription={v.type}
+                        />
+                      );
+                    })
+                  }
+                </div>
+              </div>
             </div>
 
-            <div className={classes.row}>
-              <h3>Сортувати</h3>
-              <SelectDocument
-                options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
-            </div>
-          </div>
+          }
+
 
         </div>
-
-        {search[0] ?
-          <div className={classes.documents}>
-            <div className={classes.mainContainerDocuments}>
-              {_DATAFilter.currentData()
-                .map((v) => {
-                  return (
-                    <DocumentItem
-                      key={v.id}
-                      title={v.title}
-                      shortDescription={v.detail}
-                    />
-                  );
-                })}
-            </div>
-            <Pagination
-              count={countFilter}
-              variant="outlined"
-              color="#ff9100"
-              page={page}
-              onChange={handleChange}
-            />
-          </div> :
-          <div className={classes.documents}>
-            <div className={classes.mainContainerDocuments}>
-              {_DATA_D.currentData()
-                .map((v) => {
-                  return (
-                    <DocumentItem
-                      key={v.id}
-                      title={v.title}
-                      shortDescription={v.detail}
-                    />
-                  );
-                })
-              }
-
-            </div>
-            <Pagination
-              count={count_D}
-              variant="outlined"
-              color="#ff9100"
-              page={paged}
-              onChange={handleChangeD}
-            />
-          </div>
-        }
       </div>
     </>
   );
