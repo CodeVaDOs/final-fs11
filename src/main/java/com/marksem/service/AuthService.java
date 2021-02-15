@@ -67,6 +67,7 @@ public class AuthService {
     public Map<Object, Object> authenticate(String email, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         User user = userRepository.findByEmail(email).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
+        System.out.println(user);
         return createTokens(user);
     }
 
