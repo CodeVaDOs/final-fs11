@@ -21,7 +21,7 @@ const Client = () => {
 
   return (
     <div></div>
-  )
+  );
   return (<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>

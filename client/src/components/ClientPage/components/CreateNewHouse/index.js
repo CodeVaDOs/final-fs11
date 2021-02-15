@@ -92,6 +92,5 @@ export const CreateNewHouse = () => {
 
       </div>
     </>
-  )
-    ;
+  );
 };

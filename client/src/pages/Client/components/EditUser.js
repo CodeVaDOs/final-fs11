@@ -81,23 +81,23 @@ const EditUser = () => {
       }
 
       if (contact.phone) {
-        acc[1].push({...contact, phone: contact.phone.replace(/[^\d;]/g, ""), type: "ADDITIONAL"});
+        acc[1].push({ ...contact, phone: contact.phone.replace(/[^\d;]/g, ""), type: "ADDITIONAL" });
       }
 
       return acc;
-    }, [[], []])
+    }, [[], []]);
 
     const saveData = {
       ...user,
       email,
       name,
-      contacts: [{...phone, phone: phone.phone.replace(/[^\d;]/g, ""), type: "MAIN"}, ...toSave]
-    }
+      contacts: [{ ...phone, phone: phone.phone.replace(/[^\d;]/g, ""), type: "MAIN" }, ...toSave]
+    };
 
     const formData = Helpers.convertModelToFormData(saveData);
 
-    dispatch(AUTH_ACTIONS.updateUser(formData))
-  }
+    dispatch(AUTH_ACTIONS.updateUser(formData));
+  };
 
   return (
     <Card className={classes.root}>
@@ -118,7 +118,7 @@ const EditUser = () => {
         </InputMask>
 
         {additionalPhone.map(({ phone }, index) => (
-          <InputMask
+          <InputMask key={index}
             mask="+38(099)999-99-99"
             disabled={false}
             maskChar=" "

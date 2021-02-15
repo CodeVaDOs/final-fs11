@@ -56,7 +56,7 @@ const SidebarMenuItem = (props) => {
       alignItems="flex-start"
     >
       <Grid item xs={3}>
-        <LangSwitcher lang={props.user.language === null ? "UKRAINIAN":props.user.language}/>
+        <LangSwitcher lang={props.user.languages === null ? "UKRAINIAN":props.user.language}/>
       </Grid>
       <Grid item xs={1}>
         <MailOutlineIcon color="inherit" style={{ marginLeft: "1rem", color:"#C7C7C7" }}/>

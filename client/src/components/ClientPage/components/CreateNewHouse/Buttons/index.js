@@ -38,7 +38,7 @@ export default function CustomizedDividers({ labels }) {
 
   const classes = useStyles();
   const change = ()=>{
-  }
+  };
   return (
     <div>
       <StyledToggleButtonGroup
@@ -57,10 +57,7 @@ export default function CustomizedDividers({ labels }) {
                 key={index}
                 value={index}
               >
-                <span>
-                                  {item}
-
-                </span>
+                <span>{item}</span>
               </ToggleButton>
             );
 

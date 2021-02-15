@@ -49,7 +49,22 @@ export default (state = INIT_STATE, action) => {
         authorized: false,
         user: {}
       };
-
+    case "EDIT_PROFILE_ERROR":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "EDIT_PROFILE_SUCCESS":
+      return {
+        ...state,
+        user:action.payload,
+        loading: false
+      };
+    case "EDIT_PROFILE_REQUEST":
+      return {
+        ...state,
+        loading: true
+      };
     case "LOGOUT":
       return {
         ...INIT_STATE,
