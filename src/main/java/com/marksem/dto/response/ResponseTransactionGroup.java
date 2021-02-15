@@ -18,7 +18,7 @@ public class ResponseTransactionGroup extends BaseEntity {
     private Long id;
     private Date fromDate;
     private Date toDate;
-    private ResponseHouse house;
+    private Long houseId;
     private List<ResponseTransaction> transactions;
 
     public static ResponseTransactionGroup toDto(TransactionGroup tg) {
@@ -26,7 +26,7 @@ public class ResponseTransactionGroup extends BaseEntity {
                 .id(tg.getId())
                 .fromDate(tg.getFromDate())
                 .toDate(tg.getToDate())
-                .house(ResponseHouse.toDto(tg.getHouse()))
+                .houseId(tg.getHouse().getId())
                 .transactions(tg.getTransactions().stream().map(ResponseTransaction::toDto).collect(Collectors.toList()))
                 .build();
     }

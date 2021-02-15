@@ -3,7 +3,6 @@ package com.marksem.repository;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     long countByManagerId(Long userId);
 
-    Page<User> findAllByRole(Role role, Pageable pageable);
+    Page<User> findByNameContainingIgnoreCaseAndRole(String name, Role role, Pageable pageable);
 }
 
