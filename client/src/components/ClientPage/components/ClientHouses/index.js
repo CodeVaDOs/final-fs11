@@ -135,7 +135,7 @@ export const ClientHouses = ({ HouseIdx, houseToState, rent }) => {
           <Button className={classes.btnWrite}>
             Написати <MessageIcon className={classes.editIcon}/></Button>
         </div> :
-        <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Typography>
+        <Typography style={{ width: "400px" }}>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor </Typography>
       }
     </div>
   );

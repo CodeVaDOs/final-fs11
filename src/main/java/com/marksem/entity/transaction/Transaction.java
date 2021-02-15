@@ -21,7 +21,10 @@ public class Transaction extends BaseEntity {
 
     @Column(name = "amount_USD")
     private Double amountUSD;
+
+    @Enumerated(EnumType.STRING)
     private Currency currency;
+
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
