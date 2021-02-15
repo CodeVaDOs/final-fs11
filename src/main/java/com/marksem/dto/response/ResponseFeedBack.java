@@ -1,24 +1,19 @@
 package com.marksem.dto.response;
 
 import com.marksem.entity.booking.FeedBack;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
-@AllArgsConstructor
-public class ResponseFeedBack {
+public class ResponseFeedBack extends BaseEntity {
     private String review;
     private int rating;
 
-    public static ResponseFeedBack toDto(FeedBack fb) {
-        if(fb != null){
-            return ResponseFeedBack.builder()
-                    .review(fb.getReview())
-                    .rating(fb.getRating())
-                    .build();
-        }
-        else return null;
+    public ResponseFeedBack(FeedBack fb) {
+        super(fb);
+        this.review = fb.getReview();
+        this.rating = fb.getRating();
     }
 }

@@ -30,7 +30,7 @@ public class TransactionService {
                         .map(tt -> transactionRepository
                                 .save(t.toEntity(tg, tt, currencyConversionService
                                         .convert(t.getAmount(), t.getCurrency(), Currency.USD))))
-                        .map(ResponseTransaction::toDto)
+                        .map(ResponseTransaction::new)
                         .orElseThrow(() -> new NoDataFoundException("transaction type", t.getTransactionTypeId())))
                 .orElseThrow(() -> new NoDataFoundException("transaction group", t.getTransactionGroupId()));
     }
@@ -38,25 +38,28 @@ public class TransactionService {
     public ResponseTransaction update(RequestTransaction t) {
         return transactionRepository.findById(t.getId())
                 .map(i -> {
-                    i.setAmount(t.getAmount());
-                    i.setCurrency(t.getCurrency());
+                    if (!t.getAmount().equals(i.getAmount()) || !t.getCurrency().equals(i.getCurrency())) {
+                        i.setAmount(t.getAmount());
+                        i.setCurrency(t.getCurrency());
+                        i.setAmountUSD(currencyConversionService.convert(t.getAmount(), t.getCurrency(), Currency.USD, i.getCreatedDate()));
+                    }
                     i.setComment(t.getComment());
                     return transactionRepository.save(i);
                 })
-                .map(ResponseTransaction::toDto)
+                .map(ResponseTransaction::new)
                 .orElseThrow(() -> new NoDataFoundException("transaction", t.getId()));
     }
 
     public ResponseTransaction read(Long id) {
         return transactionRepository.findById(id)
-                .map(ResponseTransaction::toDto)
+                .map(ResponseTransaction::new)
                 .orElseThrow(() -> new NoDataFoundException("transaction", id));
     }
 
     public PageableResponse<ResponseTransaction> readAll(int page, int size) {
         Page<Transaction> transactions = transactionRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(transactions.getTotalElements(),
-                transactions.getContent().stream().map(ResponseTransaction::toDto).collect(Collectors.toList()));
+                transactions.getContent().stream().map(ResponseTransaction::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

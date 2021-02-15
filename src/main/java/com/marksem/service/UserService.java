@@ -33,7 +33,7 @@ public class UserService {
         String text = "<p>Ваш пароль для входа в MARKSEM CRM :</p>" + u.getPassword();
         messageService.send(u.getEmail(), "user creation", text);
 
-        return ResponseUser.toDto(saved);
+        return new ResponseUser(saved);
     }
 
     public User getUserByEmail(String email) {
@@ -42,18 +42,18 @@ public class UserService {
 
     public ResponseUser read(Long id) {
         return repository.findById(id)
-                .map(ResponseUser::toDto)
+                .map(ResponseUser::new)
                 .orElseThrow(() -> new NoDataFoundException("user", id));
     }
 
     public ResponseUser getProfile(String email) {
-        return ResponseUser.toDto(getUserByEmail(email));
+        return new ResponseUser(getUserByEmail(email));
     }
 
     public PageableResponse<ResponseUser> readAll(int page, int size, Role role, String searchString, Sort.Direction direction, String sortBy) {
         Page<User> users = repository.findByNameContainingIgnoreCaseAndRole(searchString, role, PageRequest.of(page, size, direction, sortBy));
         return new PageableResponse<>(users.getTotalElements(),
-                users.getContent().stream().map(ResponseUser::toDto).collect(Collectors.toList()));
+                users.getContent().stream().map(ResponseUser::new).collect(Collectors.toList()));
     }
 
     public ResponseUser update(RequestUser u, String token) {
@@ -63,7 +63,7 @@ public class UserService {
                     e.setEmail(u.getEmail());
                     e.setRole(u.getRole());
                     e.setName(u.getName());
-                    return ResponseUser.toDto(repository.save(e));
+                    return new ResponseUser(repository.save(e));
                 })
                 .orElseThrow(() -> new NoDataFoundException("user", u.getId()));
     }

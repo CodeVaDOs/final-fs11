@@ -1,31 +1,28 @@
 package com.marksem.dto.response;
 
 import com.marksem.entity.booking.Booking;
-import com.marksem.entity.booking.FeedBack;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
-@AllArgsConstructor
 public class ResponseBooking extends BaseEntity {
     private Date fromDate;
     private Date toDate;
     private boolean isOwner;
-    private ResponseUser renter;
+    private Long renterId;
     private ResponseHouse house;
     private ResponseFeedBack feedback;
 
-    public static ResponseBooking toDto(Booking b) {
-        return ResponseBooking.builder()
-                .fromDate(b.getFromDate())
-                .toDate(b.getToDate())
-                .isOwner(b.getIsOwner())
-                .renter(ResponseUser.toDto(b.getRenter()))
-                .house(ResponseHouse.toDto(b.getHouse()))
-                .feedback(ResponseFeedBack.toDto(b.getFeedback()))
-                .build();
+    public ResponseBooking(Booking b) {
+        super(b);
+        this.fromDate = b.getFromDate();
+        this.toDate = b.getToDate();
+        this.isOwner = b.getIsOwner();
+        this.renterId = b.getRenter().getId();
+        this.house = new ResponseHouse(b.getHouse());
+        if (b.getFeedback() != null) this.feedback = new ResponseFeedBack(b.getFeedback());
     }
 }
