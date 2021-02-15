@@ -10,7 +10,6 @@ import com.marksem.repository.HouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class HouseMaintenanceService {
     public ResponseHouseMaintenance create(RequestHouseMaintenance hm) {
         return houseRepository.findById(hm.getHouseId())
                 .map(h -> houseMaintenanceRepository.save(hm.toEntity(h)))
-                .map(ResponseHouseMaintenance::toDto)
+                .map(ResponseHouseMaintenance::new)
                 .orElseThrow(() -> new NoDataFoundException("house", hm.getHouseId()));
     }
 
@@ -36,20 +35,20 @@ public class HouseMaintenanceService {
                     i.setIsActive(hm.getIsActive());
                     return houseMaintenanceRepository.save(i);
                 })
-                .map(ResponseHouseMaintenance::toDto)
+                .map(ResponseHouseMaintenance::new)
                 .orElseThrow(() -> new NoDataFoundException("house maintenance", hm.getId()));
     }
 
     public ResponseHouseMaintenance read(Long id) {
         return houseMaintenanceRepository.findById(id)
-                .map(ResponseHouseMaintenance::toDto)
+                .map(ResponseHouseMaintenance::new)
                 .orElseThrow(() -> new NoDataFoundException("house maintenance", id));
     }
 
     public PageableResponse<ResponseHouseMaintenance> readAll(int page, int size) {
         Page<HouseMaintenance> maintenance = houseMaintenanceRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(maintenance.getTotalElements(),
-                maintenance.getContent().stream().map(ResponseHouseMaintenance::toDto).collect(Collectors.toList()));
+                maintenance.getContent().stream().map(ResponseHouseMaintenance::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

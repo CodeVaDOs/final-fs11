@@ -1,20 +1,18 @@
 package com.marksem.dto.response;
 
-import com.marksem.entity.contact.Contact;
 import com.marksem.entity.user.Language;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
-@AllArgsConstructor
 public class ResponseUser extends BaseEntity {
-    private Long id;
     private Role role;
     private Long managerId;
     private String email;
@@ -26,19 +24,17 @@ public class ResponseUser extends BaseEntity {
     private List<ResponseHouse> houses;
     private List<ResponseNotification> notifications;
 
-    public static ResponseUser toDto(User u) {
-        return ResponseUser.builder()
-                .id(u.getId())
-                .role(u.getRole())
-                .managerId(u.getManagerId())
-                .email(u.getEmail())
-                .name(u.getName())
-                .birthday(u.getBirthday())
-                .urlAvatar(u.getUrlAvatar())
-                .language(u.getLanguage())
-                .houses(u.getHouses().stream().map(ResponseHouse::toDto).collect(Collectors.toList()))
-                .contacts(u.getContacts().stream().map(ResponseContact::toDto).collect(Collectors.toList()))
-                .notifications(u.getNotifications().stream().map(ResponseNotification::toDto).collect(Collectors.toList()))
-                .build();
+    public ResponseUser(User u) {
+        super(u);
+        this.role = u.getRole();
+        this.managerId = u.getManagerId();
+        this.email = u.getEmail();
+        this.name = u.getName();
+        this.birthday = u.getBirthday();
+        this.urlAvatar = u.getUrlAvatar();
+        this.language = u.getLanguage();
+        this.houses = u.getHouses().stream().map(ResponseHouse::new).collect(Collectors.toList());
+        this.contacts = u.getContacts().stream().map(ResponseContact::new).collect(Collectors.toList());
+        this.notifications = u.getNotifications().stream().map(ResponseNotification::new).collect(Collectors.toList());
     }
 }

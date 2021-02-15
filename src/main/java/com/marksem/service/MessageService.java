@@ -25,7 +25,7 @@ public class MessageService {
             helper.setText(text, true);
 
             javaMailSender.send(message);
-        } catch (MessagingException ex){
+        } catch (MessagingException ex) {
             throw new RuntimeException("message sending failed");
         }
     }

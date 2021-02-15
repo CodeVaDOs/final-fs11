@@ -25,7 +25,7 @@ public class DocumentService {
     public ResponseDocument create(RequestDocument d, String urlFile) {
         return houseRepository.findById(d.getHouseId())
                 .map(h -> documentRepository.save(d.toEntity(h, urlFile)))
-                .map(ResponseDocument::toDto)
+                .map(ResponseDocument::new)
                 .orElseThrow(() -> new NoDataFoundException("house", d.getHouseId()));
     }
 
@@ -37,20 +37,20 @@ public class DocumentService {
                     if (urlFile != null) i.setUrlFile(urlFile);
                     return documentRepository.save(i);
                 })
-                .map(ResponseDocument::toDto)
+                .map(ResponseDocument::new)
                 .orElseThrow(() -> new NoDataFoundException("document", d.getId()));
     }
 
     public ResponseDocument read(Long id) {
         return documentRepository.findById(id)
-                .map(ResponseDocument::toDto)
+                .map(ResponseDocument::new)
                 .orElseThrow(() -> new NoDataFoundException("document", id));
     }
 
     public PageableResponse<ResponseDocument> readAll(int page, int size, String searchString, Sort.Direction direction, String sortBy, DocumentType type) {
         Page<Document> documents = documentRepository.findByNameContainingIgnoreCaseAndType(searchString, type, PageRequest.of(page, size, direction, sortBy));
         return new PageableResponse<>(documents.getTotalElements(),
-                documents.getContent().stream().map(ResponseDocument::toDto).collect(Collectors.toList()));
+                documents.getContent().stream().map(ResponseDocument::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

@@ -10,7 +10,6 @@ import com.marksem.repository.TransactionGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class TransactionGroupService {
     public ResponseTransactionGroup create(RequestTransactionGroup tg) {
         return houseRepository.findById(tg.getHouseId())
                 .map(h -> transactionGroupRepository.save(tg.toEntity(h)))
-                .map(ResponseTransactionGroup::toDto)
+                .map(ResponseTransactionGroup::new)
                 .orElseThrow(() -> new NoDataFoundException("house", tg.getHouseId()));
     }
 
@@ -35,20 +34,20 @@ public class TransactionGroupService {
                     i.setToDate(tg.getToDate());
                     return transactionGroupRepository.save(i);
                 })
-                .map(ResponseTransactionGroup::toDto)
+                .map(ResponseTransactionGroup::new)
                 .orElseThrow(() -> new NoDataFoundException("transaction group", tg.getId()));
     }
 
     public ResponseTransactionGroup read(Long id) {
         return transactionGroupRepository.findById(id)
-                .map(ResponseTransactionGroup::toDto)
+                .map(ResponseTransactionGroup::new)
                 .orElseThrow(() -> new NoDataFoundException("transaction group", id));
     }
 
     public PageableResponse<ResponseTransactionGroup> readAll(int page, int size) {
         Page<TransactionGroup> groups = transactionGroupRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(groups.getTotalElements(),
-                groups.getContent().stream().map(ResponseTransactionGroup::toDto).collect(Collectors.toList()));
+                groups.getContent().stream().map(ResponseTransactionGroup::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {
