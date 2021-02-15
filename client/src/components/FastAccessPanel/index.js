@@ -88,8 +88,7 @@ const FastAccessPanel =(props)=>{
   const isClient =()=>{
     return(<>
       <Box className={classes.boxControl}>
-        <Box style={{ marginLeft:"110px" }}>
-          <Typography className={classes.boxHeader}>{t("fastAccess")}</Typography>
+        <Box style={{ marginLeft:"110px", marginTop:"-20px" }}>
           <Grid
             container
             direction="row"
@@ -117,7 +116,6 @@ const FastAccessPanel =(props)=>{
     return(<>
       <Box className={classes.boxControl}>
         <Box style={{ marginLeft:"110px" }}>
-          <Typography className={classes.boxHeader}>{t("fastAccess")}</Typography>
           <Grid
             container
             direction="row"

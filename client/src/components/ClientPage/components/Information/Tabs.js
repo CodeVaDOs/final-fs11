@@ -13,6 +13,7 @@ import { Documents } from "../Documents";
 import { MyContracts } from "../Documents/MyContracts";
 import ClientStatisticRent from "../../../ClientStatisticRent";
 import { CreateNewHouse } from "../CreateNewHouse";
+import EditUser from "../../../../pages/Client/components/EditUser";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,11 +40,7 @@ const useStyles = makeStyles(() => ({
   },
   user: {
     backgroundColor: "white",
-    minHeight: '268px',
-    maxHeight: '268px',
-    minWidth: "268px",
-    maxWidth: "268px",
-    border: '2px solid black'
+    minWidth: '285px',
   },
   columnStart: {
     width: '100%',
@@ -117,7 +114,7 @@ export default function ClientTabs() {
       <div className={classes.columnStart}>
         <div className={classes.root}>
           <div className={classes.user}>
-            Tartakovsky Component
+            <EditUser/>
           </div>
           <Container
             className={classes.columnProfile}>

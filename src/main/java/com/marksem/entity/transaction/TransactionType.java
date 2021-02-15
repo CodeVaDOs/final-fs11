@@ -14,5 +14,7 @@ import javax.persistence.*;
 public class TransactionType extends BaseEntity {
     private String name;
     @Column(name = "finance_type")
+
+    @Enumerated(EnumType.STRING)
     private FinanceType financeType;
 }

@@ -17,6 +17,7 @@ public class ResponseUser extends BaseEntity {
     private Long id;
     private Role role;
     private Long managerId;
+    private String email;
     private String name;
     private Date birthday;
     private String urlAvatar;
@@ -30,6 +31,7 @@ public class ResponseUser extends BaseEntity {
                 .id(u.getId())
                 .role(u.getRole())
                 .managerId(u.getManagerId())
+                .email(u.getEmail())
                 .name(u.getName())
                 .birthday(u.getBirthday())
                 .urlAvatar(u.getUrlAvatar())

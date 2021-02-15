@@ -191,6 +191,14 @@ const Header = (props) => {
         isMain: false,
         role: "ADMIN",
       },
+      {
+        id: 12,
+        text: 'Працівники',
+        icon: icons.clients,
+        to: '/employee',
+        isMain: false,
+        role: "ADMIN",
+      },
     ]
   };
 

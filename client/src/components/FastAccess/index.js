@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   fastAccessContainer: {
@@ -12,7 +13,8 @@ const useStyles = makeStyles({
     height: '60px',
     borderRadius: '20px',
     boxShadow: '0px 1px 3px #00000033',
-    margin:"5px",
+    marginTop:"5px",
+    marginBottom:"5px",
     backgroundColor:"#fff"
   },
   btnTitle: {
@@ -56,6 +58,7 @@ const useStyles = makeStyles({
 
 const FastAccess =({ icon, nameTitle, name, onClick })=>{
   const classes = useStyles();
+  const { t } = useTranslation();
   return(<>
     <Box className={classes.fastAccessContainer}>
       <Grid
@@ -72,7 +75,7 @@ const FastAccess =({ icon, nameTitle, name, onClick })=>{
           <Typography className={classes.name}>{name}</Typography>
         </Grid>
         <Grid  item xs={4} >
-          <Typography className={classes.btnTitle}>Детально</Typography>
+          <Typography className={classes.btnTitle}>{t("detailSecond")}</Typography>
           <Button className={classes.btnBtn} onClick={onClick}><ArrowForwardIosIcon style={{ color:"#99A0A3", fontSize:"15px" }}/></Button>
         </Grid>
       </Grid>

@@ -1,7 +1,6 @@
 package com.marksem.exception;
 
 import com.marksem.dto.response.ResponseException;
-import lombok.NonNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -50,6 +47,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     public ResponseEntity<ResponseException> handleParamNotValid(IllegalArgumentException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(new ResponseException(ex.getMessage()));
+    }
+
+    @ExceptionHandler(value = RestTemplateException.class)
+    ResponseEntity<ResponseException> handleRestTemplateException(RestTemplateException ex, HttpServletRequest request) {
+        return ResponseEntity
+                .status(ex.getStatus())
                 .body(new ResponseException(ex.getMessage()));
     }
 

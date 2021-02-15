@@ -13,7 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { AUTH_ACTIONS } from "@redux/auth/action";
 
 const useStyles = makeStyles({
@@ -70,7 +70,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Login = () => {
+const Login = (props) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -127,29 +127,6 @@ const Login = () => {
     event.preventDefault();
   };
   ValidatorForm.addValidationRule('minNumber', (value) => value.length >= 4);
-  // const errorMessageWrongPassword = passwordCorrect === false && (
-  //   <Typography variant="body1">
-  //     Please enter your password
-  //   </Typography>
-  // );
-
-  //connect after fetch request
-  // const passwordOrMailAreNotCorrect = () => {
-  //   if (
-  //     props.isEntered ===
-  //           "There is no user record corresponding to this identifier. The user may has been deleted." ||
-  //           props.isEntered ===
-  //           "The password is invalid or the user does not have a password."
-  //   ) {
-  //     return (
-  //       <Typography variant="body1">
-  //                   Wrong password or/and email
-  //       </Typography>
-  //     );
-  //   } else {
-  //     return false;
-  //   }
-  // };
   const iconEmail = () => {
     return (<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);
   };
@@ -208,9 +185,6 @@ const Login = () => {
                   )
                 }}
               />
-              {/*{errorMessageWrongPassword}*/}
-              {/*{passwordOrMailAreNotCorrect()}*/}
-              {/*<span>&nbsp;&nbsp;&nbsp;</span>*/}
               <Typography variant="body1">
                 {t('forgotPass')}<span>&nbsp;</span>
                 <a
@@ -235,7 +209,12 @@ const Login = () => {
     </>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
 
-export default Login;
+export default connect(mapStateToProps, null)(Login);
 
 

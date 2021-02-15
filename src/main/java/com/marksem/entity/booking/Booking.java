@@ -38,5 +38,5 @@ public class Booking extends BaseEntity {
     private User renter;
 
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
-    private List<BookingMaintenance> bookingMaintenances = new ArrayList<>();
+    private List<BookingMaintenance> bookingMaintenance = new ArrayList<>();
 }

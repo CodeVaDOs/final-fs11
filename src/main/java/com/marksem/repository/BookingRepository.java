@@ -1,4 +1,4 @@
-package com.marksem.repo;
+package com.marksem.repository;
 
 import com.marksem.entity.booking.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
