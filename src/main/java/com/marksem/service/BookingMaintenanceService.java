@@ -23,7 +23,7 @@ public class BookingMaintenanceService {
     public ResponseBookingMaintenance create(RequestBookingMaintenance bm) {
         return bookingRepository.findById(bm.getBookingId())
                 .map(b -> bookingMaintenanceRepository.save(bm.toEntity(b)))
-                .map(ResponseBookingMaintenance::toDto)
+                .map(ResponseBookingMaintenance::new)
                 .orElseThrow(() -> new NoDataFoundException("booking", bm.getBookingId()));
     }
 
@@ -35,20 +35,20 @@ public class BookingMaintenanceService {
                     i.setIsActive(bm.getIsActive());
                     return bookingMaintenanceRepository.save(i);
                 })
-                .map(ResponseBookingMaintenance::toDto)
+                .map(ResponseBookingMaintenance::new)
                 .orElseThrow(() -> new NoDataFoundException("booking maintenance", bm.getId()));
     }
 
     public ResponseBookingMaintenance read(Long id) {
         return bookingMaintenanceRepository.findById(id)
-                .map(ResponseBookingMaintenance::toDto)
+                .map(ResponseBookingMaintenance::new)
                 .orElseThrow(() -> new NoDataFoundException("booking maintenance", id));
     }
 
     public PageableResponse<ResponseBookingMaintenance> readAll(int page, int size) {
         Page<BookingMaintenance> maintenance = bookingMaintenanceRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(maintenance.getTotalElements(),
-                maintenance.getContent().stream().map(ResponseBookingMaintenance::toDto).collect(Collectors.toList()));
+                maintenance.getContent().stream().map(ResponseBookingMaintenance::new).collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

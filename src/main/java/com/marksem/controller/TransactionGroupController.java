@@ -1,17 +1,13 @@
 package com.marksem.controller;
 
-
 import com.marksem.dto.request.RequestTransactionGroup;
 import com.marksem.dto.response.PageableResponse;
-import com.marksem.dto.response.ResponseTransaction;
 import com.marksem.dto.response.ResponseTransactionGroup;
 import com.marksem.service.TransactionGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/transactionGroups")
