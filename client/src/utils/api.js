@@ -7,7 +7,6 @@ const api = axios.create({
 
 api.interceptors.response.use(
   response => response.data,
-
   async function (error) {
     const { refreshToken } = getTokens();
     const originalRequest = error.config;

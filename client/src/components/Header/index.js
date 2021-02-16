@@ -178,7 +178,7 @@ const Header = (props) => {
       {
         id: 10,
         text: t("menuEmployee"),
-        icon: icons.photo,
+        icon: icons.clients,
         to: '/employees',
         isMain: false,
         role: "ADMIN",
@@ -188,14 +188,6 @@ const Header = (props) => {
         text: t("menuHistory"),
         icon: icons.photo,
         to: '/history',
-        isMain: false,
-        role: "ADMIN",
-      },
-      {
-        id: 12,
-        text: 'Працівники',
-        icon: icons.clients,
-        to: '/employee',
         isMain: false,
         role: "ADMIN",
       },

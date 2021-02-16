@@ -8,6 +8,9 @@ import ButtonStyle from "../Button";
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import { connect } from "react-redux";
+import { updateUser } from "../../redux/auth/action";
+
 const useStyles = makeStyles({
   rootProfile: {
     borderRadius: '20px',
@@ -88,17 +91,19 @@ const useStyles = makeStyles({
   },
 });
 
-const ChangeProfile =() => {
+const ChangeProfile =(props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   //Form Data Managment
   const [dataForm, setDataForm] = useState({
-    surname: '',
-    phone: '',
-    secondPhone: '',
-    email: '',
-    dateBirth: ''
+    id:props.user.id,
+    surname: props.user.name,
+    phone: props.user.contacts[0],
+    secondPhone: props.user.contacts[1],
+    email: props.user.email,
+    dateBirth:"",
+    password:props.user.password
   });
   const handleChange = (e) => {
     setDataForm({
@@ -106,10 +111,24 @@ const ChangeProfile =() => {
       [e.target.name]: e.target.value
     });
   };
+
+  const getFormData = (data) => {
+    const form_data = new FormData();
+    for ( const key in data ) {
+      form_data.append(key, data[key]);
+    }
+    return form_data;
+  }
     // Form check for back-end && response status
   const check = (e) => {
-    console.log('post to backend with new user');
     e.preventDefault();
+    const data = {
+      id: dataForm.id,
+      name:dataForm.surname,
+      email:dataForm.email,
+      password:dataForm.password
+    };
+    props.updateUser(getFormData(data));
     console.log(dataForm.surname, dataForm.phone, dataForm.secondPhone, dataForm.email, dataForm.dateBirth );
   };
     //Form Data Props
@@ -215,4 +234,14 @@ const ChangeProfile =() => {
     </Container>
   </>);
 };
-export default ChangeProfile;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateUser: (data) => dispatch(updateUser(data)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeProfile);
