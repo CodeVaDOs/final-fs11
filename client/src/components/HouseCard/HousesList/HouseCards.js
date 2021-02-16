@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import buttonArrow from "@assert/icons/buttonArrow.svg";
-import { ListItem } from "@material-ui/core";
+import {ListItem} from "@material-ui/core";
+import Hoverable from "./hover/Hoverable";
 
 const useStyles = makeStyles(() => ({
   bh: {
     opacity: 0.4,
-    boxShadow: "-162px 0px 40px -59px grey inset",
   },
   root: {
-    width: "130vh",
-    height: '270px',
+    maxWidth: "140vh",
+    width:"100%",
+    height: '260px',
     display: 'flex',
     fontFamily: 'Roboto',
     overflow: 'hidden',
@@ -19,20 +20,19 @@ const useStyles = makeStyles(() => ({
   },
   houseCard: {
     boxSizing: 'border-box',
+    padding: "10px",
     borderRadius: '20px',
-    minWidth: '182px',
+    minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
     boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
 
   },
   houseCardActive: {
-    marginLeft: '5px',
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '182px',
+    minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
     boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
@@ -48,6 +48,7 @@ const useStyles = makeStyles(() => ({
     margin: '10px',
   },
   img: {
+    marginTop: 10,
     width: "100%",
     borderRadius: '18px',
   },
@@ -123,9 +124,9 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-
 export default function HouseCards({ data, onHouseClick }) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
+  const [isHovering, setIsHovering] = useState(true);
   const classes = useStyles();
 
   const prevSlide = () => {
@@ -142,51 +143,70 @@ export default function HouseCards({ data, onHouseClick }) {
 
   const activeImageSourcesFromState = data.slice(currentImageIdx, currentImageIdx + 5);
   const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
-    ? [...activeImageSourcesFromState, ...data.slice(0, 5 - activeImageSourcesFromState.length)]
-    : activeImageSourcesFromState;
+      ? [...activeImageSourcesFromState, ...data.slice(0, 5 - activeImageSourcesFromState.length)]
+      : activeImageSourcesFromState;
+  const handler = (e) => {
+    console.log(e);
+    setIsHovering(!isHovering)
+  }
+  const createLogger = (...msg) => () => {
+    console.log(...msg);
+  };
   return (
-    <div className={classes.root}>
-      {currentImageIdx < 1 ?
-        "" :
-        <button className={classes.btnPrev} onClick={prevSlide}>
-          <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
-        </button>
-      }
-      <div>
-        <div className={classes.content}>
-          {activeImageSourcesFromState
-            .map((house, index) => {
-              return (
-                <ListItem
-                  key={index}
-                  onClick={onHouseClick(currentImageIdx)}
-                  className={index === 4 ? classes.bh : ""}>
-                  <div
-                    className={index ? classes.houseCard : classes.houseCardActive}
-                  >
-                    <div>
-                      {
-                        index === 4 ?
-                          <div className={classes.bh}>
-                            <img
-                              className={classes.img} src={house.img} alt={house.contractId}/>
-                          </div> :
-                          <img
-                            className={classes.img} src={house.img} alt={house.contractId}/>
-                      }
+      <div className={classes.root}>
+        {currentImageIdx < 1 ?
+            "" :
+            <button className={classes.btnPrev} onClick={prevSlide}>
+              <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
+            </button>
+        }
+        <div>
+          <div className={classes.content}>
+            {activeImageSourcesFromState
+                .map((house, index) => {
+                  return (
+                      <Hoverable
+                          onHoverIn={createLogger("in")}
+                          onHoverOut={createLogger("out")}
+                      >
+                        <ListItem
+                            onMouseEnter={handler}
+                            onMouseLeave={handler}
+                            key={index}
+                            onClick={onHouseClick(currentImageIdx)}
+                            className={index === 4 ? classes.bh : ""}>
+                          <div
+                              className={index ? classes.houseCard : classes.houseCardActive}
+                          >
+                            <div>
+                              {index === 4 ?
+                                  <div
+                                      className={classes.bh}>
+                                    <img
+                                        className={classes.img} src={house.img} alt={house.contractId}/>
+                                  </div> :
+                                  <img
+                                      className={classes.img} src={house.img} alt={house.contractId}/>
+                              }
 
-                      <div className={classes.houseCardBody}>
-                        <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                        <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                        <span className={classes.locationData}> {house.town}</span>
-                        <span className={classes.locationData}> {house.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                </ListItem>
-              );
-            })}
-        </div>
+                              <div
+                                  className={classes.houseCardBody}>
+                        <span
+                            className={classes.cardContract}> Контракт {house.contractDate}</span>
+                                <span
+                                    className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                                <span
+                                    className={classes.locationData}> {house.town}</span>
+                                <span
+                                    className={classes.locationData}> {house.location}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </ListItem>
+                      </Hoverable>
+                  );
+                })}
+          </div>
       </div>
       {imageSourcesToDisplay.length > 5 ?
         "" :

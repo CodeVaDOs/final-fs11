@@ -1,12 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import { photos as images } from "../../utils/constants/photos";
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Icon } from "@material-ui/core";
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import {photos as images} from "../../utils/constants/photos";
+import Slide from "material-auto-rotating-carousel/lib/Slide";
+import AutoRotatingCarousel from "material-auto-rotating-carousel/lib/AutoRotatingCarousel";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -81,42 +79,37 @@ export default function TransitionsModal({ open, setIsOpen, photoIndex, setPhoto
   }
 
   return (
-    <Modal
-      className={classes.modal}
-      open={open}
-      onClose={handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <div>
-        <Fade
-          in={open}
+      <Modal
+
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+      >
+        <AutoRotatingCarousel
+            style={{position: 'relative', width: '100%', height: '100%'}}
+            open={open}
+            onClose={() => setIsOpen(false)}
+            onStart={() => setIsOpen(false)}
+            mobile
+            autoplay={true}
+            style={{position: 'absolute'}}
         >
+          {images.map((s, index) => {
 
-          <div className={classes.paper}>
-
-            <div onClick={prev} className={classes.buttonL}>
-              <Icon className={classes.buttonleft}>
-                <ChevronLeftIcon className={classes.sizing}/></Icon>
-            </div>
-
-
-            <img className={classes.bigPhoto}
-              src={photoIndex ? images[photoIndex] : images[0]} alt={'das'}/>
-
-            <div onClick={next} className={classes.buttonR}>
-              <Icon className={classes.sizing}>
-                <ChevronRightIcon className={classes.buttonrigt}/></Icon>
-            </div>
-
-
-          </div>
-        </Fade>
-      </div>
-
+                return (
+                    <Slide
+                        media={<img src={s} alt={'das'}/>}
+                    />
+                )
+              }
+          )
+          }
+        </AutoRotatingCarousel>
 
     </Modal>
   );

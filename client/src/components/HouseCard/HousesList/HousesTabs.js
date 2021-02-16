@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import HouseCard from "./HouseCards";
 import TabPanel from "./TabPanel";
 import ControlNotificationContainer from "./ControlNotification/ControlNotificationContainer";
-import { HouseContainer } from "../House";
-import { ManagementServices } from "./ManagementServices/ManagmentServices";
-import { tileData } from "../../../utils/constants/housesView";
-import { useTranslation } from "react-i18next";
-import { Container } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import {HouseContainer} from "../House";
+import {ManagementServices} from "./ManagementServices/ManagmentServices";
+import {tileData} from "../../../utils/constants/housesView";
+import {useTranslation} from "react-i18next";
 
 const AntTabs = withStyles({
   indicator: {
@@ -22,7 +20,6 @@ const AntTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
     width: "100%",
-    marginRight: theme.spacing(4),
     fontFamily: [
       'Roboto',
       'sans-serif',
@@ -70,28 +67,27 @@ export default function HousesTabs() {
   const AddHouseToList = () => {
     console.log('house add');
     console.log('data', data);
-
   };
+
   return (
-    <Container className={classes.root}>
-      <div>
-        <AntTabs value={value} onChange={handleChange} aria-label="ant example">
-          <AntTab value="one" label={t("myHouses")} wrapped/>
-          <AntTab value="two" label={t("control")}/>
-        </AntTabs>
-        <TabPanel value={value} index="one" style={{ position: "relative" }}>
-          <div>
-            <Button onClick={AddHouseToList}>POST + house</Button>
-            <HouseCard onHouseClick={houseToState} data={Houses}/>
-            <HouseContainer house={house}/>
-          </div>
-        </TabPanel>
-        <TabPanel value={value} index="two" style={{ width: '140vh' }}>
-          <ControlNotificationContainer/>
-          <ManagementServices/>
-        </TabPanel>
+      <div className={classes.root}>
+        <div>
+          <AntTabs value={value} onChange={handleChange} aria-label="ant example">
+            <AntTab value="one" label={t("myHouses")} wrapped/>
+            <AntTab value="two" label={t("control")}/>
+          </AntTabs>
+          <TabPanel value={value} index="one" style={{position: "relative"}}>
+            <div>
+              <HouseCard onHouseClick={houseToState} data={Houses}/>
+              <HouseContainer house={house}/>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index="two" style={{width: '100%'}}>
+            <ControlNotificationContainer/>
+            <ManagementServices/>
+          </TabPanel>
+        </div>
       </div>
-    </Container>
   );
 }
 
