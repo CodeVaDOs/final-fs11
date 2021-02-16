@@ -1,7 +1,6 @@
 package com.marksem.dto.response;
 
 import com.marksem.entity.booking.FeedBack;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

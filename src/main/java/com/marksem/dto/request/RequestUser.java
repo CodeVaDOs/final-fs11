@@ -1,10 +1,12 @@
 package com.marksem.dto.request;
 
+import com.marksem.entity.user.Language;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +14,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -34,6 +37,11 @@ public class RequestUser extends BaseEntity {
     @NotNull(message = "name is require")
     private String name;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+
+    private Language language;
+
     private List<RequestContact> contacts = new ArrayList<>();
 
     public User toEntity(Long managerId, String url) {
@@ -45,6 +53,8 @@ public class RequestUser extends BaseEntity {
                 .role(this.role)
                 .managerId(managerId)
                 .name(this.name)
+                .birthday(this.birthday)
+                .language(this.language)
                 .urlAvatar(url)
                 .notifications(new ArrayList<>())
                 .houses(new ArrayList<>())

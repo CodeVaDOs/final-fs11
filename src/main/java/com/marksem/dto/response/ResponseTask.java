@@ -1,7 +1,6 @@
 package com.marksem.dto.response;
 
 import com.marksem.entity.task.Task;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,9 +8,11 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ResponseTask extends BaseEntity {
     private String text;
+    private String header;
 
     public ResponseTask(Task t) {
         super(t);
+        this.header = t.getHeader();
         this.text = t.getText();
     }
 }
