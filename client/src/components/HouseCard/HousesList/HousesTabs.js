@@ -56,14 +56,11 @@ export default function HousesTabs() {
   const [value, setValue] = useState('one');
   const [Houses,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
-  // const [{ data, loading }, getData] = useFetch({ url: `houses` });
-  // console.log(data, loading);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   function houseToState(e) {
-
     setHouse(Houses[e]);
   }
 

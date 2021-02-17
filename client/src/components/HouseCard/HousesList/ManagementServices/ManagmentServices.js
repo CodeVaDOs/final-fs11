@@ -15,7 +15,6 @@ import house from "../../../../images/house.png";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
-import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles({
@@ -177,24 +176,12 @@ export const ManagementServices = () => {
   const classes = useStyles();
   const [input, setInput] = useState({
     selected: "",
-    input: "none"
   });
   const clickHandler = (id) => {
     setInput({
       selected: id,
-      input: "block"
     });
     console.log(id);
-  };
-
-  const [inputValue, setInputValue] = useState({
-    value: ""
-  });
-  const onChangeInput = (event) => {
-    setInputValue({
-      value: event.target.value
-    });
-    console.log(inputValue.value);
   };
 
 
@@ -269,9 +256,6 @@ export const ManagementServices = () => {
           ))}
         </Grid>
       </Grid>
-    </Box>
-    <Box style={{textAlign: "center", display: `${input.input}`}}>
-      <TextField fullWidth={200} id="outlined-basic" label="" variant="outlined" onChange={onChangeInput}/>
     </Box>
   </Box>);
 };
