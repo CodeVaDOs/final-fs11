@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import usePagination from "../../../../../hooks/usePagination";
-import { DocumentItem } from "../../../../ClientPage/components/Documents/DocumentItem";
-import { Pagination } from "@material-ui/lab";
-import TextField from "@material-ui/core/TextField";
-import SearchIcon from "@material-ui/icons/Search";
-import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
-import { useDispatch, useSelector } from "react-redux";
-import { documentsAction } from "../../../../../redux/documents/action";
-import { CreateDocument } from "../Contracts/CreateDocument";
-import { Button } from "@material-ui/core";
-import DescriptionIcon from "@material-ui/icons/Description";
+import React, {useEffect} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {DocumentItem} from "../../../../ClientPage/components/Documents/DocumentItem";
+import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
+import {useDispatch, useSelector} from "react-redux";
+import {documentsAction} from "../../../../../redux/documents/action";
+import LinearBuffer from "../../Progress";
+import {DataNotFound} from "../DataNotFound";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -70,35 +65,16 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const MyBills = ({ search,setSearch }) => {
+export const MyBills = ({ search }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
     dispatch(documentsAction.getDocuments('PAYMENT_ORDER', search));
   }, [search]);
-  // const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
-  //   {
-  //     id: index,
-  //     title: index,
-  //     detail: index,
-  //   }))
-  // );
-  const [filteredExploitation, setFilteredExploitation] = useState([]);
-  useEffect(() => {
-    setFilteredExploitation(
-      documents.list.filter((d) => {
-        return search.includes(d.title);
-      }));
-  }, [search]);
-
-  const searchHandler = () => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
 
   if (loading) {
-    return <h5>Завантажую платіжки...</h5>;
+    return <LinearBuffer/>;
   }
 
   return (
@@ -106,17 +82,17 @@ export const MyBills = ({ search,setSearch }) => {
       <div className={classes.root}>
         <div>
           {documents.list.length === 0 ?
-            <h5>У Вас пока контрактов нет...</h5> :
-            <div>
-              <div className={classes.topSide}>
+              <DataNotFound/> :
+              <div>
+                <div className={classes.topSide}>
 
-                <div className={classes.cleatfix}>
-                  <div className={classes.row}>
-                    <SelectDocument options={['Прибирання', "Електроенергія", "Вода", "Інше"]}/>
-                  </div>
-                  <div className={classes.row}>
-                    <h3>Показати</h3>
-                    <SelectDocument options={['Marksem M - 2 House large 00102']}/>
+                  <div className={classes.cleatfix}>
+                    <div className={classes.row}>
+                      <SelectDocument options={['Прибирання', "Електроенергія", "Вода", "Інше"]}/>
+                    </div>
+                    <div className={classes.row}>
+                      <h3>Показати</h3>
+                      <SelectDocument options={['Marksem M - 2 House large 00102']}/>
                   </div>
 
                   <div className={classes.row}>

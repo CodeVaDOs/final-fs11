@@ -19,9 +19,9 @@ const useStyles = makeStyles(() => ({
   mainContainer: props => ({
     margin: 0,
     padding: 0,
-    width: '98% ',
+    width: '100% ',
     marginLeft: '20px',
-    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 35 + 'px' : '40px',
+    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 35 + 'px' : '30px',
     transition: 'margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
   }),
   sidebar: {

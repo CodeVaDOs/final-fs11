@@ -4,23 +4,24 @@ import PrintIcon from '@material-ui/icons/Print';
 import HouseDesription from "./HouseDesription";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Typography from "@material-ui/core/Typography";
-import { Slider } from "./Slider";
-import { Rent } from "./Rent";
-import { Map } from "./Map";
-import { useTranslation } from "react-i18next";
+import {Slider} from "./Slider";
+import {Rent} from "./Rent";
+import {Map} from "./Map";
+import {useTranslation} from "react-i18next";
 import Grid from "@material-ui/core/Grid";
-import CircularStatic from "../../IncomeCard/CircularProgress";
 import Box from "@material-ui/core/Box";
+import {Container} from "@material-ui/core";
+import CircularStaticHouse from "./CircularStaticHouse";
 
 const useStyles = makeStyles(() => ({
   root: {
-    paddingLeft:20,
-    paddingRight:20,
+    paddingLeft: 10,
+    paddingRight: 10,
     width: "100%",
-    backgroundColor:"#fff",
-    boxShadow:"0px 2px 4px #00000033",
-    borderRadius:"20px",
-    textAlign:"start",
+    backgroundColor: "#fff",
+    boxShadow: "0px 2px 4px #00000033",
+    borderRadius: "20px",
+    textAlign: "start",
     marginBottom: '15px',
     marginTop: '5px',
     font: 'Roboto'
@@ -81,7 +82,7 @@ const useStyles = makeStyles(() => ({
     textDecoration: 'none',
     color: '#464C4E',
     border: '1px solid #6E7375', borderRadius: '10px',
-    padding: '20px',
+    padding: '15px',
     height: '35px',
     display: 'flex',
     alignItems: 'center',
@@ -90,7 +91,7 @@ const useStyles = makeStyles(() => ({
 
 
   houseRentStatisticBlock: {
-    margin: '20px',
+    margin: '15px',
     borderRadius: '20px',
     paddingTop: '5px',
     boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 1px 2px 2px rgba(0,0,0,0.23)",
@@ -156,11 +157,11 @@ const useStyles = makeStyles(() => ({
   },
 
   textBlock: {
-    marginLeft: 40,
+    marginLeft: 20,
   },
   title: {
+    display: "flex",
     marginTop: 20,
-    marginBottom: 10,
     fontSize: 18,
     color: '#293134'
   },
@@ -194,7 +195,7 @@ export const HouseContainer = ({ house }) => {
 
   return (
     <>
-      <Box className={classes.root}>
+      <Container className={classes.root}>
         <Box className={classes.topSide}>
           <Box className={classes.leftSide}>
             <Slider/>
@@ -203,7 +204,7 @@ export const HouseContainer = ({ house }) => {
             <Box className={classes.houseIdInfo}>
               <p className={classes.id}>{t('id')} {house.id}</p>
               <Box className={classes.houseIdInfoButtonBlock}>
-                <PrintIcon style={{ color: '#464C4E' }}/>
+                <PrintIcon style={{color: '#464C4E'}}/>
                 <a className={classes.ExportButton} href={'#'}>
                   <p>{t('export')} </p>
                   <GetAppIcon style={{ color: '#464C4E' }}/>
@@ -219,7 +220,7 @@ export const HouseContainer = ({ house }) => {
                 <Box className={classes.diagramBody}>
                   <Box className={classes.roundOfStatistic}>
                     <Grid className={classes.subGrid} item xs={3}>
-                      <CircularStatic size={90} thickness={2} progress={house.days} color={"#4AD584"}/>
+                      <CircularStaticHouse size={90} thickness={2} progress={house.days} value={house.id * 10} color={"#4AD584"}/>
                     </Grid>
                   </Box>
                   <Box className={classes.persentsBlock}>
@@ -244,10 +245,11 @@ export const HouseContainer = ({ house }) => {
         <Box className={classes.textBlock}>
           <Typography component={'span'} className={classes.title}>
             Деталі
-          </Typography>
+          </Typography><br/>
           <Typography component={'span'} className={classes.texte}>
-            lorem * {house.details} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti earum enim ipsa laboriosam minus neque numquam odit, quos voluptas!
-          </Typography>
+            lorem * {house.details} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti earum enim ipsa
+            laboriosam minus neque numquam odit, quos voluptas!
+          </Typography><br/>
           <Typography component={'span'} className={classes.title}>
             Локація
           </Typography>
@@ -260,7 +262,7 @@ export const HouseContainer = ({ house }) => {
             <Rent/>
           </Box>
         </Box>
-      </Box>
+      </Container>
     </>
   );
 };

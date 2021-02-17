@@ -19,7 +19,7 @@ const AntTabs = withStyles({
 const AntTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
-    width: "100%",
+    width: "90%",
     fontFamily: [
       'Roboto',
       'sans-serif',
@@ -44,6 +44,9 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     marginTop: '18px',
   },
+  tabs: {
+    width: "100%"
+  }
 }));
 
 
@@ -64,29 +67,20 @@ export default function HousesTabs() {
     setHouse(Houses[e]);
   }
 
-  const AddHouseToList = () => {
-    console.log('house add');
-    console.log('data', data);
-  };
-
   return (
       <div className={classes.root}>
-        <div>
-          <AntTabs value={value} onChange={handleChange} aria-label="ant example">
-            <AntTab value="one" label={t("myHouses")} wrapped/>
-            <AntTab value="two" label={t("control")}/>
-          </AntTabs>
-          <TabPanel value={value} index="one" style={{position: "relative"}}>
-            <div>
-              <HouseCard onHouseClick={houseToState} data={Houses}/>
-              <HouseContainer house={house}/>
-            </div>
-          </TabPanel>
-          <TabPanel value={value} index="two" style={{width: '100%'}}>
-            <ControlNotificationContainer/>
-            <ManagementServices/>
-          </TabPanel>
-        </div>
+        <AntTabs className={classes.tabs} value={value} onChange={handleChange} aria-label="ant example">
+          <AntTab value="one" label={t("myHouses")} wrapped/>
+          <AntTab value="two" label={t("control")}/>
+        </AntTabs>
+        <TabPanel value={value} index="one" style={{position: "relative"}}>
+          <HouseCard onHouseClick={houseToState} data={Houses}/>
+          <HouseContainer house={house}/>
+        </TabPanel>
+        <TabPanel value={value} index="two" style={{width: '100%'}}>
+          <ControlNotificationContainer/>
+          <ManagementServices/>
+        </TabPanel>
       </div>
   );
 }

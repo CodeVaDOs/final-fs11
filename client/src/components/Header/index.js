@@ -1,12 +1,12 @@
-import React, { lazy, useMemo, useState } from 'react';
+import React, {useMemo, useState} from 'react';
 import Logo from './ui/Logo';
-import { useTranslation } from "react-i18next";
-import { makeStyles, Collapse } from "@material-ui/core";
+import {useTranslation} from "react-i18next";
+import {Collapse, makeStyles} from "@material-ui/core";
 import HeaderLink from './components/HeaderLink';
 import searchIcon from '../../assert/icons/search-icon.svg';
 import buttonArrow from '../../assert/icons/buttonArrow.svg';
-import { icons } from '../../assert/header-icons';
-import { connect } from "react-redux";
+import {icons} from '../../assert/header-icons';
+import {connect} from "react-redux";
 
 const useStyles = makeStyles({
   header: {
@@ -15,7 +15,6 @@ const useStyles = makeStyles({
     backgroundColor: '#eef5ff',
     padding: '51px 20px 48px',
     borderRadius: '0 0 20px 20px',
-    minWidth: '890px',
     position: 'relative',
   },
   mainContainer: {

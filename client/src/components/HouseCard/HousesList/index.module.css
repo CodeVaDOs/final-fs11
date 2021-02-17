@@ -1,0 +1,44 @@
+.container {
+    width: 800px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overflow-x: scroll;
+    display: grid;
+    padding: 0.6em;
+    -webkit-overflow-scrolling: touch;
+}
+
+.container::before,
+.container::after {
+    content: "";
+    scroll-snap-align: end;
+}
+
+.container.spacer {
+    grid-template-columns:
+    1em
+    repeat(70, 1fr)
+    1em;
+}
+
+.container.wideSpacer {
+    grid-template-columns:
+    repeat(20, 1fr)
+    1em;
+}
+
+.gradient {
+    background-color: #20bf55;
+    background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
+}
+
+.child {
+    scroll-snap-align: center;
+
+}
+
+.child:first-child {
+    scroll-snap-align: start;
+
+}
+

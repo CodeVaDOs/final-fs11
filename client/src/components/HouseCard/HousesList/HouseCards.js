@@ -1,31 +1,30 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import buttonArrow from "@assert/icons/buttonArrow.svg";
 import {ListItem} from "@material-ui/core";
-import Hoverable from "./hover/Hoverable";
+import "./styles.css";
+import style from "./index.module.css";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(() => ({
   bh: {
     opacity: 0.4,
   },
   root: {
-    maxWidth: "140vh",
-    width:"100%",
+    flexGrow: 1,
+    width: "100%",
     height: '260px',
-    display: 'flex',
     fontFamily: 'Roboto',
     overflow: 'hidden',
-    flexDirection: 'row',
-
   },
   houseCard: {
+
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
     minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
+    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
 
   },
   houseCardActive: {
@@ -125,95 +124,57 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function HouseCards({ data, onHouseClick }) {
-  const [currentImageIdx, setCurrentImagIdx] = useState(0);
-  const [isHovering, setIsHovering] = useState(true);
   const classes = useStyles();
 
-  const prevSlide = () => {
-    const resetToVeryBack = currentImageIdx === 0;
-    const index = resetToVeryBack ? data.length - 1 : currentImageIdx - 1;
-    setCurrentImagIdx(index);
-  };
-
-  const nextSlide = () => {
-    const resetIndex = currentImageIdx === data.length - 1;
-    const index = resetIndex ? 0 : currentImageIdx + 1;
-    setCurrentImagIdx(index);
-  };
-
-  const activeImageSourcesFromState = data.slice(currentImageIdx, currentImageIdx + 5);
-  const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
-      ? [...activeImageSourcesFromState, ...data.slice(0, 5 - activeImageSourcesFromState.length)]
-      : activeImageSourcesFromState;
-  const handler = (e) => {
-    console.log(e);
-    setIsHovering(!isHovering)
+  function scrollElementToCenter(id = 0) {
+    onHouseClick(id)
+    document.getElementById(id).scrollIntoView({
+      block: "nearest",
+      inline: "center"
+    });
   }
-  const createLogger = (...msg) => () => {
-    console.log(...msg);
-  };
+
   return (
       <div className={classes.root}>
-        {currentImageIdx < 1 ?
-            "" :
-            <button className={classes.btnPrev} onClick={prevSlide}>
-              <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
-            </button>
-        }
-        <div>
-          <div className={classes.content}>
-            {activeImageSourcesFromState
-                .map((house, index) => {
-                  return (
-                      <Hoverable
-                          onHoverIn={createLogger("in")}
-                          onHoverOut={createLogger("out")}
-                      >
+        <Grid container>
+          <div>
+            <Grid item
+                  className={`${style.container} ${style.wideSpacer}  `}
+            >
+              {data
+                  .map((house, index) => {
+                    return (
                         <ListItem
-                            onMouseEnter={handler}
-                            onMouseLeave={handler}
-                            key={index}
-                            onClick={onHouseClick(currentImageIdx)}
-                            className={index === 4 ? classes.bh : ""}>
-                          <div
-                              className={index ? classes.houseCard : classes.houseCardActive}
-                          >
-                            <div>
-                              {index === 4 ?
-                                  <div
-                                      className={classes.bh}>
-                                    <img
-                                        className={classes.img} src={house.img} alt={house.contractId}/>
-                                  </div> :
-                                  <img
-                                      className={classes.img} src={house.img} alt={house.contractId}/>
-                              }
-
-                              <div
-                                  className={classes.houseCardBody}>
+                            className={`${style.child}`}
+                            key={index} id={index}
+                        >
+                          <div onClick={() => scrollElementToCenter(`${index}`)}>
+                            <div
+                                className={classes.houseCard}
+                            >
+                              <div>
+                                <img
+                                    className={classes.img} src={house.img} alt={house.contractId}/>
+                                <div
+                                    className={classes.houseCardBody}>
                         <span
                             className={classes.cardContract}> Контракт {house.contractDate}</span>
-                                <span
-                                    className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                                <span
-                                    className={classes.locationData}> {house.town}</span>
-                                <span
-                                    className={classes.locationData}> {house.location}</span>
+                                  <span
+                                      className={classes.cardId}>{house.svg} ID {house.contractId}</span>
+                                  <span
+                                      className={classes.locationData}> {house.town}</span>
+                                  <span
+                                      className={classes.locationData}> {house.location}</span>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </ListItem>
-                      </Hoverable>
-                  );
-                })}
+                    );
+                  })}
+            </Grid>
           </div>
-      </div>
-      {imageSourcesToDisplay.length > 5 ?
-        "" :
-        <button className={classes.btnNext} onClick={nextSlide}>
-          <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
-        </button>
-      }
+        </Grid>
     </div>
 
   );

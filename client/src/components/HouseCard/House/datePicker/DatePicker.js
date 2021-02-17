@@ -49,7 +49,6 @@ export default function DatePickers() {
           id="date"
           label={t('bout')}
           type="date"
-          defaultValue="2021-01-20"
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -62,7 +61,6 @@ export default function DatePickers() {
           id="date"
           label={t('departure')}
           type="date"
-          defaultValue="2021-01-30"
           className={classes.textFieldR}
           InputLabelProps={{
             shrink: true,

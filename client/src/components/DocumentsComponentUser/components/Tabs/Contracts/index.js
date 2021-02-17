@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
+import React, {useEffect, useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
 import DescriptionIcon from "@material-ui/icons/Description";
-import { Button } from "@material-ui/core";
-import { CreateDocument } from "./CreateDocument";
-import { DocumentItem } from '../../../../ClientPage/components/Documents/DocumentItem';
-import { useDispatch, useSelector } from "react-redux";
-import { documentsAction } from "../../../../../redux/documents/action";
+import {Button} from "@material-ui/core";
+import {CreateDocument} from "./CreateDocument";
+import {DocumentItem} from '../../../../ClientPage/components/Documents/DocumentItem';
+import {useDispatch, useSelector} from "react-redux";
+import {documentsAction} from "../../../../../redux/documents/action";
+import LinearBuffer from "../../Progress";
+import {DataNotFound} from "../DataNotFound";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -67,37 +69,18 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const MyContractsUser = ({ search, setSearch }) => {
+export const MyContractsUser = ({ search }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
     dispatch(documentsAction.getDocuments('CONTRACT', search));
   }, [search]);
-  // const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
-  //   {
-  //     id: index,
-  //     title: index,
-  //     detail: index,
-  //   }))
-  // );
-  const [createDocument, setCreateDocument] = useState();
-  const [filteredExploitation, setFilteredExploitation] = useState([]);
-  useEffect(() => {
-    setFilteredExploitation(
-      documents.list.filter((d) => {
-        return search.includes(d.title);
-      }));
-  }, [search]);
 
-  const searchHandler = () => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
+  const [createDocument, setCreateDocument] = useState();
 
   if (loading) {
-
-    return <h5>Завантажую контракти...</h5>;
+    return <LinearBuffer/>;
   }
   const createContract = () => {
     setCreateDocument(true);
@@ -110,17 +93,17 @@ export const MyContractsUser = ({ search, setSearch }) => {
           <CreateDocument/> :
           <div>
             {documents.list.length === 0 ?
-              <h5>У Вас пока контрактов нет...</h5> :
-              <div>
-                <div className={classes.topSide}>
-                  <Button
-                    className={classes.btnAdd}
-                    onClick={createContract}
-                  >
-                    Додати контракт <DescriptionIcon className={classes.editIcon}/>
-                  </Button>
-                  <div className={classes.row}>
-                    <h3>Сортувати</h3>
+                <DataNotFound/> :
+                <div>
+                  <div className={classes.topSide}>
+                    <Button
+                        className={classes.btnAdd}
+                        onClick={createContract}
+                    >
+                      Додати контракт <DescriptionIcon className={classes.editIcon}/>
+                    </Button>
+                    <div className={classes.row}>
+                      <h3>Сортувати</h3>
                     <SelectDocument
                       options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
                   </div>
