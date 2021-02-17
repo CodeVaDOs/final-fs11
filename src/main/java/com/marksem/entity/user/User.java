@@ -7,6 +7,7 @@ import com.marksem.entity.house.HouseMaintenance;
 import com.marksem.entity.house.HouseModel;
 import com.marksem.entity.notification.Notification;
 import com.marksem.entity.task.Task;
+import com.marksem.entity.transaction.Currency;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -57,4 +58,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Task> tasks = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 }

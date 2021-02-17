@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 
+@Validated
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -52,7 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/forgotPassword")
-    public  ResponseEntity<?> forgotPassword(@RequestBody @Valid RequestResetPassword request){
+    public ResponseEntity<?> forgotPassword(@RequestBody @Valid RequestResetPassword request) {
         try {
             resetPasswordService.sendMessageToEmail(request.getEmail());
             return new ResponseEntity<>(HttpStatus.OK);
@@ -62,7 +65,7 @@ public class AuthController {
     }
 
     @GetMapping("/resetPassword/{token}")
-    public void resetPassword(HttpServletResponse response, @PathVariable("token") String token) throws IOException {
+    public void resetPassword(HttpServletResponse response, @PathVariable("token") @NotBlank String token) throws IOException {
         response.sendRedirect(String.format("%s/%s/%s", clientUrl, clientChangePasswordPath, resetPasswordService.resetPassword(token)));
     }
 
