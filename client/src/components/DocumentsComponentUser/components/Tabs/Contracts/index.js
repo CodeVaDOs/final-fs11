@@ -108,6 +108,7 @@ export const MyContractsUser = ({ search }) => {
                       options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
                   </div>
                 </div>
+
                 <div className={classes.documents}>
                   <div className={classes.mainContainerDocuments}>
                     {documents.list
