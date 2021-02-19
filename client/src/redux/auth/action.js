@@ -10,15 +10,16 @@ export const updateUser = (data) => (dispatch) => {
     data,
     headers: { 'Content-Type': 'multipart/form-data' }
   })
-    .then(data => {
-      console.log("PUT profile: ", data);
-      dispatch({type: "EDIT_PROFILE_SUCCESS", payload: data});
+    .then(res => res.json())
+    .then((profileUpdate) =>  {
+        console.log("Edit profile: ", profileUpdate);
+        dispatch({ type: "EDIT_PROFILE_SUCCESS", payload: profileUpdate });
     })
     .catch(err => {
-      catchError(err);
-      dispatch({ type: "EDIT_PROFILE_ERROR" });});
-
-};
+        catchError(err);
+        dispatch({ type: "EDIT_PROFILE_ERROR" });
+    });
+}
 
 const getProfile = () => (dispatch) => {
   dispatch({ type: "GET_PROFILE_REQUEST" });
@@ -32,7 +33,19 @@ const getProfile = () => (dispatch) => {
       dispatch({ type: "GET_PROFILE_FAILURE" });
     });
 };
-export default getProfile();
+const getAdminInfo = () => (dispatch) => {
+  dispatch({ type: "GET_ADMIN_REQUEST" });
+  api.get('total/accessPanel')
+      .then((data) => {
+        console.log("Fetched admin data: ", data);
+        dispatch({ type: "GET_ADMIN_SUCCESS", payload: data });
+      })
+      .catch(err => {
+        catchError(err);
+        dispatch({ type: "GET_ADMIN_FAILURE" });
+      });
+};
+
 const logOut = () => (dispatch) => {
   setAuthToken();
   setRefreshToken();
@@ -41,6 +54,7 @@ const logOut = () => (dispatch) => {
 
 const logIn = (values) => (dispatch) => {
   dispatch({ type: "LOGIN_REQUEST" });
+  dispatch({ type: "GET_ADMIN_REQUEST" });
   setAuthToken();
   setRefreshToken();
 
@@ -54,10 +68,12 @@ const logIn = (values) => (dispatch) => {
       setRefreshToken(data.refreshToken);
       dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
       dispatch(getProfile());
+      dispatch(getAdminInfo());
     })
     .catch((err) => {
       catchError(err);
       dispatch({ type: "LOGIN_FAILURE" });
+      dispatch({ type: "GET_ADMIN_FAILURE" });
     });
 };
 
@@ -114,5 +130,6 @@ export const AUTH_ACTIONS = {
   getProfile,
   forgotPassword,
   changePassword,
-  updateUser
+  updateUser,
+  getAdminInfo
 };

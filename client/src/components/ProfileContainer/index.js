@@ -18,6 +18,7 @@ import Box from '@material-ui/core/Box';
 import TabPanel from "@components/TabPanel";
 import ChangePass from "../ChangePass";
 import ChangeProfile from "../ChangeProfile";
+import {connect} from "react-redux";
 
 
 const useStyles = makeStyles((theme)=>({
@@ -126,11 +127,11 @@ const useStyles = makeStyles((theme)=>({
   },
 
 }));
-const ProfileContainer =({ profileName="Овсієнко Дмитро Вікторович" })=>{
+const ProfileContainer =(props)=>{
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -151,9 +152,9 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
   });
   // Upload Photo Managment
   const [uploadImg, setUploadImg] = useState({
-    mainState: "initial",
-    imageUploaded: 0,
-    selectedFile: null
+    mainState: "uploaded",
+    imageUploaded: 1,
+    selectedFile: props.user.language
   });
   const handleUploadClick = event => {
     const reader = new FileReader();
@@ -246,7 +247,7 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
               (uploadImg.mainState === "uploaded" && renderUploadedState())}
         </Box>
         <Box>
-          <Typography className={classes.fullName}>{profileName}</Typography>
+          <Typography className={classes.fullName}>{props.user.name}</Typography>
           <Typography className={classes.boldText}>{t("langTitle")}</Typography>
           <FormControl variant="filled" className={classes.formControlSelect}>
             <InputLabel id="demo-simple-select-filled-label"></InputLabel>
@@ -311,4 +312,10 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
     </Grid>
   </>);
 };
-export default ProfileContainer;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps, null)(ProfileContainer);
