@@ -2,7 +2,6 @@ package com.marksem.dto.response;
 
 import com.marksem.entity.contact.Contact;
 import com.marksem.entity.contact.ContactType;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

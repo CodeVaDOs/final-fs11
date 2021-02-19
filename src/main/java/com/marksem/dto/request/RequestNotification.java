@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 public class RequestNotification extends BaseEntity {
+    private String title;
     private Long id;
     private String text;
     private Boolean isRead;
@@ -19,6 +20,7 @@ public class RequestNotification extends BaseEntity {
 
     public Notification toEntity(User receiver) {
         return Notification.builder()
+                .title(this.title)
                 .text(this.text)
                 .isRead(this.isRead)
                 .importance(this.importance)
