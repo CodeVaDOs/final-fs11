@@ -11,9 +11,9 @@ export const updateUser = (data) => (dispatch) => {
     headers: { 'Content-Type': 'multipart/form-data' }
   })
     .then(res => res.json())
-    .then((data) =>  {
-        console.log("Edit profile: ", data);
-        dispatch({ type: "EDIT_PROFILE_SUCCESS", payload: data });
+    .then((profileUpdate) =>  {
+        console.log("Edit profile: ", profileUpdate);
+        dispatch({ type: "EDIT_PROFILE_SUCCESS", payload: profileUpdate });
     })
     .catch(err => {
         catchError(err);

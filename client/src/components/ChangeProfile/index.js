@@ -126,14 +126,7 @@ const ChangeProfile =(props) => {
       id:dataForm.id,
       name:dataForm.surname,
       email:dataForm.email,
-      // birthday:dataForm.dateBirth
     }
-//     [{phone:formData.phone , type:"MAIN" },{phone:formData.secondPhone , type:"ADDITIONAL" }].forEach(OBJ  => {			// contact - array of objects {phone: , type: }
-//     formData.append('contacts',
-//         new Blob([JSON.stringify(OBJ)],
-//             {type: "application/json"}));
-// });
-
     props.updateUser(getFormData(postData));
     console.log(dataForm.surname, dataForm.phone, dataForm.secondPhone, dataForm.email, dataForm.dateBirth );
   };
