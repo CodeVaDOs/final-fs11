@@ -1,6 +1,8 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestUser;
+import com.marksem.dto.request.groups.OnCreate;
+import com.marksem.dto.request.groups.OnUpdate;
 import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseUser;
 import com.marksem.entity.user.Role;
@@ -9,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
+@Validated
 @RestController
 @RequestMapping("api/v1/users")
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
+    @Validated(OnCreate.class)
     public ResponseEntity<ResponseUser> create(@ModelAttribute @Valid RequestUser u,
                                                @RequestHeader("Authorization") String token, Principal principal) {
         return ResponseEntity.ok(userService.create(u, principal.getName(), token));
@@ -52,7 +57,8 @@ public class UserController {
 
     @PutMapping()
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<ResponseUser> update(@ModelAttribute RequestUser u, @RequestHeader("Authorization") String token) {
+    @Validated(OnUpdate.class)
+    public ResponseEntity<ResponseUser> update(@ModelAttribute @Valid RequestUser u, @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(userService.update(u, token));
     }
 

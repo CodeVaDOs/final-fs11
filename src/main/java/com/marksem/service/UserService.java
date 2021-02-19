@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +48,10 @@ public class UserService {
     }
 
     public ResponseUser getProfile(String email) {
-        return new ResponseUser(getUserByEmail(email));
+        ResponseUser user = new ResponseUser(getUserByEmail(email));
+        repository.findById(user.getManagerId()).ifPresent(manager -> user.setManager(new ResponseUser(manager)));
+        return user;
+
     }
 
     public PageableResponse<ResponseUser> readAll(int page, int size, Role role, String searchString, Sort.Direction direction, String sortBy) {
@@ -56,15 +60,12 @@ public class UserService {
                 users.getContent().stream().map(ResponseUser::new).collect(Collectors.toList()));
     }
 
-    public ResponseUser update(RequestUser u, String token) {
-        return repository.findById(u.getId())
-                .map(e -> {
-                    if (u.getAvatar() != null) e.setUrlAvatar(fileService.update(u.getAvatar(), token));
-                    e.setEmail(u.getEmail());
-                    e.setName(u.getName());
-                    return new ResponseUser(repository.save(e));
-                })
-                .orElseThrow(() -> new NoDataFoundException("user", u.getId()));
+    public ResponseUser update(RequestUser ru, String token) {
+        return repository.findById(ru.getId())
+                .map(user -> new ResponseUser(repository.save(ru.update(user, ru.getAvatar() != null
+                        ? fileService.update(ru.getAvatar(), token)
+                        : null))))
+                .orElseThrow(() -> new NoDataFoundException("user", ru.getId()));
     }
 
     public Long delete(Long id) {

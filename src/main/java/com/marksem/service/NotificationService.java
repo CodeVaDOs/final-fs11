@@ -10,7 +10,6 @@ import com.marksem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -31,6 +30,7 @@ public class NotificationService {
     public ResponseNotification update(RequestNotification n) {
         return notificationRepository.findById(n.getId())
                 .map(i -> {
+                    i.setTitle(n.getTitle());
                     i.setText(n.getText());
                     i.setIsRead(n.getIsRead());
                     i.setImportance(n.getImportance());

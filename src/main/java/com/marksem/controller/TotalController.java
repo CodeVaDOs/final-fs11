@@ -1,5 +1,6 @@
 package com.marksem.controller;
 
+import com.marksem.dto.response.ResponseCatalogue;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
 import com.marksem.service.TotalService;
@@ -20,7 +21,13 @@ public class TotalController {
     private final TotalService totalService;
     private final UserService userService;
 
-    @GetMapping("accessPanel")
+    @GetMapping("/catalogue")
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<ResponseCatalogue> getCatalogue() {
+        return ResponseEntity.ok(totalService.getCatalogue());
+    }
+
+    @GetMapping("/accessPanel")
     @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<?> getAccessPanelInfo(Principal principal) {
         User user = userService.getUserByEmail(principal.getName());

@@ -3,7 +3,11 @@ package com.marksem.entity.user;
 import com.marksem.entity.BaseEntity;
 import com.marksem.entity.contact.Contact;
 import com.marksem.entity.house.House;
+import com.marksem.entity.house.HouseMaintenance;
+import com.marksem.entity.house.HouseModel;
 import com.marksem.entity.notification.Notification;
+import com.marksem.entity.task.Task;
+import com.marksem.entity.transaction.Currency;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -51,4 +55,10 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Notification> notifications = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 }
