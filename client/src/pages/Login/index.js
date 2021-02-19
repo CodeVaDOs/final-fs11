@@ -77,8 +77,6 @@ const Login = (props) => {
   const searchParams = new URLSearchParams(useLocation().search);
   const email = searchParams.get("email");
   const password = searchParams.get("pass");
-
-  console.log(email, password);
   const [emailValue, setEmailValue] = useState(email || "");
   const [passwordValue, setPasswordValue] = useState(password || "");
   const [showPassword, setShowPassword] = useState(false);
@@ -96,12 +94,6 @@ const Login = (props) => {
     }
   }, [authorized, history]);
 
-  const routeChange = () => {
-    //connect after fetch request
-    // if (props.isEntered === true) {
-    //   props.close();
-    // }
-  };
   const submit = (event) => {
     event.preventDefault();
     if (passwordValue !== "") {
@@ -190,10 +182,7 @@ const Login = (props) => {
                 <a
                   style={{ textDecoration: "none" }}
                   href={"/forgotPassword"}
-                  onClick={() => {
-                    routeChange();
-                    // props.close();
-                  }}
+                  onClick={() => {}}
                 >
                   {t('clickHere')}
                 </a>

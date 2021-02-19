@@ -9,6 +9,7 @@ import ClientBigCard from '@components/PanelClientBigCard';
 import Grid from "@material-ui/core/Grid";
 import PanelClientSmallCard from '@components/PanelClientSmallCard';
 import Box from "@material-ui/core/Box";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   header: {
@@ -20,13 +21,12 @@ const useStyles = makeStyles({
   }
 });
 
-const PanelManager =()=> {
+const PanelManager =(props)=> {
   const { t } = useTranslation();
   const classes = useStyles();
-  const propsName = "user.name";
   return(<>
     <Container>
-      <Typography className={classes.header}>{t("hello")} {propsName} {"!"}</Typography>
+      <Typography className={classes.header}>{t("hello")} {props.user.name} {"!"}</Typography>
       <Box>
         <Grid
           container
@@ -47,4 +47,10 @@ const PanelManager =()=> {
     </Container>
   </>);
 };
-export default PanelManager;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps, null)(PanelManager);

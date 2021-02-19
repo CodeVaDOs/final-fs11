@@ -1,4 +1,4 @@
-import thunk from "redux-thunk";
+  import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import authReducer from './auth/reducer';
 import docReducer from './documents/reducer';
@@ -25,6 +25,7 @@ export default () => {
   if (accessToken) {
     setAuthToken(accessToken);
     store.dispatch(AUTH_ACTIONS.getProfile());
+    store.dispatch(AUTH_ACTIONS.getAdminInfo());
   }
 
   return store;
