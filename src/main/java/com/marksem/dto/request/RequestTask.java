@@ -11,14 +11,14 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public class RequestTask extends BaseEntity {
     private Long id;
-    private String header;
+    private String title;
     private String text;
     private Long userId;
 
     public Task toEntity(User user) {
         return Task.builder()
                 .text(this.text)
-                .header(this.header)
+                .title(this.title)
                 .user(user)
                 .build();
     }

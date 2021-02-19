@@ -8,11 +8,11 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ResponseTask extends BaseEntity {
     private String text;
-    private String header;
+    private String title;
 
     public ResponseTask(Task t) {
         super(t);
-        this.header = t.getHeader();
+        this.title = t.getTitle();
         this.text = t.getText();
     }
 }

@@ -24,6 +24,7 @@ public class ResponseUser extends BaseEntity {
     private List<ResponseHouse> houses;
     private List<ResponseNotification> notifications;
     private List<ResponseTask> tasks;
+    private ResponseUser manager;
 
     public ResponseUser(User u) {
         super(u);

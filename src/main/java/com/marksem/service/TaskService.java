@@ -30,7 +30,7 @@ public class TaskService {
         return taskRepository.findById(t.getId())
                 .map(i -> {
                     i.setText(t.getText());
-                    i.setHeader(t.getHeader());
+                    i.setTitle(t.getTitle());
                     return taskRepository.save(i);
                 })
                 .map(ResponseTask::new)

@@ -30,6 +30,7 @@ public class NotificationService {
     public ResponseNotification update(RequestNotification n) {
         return notificationRepository.findById(n.getId())
                 .map(i -> {
+                    i.setTitle(n.getTitle());
                     i.setText(n.getText());
                     i.setIsRead(n.getIsRead());
                     i.setImportance(n.getImportance());

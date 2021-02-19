@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task extends BaseEntity {
-    private String header;
+    private String title;
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
