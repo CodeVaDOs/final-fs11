@@ -1,6 +1,6 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import {ListItem} from "@material-ui/core";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { ListItem } from "@material-ui/core";
 import "./styles.css";
 import style from "./index.module.css";
 import Grid from "@material-ui/core/Grid";
@@ -17,7 +17,6 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
   },
   houseCard: {
-
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
@@ -34,7 +33,7 @@ const useStyles = makeStyles(() => ({
     minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
+    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
     color: 'white',
     backgroundColor: '#254A93',
   },
@@ -125,9 +124,11 @@ const useStyles = makeStyles(() => ({
 
 export default function HouseCards({ data, onHouseClick }) {
   const classes = useStyles();
+  const [isActive, setIsActive] = useState(0);
 
-  function scrollElementToCenter(id = 0) {
-    onHouseClick(id)
+  function scrollElementToCenter(e, id = 0) {
+    setIsActive(id);
+    onHouseClick(id);
     document.getElementById(id).scrollIntoView({
       block: "nearest",
       inline: "center"
@@ -135,38 +136,57 @@ export default function HouseCards({ data, onHouseClick }) {
   }
 
   return (
-      <div className={classes.root}>
-        <Grid container>
-          <div>
-            <Grid item
-                  className={`${style.container} ${style.wideSpacer}  `}
-            >
-              {data
-                  .map((house, index) => {
-                    return (
-                        <ListItem
-                            className={`${style.child}`}
-                            key={index} id={index}
-                        >
-                          <div onClick={() => scrollElementToCenter(`${index}`)}>
-                            <div
-                                className={classes.houseCard}
-                            >
-                              <div>
-                                <img
-                                    className={classes.img} src={house.img} alt={house.contractId}/>
-                                <div
-                                    className={classes.houseCardBody}>
+    <div
+      className={classes.root}>
+      <Grid
+        container>
+        <div>
+          <Grid
+            item
+            className={
+              `${style.container} ${style.wideSpacer}  `
+            }>
+            {data
+              .map((house, index) => {
+                return (
+                  <ListItem
+                    className={`${style.child}`}
+                    key={index}
+                    id={index}
+                  >
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={
+                        (e) => scrollElementToCenter(e, index)
+                      }>
+                      <div
+                        className={isActive === index ? classes.houseCardActive : classes.houseCard}
+                      >
+                        <div>
+                          <img
+                            className={classes.img}
+                            src={house.img}
+                            alt={house.contractId}/>
+                          <div
+                            className={classes.houseCardBody}>
                         <span
-                            className={classes.cardContract}> Контракт {house.contractDate}</span>
-                                  <span
-                                      className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                                  <span
-                                      className={classes.locationData}> {house.town}</span>
-                                  <span
-                                      className={classes.locationData}> {house.location}</span>
-                                </div>
-                              </div>
+                          className={classes.cardContract}>
+                          Контракт {house.contractDate}
+                        </span>
+                            <span
+                              className={classes.cardId}>
+                              {house.svg} ID {house.contractId}
+                            </span>
+                            <span
+                              className={classes.locationData}>
+                              {house.town}
+                            </span>
+                            <span
+                              className={classes.locationData}>
+                              {house.location}
+                            </span>
+                          </div>
+                        </div>
                             </div>
                           </div>
                         </ListItem>

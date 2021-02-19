@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -9,6 +9,8 @@ import {HouseContainer} from "../House";
 import {ManagementServices} from "./ManagementServices/ManagmentServices";
 import {tileData} from "../../../utils/constants/housesView";
 import {useTranslation} from "react-i18next";
+import {useDispatch, useSelector} from "react-redux";
+import {housesActions} from "../../../redux/houses/action";
 
 const AntTabs = withStyles({
   indicator: {
@@ -52,10 +54,20 @@ const useStyles = makeStyles(() => ({
 
 export default function HousesTabs() {
   const classes = useStyles();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [value, setValue] = useState('one');
   const [Houses,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
+
+  const dispatch = useDispatch();
+  const {loading, housesList} = useSelector(state => state.houses);
+  useEffect(() => {
+    dispatch(housesActions.getHouses());
+  }, []);
+
+  if (loading) {
+    console.log('housesList', housesList);
+  }
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

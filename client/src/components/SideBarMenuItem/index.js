@@ -1,16 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import { connect, useDispatch } from "react-redux";
 import LangSwitcher from "../LangSwitcher";
-import { makeStyles } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import { AUTH_ACTIONS } from "../../redux/auth/action";
-import { useDispatch } from "react-redux";
-import Grid from "@material-ui/core/Grid";
-import { Box } from "@material-ui/core";
 import avatar from '../../images/avatar.png';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     backgroundColor: "transparent",
     width: "100%",

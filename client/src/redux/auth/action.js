@@ -12,7 +12,7 @@ export const updateUser = (data) => (dispatch) => {
   })
     .then(data => {
       console.log("PUT profile: ", data);
-      dispatch({type: "EDIT_PROFILE_SUCCESS", payload: data});
+      dispatch({ type: "EDIT_PROFILE_SUCCESS", payload: data });
     })
     .catch(err => {
       catchError(err);
