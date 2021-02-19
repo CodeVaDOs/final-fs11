@@ -21,8 +21,10 @@ public class ResponseUser extends BaseEntity {
     private String urlAvatar;
     private Language language;
     private List<ResponseContact> contacts;
-//    private List<ResponseHouse> houses;
+    private List<ResponseHouse> houses;
     private List<ResponseNotification> notifications;
+    private List<ResponseTask> tasks;
+    private ResponseUser manager;
 
     public ResponseUser(User u) {
         super(u);
@@ -33,10 +35,9 @@ public class ResponseUser extends BaseEntity {
         this.birthday = u.getBirthday();
         this.urlAvatar = u.getUrlAvatar();
         this.language = u.getLanguage();
-
-//        this.houses = u.getHouses().stream().map(ResponseHouse::new).collect(Collectors.toList());
-
+        this.houses = u.getHouses().stream().map(h -> new ResponseHouse(h, true)).collect(Collectors.toList());
         this.contacts = u.getContacts().stream().map(ResponseContact::new).collect(Collectors.toList());
         this.notifications = u.getNotifications().stream().map(ResponseNotification::new).collect(Collectors.toList());
+        this.tasks = u.getTasks().stream().map(ResponseTask::new).collect(Collectors.toList());
     }
 }

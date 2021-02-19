@@ -5,6 +5,7 @@ const INIT_STATE = {
   authorized: Boolean(accessToken),
   loading: false,
   user: {},
+  adminData:{},
 };
 
 export default (state = INIT_STATE, action) => {
@@ -58,7 +59,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         user:action.payload,
-        loading: false
+        // loading: false
       };
     case "EDIT_PROFILE_REQUEST":
       return {
@@ -69,6 +70,26 @@ export default (state = INIT_STATE, action) => {
       return {
         ...INIT_STATE,
         authorized: false,
+      };
+    case "GET_ADMIN_REQUEST":
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case "GET_ADMIN_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        adminData: action.payload,
+      };
+
+    case "GET_ADMIN_FAILURE":
+      return {
+        ...state,
+        loading: false,
+        authorized: false,
+        adminData:{}
       };
 
     case "FORGOT_PASSWORD_REQUEST":
@@ -106,7 +127,6 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false
       };
-
     default:
       return state;
   }

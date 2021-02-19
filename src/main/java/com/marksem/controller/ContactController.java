@@ -1,14 +1,20 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestContact;
+import com.marksem.dto.request.groups.OnCreate;
+import com.marksem.dto.request.groups.OnUpdate;
 import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseContact;
 import com.marksem.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Validated
 @RestController
 @RequestMapping("api/v1/contacts")
 @RequiredArgsConstructor
@@ -29,13 +35,15 @@ public class ContactController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<ResponseContact> create(@RequestBody RequestContact c) {
+    @Validated(OnCreate.class)
+    public ResponseEntity<ResponseContact> create(@RequestBody @Valid RequestContact c) {
         return ResponseEntity.ok(service.create(c));
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseEntity<ResponseContact> update(@RequestBody RequestContact c) {
+    @Validated(OnUpdate.class)
+    public ResponseEntity<ResponseContact> update(@RequestBody @Valid RequestContact c) {
         return ResponseEntity.ok(service.update(c));
     }
 
