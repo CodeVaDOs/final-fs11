@@ -1,5 +1,6 @@
 import api from "@utils/api";
 import { catchError, setAuthToken, setRefreshToken } from "../../utils";
+import { TOTAL_ACTIONS } from "../total/action";
 
 
 export const updateUser = (data) => (dispatch) => {
@@ -26,6 +27,8 @@ const getProfile = () => (dispatch) => {
     .then((profile) => {
       console.log("Fetched profile: ", profile);
       dispatch({ type: "GET_PROFILE", payload: profile });
+      dispatch(TOTAL_ACTIONS.getAccessPanel());
+      dispatch(TOTAL_ACTIONS.getCatalogue());
     })
     .catch(err => {
       catchError(err);
