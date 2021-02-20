@@ -21,7 +21,7 @@ export default function LinearBuffer() {
                 setProgress(0);
                 setBuffer(10);
             } else {
-                const diff = Math.random() * 10;
+                const diff = (Math.random() * 10);
                 setProgress(progress + diff);
                 setBuffer(progress + diff + (diff / 2));
             }
