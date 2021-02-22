@@ -1,17 +1,17 @@
-import React from 'react';
+import React  from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import PrintIcon from '@material-ui/icons/Print';
 import HouseDesription from "./HouseDesription";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Typography from "@material-ui/core/Typography";
-import {Slider} from "./Slider";
-import {Rent} from "./Rent";
-import {Map} from "./Map";
-import {useTranslation} from "react-i18next";
+import { Slider } from "./Slider/Slider";
+import { Rent } from "./Rent";
+import { useTranslation } from "react-i18next";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import {Container} from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import CircularStaticHouse from "./CircularStaticHouse";
+import { BaseMap } from "./Map";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -188,10 +188,8 @@ const useStyles = makeStyles(() => ({
 
 
 export const HouseContainer = ({ house }) => {
-
   const classes = useStyles();
   const { t } = useTranslation();
-
 
   return (
     <>
@@ -204,7 +202,7 @@ export const HouseContainer = ({ house }) => {
             <Box className={classes.houseIdInfo}>
               <p className={classes.id}>{t('id')} {house.id}</p>
               <Box className={classes.houseIdInfoButtonBlock}>
-                <PrintIcon style={{color: '#464C4E'}}/>
+                <PrintIcon style={{ color: '#464C4E' }}/>
                 <a className={classes.ExportButton} href={'#'}>
                   <p>{t('export')} </p>
                   <GetAppIcon style={{ color: '#464C4E' }}/>
@@ -256,7 +254,7 @@ export const HouseContainer = ({ house }) => {
         </Box>
         <Box className={classes.bottomSide}>
           <Box className={classes.leftSide}>
-            <Map/>
+            <BaseMap/>
           </Box>
           <Box className={classes.rightSide}>
             <Rent/>

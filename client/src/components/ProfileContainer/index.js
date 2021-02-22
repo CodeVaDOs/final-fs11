@@ -127,11 +127,11 @@ const useStyles = makeStyles((theme)=>({
   },
 
 }));
-const ProfileContainer =(props)=>{
+const ProfileContainer =({ profileName="Овсієнко Дмитро Вікторович" })=>{
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -152,9 +152,9 @@ const ProfileContainer =(props)=>{
   });
   // Upload Photo Managment
   const [uploadImg, setUploadImg] = useState({
-    mainState: "uploaded",
-    imageUploaded: 1,
-    selectedFile: props.user.language
+    mainState: "initial",
+    imageUploaded: 0,
+    selectedFile: null
   });
   const handleUploadClick = event => {
     const reader = new FileReader();
