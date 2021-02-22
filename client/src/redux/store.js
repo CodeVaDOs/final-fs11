@@ -1,8 +1,8 @@
-import thunk from "redux-thunk";
+  import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import authReducer from './auth/reducer';
 import docReducer from './documents/reducer';
-import houseReducer from './houses/reducer';
+import totalReducer from './total/reducer';
 import { AUTH_ACTIONS } from "./auth/action";
 import { getTokens, setAuthToken } from "../utils";
 
@@ -14,7 +14,7 @@ console.log(docReducer);
 const reducer = combineReducers({
   auth: authReducer,
   documents: docReducer,
-  houses: houseReducer
+  total: totalReducer,
 });
 
 export default () => {
@@ -27,6 +27,7 @@ export default () => {
   if (accessToken) {
     setAuthToken(accessToken);
     store.dispatch(AUTH_ACTIONS.getProfile());
+    store.dispatch(AUTH_ACTIONS.getAdminInfo());
   }
 
   return store;

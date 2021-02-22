@@ -14,6 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notification extends BaseEntity {
+    private String title;
     private String text;
     private Boolean isRead;
 

@@ -1,10 +1,10 @@
 package com.marksem.entity.task;
 
 import com.marksem.entity.BaseEntity;
+import com.marksem.entity.user.User;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -14,5 +14,10 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task extends BaseEntity {
+    private String title;
     private String text;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

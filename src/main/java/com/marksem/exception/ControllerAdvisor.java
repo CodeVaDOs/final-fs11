@@ -7,16 +7,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ResponseException(e.getConstraintViolations().stream()
+                        .map(ConstraintViolation::getMessage).collect(Collectors.toList())));
+    }
 
     @ExceptionHandler(JwtAuthenticationException.class)
     public ResponseEntity<Object> handleJwtAuthenticationException(
@@ -50,10 +63,10 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .body(new ResponseException(ex.getMessage()));
     }
 
-    @ExceptionHandler(value = RestTemplateException.class)
-    ResponseEntity<ResponseException> handleRestTemplateException(RestTemplateException ex, HttpServletRequest request) {
+    @ExceptionHandler(HttpStatusCodeException.class)
+    ResponseEntity<ResponseException> handleHttpStatusCodeException(HttpStatusCodeException ex, HttpServletRequest request) {
         return ResponseEntity
-                .status(ex.getStatus())
+                .status(ex.getStatusCode())
                 .body(new ResponseException(ex.getMessage()));
     }
 
@@ -69,6 +82,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 errors.put(error.getField(), error.getDefaultMessage()));
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(new ResponseException(errors.values().toString()));
+                .body(new ResponseException(new ArrayList<>(errors.values())));
     }
 }
