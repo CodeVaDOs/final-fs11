@@ -1,10 +1,8 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
+import React, {useState} from 'react';
+import {Box} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import santech from "../../../../images/santech.png";
 import secur from "../../../../images/secur.png";
 import fasad from "../../../../images/fasad.png";
@@ -14,8 +12,43 @@ import window from "../../../../images/window.png";
 import blago from "../../../../images/blago.png";
 import temper from "../../../../images/temper.png";
 import house from "../../../../images/house.png";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
 
-const useStyles = makeStyles(() => ({
+
+const useStyles = makeStyles({
+  containerSer: {
+    margin: "o auto",
+    overflow: "none"
+  },
+  headerSer: {
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '19px',
+    fontWeight: 'bold',
+    color: '#293134',
+    margin: "5% 7%"
+  },
+  greyTextSer: {
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '12px',
+    fontWeight: 'normal',
+    color: '#6E7375',
+    margin: "5% 3%"
+  },
+  blackTextSer: {
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '19px',
+    fontWeight: 'normal',
+    margin: "5% 5%",
+    color: '#293134'
+  },
+  smallTextSer: {
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '16px',
+    fontWeight: 'normal',
+    color: '#293134'
+  },
   root: {
     width: '100%',
     justifyContent: "space-between",
@@ -23,25 +56,20 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row'
   },
   paper: {
-    backgroundColor: 'white',
     margin: "5px",
     borderRadius: '20px',
-    height: '70px',
+    boxShadow: "0px 1px 3px #00000033",
     paddingRight: '15px',
     padding: '5px',
-    width:"300px",
+    width: '290px',
+    height: "60px",
     alignItems: "center",
     justifyContent: "space-between",
     display: "flex",
 
   },
   icon: {
-    borderRadius: 13,
-    background: "#EEF5FF",
-    marginLeft: "10px",
-    marginR: "10px",
-    marginTop: 5,
-    maxWidth: '100px'
+    borderRadius:13,
   },
   btn: {
     borderRadius: '50%',
@@ -51,7 +79,7 @@ const useStyles = makeStyles(() => ({
     maxWidth: '100px'
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#293134',
     overflow: "hidden",
   },
@@ -63,14 +91,32 @@ const useStyles = makeStyles(() => ({
   details: {
     marginBottom: "0",
     marginTop: "0px"
-  }
-}));
-
+  },
+  orangeBox: {
+    width: "42px",
+    height: "42px",
+    textAlign: "center",
+    borderRadius: "12px",
+    backgroundColor: "#F88B38",
+  },
+  greenBox: {
+    width: "42px",
+    height: "42px",
+    textAlign: "center",
+    borderRadius: "12px",
+    backgroundColor: "#4AD584"
+  },
+  blueBox: {
+    width: "42px",
+    height: "42px",
+    textAlign: "center",
+    borderRadius: "12px",
+    backgroundColor: "#00D0FF"
+  },
+});
 
 export const ManagementServices = () => {
-  const classes = useStyles();
-  const { t } = useTranslation();
-
+  const {t} = useTranslation();
   const services1 = [
     {
       "id": "1",
@@ -106,7 +152,6 @@ export const ManagementServices = () => {
       "id": "6",
       "service": t("WindowsAndDoors"),
       "icon": window,
-
     },
 
 
@@ -128,85 +173,89 @@ export const ManagementServices = () => {
       "icon": house,
     },
   ];
+  const classes = useStyles();
+  const [input, setInput] = useState({
+    selected: "",
+  });
+  const clickHandler = (id) => {
+    setInput({
+      selected: id,
+    });
+    console.log(id);
+  };
 
-  function FormRow() {
-    return (
-      <React.Fragment>
-        <Grid className={classes.root} item>
-          <div>
-            {services1.map((s) => (
-              <div className={classes.paper} key={s.id}>
+
+  return (<Box className={classes.containerSer}>
+    <Box style={{textAlign: "center"}}>
+      <Typography className={classes.headerSer}>{t("serTitle")}</Typography>
+    </Box>
+    <Box style={{textAlign: "center", marginTop: "-35px"}}>
+      <Grid className={classes.root} item>
+        <Grid className={classes.subGrid} item xs={4}>
+          {services1.map((s) => (
+              <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}} className={classes.paper}
+                   key={s.id}>
                 <Typography align="right" paragraph className={classes.details}>
-                  <img alt={s.service} src={s.icon} className={classes.icon}/>
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                  {s.service}
-                </Typography>
-                <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.btn}>
-                    <ArrowForwardIosTwoToneIcon/>
-                  </IconButton>
-                </Typography>
-              </div>
-            ))}
-          </div>
-          <div>
-            {services2.map((s) => (
-              <div className={classes.paper} key={s.id}>
-                <Typography align="right" paragraph className={classes.details}>
-                  <Typography align="right" paragraph className={classes.details}>
+                  <Box className={classes.orangeBox}>
                     <img alt={s.service} src={s.icon} className={classes.icon}/>
-                  </Typography>
+                  </Box>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
                   <IconButton className={classes.btn}>
-                    <ArrowForwardIosTwoToneIcon/>
+                    <ArrowForwardIosTwoToneIcon onClick={() => clickHandler(s.id)}/>
                   </IconButton>
                 </Typography>
-              </div>
-            ))}
-          </div>
-          <div>
-            {services3.map((s) => (
-              <div className={classes.paper} key={s.id}>
-                <Typography align="right" paragraph className={classes.details}>
-                  <Typography align="right" paragraph className={classes.details}>
-                    <img alt={s.service} src={s.icon} className={classes.icon}/>
-                  </Typography>
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                  {s.service}
-                </Typography>
-                <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.btn}>
-                    <ArrowForwardIosTwoToneIcon/>
-                  </IconButton>
-                </Typography>
-              </div>
-            ))}
-          </div>
+              </Box>
+          ))}
         </Grid>
-      </React.Fragment>
-    );
-  }
-
-  return (
-    <>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        component="p"
-        className={classes.title}
-        style={{ marginTop: "30px", marginBottom: "20px" }}
-      >
-        Замовити послуги управління
-      </Typography>
-      <FormRow/>
-    </>
-
-  );
+        <Grid className={classes.subGrid} item xs={4}>
+          {services2.map((s) => (
+              <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}} className={classes.paper}
+                   key={s.id}>
+                <Typography align="right" paragraph className={classes.details}>
+                  <Typography align="right" paragraph className={classes.details}>
+                    <Box className={classes.greenBox}>
+                      <img alt={s.service} src={s.icon} className={classes.icon}/>
+                    </Box>
+                  </Typography>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                  {s.service}
+                </Typography>
+                <Typography align="right" paragraph className={classes.details}>
+                  <IconButton className={classes.btn}>
+                    <ArrowForwardIosTwoToneIcon onClick={() => clickHandler(s.id)}/>
+                  </IconButton>
+                </Typography>
+              </Box>
+          ))}
+        </Grid>
+        <Grid className={classes.subGrid} item xs={4}>
+          {services3.map((s) => (
+              <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}} className={classes.paper}
+                   key={s.id}>
+                <Typography align="right" paragraph className={classes.details}>
+                  <Typography align="right" paragraph className={classes.details}>
+                    <Box className={classes.blueBox}>
+                      <img alt={s.service} src={s.icon} className={classes.icon}/>
+                    </Box>
+                  </Typography>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                  {s.service}
+                </Typography>
+                <Typography align="right" paragraph className={classes.details}>
+                  <IconButton className={classes.btn}>
+                    <ArrowForwardIosTwoToneIcon onClick={() => clickHandler(s.id)}/>
+                  </IconButton>
+                </Typography>
+              </Box>
+          ))}
+        </Grid>
+      </Grid>
+    </Box>
+  </Box>);
 };
-
