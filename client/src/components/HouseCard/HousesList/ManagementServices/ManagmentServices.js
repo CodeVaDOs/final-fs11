@@ -196,94 +196,92 @@ export const ManagementServices = () => {
     console.log(id);
   };
 
+  return (
+      <Box className={classes.containerSer}>
+        <Box style={{textAlign: "center"}}>
+          <Typography className={classes.headerSer}>{t("serTitle")}</Typography>
+        </Box>
+        <Box style={{textAlign: "center", marginTop: "-35px"}}>
+          <Grid className={classes.root} item>
+            <Grid className={classes.subGrid} item xs={4}>
+              {services1.map((s) => (
+                  <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}}
+                       className={classes.paper}
+                       key={s.id}>
 
-  function FormRow() {
-    return (<Box className={classes.containerSer}>
-          <Box style={{textAlign: "center"}}>
-            <Typography className={classes.headerSer}>{t("serTitle")}</Typography>
-          </Box>
-          <Box style={{textAlign: "center", marginTop: "-35px"}}>
-            <Grid className={classes.root} item>
-              <Grid className={classes.subGrid} item xs={4}>
-                {services1.map((s) => (
-                    <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}}
-                         className={classes.paper}
-                         key={s.id}>
-
+                    <Typography align="right" paragraph className={classes.details}>
+                      <Box className={classes.orangeBox}>
+                        <img alt={s.service} src={s.icon} className={classes.icon}/>
+                      </Box>
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                      {s.service}
+                    </Typography>
+                    <Typography align="right" paragraph className={classes.details}>
+                      <ModalsContainer style={callButtonStyle}
+                                       clickIcon={<ArrowForwardIosTwoToneIcon/>}
+                                       buttonOk={t("returnBtn")}
+                                       buttonCancel={t("serBtn")}
+                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                      />
+                    </Typography>
+                  </Box>
+              ))}
+            </Grid>
+            <Grid className={classes.subGrid} item xs={4}>
+              {services2.map((s) => (
+                  <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}}
+                       className={classes.paper}
+                       key={s.id}>
+                    <Typography align="right" paragraph className={classes.details}>
                       <Typography align="right" paragraph className={classes.details}>
-                        <Box className={classes.orangeBox}>
+                        <Box className={classes.greenBox}>
                           <img alt={s.service} src={s.icon} className={classes.icon}/>
                         </Box>
                       </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                        {s.service}
-                      </Typography>
-                      <Typography align="right" paragraph className={classes.details}>
-                        <ModalsContainer style={callButtonStyle}
-                                         clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                         buttonOk={t("returnBtn")}
-                                         buttonCancel={t("serBtn")}
-                                         body={<ModalManageServices service={s.service} icon={s.icon}/>}
-                        />
-                      </Typography>
-                    </Box>
-                ))}
-              </Grid>
-              <Grid className={classes.subGrid} item xs={4}>
-                {services2.map((s) => (
-                    <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}}
-                         className={classes.paper}
-                         key={s.id}>
-                      <Typography align="right" paragraph className={classes.details}>
-                        <Typography align="right" paragraph className={classes.details}>
-                          <Box className={classes.greenBox}>
-                            <img alt={s.service} src={s.icon} className={classes.icon}/>
-                          </Box>
-                        </Typography>
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                        {s.service}
-                      </Typography>
-                      <Typography align="right" paragraph className={classes.details}>
-                        <ModalsContainer style={callButtonStyle}
-                                         clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                         buttonOk={t("returnBtn")}
-                                         buttonCancel={t("serBtn")}
-                                         body={<ModalManageServices service={s.service} icon={s.icon}/>}
-                        />
-                      </Typography>
-                    </Box>
-                ))}
-              </Grid>
-              <Grid className={classes.subGrid} item xs={4}>
-                {services3.map((s) => (
-                    <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}}
-                         className={classes.paper}
-                         key={s.id}>
-                      <Typography align="right" paragraph className={classes.details}>
-                        <Typography align="right" paragraph className={classes.details}>
-                          <Box className={classes.blueBox}>
-                            <img alt={s.service} src={s.icon} className={classes.icon}/>
-                          </Box>
-                        </Typography>
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                        {s.service}
-                      </Typography>
-                      <Typography align="right" paragraph className={classes.details}>
-                        <ModalsContainer style={callButtonStyle}
-                                         clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                         buttonOk={t("returnBtn")}
-                                         buttonCancel={t("serBtn")}
-                                         body={<ModalManageServices service={s.service} icon={s.icon}/>}
-                        />
-                      </Typography>
-                    </Box>
-                ))}
-              </Grid>
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                      {s.service}
+                    </Typography>
+                    <Typography align="right" paragraph className={classes.details}>
+                      <ModalsContainer style={callButtonStyle}
+                                       clickIcon={<ArrowForwardIosTwoToneIcon/>}
+                                       buttonOk={t("returnBtn")}
+                                       buttonCancel={t("serBtn")}
+                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                      />
+                    </Typography>
+                  </Box>
+              ))}
             </Grid>
-          </Box>
+            <Grid className={classes.subGrid} item xs={4}>
+              {services3.map((s) => (
+                  <Box style={{backgroundColor: input.selected === s.id ? "#EEF5FF" : "white"}}
+                       className={classes.paper}
+                       key={s.id}>
+                    <Typography align="right" paragraph className={classes.details}>
+                      <Typography align="right" paragraph className={classes.details}>
+                        <Box className={classes.blueBox}>
+                          <img alt={s.service} src={s.icon} className={classes.icon}/>
+                        </Box>
+                      </Typography>
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                      {s.service}
+                    </Typography>
+                    <Typography align="right" paragraph className={classes.details}>
+                      <ModalsContainer style={callButtonStyle}
+                                       clickIcon={<ArrowForwardIosTwoToneIcon/>}
+                                       buttonOk={t("returnBtn")}
+                                       buttonCancel={t("serBtn")}
+                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                      />
+                    </Typography>
+                  </Box>
+              ))}
+            </Grid>
+          </Grid>
         </Box>
-    );
-  }
+      </Box>
+  );
 };
