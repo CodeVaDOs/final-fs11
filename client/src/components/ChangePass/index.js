@@ -91,7 +91,6 @@ const useStyles = makeStyles({
 const ChangePass =()=> {
   const classes = useStyles();
   const { t } = useTranslation();
-  const history = useHistory();
 
   //Password Visibility
   const [showPassword, setShowPassword] = useState(false);
