@@ -49,11 +49,17 @@ const useStyles = makeStyles({
     "&:hover": {
       backgroundColor:"#fff",
       color:"black"
-    }
+    },
+    "& .MuiSelect-filled.MuiSelect-filled": {
+      backgroundColor:'#fff',
+      padding:"0px 32px 0px 0px",
+      border:"fff",
+      color: "#818E94"
+    },
   }
 });
 
-const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActivateDialog, body })=>{
+const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActivateDialog, body, style, clickIcon})=>{
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -69,7 +75,7 @@ const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActi
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return(
     <Box>
-      <Button className={classes.callButton} variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button style={style} onClick={handleClickOpen}>{clickIcon}
         {buttonActivateDialog}
       </Button>
       <Dialog classes={{ paper: classes.paper }}

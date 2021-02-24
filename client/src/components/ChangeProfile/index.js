@@ -10,6 +10,8 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { updateUser } from "../../redux/auth/action";
+import { serialize } from 'object-to-formdata';
+
 
 const useStyles = makeStyles({
   rootProfile: {
@@ -111,24 +113,28 @@ const ChangeProfile =(props) => {
       [e.target.name]: e.target.value
     });
   };
-  const getFormData = (data) => {
-    const form_data = new FormData();
-    for ( const key in data ) {
-      form_data.append(key, data[key]);
-    }
-    return form_data;
-  }
 
   // Form check for back-end && response status
   const check = (e) => {
     e.preventDefault();
-    let postData = {
-      id:dataForm.id,
-      name:dataForm.surname,
-      email:dataForm.email,
-    }
-    props.updateUser(getFormData(postData));
-    console.log(dataForm.surname, dataForm.phone, dataForm.secondPhone, dataForm.email, dataForm.dateBirth );
+    const dataFormData = {
+      'id': dataForm.id,
+      'email': dataForm.email,
+      'name': dataForm.surname
+    //   'contacts': [
+    // {
+    //    'phone': dataForm.phone,
+    //     'type':"MAIN"
+    // },
+    // {
+    //   'phone': dataForm.secondPhone,
+    //     'type':"ADDITIONAL"
+    // }
+    // ]
+    };
+    const formData = serialize(dataFormData);
+    console.log(formData);
+    props.updateUser(formData);
   };
     //Form Data Props
   const inputData = [

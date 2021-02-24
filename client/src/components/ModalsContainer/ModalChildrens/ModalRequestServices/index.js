@@ -3,7 +3,6 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
-import table from "@assert/modal-icons/1.svg";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
@@ -29,13 +28,10 @@ const useStyles = makeStyles((theme)=>({
   },
   subHeaderReq: {
     fontFamily: 'Roboto, sans-serif',
-    fontSize: '16px',
+    fontSize: '18px',
     fontWeight: 'normal',
     color: '#293134',
     margin:"2% 16%"
-  },
-  iconReq: {
-    marginTop:"7px"
   },
   boxReq: {
     width:"42px",
@@ -93,7 +89,7 @@ const useStyles = makeStyles((theme)=>({
     marginTop:"10px"
   }
 }));
-const Index=()=> {
+const Index=( { service, icon } )=> {
   const classes = useStyles();
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
@@ -133,16 +129,16 @@ const Index=()=> {
       justify="flex-start"
       alignItems="flex-start"
     >
-      <Grid item xs={5}></Grid>
+      <Grid item xs={4}></Grid>
       <Grid item xs={1}>
         <Box className={classes.boxReq}>
-          <img src={table} className={classes.iconReq}/>
+          <img src={icon} />
         </Box>
       </Grid>
-      <Grid item xs={1}>
-        <Typography className={classes.subHeaderReq}>{"Електрика"}</Typography>
+      <Grid item xs={3}>
+        <Typography className={classes.subHeaderReq}>{service}</Typography>
       </Grid>
-      <Grid item xs={5}></Grid>
+      <Grid item xs={4}></Grid>
     </Grid>
     <Box style={{ textAlign:"center" }}>
       <Typography className={classes.subHeaderReq}>{t("subTitleReq")}</Typography>
