@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Slider } from "../../../HouseCard/House/Slider";
+import { Slider } from "../../../HouseCard/House/Slider/Slider";
 import HouseDesription from "../../../HouseCard/House/HouseDesription";
 import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
