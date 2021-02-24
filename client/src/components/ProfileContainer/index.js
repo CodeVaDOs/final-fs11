@@ -147,14 +147,17 @@ const ProfileContainer =(props)=>{
     };
   };
   const [dataForm, setDataForm] = useState({
-    langSystem:`${t("ua")}`,
+    langSystem:props.user.language,
     currencySystem:`${t("uah")}`,
   });
   // Upload Photo Managment
+  const token = localStorage.getItem('authToken');
+  const addToken = `?jwt=${token}`
+  console.log(addToken)
   const [uploadImg, setUploadImg] = useState({
     mainState: "uploaded",
     imageUploaded: 1,
-    selectedFile: props.user.language
+    selectedFile: props.user.urlAvatar+`${addToken}`
   });
   const handleUploadClick = event => {
     const reader = new FileReader();
@@ -258,7 +261,7 @@ const ProfileContainer =(props)=>{
               value={dataForm.langSystem}
               onChange={handleChangeLang}
             >
-              <MenuItem value={`${t("ua")}`}>{t("ua")}</MenuItem>
+              <MenuItem value={dataForm.langSystem}>{dataForm.langSystem}</MenuItem>
               <MenuItem value={`${t("ru")}`}>{t("ru")}</MenuItem>
               <MenuItem value={`${t("en")}`}>{t("en")}</MenuItem>
             </Select>

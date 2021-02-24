@@ -11,6 +11,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import { useDispatch } from "react-redux";
+import { AUTH_ACTIONS } from "@redux/auth/action";
 
 const useStyles = makeStyles({
   root: {
@@ -89,6 +91,7 @@ const useStyles = makeStyles({
 const ChangePass =()=> {
   const classes = useStyles();
   const { t } = useTranslation();
+  const history = useHistory();
 
   //Password Visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -107,12 +110,21 @@ const ChangePass =()=> {
       [e.target.name]: e.target.value
     });
   };
-    // Form check for back-end && response status
-  const check = (e) => {
-    console.log('post to backend with new user');
+  // Form check for back-end && response status
+  const dispatch = useDispatch();
+
+  async function submit (e) {
+    console.log(dataForm.oldPass, dataForm.newPass, dataForm.confPassword)
     e.preventDefault();
-    console.log(dataForm.oldPass, dataForm.newPass, dataForm.confPassword, );
+    const token = localStorage.getItem('authToken');
+    console.log(token)
+    dispatch(AUTH_ACTIONS.changePassword({ password: dataForm.newPass }, token));
+    history.push("/login");
+    console.log("change pass finish")
   };
+
+  ValidatorForm.addValidationRule('isPasswordMatch', (value) =>  value === dataForm.newPass);
+  ValidatorForm.addValidationRule('minNumber', (value) => value.length >= 4);
     //Form Data Props
   const inputData = [
     {
@@ -127,6 +139,8 @@ const ChangePass =()=> {
       "label": t('newPass'),
       "valueType": dataForm.newPass,
       "name": "newPass",
+      "validators": ['required', 'minNumber'],
+      "errorMessages":['This field is required', t('errMinNumber')],
       "onChange": handleChange
     },
     {
@@ -134,6 +148,8 @@ const ChangePass =()=> {
       "label": t('repPass'),
       "valueType": dataForm.confPassword,
       "name": "confPassword",
+      "validators": ['required', 'isPasswordMatch'],
+      "errorMessages":['This field is required', t('errPassRep')],
       "onChange": handleChange
     }
   ];
@@ -159,7 +175,7 @@ const ChangePass =()=> {
               <Typography  key={e.id} className={classes.textSubHeader}>{e.label}</Typography>)}
           </Grid>
           <Grid  item xs={8}>
-            <ValidatorForm noValidate autoComplete="off" instantValidate={false}>
+            <ValidatorForm noValidate autoComplete="off" instantValidate={false} onSubmit={submit}>
               { inputData.map(i =>
                 (i.name === "oldPass" || i.name === "newPass" || i.name === "confPassword") ?
                   <TextValidator
@@ -167,8 +183,8 @@ const ChangePass =()=> {
                     key={i.id}
                     value={i.valueType}
                     name={i.name}
-                    validators={['required']}
-                    errorMessages={['This field is required']}
+                    validators={i.validators}
+                    errorMessages={i.errorMessages}
                     variant="outlined"
                     onChange={i.onChange}
                     type={showPassword ? "text" : "password"}
@@ -192,8 +208,8 @@ const ChangePass =()=> {
                     key={i.id}
                     value={i.valueType}
                     name={i.name}
-                    validators={['required']}
-                    errorMessages={['This field is required']}
+                    validators={i.validators}
+                    errorMessages={i.errorMessages}
                     variant="outlined"
                     onChange={i.onChange}
                   />)
@@ -202,7 +218,7 @@ const ChangePass =()=> {
           </Grid>
         </Grid>
         <Box style={{ marginTop:"80px" }}>
-          <ButtonStyle w={"240px"} h={"60px"} bgcolor={"#254A93"} ml={"232px"} text={t('save')} onClick={check}/>
+          <ButtonStyle w={"240px"} h={"60px"} bgcolor={"#254A93"} ml={"232px"} text={t('save')} onClick={submit}/>
         </Box>
       </Box>
     </Container>

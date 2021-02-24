@@ -14,6 +14,8 @@ import window from "../../../../images/window.png";
 import blago from "../../../../images/blago.png";
 import temper from "../../../../images/temper.png";
 import house from "../../../../images/house.png";
+import ModalsContainer from "@components/ModalsContainer";
+import ModalManageServices from '@components/ModalsContainer/ModalChildrens/ModalRequestServices';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,6 +23,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     display: "flex",
     flexDirection: 'row'
+
   },
   paper: {
     backgroundColor: 'white',
@@ -70,6 +73,13 @@ const useStyles = makeStyles(() => ({
 export const ManagementServices = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const callButtonStyle = {
+    backgroundColor: "#EEF5FF",
+    width:"50px",
+    height:"50px",
+    borderRadius:"50%",
+    minWidth:"50px"
+  }
 
   const services1 = [
     {
@@ -129,6 +139,11 @@ export const ManagementServices = () => {
     },
   ];
 
+  const modalClicked = (id, service, icon)=>{
+    console.log("Click", id, service, icon )
+
+  }
+
   function FormRow() {
     return (
       <React.Fragment>
@@ -143,9 +158,13 @@ export const ManagementServices = () => {
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.btn}>
-                    <ArrowForwardIosTwoToneIcon/>
-                  </IconButton>
+                    <ModalsContainer onClick={()=> modalClicked(s.id, s.service, s.icon)}
+                                     style={callButtonStyle}
+                                     clickIcon={<ArrowForwardIosTwoToneIcon/>}
+                                     buttonOk={t("returnBtn")}
+                                     buttonCancel={t("serBtn")}
+                                     body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                    />
                 </Typography>
               </div>
             ))}
@@ -162,9 +181,13 @@ export const ManagementServices = () => {
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.btn}>
-                    <ArrowForwardIosTwoToneIcon/>
-                  </IconButton>
+                  <ModalsContainer onClick={()=> modalClicked(s.id, s.service, s.icon)}
+                                   style={callButtonStyle}
+                                   clickIcon={<ArrowForwardIosTwoToneIcon/>}
+                                   buttonOk={t("returnBtn")}
+                                   buttonCancel={t("serBtn")}
+                                   body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                  />
                 </Typography>
               </div>
             ))}
@@ -181,9 +204,13 @@ export const ManagementServices = () => {
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <IconButton className={classes.btn}>
-                    <ArrowForwardIosTwoToneIcon/>
-                  </IconButton>
+                  <ModalsContainer onClick={()=> modalClicked(s.id, s.service, s.icon)}
+                                   style={callButtonStyle}
+                                   clickIcon={<ArrowForwardIosTwoToneIcon/>}
+                                   buttonOk={t("returnBtn")}
+                                   buttonCancel={t("serBtn")}
+                                   body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                  />
                 </Typography>
               </div>
             ))}
