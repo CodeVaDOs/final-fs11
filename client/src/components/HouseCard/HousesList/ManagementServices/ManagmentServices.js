@@ -139,10 +139,6 @@ export const ManagementServices = () => {
     },
   ];
 
-  const modalClicked = (id, service, icon)=>{
-    console.log("Click", id, service, icon )
-
-  }
 
   function FormRow() {
     return (
@@ -158,8 +154,7 @@ export const ManagementServices = () => {
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                    <ModalsContainer onClick={()=> modalClicked(s.id, s.service, s.icon)}
-                                     style={callButtonStyle}
+                    <ModalsContainer style={callButtonStyle}
                                      clickIcon={<ArrowForwardIosTwoToneIcon/>}
                                      buttonOk={t("returnBtn")}
                                      buttonCancel={t("serBtn")}
@@ -181,8 +176,7 @@ export const ManagementServices = () => {
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <ModalsContainer onClick={()=> modalClicked(s.id, s.service, s.icon)}
-                                   style={callButtonStyle}
+                  <ModalsContainer style={callButtonStyle}
                                    clickIcon={<ArrowForwardIosTwoToneIcon/>}
                                    buttonOk={t("returnBtn")}
                                    buttonCancel={t("serBtn")}
@@ -204,8 +198,7 @@ export const ManagementServices = () => {
                   {s.service}
                 </Typography>
                 <Typography align="right" paragraph className={classes.details}>
-                  <ModalsContainer onClick={()=> modalClicked(s.id, s.service, s.icon)}
-                                   style={callButtonStyle}
+                  <ModalsContainer style={callButtonStyle}
                                    clickIcon={<ArrowForwardIosTwoToneIcon/>}
                                    buttonOk={t("returnBtn")}
                                    buttonCancel={t("serBtn")}
