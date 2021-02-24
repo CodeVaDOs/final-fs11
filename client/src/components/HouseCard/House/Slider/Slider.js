@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { photos as images } from "../../../utils/constants/photos";
-import TransitionsModal from "../../Modal";
+import { photos as images } from "../../../../utils/constants/photos";
+import TransitionsModal from "../../../Modal";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '453px',
     marginRight: '20px',
@@ -70,8 +70,10 @@ export const Slider = () => {
 
   return (
     <div className={classes.root}>
-      <img className={classes.bigPhoto}
-        src={photoIndex ? images[photoIndex] : images[0]} alt={'das'}/>
+      <img
+        className={classes.bigPhoto}
+        src={photoIndex ? images[photoIndex] : images[0]}
+        alt={'das'}/>
       <div className={classes.gridList}>
         <img
           className={classes.gridListitem}
@@ -96,27 +98,13 @@ export const Slider = () => {
 
       </div>
       {isOpen ? <TransitionsModal
-        open={isOpen}
-        setIsOpen={setIsOpen}
-        photoIndex={photoIndex}
-        setPhotoIndex={setPhotoIndex}
-      /> :
+          open={isOpen}
+          setIsOpen={setIsOpen}
+          photoIndex={photoIndex}
+          setPhotoIndex={setPhotoIndex}
+        /> :
         ""
       }
-      {/*{isOpen && (*/}
-      {/*  <Lightbox*/}
-      {/*    mainSrc={images[photoIndex]}*/}
-      {/*    nextSrc={images[(photoIndex + 1) % images.length]}*/}
-      {/*    prevSrc={images[(photoIndex + images.length - 1) % images.length]}*/}
-      {/*    onCloseRequest={() => setIsOpen(false)}*/}
-      {/*    onMovePrevRequest={() =>*/}
-      {/*      setPhotoIndex((photoIndex + images.length - 1) % images.length)*/}
-      {/*    }*/}
-      {/*    onMoveNextRequest={() =>*/}
-      {/*      setPhotoIndex((photoIndex + 1) % images.length)*/}
-      {/*    }*/}
-      {/*  />*/}
-      {/*)}*/}
     </div>
   );
 };

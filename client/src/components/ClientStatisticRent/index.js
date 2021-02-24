@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, {useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
 import Box from '@material-ui/core/Box';
 import Typography from "@material-ui/core/Typography";
-import { Bar } from "react-chartjs-2";
+import {Bar} from "react-chartjs-2";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import CircularStatic from "../IncomeCard/CircularProgress";
@@ -11,11 +11,11 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import { useTranslation } from "react-i18next";
-import { More } from "../ClientPage/components/More";
+import {useTranslation} from "react-i18next";
+import {More} from "../ClientPage/components/More";
 import Tab from "../ClientPage/components/Tabs/Tab";
 import Tabs from "../ClientPage/components/Tabs/Tabs";
-import { NewStatistic } from "../ClientPage/components/NewStatistic";
+import {NewStatistic} from "../ClientPage/components/NewStatistic";
 import Container from "@material-ui/core/Container";
 
 Chart.defaults.global.legend.display = false;
@@ -24,15 +24,18 @@ Chart.defaults.global.tooltips.titleFontColor = "#293134";
 
 const useStyles = makeStyles({
   aboveContainer: {
-    marginBottom: "-10px",
-    marginLeft: "10px"
+    width: "90%",
+  },
+  subGrid: {
+    transform:'scale(0.95)',
+    width: '90%',
   },
   aboveHeader: {
     color: "#293134",
     fontFamily: 'Roboto, sans-serif',
     fontSize: '18px',
     fontWeight: 'normal',
-    cursor:"pointer",
+    cursor: "pointer",
     '&:hover': {
       color: '#254A93',
       textDecoration: "underline"
@@ -80,13 +83,13 @@ const useStyles = makeStyles({
     }
   },
   summaryCard: {
-    width: "420px",
-    height: "157px",
+    width: "380px",
+    height: "147px",
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
-    backgroundColor:'#fff',
-    marginLeft: "20px",
-    cursor:"pointer",
+    backgroundColor: '#fff',
+    margin: "20px",
+    cursor: "pointer",
     '&:hover': {
       backgroundColor: '#254A93',
       color: '#fff',
@@ -145,7 +148,7 @@ const useStyles = makeStyles({
   },
   root: {
     height: "100%",
-    width: "100%"
+    width: "90%"
   }
 });
 
@@ -188,21 +191,21 @@ const ClientStatisticRent=()=>{
 
   const classes = useStyles();
   return (
-    <Container>
-      <Box>
+    <div style={{ margin: '20px 20px'}} >
+      <Box  >
         <Tabs
           activeKey={key}
           onSelect={(k) => {
             setKey(k);
           }}
         >
-          <Tab style={{ width: "95%" }} eventKey={0} title="Статистика Оренди">
+          <Tab style={{width: "80%", margin: '0 auto'}} eventKey={0} title="Статистика Оренди">
             <Grid
-              className={classes.aboveContainer}
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
+                className={classes.aboveContainer}
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
             >
               <Grid className={classes.subGrid} item xs={1}>
                 <Typography className={classes.aboveSelectorTxt}>{t('showItem')}</Typography>
@@ -276,13 +279,13 @@ const ClientStatisticRent=()=>{
                     alignItems="flex-start"
                   >
                     <Grid className={classes.subGrid} item xs={2}>
-                      <Box style={{ width: "15px", height: "15px", backgroundColor: "#4AD584" }}/>
+                      <Box style={{ width: "12px", height: "12px", backgroundColor: "#4AD584" }}/>
                     </Grid>
                     <Grid className={classes.subGrid} item xs={4}>
                       <Typography className={classes.rentGrayText}>{t("setIncome")}</Typography>
                     </Grid>
                     <Grid className={classes.subGrid} item xs={2}>
-                      <Box style={{ width: "15px", height: "15px", backgroundColor: "#F88B38" }}/>
+                      <Box style={{ width: "12px", height: "12px", backgroundColor: "#F88B38" }}/>
                     </Grid>
                     <Grid className={classes.subGrid} item xs={4}>
                       <Typography className={classes.rentGrayText}>{t("setExpense")}</Typography>
@@ -410,7 +413,7 @@ const ClientStatisticRent=()=>{
 
       </Box>
 
-    </Container>
+    </div>
   );
 };
 export default ClientStatisticRent;

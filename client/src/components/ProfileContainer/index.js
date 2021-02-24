@@ -127,11 +127,11 @@ const useStyles = makeStyles((theme)=>({
   },
 
 }));
-const ProfileContainer =(props)=>{
+const ProfileContainer =({ profileName="Овсієнко Дмитро Вікторович" })=>{
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -158,6 +158,7 @@ const ProfileContainer =(props)=>{
     mainState: "uploaded",
     imageUploaded: 1,
     selectedFile: props.user.urlAvatar+`${addToken}`
+
   });
   const handleUploadClick = event => {
     const reader = new FileReader();

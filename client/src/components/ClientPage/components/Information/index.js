@@ -1,14 +1,14 @@
-import { Affilete } from "./Affilete";
-import { PaymentStatus } from "./PaymentStatus";
-import { Text } from "./text";
+import {Affilete} from "./Affilete";
+import {PaymentStatus} from "./PaymentStatus";
+import {Text} from "./text";
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
 
 const useStyles = makeStyles(() => ({
   root: {
     // borderLeft: '1px solid black',
-    height:"500px"
+    height: "250px"
   },
 }));
 

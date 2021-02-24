@@ -1,41 +1,39 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import buttonArrow from "@assert/icons/buttonArrow.svg";
 import { ListItem } from "@material-ui/core";
+import "./styles.css";
+import style from "./index.module.css";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(() => ({
   bh: {
     opacity: 0.4,
-    boxShadow: "-162px 0px 40px -59px grey inset",
   },
   root: {
-    width: "130vh",
-    height: '270px',
-    display: 'flex',
+    flexGrow: 1,
+    width: "100%",
+    height: '260px',
     fontFamily: 'Roboto',
     overflow: 'hidden',
-    flexDirection: 'row',
-
   },
   houseCard: {
     boxSizing: 'border-box',
+    padding: "10px",
     borderRadius: '20px',
-    minWidth: '182px',
+    minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
+    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
 
   },
   houseCardActive: {
-    marginLeft: '5px',
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '182px',
+    minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
+    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
     color: 'white',
     backgroundColor: '#254A93',
   },
@@ -48,6 +46,7 @@ const useStyles = makeStyles(() => ({
     margin: '10px',
   },
   img: {
+    marginTop: 10,
     width: "100%",
     borderRadius: '18px',
   },
@@ -123,77 +122,79 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-
 export default function HouseCards({ data, onHouseClick }) {
-  const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
+  const [isActive, setIsActive] = useState(0);
 
-  const prevSlide = () => {
-    const resetToVeryBack = currentImageIdx === 0;
-    const index = resetToVeryBack ? data.length - 1 : currentImageIdx - 1;
-    setCurrentImagIdx(index);
-  };
+  function scrollElementToCenter(e, id = 0) {
+    setIsActive(id);
+    onHouseClick(id);
+    document.getElementById(id).scrollIntoView({
+      block: "nearest",
+      inline: "center"
+    });
+  }
 
-  const nextSlide = () => {
-    const resetIndex = currentImageIdx === data.length - 1;
-    const index = resetIndex ? 0 : currentImageIdx + 1;
-    setCurrentImagIdx(index);
-  };
-
-  const activeImageSourcesFromState = data.slice(currentImageIdx, currentImageIdx + 5);
-  const imageSourcesToDisplay = activeImageSourcesFromState.length < 5
-    ? [...activeImageSourcesFromState, ...data.slice(0, 5 - activeImageSourcesFromState.length)]
-    : activeImageSourcesFromState;
   return (
-    <div className={classes.root}>
-      {currentImageIdx < 1 ?
-        "" :
-        <button className={classes.btnPrev} onClick={prevSlide}>
-          <img className={classes.collapseButtonImg} src={buttonArrow} alt="button arrow"/>
-        </button>
-      }
-      <div>
-        <div className={classes.content}>
-          {activeImageSourcesFromState
-            .map((house, index) => {
-              return (
-                <ListItem
-                  key={index}
-                  onClick={onHouseClick(currentImageIdx)}
-                  className={index === 4 ? classes.bh : ""}>
-                  <div
-                    className={index ? classes.houseCard : classes.houseCardActive}
+    <div
+      className={classes.root}>
+      <Grid
+        container>
+        <div>
+          <Grid
+            item
+            className={
+              `${style.container} ${style.wideSpacer}  `
+            }>
+            {data
+              .map((house, index) => {
+                return (
+                  <ListItem
+                    className={`${style.child}`}
+                    key={index}
+                    id={index}
                   >
-                    <div>
-                      {
-                        index === 4 ?
-                          <div className={classes.bh}>
-                            <img
-                              className={classes.img} src={house.img} alt={house.contractId}/>
-                          </div> :
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={
+                        (e) => scrollElementToCenter(e, index)
+                      }>
+                      <div
+                        className={isActive === index ? classes.houseCardActive : classes.houseCard}
+                      >
+                        <div>
                           <img
-                            className={classes.img} src={house.img} alt={house.contractId}/>
-                      }
-
-                      <div className={classes.houseCardBody}>
-                        <span className={classes.cardContract}> Контракт {house.contractDate}</span>
-                        <span className={classes.cardId}>{house.svg} ID {house.contractId}</span>
-                        <span className={classes.locationData}> {house.town}</span>
-                        <span className={classes.locationData}> {house.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                </ListItem>
-              );
-            })}
-        </div>
-      </div>
-      {imageSourcesToDisplay.length > 5 ?
-        "" :
-        <button className={classes.btnNext} onClick={nextSlide}>
-          <img className={classes.collapseButtonImgPrev} src={buttonArrow} alt="button arrow"/>
-        </button>
-      }
+                            className={classes.img}
+                            src={house.img}
+                            alt={house.contractId}/>
+                          <div
+                            className={classes.houseCardBody}>
+                        <span
+                          className={classes.cardContract}>
+                          Контракт {house.contractDate}
+                        </span>
+                            <span
+                              className={classes.cardId}>
+                              {house.svg} ID {house.contractId}
+                            </span>
+                            <span
+                              className={classes.locationData}>
+                              {house.town}
+                            </span>
+                            <span
+                              className={classes.locationData}>
+                              {house.location}
+                            </span>
+                          </div>
+                        </div>
+                            </div>
+                          </div>
+                        </ListItem>
+                    );
+                  })}
+            </Grid>
+          </div>
+        </Grid>
     </div>
 
   );
