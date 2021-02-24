@@ -1,14 +1,14 @@
 import React from "react";
 import MyHouses from "./MyHouses";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography } from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import {Button, Typography} from "@material-ui/core";
 import MessageIcon from "@material-ui/icons/Message";
 import SimpleSelect from "./Select";
 import Flex from "react-calendar/dist/umd/Flex";
 
 const useStyles = makeStyles(() => ({
   root: {
-    width:"10vh",
+    width: "100%",
     backgroundColor: "white",
     display: 'flex',
     alignItems: 'flex-start',
@@ -26,7 +26,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
-
   },
   content: {
     height: '223px',
@@ -98,7 +97,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   flexFix: {
-    width: '600px',
+    width: '500px',
     display: "flex",
     alignItems: 'center',
     justifyContent: 'space-between'

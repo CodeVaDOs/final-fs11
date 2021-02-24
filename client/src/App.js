@@ -17,15 +17,16 @@ const useStyles = makeStyles(() => ({
   },
 
   mainContainer: props => ({
+    float: "left",
     margin: 0,
     padding: 0,
-    width: '100% ',
+    width: '98% ',
     marginLeft: '20px',
-    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 30 + 'px' : '30px',
+    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 115 + 'px' : '30px',
     transition: 'margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
   }),
   sidebar: {
-    flex: 1,
+    float: "right",
     margin: 0,
     padding: 0,
   }

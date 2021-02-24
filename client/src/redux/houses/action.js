@@ -1,19 +1,21 @@
 import api from "@utils/api";
 import { catchError } from "../../utils";
+import { housesTypes } from "./types";
 
 
-const getHouses = (search = '') => (dispatch) => {
-  dispatch({ type: "GET_HOUSES_REQUEST" });
-  api.get(`houses?&searchString=${search}`)
+const getHouses = () => (dispatch) => {
+  dispatch({ type: housesTypes.GET_HOUSES_REQUEST });
+  api.get(`houses`)
     .then((houses) => {
-      dispatch({ type: "GET_HOUSES_SUCCESS", payload: houses });
+      console.log("Fetched houses: ", houses);
+      dispatch({ type: housesTypes.GET_HOUSES_SUCCESS, payload: houses });
     })
     .catch(err => {
       catchError(err);
-      dispatch({ type: "GET_HOUSES_ERROR" });
+      dispatch({ type: housesTypes.GET_HOUSES_FAILURE });
     });
 };
 
-export const HOUSES_ACTION = {
+export const housesActions = {
   getHouses,
 };

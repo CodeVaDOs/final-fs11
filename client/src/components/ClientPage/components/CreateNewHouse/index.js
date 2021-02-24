@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomizedDividers from "./Buttons";
-import { Slider } from "../../../HouseCard/House/Slider";
+import { Slider } from "../../../HouseCard/House/Slider/Slider";
 import { Button, Typography } from "@material-ui/core";
 import CheckboxLabels from "./Checkboxes";
 import MessageIcon from "@material-ui/icons/Message";

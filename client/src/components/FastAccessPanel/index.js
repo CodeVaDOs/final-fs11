@@ -145,7 +145,7 @@ const FastAccessPanel =(props)=>{
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
-    admin: state.auth.adminData
+    admin: state.total.accessPanel
   };
 };
 
