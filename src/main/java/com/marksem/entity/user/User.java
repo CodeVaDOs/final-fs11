@@ -1,15 +1,21 @@
 package com.marksem.entity.user;
 
-import com.marksem.entity.*;
+import com.marksem.entity.BaseEntity;
 import com.marksem.entity.contact.Contact;
 import com.marksem.entity.house.House;
+import com.marksem.entity.house.HouseMaintenance;
+import com.marksem.entity.house.HouseModel;
 import com.marksem.entity.notification.Notification;
+import com.marksem.entity.task.Task;
+import com.marksem.entity.transaction.Currency;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(exclude = "contacts", callSuper = true)
 @Entity
@@ -20,13 +26,15 @@ import java.util.*;
 @AllArgsConstructor
 public class User extends BaseEntity {
     private String password;
+
+    @Column(unique = true)
     private String email;
 
     @Column(name = "manager_id")
     private Long managerId;
 
     private String name;
-    private Long birthday;
+    private Date birthday;
 
     @Column(name = "url_avatar")
     private String urlAvatar;
@@ -37,14 +45,20 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<House> houses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Contact> contacts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Notification> notifications = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 }

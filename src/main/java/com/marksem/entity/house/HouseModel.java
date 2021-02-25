@@ -1,10 +1,7 @@
 package com.marksem.entity.house;
 
 import com.marksem.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,12 +9,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "house_models")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseModel extends BaseEntity {
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_type_id")
     private HouseType houseType;
 }

@@ -22,5 +22,6 @@ public class BaseEntity extends Auditable<String> implements Serializable {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
+    @Version
     private Long version;
 }

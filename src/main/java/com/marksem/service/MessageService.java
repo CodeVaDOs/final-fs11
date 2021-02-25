@@ -1,41 +1,32 @@
 package com.marksem.service;
 
-import com.marksem.dto.request.RequestMessage;
-import com.marksem.entity.message.Message;
-import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.MessageRepository;
-import com.marksem.repo.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
-@Service
-@RequiredArgsConstructor
+@Component
 public class MessageService {
-    private final MessageRepository messageRepo;
-    private final UserRepository userRepo;
+    private final JavaMailSender javaMailSender;
 
-    public Message create(RequestMessage m) {
-        return userRepo.findById(m.getFromUserId())
-                .map(from -> userRepo.findById(m.getToUserId())
-                        .map(to -> messageRepo.save(new Message(from, to, m.getText())))
-                        .orElseThrow(() -> new NoDataFoundException("user", m.getToUserId())))
-                .orElseThrow(() -> new NoDataFoundException("user", m.getFromUserId()));
+    public MessageService(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
     }
 
-    public Message read(Long id) {
-        return messageRepo.findById(id)
-                .orElseThrow(() -> new NoDataFoundException("nessage", id));
-    }
+    public void send(String email, String subject, String text) {
+        try {
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-    public List<Message> readAll() {
-        return messageRepo.findAll();
-    }
+            helper.setTo(email);
+            helper.setSubject(subject);
+            helper.setText(text, true);
 
-    public Long delete(Long id) {
-        messageRepo.deleteById(id);
-        return id;
+            javaMailSender.send(message);
+        } catch (MessagingException ex) {
+            throw new RuntimeException("message sending failed");
+        }
     }
 }

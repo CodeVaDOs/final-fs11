@@ -7,14 +7,18 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
+import EmailIcon from '@material-ui/icons/Email';
+import { useDispatch } from "react-redux";
+import { AUTH_ACTIONS } from "@redux/auth/action";
 const useStyles = makeStyles({
   root: {
-    borderRadius: 23,
-    border: "2px solid #254A93",
+    borderRadius: '20px',
+    boxShadow: '0px 2px 4px #00000033',
+    margin:"20px auto",
     height: 320,
     width: 800,
-    margin: '0 auto',
     textDecoration: "none",
+    backgroundColor:"#fff"
   },
   rootNext: {
     borderTopLeftRadius: 20,
@@ -69,15 +73,18 @@ const useStyles = makeStyles({
   }
 });
 
-const ForgotPass =(props)=>{
+const ForgotPass =()=>{
   const { t } = useTranslation();
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [isSent, setIsSent] = useState(false);
+  const iconEmail =()=>{return(<><EmailIcon style={{ marginBottom: "-5px" }}/>{t("Email")}</>);};
+
+  const dispatch = useDispatch();
 
   const submit = (e) => {
     e.preventDefault();
-    // props.sendForgotPassword(email);
+    dispatch(AUTH_ACTIONS.forgotPassword({ email: email }));
     setIsSent(true);
   };
   const refRef = createRef();
@@ -93,7 +100,6 @@ const ForgotPass =(props)=>{
     <>
       <CssBaseline/>
       <div>
-        <div></div>
         <Typography className={classes.subheader} >
           {t('checkPass')}
         </Typography>
@@ -113,7 +119,7 @@ const ForgotPass =(props)=>{
               {t('recoverPassText')}
             </Typography>
             <TextValidator
-              label={t('Email')}
+              label={iconEmail()}
               variant="outlined"
               onChange={handleChange}
               name="email"
@@ -127,7 +133,7 @@ const ForgotPass =(props)=>{
             />
           </div>
           <Box className={classes.button} >
-            <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('recoverySend')} onClick={()=>{}}/>
+            <ButtonStyle w={"161px"} h={"49px"} bgcolor={"#254A93"} ml={"40%"} text={t('recoverySend')} onClick={()=>{}} type = {submit}/>
           </Box>
         </ValidatorForm>
       </Box>

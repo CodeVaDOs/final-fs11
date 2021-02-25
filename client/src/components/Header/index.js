@@ -1,83 +1,12 @@
-import React, { lazy, useMemo, useState } from 'react';
+import React, {useMemo, useState} from 'react';
 import Logo from './ui/Logo';
-import { useTranslation } from "react-i18next";
-import { makeStyles, Collapse } from "@material-ui/core";
-
+import {useTranslation} from "react-i18next";
+import {Collapse, makeStyles} from "@material-ui/core";
 import HeaderLink from './components/HeaderLink';
-
-import searchIcon from '@assert/icons/search-icon.svg';
-import buttonArrow from '@assert/icons/buttonArrow.svg';
-import { icons } from '@assert/header-icons/index';
-
-const links = {
-  mainLinks: [
-    {
-      id: 1,
-      text: 'Главная',
-      icon: icons.main,
-      to: '/',
-      isMain: true
-    },
-    {
-      id: 2,
-      text: 'Настройки',
-      icon: icons.settings,
-      to: '/setting',
-      isMain: true
-    },
-  ],
-  additionalLinks: [
-    {
-      id: 3,
-      text: 'Панель',
-      icon: icons.panel,
-      to: '/panel',
-      isMain: false
-
-    },
-    {
-      id: 4,
-      text: 'Клиенты',
-      icon: icons.clients,
-      to: '/clients',
-      isMain: false
-
-    },
-    {
-      id: 5,
-      text: 'Документы',
-      icon: icons.documents,
-      to: '/documents',
-      isMain: false
-
-    },
-    {
-      id: 6,
-      text: 'Финансы',
-      icon: icons.finance,
-      to: '/finances',
-      isMain: false
-
-    },
-    {
-      id: 7,
-      text: 'Аренда',
-      icon: icons.analytic,
-      to: '/rent',
-      isMain: false
-
-    },
-    {
-      id: 8,
-      text: 'Трансляция',
-      icon: icons.photo,
-      to: '/streaming',
-      isMain: false
-
-    },
-  ]
-};
-
+import searchIcon from '../../assert/icons/search-icon.svg';
+import buttonArrow from '../../assert/icons/buttonArrow.svg';
+import {icons} from '../../assert/header-icons';
+import {connect} from "react-redux";
 
 const useStyles = makeStyles({
   header: {
@@ -86,23 +15,20 @@ const useStyles = makeStyles({
     backgroundColor: '#eef5ff',
     padding: '51px 20px 48px',
     borderRadius: '0 0 20px 20px',
-    minWidth: '890px',
     position: 'relative',
   },
-
   mainContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-
   linksContainer: {
     display: "flex",
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
     alignItems: 'center',
     minWidth: '285px'
   },
-
   searchContainer: {
     height: '39px',
     borderRadius: '8px',
@@ -112,12 +38,10 @@ const useStyles = makeStyles({
     alignItems: 'center',
     width: '262px'
   },
-
   searchImg: {
     width: '22px',
     height: '22px'
   },
-
   searchInput: {
     background: 'none',
     border: 'none',
@@ -127,13 +51,10 @@ const useStyles = makeStyles({
     outline: 'none',
     height: '24px',
     marginLeft: '14px'
-
   },
-
   collapseContainer: {
     marginTop: '32px'
   },
-
   collapseButton: {
     border: '1px solid #b1b4ba',
     backgroundColor: '#eef5ff',
@@ -143,15 +64,12 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
     position: 'absolute',
     left: '50%',
     transform: 'translateX(-50%)',
-
     bottom: '-' + 39 / 2 + 'px',
     cursor: 'pointer',
     outline: 'none'
-
   },
 
   collapseButtonImage: props => ({
@@ -160,21 +78,129 @@ const useStyles = makeStyles({
   })
 });
 
-const Header = () => {
+const Header = (props) => {
   const { t } = useTranslation();
 
   const [isOpenHeader, handleHeader] = useState(true);
 
   const classes = useStyles({ isOpenHeader });
-
+  const links = {
+    mainLinks: [
+      {
+        id: 1,
+        text: t('menuHome'),
+        icon: icons.main,
+        to: '/',
+        isMain: true
+      },
+      {
+        id: 2,
+        text: t('menuSettings'),
+        icon: icons.settings,
+        to: '/setting',
+        isMain: true
+      },
+    ],
+    additionalLinks: [
+      {
+        id: 3,
+        text: t("menuPanel"),
+        icon: icons.panel,
+        to: '/panel',
+        isMain: false,
+        role: "USER",
+      },
+      {
+        id: 31,
+        text: t("menuPanel"),
+        icon: icons.panel,
+        to: '/panel/manager',
+        isMain: false,
+        role: "MANAGER"
+      },
+      {
+        id: 32,
+        text: t("menuPanel"),
+        icon: icons.panel,
+        to: '/panel/admin',
+        isMain: false,
+        role: "ADMIN"
+      },
+      {
+        id: 4,
+        text: t("menuHouses"),
+        icon: icons.photo,
+        to: '/houses',
+        isMain: false,
+        role: 'USER:ADMIN',
+      },
+      {
+        id: 5,
+        text: t("menuClients"),
+        icon: icons.clients,
+        to: '/clients',
+        isMain: false,
+        role: "ADMIN:MANAGER",
+      },
+      {
+        id: 6,
+        text: t("menuDocuments"),
+        icon: icons.documents,
+        to: '/documents',
+        isMain: false,
+        role: "USER:ADMIN:MANAGER",
+      },
+      {
+        id: 7,
+        text: t("menuFinance"),
+        icon: icons.finance,
+        to: '/finances',
+        isMain: false,
+        role: "ADMIN:MANAGER",
+      },
+      {
+        id: 8,
+        text: t("menuRent"),
+        icon: icons.analytic,
+        to: '/rent',
+        isMain: false,
+        role: "ADMIN:MANAGER",
+      },
+      {
+        id: 9,
+        text: t("menuStatistic"),
+        icon: icons.analytic,
+        to: '/statistic',
+        isMain: false,
+        role: "USER",
+      },
+      {
+        id: 10,
+        text: t("menuEmployee"),
+        icon: icons.clients,
+        to: '/employees',
+        isMain: false,
+        role: "ADMIN",
+      },
+      {
+        id: 11,
+        text: t("menuHistory"),
+        icon: icons.photo,
+        to: '/history',
+        isMain: false,
+        role: "ADMIN",
+      },
+    ]
+  };
 
   const mainList = useMemo(() =>
     links.mainLinks.map(link =>
       <HeaderLink key={link.id} {...link}/>), []);
 
   const additionalList = useMemo(() =>
-    links.additionalLinks.map(link =>
-      <HeaderLink key={link.id} {...link}/>), []
+    links.additionalLinks
+      .filter(link => link.role.split(':').includes(props.user.role))
+      .map(link => <HeaderLink key={link.id} {...link}/>), []
   );
 
   return (
@@ -186,25 +212,26 @@ const Header = () => {
         </div>
         <div className={classes.searchContainer}>
           <img className={classes.searchImg} src={searchIcon} alt="search icon"/>
-          <input className={classes.searchInput} placeholder="Поиск" type="text"/>
+          <input className={classes.searchInput} placeholder={t("search")} type="text"/>
         </div>
       </div>
-
-      <Collapse classes={{
-
-      }} in={isOpenHeader} appear={true}>
+      <Collapse classes={{}} in={isOpenHeader} appear={true}>
         <div className={classes.collapseContainer}>
           <div className={classes.linksContainer}>
             {additionalList}
           </div>
         </div>
       </Collapse>
-
       <button className={classes.collapseButton} onClick={handleHeader.bind(null, !isOpenHeader)}>
         <img className={classes.collapseButtonImage} src={buttonArrow} alt="button arrow"/>
       </button>
     </header>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps, null)(Header);
 
-export default React.memo(Header);

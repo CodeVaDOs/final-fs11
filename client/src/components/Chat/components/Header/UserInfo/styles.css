@@ -1,0 +1,12 @@
+.header .user-info {
+    position: relative;
+    left: 30%;
+    transform: translateX(-50%);
+}
+
+.name {
+    left: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}

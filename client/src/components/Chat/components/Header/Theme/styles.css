@@ -1,0 +1,12 @@
+.theme {
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.theme svg.dark path {
+    fill: var(--dark);
+}
+
+.theme svg.yellow path {
+    fill: var(--yellow);
+}

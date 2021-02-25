@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 
 const useStyles = makeStyles({
@@ -10,6 +11,8 @@ const useStyles = makeStyles({
     textDecoration: 'none',
     boxSizing: 'border-box',
     borderBottom: props.isActive && !props.isMain ? '1px solid #254A93' : '1px solid #eef5ff',
+
+    margin: props.isMain ? '0 auto' : '0 1%'
   }),
 
   text: props => ({
@@ -27,9 +30,10 @@ const useStyles = makeStyles({
 
 const Index = ({ to, icon, text, isMain }) => {
   const location = useLocation();
-  const isActive = location.pathname === to;
+  const isActive = location.pathname.includes(to) && !location.pathname.includes('setting') || isMain && location.pathname.includes('setting') && to.includes('setting');
 
   const classes = useStyles({ isActive, isMain });
+
 
   return (
     <Link className={classes.link} to={to}>

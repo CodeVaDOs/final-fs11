@@ -1,48 +1,78 @@
 package com.marksem.service;
 
 import com.marksem.dto.request.RequestUser;
+import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseUser;
+import com.marksem.entity.user.Role;
+import com.marksem.entity.user.User;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repo.UserRepository;
+import com.marksem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository repo;
+    private final UserRepository repository;
+    private final MessageService messageService;
+    private final ContactService contactService;
+    private final FileService fileService;
 
-    public ResponseUser create(RequestUser u) {
-        return ResponseUser.toDto(repo.save(u.toEntity()));
+    public ResponseUser create(RequestUser u, String manager, String token) {
+        String urlAvatar = null;
+        if (u.getAvatar() != null) urlAvatar = fileService.upload(u.getAvatar(), token);
+        User saved = repository.save(u.toEntity(getUserByEmail(manager).getId(), urlAvatar));
+
+        if (u.getContacts() != null) contactService.saveAll(u.getContacts(), saved);
+
+        String text = "<p>Ваш пароль для входа в MARKSEM CRM :</p>" + u.getPassword();
+        messageService.send(u.getEmail(), "user creation", text);
+
+        return new ResponseUser(saved);
+    }
+
+    public User getUserByEmail(String email) {
+        return repository.findByEmail(email).orElseThrow(() -> new NoDataFoundException("User doesn't exists"));
     }
 
     public ResponseUser read(Long id) {
-        return repo.findById(id)
-                .map(ResponseUser::toDto)
-                .orElseThrow(() ->  new NoDataFoundException("user", id));
+        return repository.findById(id)
+                .map(ResponseUser::new)
+                .orElseThrow(() -> new NoDataFoundException("user", id));
     }
 
-    public List<ResponseUser> readAll() {
-        return repo.findAll().stream().map(ResponseUser::toDto).collect(Collectors.toList());
+    public ResponseUser getProfile(String email) {
+        ResponseUser user = new ResponseUser(getUserByEmail(email));
+        Optional.ofNullable(user.getManagerId())
+                .flatMap(repository::findById)
+                .ifPresent(manager -> user.setManager(new ResponseUser(manager)));
+        return user;
     }
 
-    public ResponseUser update(RequestUser u) {
-        return repo.findById(u.getId())
-                .map(e -> {
-                    e.setPassword(u.getPassword());
-                    e.setEmail(u.getEmail());
-                    e.setRole(u.getRole());
-                    return ResponseUser.toDto(repo.save(e));
-                })
-                .orElseThrow(() ->  new NoDataFoundException("user", u.getId()));
+    public PageableResponse<ResponseUser> readAll(int page, int size, Role role, String searchString, Sort.Direction direction, String sortBy) {
+        Page<User> users = repository.findByNameContainingIgnoreCaseAndRole(searchString, role, PageRequest.of(page, size, direction, sortBy));
+        return new PageableResponse<>(users.getTotalElements(),
+                users.getContent().stream().map(ResponseUser::new).collect(Collectors.toList()));
+    }
+
+    public ResponseUser update(RequestUser ru, String token) {
+        return repository.findById(ru.getId())
+                .map(user -> new ResponseUser(repository.save(ru.update(user, ru.getAvatar() != null
+                        ? fileService.update(ru.getAvatar(), token)
+                        : null))))
+                .orElseThrow(() -> new NoDataFoundException("user", ru.getId()));
     }
 
     public Long delete(Long id) {
-        repo.deleteById(id);
+        repository.deleteById(id);
         return id;
     }
+
 }
 
