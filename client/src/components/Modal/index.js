@@ -6,23 +6,12 @@ import Backdrop from '@material-ui/core/Backdrop';
 
 const useStyles = makeStyles(() => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: "100%",
-    border: 'none'
+    margin: "0 auto",
+    width: 800,
+    height: 500,
   },
   border: {
     border: 'none'
-  },
-  paper: {
-    border: 'none',
-    width: "100%",
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    height: '100rem',
-    lineHeight: '100%',
   },
 
 }));
@@ -46,7 +35,7 @@ export default function TransitionsModal({ open, setIsOpen }) {
           timeout: 500,
         }}
       >
-        saddasd
+        <div><SimpleSlider/></div>
       </Modal>
     </>
 

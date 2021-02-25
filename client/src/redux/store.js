@@ -1,4 +1,4 @@
-  import thunk from "redux-thunk";
+import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import authReducer from './auth/reducer';
 import docReducer from './documents/reducer';
