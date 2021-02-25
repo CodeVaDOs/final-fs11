@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
-import { DocSvg } from "../../../../../ClientPage/components/Documents/DocSvg";
+import { DocSvg } from "../../../ClientPage/components/Documents/DocSvg";
 import Typography from "@material-ui/core/Typography";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PrintIcon from "@material-ui/icons/Print";
@@ -8,7 +8,7 @@ import PrintIcon from "@material-ui/icons/Print";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    //maxWidth: "370px",
+    minWidth: "270px",
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",

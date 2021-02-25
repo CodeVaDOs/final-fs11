@@ -1,11 +1,15 @@
-import React, {useEffect} from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {DocumentItem} from "../../../../ClientPage/components/Documents/DocumentItem";
-import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
-import {useDispatch, useSelector} from "react-redux";
-import {documentsAction} from "../../../../../redux/documents/action";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { DocumentItem } from "../../../../ClientPage/components/Documents/DocumentItem";
+import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
+import { useDispatch, useSelector } from "react-redux";
+import { documentsAction } from "../../../../../redux/documents/action";
 import LinearBuffer from "../../Progress";
-import {DataNotFound} from "../DataNotFound";
+import { DataNotFound } from "../DataNotFound";
+import Grid from "@material-ui/core/Grid";
+import { CreateDocument } from "../Contracts/CreateDocument";
+import HeadContracts from "../header/HeadContracts";
+import Transaction from "../../Transaction";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -62,68 +66,47 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-  }
+  },
+
 }));
 
-export const MyBills = ({ search }) => {
+export const MyBills = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
+
   const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
     dispatch(documentsAction.getDocuments('PAYMENT_ORDER', search));
   }, [search]);
 
+
   if (loading) {
     return <LinearBuffer/>;
   }
-
   return (
+
     <>
       <div className={classes.root}>
-        <div>
-          {documents.list.length === 0 ?
-              <DataNotFound/> :
-              <div>
-                <div className={classes.topSide}>
+        {documents.list.length === 0
+          ? <Grid item xs={12}><DataNotFound/></Grid>
+          :
+          <div className={classes.root}>
+            <HeadContracts setSearch={setSearch}/>
+            <Grid container spacing={3}>
+              {documents.list
+                .map((doc, index) => {
+                  return (
+                    <Grid key={index} item xs={4}>
+                      <Transaction name={doc.name} fromDate={doc.fromDate} toDate={doc.toDate}/>
+                    </Grid>
+                  );
+                })
+              }
 
-                  <div className={classes.cleatfix}>
-                    <div className={classes.row}>
-                      <SelectDocument options={['Прибирання', "Електроенергія", "Вода", "Інше"]}/>
-                    </div>
-                    <div className={classes.row}>
-                      <h3>Показати</h3>
-                      <SelectDocument options={['Marksem M - 2 House large 00102']}/>
-                  </div>
-
-                  <div className={classes.row}>
-                    <h3>Сортувати</h3>
-                    <SelectDocument
-                      options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
-                  </div>
-                </div>
-
-              </div>
-              <div className={classes.documents}>
-                <div className={classes.mainContainerDocuments}>
-                  {documents.list
-                    .map((v, index) => {
-                      return (
-                        <DocumentItem
-                          key={index}
-                          title={v.name}
-                          shortDescription={v.type}
-                        />
-                      );
-                    })
-                  }
-                </div>
-              </div>
-            </div>
-
-          }
-
-
-        </div>
+            </Grid>
+          </div>
+        }
       </div>
     </>
   );

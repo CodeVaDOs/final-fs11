@@ -98,11 +98,11 @@ export const Slider = () => {
 
       </div>
       {isOpen ? <TransitionsModal
-          open={isOpen}
-          setIsOpen={setIsOpen}
-          photoIndex={photoIndex}
-          setPhotoIndex={setPhotoIndex}
-        /> :
+        open={isOpen}
+        setIsOpen={setIsOpen}
+        photoIndex={photoIndex}
+        setPhotoIndex={setPhotoIndex}
+      /> :
         ""
       }
     </div>

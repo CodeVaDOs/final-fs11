@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { Button } from "@material-ui/core";
 import { CreateDocument } from "./CreateDocument";
@@ -10,6 +10,8 @@ import { documentsAction } from "../../../../../redux/documents/action";
 import LinearBuffer from "../../Progress";
 import { DataNotFound } from "../DataNotFound";
 import Grid from "@material-ui/core/Grid";
+import HeadContracts from "./../header/HeadContracts";
+import Transaction from "../../Transaction";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -47,22 +49,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: 'center',
   },
-  btnAdd: {
-    textTransform: 'capitalize',
-    marginTop: 20,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    color: 'white',
-    textDecoration: 'none',
-    backgroundColor: '#254A93',
-    width: "189px",
-    height: "39px",
-    background: "#EEF5FF 0% 0% no-repeat padding-box",
-    border: "0.5px solid #ACB5B9",
-    borderRadius: "5px",
-    opacity: 1,
-  },
+
   documents: {
     alignItems: "center",
     display: "flex",
@@ -70,15 +57,19 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const MyContractsUser = ({ search }) => {
+export const MyContractsUser = () => {
+
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const [createDocument, setCreateDocument] = useState();
+  const [search, setSearch] = useState("");
+
+
   const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
     dispatch(documentsAction.getDocuments('CONTRACT', search));
   }, [search]);
-
-  const [createDocument, setCreateDocument] = useState();
 
   if (loading) {
     return <LinearBuffer/>;
@@ -90,54 +81,36 @@ export const MyContractsUser = ({ search }) => {
 
     <>
       <div className={classes.root}>
-        <Grid container spacing={3}>
-          {createDocument ?
-            <CreateDocument/> :
-            <div>
-              <Grid container spacing={3}>
-                {documents.list.length === 0 ?
-                  <Grid item xs={4}>
-                    <DataNotFound/>
-                  </Grid>
-                  :
+        {createDocument ?
+          <CreateDocument/> :
+          <div>
+            <Grid container spacing={3}>
+              {documents.list.length === 0
+                ? <Grid item xs={12}><DataNotFound/></Grid>
+                : <div className={classes.root}>
+                  <HeadContracts setSearch={setSearch} createContract={createContract}/>
                   <Grid container spacing={3}>
-                    <div className={classes.topSide}>
-                      <Button
-                        className={classes.btnAdd}
-                        onClick={createContract}
-                      >
-                        Додати контракт <DescriptionIcon className={classes.editIcon}/>
-                      </Button>
-                      <div className={classes.row}>
-                        <h3>Сортувати</h3>
-                        <SelectDocument
-                          options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
-                      </div>
-                    </div>
                     {documents.list
-                      .map((v, index) => {
+                      .map((doc, index) => {
                         return (
                           <Grid key={index} item xs={4}>
-                            <DocumentItem
-                              title={v.name}
-                              shortDescription={v.type}
-                            />
+                            <Transaction name={doc.name} fromDate={doc.fromDate} toDate={doc.toDate}/>
                           </Grid>
                         );
                       })
                     }
 
                   </Grid>
+                </div>
+              }
+            </Grid>
 
-                }
-              </Grid>
 
-
-            </div>
-          }
-        </Grid>
+          </div>
+        }
       </div>
     </>
   );
 };
+
 

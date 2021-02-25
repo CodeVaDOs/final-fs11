@@ -255,7 +255,7 @@ export const HouseContainer = ({ house }) => {
         </Box>
         <Box className={classes.bottomSide}>
           <Box className={classes.leftSide}>
-            <BaseMap/>
+            <Map/>
           </Box>
           <Box className={classes.rightSide}>
             <Rent/>
