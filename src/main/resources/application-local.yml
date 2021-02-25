@@ -15,24 +15,23 @@ spring:
           starttls:
             enable: true
   datasource:
-    url: jdbc:h2:mem:testdb;
-    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
     username: sa
     password:
-    data: classpath:data.sql
     initialization-mode: always
+    driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     database-platform: org.hibernate.dialect.H2Dialect
   h2:
     console:
       enabled: true
       path: /console
-      settings:
-        trace: true
-        web-allow-others: true
+#      settings:
+#        trace: true
+#        web-allow-others: true
 
 jwt:
   secret: proselyt4

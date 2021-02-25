@@ -18,6 +18,7 @@ import { CardActionArea, CardContent, Fab } from "@material-ui/core";
 import { useFetch } from "../../hooks/useFetch";
 import { useSelector } from "react-redux";
 
+
 const useStyles = makeStyles({
   root: {
     borderRadius: 5,
@@ -112,7 +113,6 @@ const PanelAdminNewUser = (input) => {
   };
 
 
-
   //Password Visibility
   const [showPassword, setShowPassword] = useState(false);
   const handleMouseDownPassword = (event) => {
@@ -137,18 +137,18 @@ const PanelAdminNewUser = (input) => {
   const getFormData = (data) => {
     const form_data = new FormData();
 
-    for ( const key in data ) {
+    for (const key in data) {
       form_data.append(key, data[key]);
     }
 
     return form_data;
-  }
+  };
 
   const [{ data, loading }, sendData] = useFetch({
     instant: false,
     method: "POST",
     url: "users",
-    headers: {'Content-Type': 'multipart/form-data' },
+    headers: { 'Content-Type': 'multipart/form-data' },
     data: getFormData({
       email: dataForm.email,
       name: dataForm.name,

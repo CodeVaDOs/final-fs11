@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Header from "../src/components/Header";
 import Sidebar from "@components/Sidebar";
 import { makeStyles } from "@material-ui/core";
 import AppContainer from "./containers/AppContainer";
 import { useSelector } from "react-redux";
-import { PageLoader } from "./components/Loader";
+import { PageLoader, Preloader } from "./components/Loader";
 
 const sidebarWidth = 416;
 
@@ -46,7 +46,9 @@ const App = () => {
     <div className={classes.root}>
       <div className={classes.mainContainer}>
         {authorized && <Header/>}
-        <AppContainer/>
+        <Suspense fallback={<PageLoader/>}>
+          <AppContainer/>
+        </Suspense>
       </div>
       {authorized && <div className={classes.sidebar}>
         <Sidebar
