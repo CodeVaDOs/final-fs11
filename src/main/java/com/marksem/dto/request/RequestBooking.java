@@ -1,14 +1,34 @@
 package com.marksem.dto.request;
 
+import com.marksem.entity.booking.Booking;
+import com.marksem.entity.house.House;
+import com.marksem.entity.user.User;
 import lombok.*;
+
+import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 public class RequestBooking extends BaseEntity {
     private Long id;
-    private Long fromDate;
-    private Long toDate;
-    private String renterPhotoUrl;
+    @NotEmpty
+    private Date fromDate;
+    @NotEmpty
+    private Date toDate;
+    @NotEmpty
     private Boolean isOwner;
+    @NotEmpty
+    private Long houseId;
+
+    public Booking toEntity(House house, User renter) {
+        return Booking.builder()
+                .fromDate(this.fromDate)
+                .toDate(this.toDate)
+                .isOwner(this.isOwner)
+                .house(house)
+                .renter(renter)
+                .build();
+    }
 }

@@ -1,46 +1,47 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestNotification;
-import com.marksem.entity.notification.Notification;
+import com.marksem.dto.response.PageableResponse;
+import com.marksem.dto.response.ResponseNotification;
 import com.marksem.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
 @RestController
-@RequestMapping("notifications")
+@RequestMapping("api/v1/notifications")
 @RequiredArgsConstructor
 public class NotificationController {
     private final NotificationService service;
 
     @GetMapping
-    public List<Notification> readAll() {
-        return service.readAll();
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<PageableResponse<ResponseNotification>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(service.readAll(page, size));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Notification> read(@PathVariable("id") Long id) {
-        try {
-            return ResponseEntity.ok(service.read(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<ResponseNotification> read(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(service.read(id));
     }
 
     @PostMapping
-    public Notification create(@RequestBody RequestNotification n) {
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseNotification create(@RequestBody RequestNotification n) {
         return service.create(n);
     }
 
+    @PutMapping
+    @PreAuthorize("hasAuthority('developers:write')")
+    public ResponseNotification update(@RequestBody RequestNotification n) {
+        return service.update(n);
+    }
+
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('developers:write')")
     public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
-        try {
-            return ResponseEntity.ok(service.delete(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.delete(id));
     }
 }

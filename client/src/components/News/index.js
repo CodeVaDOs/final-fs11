@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -8,18 +8,21 @@ import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { news } from "../../utils/newsList";
+import { news } from "../../utils/constants/newsList";
+import Box from "@material-ui/core/Box";
 
 const blue = '#254A93';
 const useStyles = makeStyles((theme) => ({
   root: {
     fontFamily: "Roboto",
     margin: '0 auto',
+    marginTop: '10px',
+    marginBottom: '40px',
     padding: 0,
-    width: '890px',
+    width: '100%',
     borderRadius: '20px 20px 0 0',
     overflow: 'hidden',
-    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.16)'
+    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.16)',
   },
   heading: {
     display: 'flex',
@@ -89,10 +92,15 @@ const ColorButton = withStyles((theme) => ({
 
 export default function News() {
   const classes = useStyles();
+  const [expanded, setExpanded] = useState(true);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   return (
-    <div className={classes.root}>
-      <Accordion>
-        <div className={classes.newsHead}>
+    <Box className={classes.root}>
+      <Accordion expanded={expanded} onChange={handleChange('panel1a')}>
+        <Box className={classes.newsHead}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon className={classes.colored}/>}
             aria-controls="panel1a-content"
@@ -102,11 +110,8 @@ export default function News() {
               <div className={classes.heading}>Новини <EventNoteIcon/></div>
             </Typography>
           </AccordionSummary>
-        </div>
-
-
+        </Box>
         <AccordionDetails>
-
           <List className={classes.list}>
             {
               news.map(({ image, title, anons, date }) => (
@@ -157,6 +162,6 @@ export default function News() {
           </List>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </Box>
   );
 }

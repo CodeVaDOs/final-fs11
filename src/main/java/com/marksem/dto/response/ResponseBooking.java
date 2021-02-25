@@ -1,13 +1,28 @@
 package com.marksem.dto.response;
 
-import lombok.*;
+import com.marksem.entity.booking.Booking;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
 public class ResponseBooking extends BaseEntity {
-    private Long fromDate;
-    private Long toDate;
-    private String renterPhotoUrl;
-    private Boolean isOwner;
+    private Date fromDate;
+    private Date toDate;
+    private boolean isOwner;
+    private Long renterId;
+    private ResponseHouse house;
+    private ResponseFeedBack feedback;
+
+    public ResponseBooking(Booking b, boolean withHouse) {
+        super(b);
+        this.fromDate = b.getFromDate();
+        this.toDate = b.getToDate();
+        this.isOwner = b.getIsOwner();
+        this.renterId = b.getRenter().getId();
+        if (withHouse) this.house = new ResponseHouse(b.getHouse(), false);
+        if (b.getFeedback() != null) this.feedback = new ResponseFeedBack(b.getFeedback());
+    }
 }

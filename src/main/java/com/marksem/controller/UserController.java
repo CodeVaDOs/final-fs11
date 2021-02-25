@@ -1,55 +1,71 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestUser;
+import com.marksem.dto.request.groups.OnCreate;
+import com.marksem.dto.request.groups.OnUpdate;
+import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseUser;
+import com.marksem.entity.user.Role;
 import com.marksem.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.security.Principal;
 
+@Validated
 @RestController
-@RequestMapping("users")
+@RequestMapping("api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService service;
+    private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<ResponseUser> create(@Valid @RequestBody RequestUser u) {
-        return ResponseEntity.ok(service.create(u));
+    @PreAuthorize("hasAuthority('developers:write')")
+    @Validated(OnCreate.class)
+    public ResponseEntity<ResponseUser> create(@ModelAttribute @Valid RequestUser u,
+                                               @RequestHeader("Authorization") String token, Principal principal) {
+        return ResponseEntity.ok(userService.create(u, principal.getName(), token));
     }
 
     @GetMapping
-    public List<ResponseUser> readAll() {
-        return service.readAll();
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<PageableResponse<ResponseUser>> readAll(@RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size,
+                                                                  @RequestParam(defaultValue = "USER") Role role,
+                                                                  @RequestParam(defaultValue = "") String searchString,
+                                                                  @RequestParam(defaultValue = "id") String sortBy,
+                                                                  @RequestParam(defaultValue = "ASC") Sort.Direction direction) {
+        return ResponseEntity.ok(userService.readAll(page, size, role, searchString, direction, sortBy));
+    }
+
+    @GetMapping("profile")
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<ResponseUser> getProfile(Principal principal) {
+        return ResponseEntity.ok(userService.getProfile(principal.getName()));
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseUser> read(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(service.read(id));
+        return ResponseEntity.ok(userService.read(id));
     }
 
     @PutMapping()
-    public ResponseEntity<ResponseUser> update(@RequestBody @Valid RequestUser u) {
-        return ResponseEntity.ok(service.update(u));
+    @PreAuthorize("hasAuthority('developers:write')")
+    @Validated(OnUpdate.class)
+    public ResponseEntity<ResponseUser> update(@ModelAttribute @Valid RequestUser u, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(userService.update(u, token));
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('developers:write')")
     public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(service.delete(id));
+        return ResponseEntity.ok(userService.delete(id));
     }
 
 }

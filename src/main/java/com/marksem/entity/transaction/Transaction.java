@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction extends BaseEntity {
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_group_id")
     private TransactionGroup transactionGroup;
 
@@ -21,10 +21,13 @@ public class Transaction extends BaseEntity {
 
     @Column(name = "amount_USD")
     private Double amountUSD;
+
+    @Enumerated(EnumType.STRING)
     private Currency currency;
+
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_type_id")
     private TransactionType transactionType;
 }

@@ -1,0 +1,151 @@
+.dialog .item {
+    display: flex;
+    margin: 10px 0;
+}
+
+.dialog .item.reverse {
+    flex-direction: row-reverse;
+}
+
+.dialog .item .avatar {
+    flex-shrink: 0;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: auto;
+}
+
+.dialog .item.reverse .avatar {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.dialog .item .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.dialog .item .list-item {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.dialog .item.reverse .list-item {
+    flex-direction: row-reverse;
+}
+
+.list-item-mes .text {
+    font-size: 14px;
+    max-width: 400px;
+    padding: 10px 10px;
+    word-break: break-word;
+    background: var(--accent-1);
+}
+
+.dialog .item.reverse .list-item .text {
+    color: var(--primary-color);
+    background: var(--primary);
+}
+
+.dialog .item .list-item:first-child .text {
+    padding-top: 7px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.dialog .item .list-item:last-child .text {
+    padding-bottom: 7px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.dialog .item .list-item .list-item-mes .time {
+    font-size: 13px;
+    color: var(--accent-2);
+    margin-left: 10px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dialog .item.reverse .list-item .time {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.dialog svg.message-status,
+.dialog svg.remove-message {
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    flex-shrink: 0;
+}
+
+.dialog svg.message-status {
+    display: none;
+    color: #1b1c23;
+}
+
+.dialog svg.remove-message {
+    margin-left: 5px;
+}
+
+.dialog svg.message-status path {
+    fill: var(--primary);
+}
+
+.dialog svg.remove-message path {
+    fill: var(--error);
+}
+
+.dialog .item.reverse svg.message-status,
+.dialog .item.reverse svg.remove-message {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.dialog .item.reverse svg.remove-message {
+    margin-right: 5px;
+}
+
+.dialog .item .list-item:hover .time,
+.dialog .item .list-item:last-child .time,
+.dialog .item.reverse .list-item:last-child svg.message-status,
+.dialog .item.removable .list-item:hover svg.remove-message {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dialog .item .list-item:last-child svg.message-status {
+    display: block;
+}
+
+
+.status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4AD584;
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    bottom: 24px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    background: #4AD584;
+    margin-right: 5px;
+}
+
+.item_user {
+    margin-right: 10px;
+
+}

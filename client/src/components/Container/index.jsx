@@ -1,12 +1,16 @@
 import React from 'react';
-import Box from "@material-ui/core/Box";
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-const Container = (props) => {
+const ContainerCustom = (props) => {
   return (
-    <Box>
-      {props.children}
-    </Box>
+    <>
+      <CssBaseline />
+      <Container maxWidth={1} style={{ padding:0 }}>
+        {props.children}
+      </Container>
+    </>
   );
 };
 
-export default Container;
+export default ContainerCustom;
