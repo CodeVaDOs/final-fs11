@@ -169,10 +169,10 @@ export default function HouseCards({ data, onHouseClick }) {
                             alt={house.contractId}/>
                           <div
                             className={classes.houseCardBody}>
-                        <span
-                          className={classes.cardContract}>
+                            <span
+                              className={classes.cardContract}>
                           Контракт {house.contractDate}
-                        </span>
+                            </span>
                             <span
                               className={classes.cardId}>
                               {house.svg} ID {house.contractId}
@@ -187,14 +187,14 @@ export default function HouseCards({ data, onHouseClick }) {
                             </span>
                           </div>
                         </div>
-                            </div>
-                          </div>
-                        </ListItem>
-                    );
-                  })}
-            </Grid>
-          </div>
-        </Grid>
+                      </div>
+                    </div>
+                  </ListItem>
+                );
+              })}
+          </Grid>
+        </div>
+      </Grid>
     </div>
 
   );
