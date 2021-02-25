@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import PrintIcon from '@material-ui/icons/Print';
 import HouseDesription from "./HouseDesription";
@@ -12,6 +12,7 @@ import Box from "@material-ui/core/Box";
 import { Container } from "@material-ui/core";
 import CircularStaticHouse from "./CircularStaticHouse";
 import Map from "./Map";
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -254,7 +255,7 @@ export const HouseContainer = ({ house }) => {
         </Box>
         <Box className={classes.bottomSide}>
           <Box className={classes.leftSide}>
-            <Map/>
+            <BaseMap/>
           </Box>
           <Box className={classes.rightSide}>
             <Rent/>

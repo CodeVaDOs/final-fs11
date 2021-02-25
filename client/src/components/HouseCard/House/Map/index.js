@@ -176,3 +176,4 @@ export default () => (
     mapElement={<div style={{ height: `100%` }}/>}
   />
 );
+

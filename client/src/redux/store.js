@@ -27,7 +27,6 @@ export default () => {
   if (accessToken) {
     setAuthToken(accessToken);
     store.dispatch(AUTH_ACTIONS.getProfile());
-    store.dispatch(AUTH_ACTIONS.getAdminInfo());
   }
 
   return store;

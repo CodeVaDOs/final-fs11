@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
+import React, {useEffect, useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { Button } from "@material-ui/core";
 import { CreateDocument } from "./CreateDocument";
@@ -140,3 +140,4 @@ export const MyContractsUser = ({ search }) => {
     </>
   );
 };
+
