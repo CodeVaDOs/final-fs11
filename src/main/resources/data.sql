@@ -53,3 +53,18 @@ insert into house_models (
 insert into house_models (
     name, house_type_id) values (
     'Elon Musk', 1);
+
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 1');
+insert into documents (type, url_file, name) values ('PAYMENT_ORDER', '', 'document 2');
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 3');
+insert into documents (type, url_file, name) values ('PAYMENT_ORDER', '', 'document 4');
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 5');
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 6');
+insert into documents (type, url_file, name) values ('PAYMENT_ORDER', '', 'document 7');
+insert into documents (type, url_file, name) values ('PAYMENT_ORDER', '', 'document 8');
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 9');
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 10');
+insert into documents (type, url_file, name) values ('PAYMENT_ORDER', '', 'document 11');
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 12');
+insert into documents (type, url_file, name) values ('CONTRACT', '', 'document 13');
+insert into documents (type, url_file, name) values ('PAYMENT_ORDER', '', 'document 14');
