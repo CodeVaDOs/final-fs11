@@ -7,7 +7,7 @@ import { LinearProgress } from "@material-ui/core";
 const PageLoader = ({ loaded = true, ...res }) => {
   return (
     loaded && (
-      <div {...res} className={cx("app-loader", css.apploader)}>
+      <div {...res} className={cx("app-loader")}>
         <LinearProgress/>
       </div>
     )

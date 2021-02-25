@@ -94,7 +94,7 @@ const TaskPanel = (props) => {
       <Box>
         <Typography className={classes.header}>{t("personalManager")}</Typography>
         {/*<ManagerCard />*/}
-      </Box>s
+      </Box>
     </>);
   };
 
