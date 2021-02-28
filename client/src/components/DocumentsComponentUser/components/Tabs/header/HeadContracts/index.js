@@ -14,6 +14,12 @@ const useStyles = makeStyles(({
   root: {
     flexGrow: 1,
   },
+  clearfix: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   btnAdd: {
     textTransform: 'capitalize',
     display: 'flex',
@@ -70,42 +76,45 @@ const options = [
   "Розрахунки вартості ресурсів"
 ];
 
-export default ({ createContract, setSearch }) => {
+export default ({ createContract, setSearch,search }) => {
   const classes = useStyles();
-  const searchHandler = (event) => {
-    event.preventDefault();
-    setSearch(event.target.value);
-  };
+
+  useEffect(()=>{
+
+  },[search])
   return (<div className={classes.root}>
 
     <Grid container spacing={4}>
-      {
-        createContract
-          ? <Grid item xs={6} container={true} justify="flex-end" alignItems="center">
-            <Button
-              className={classes.btnAdd}
-              onClick={createContract}
-            >
-              Додати контракт <DescriptionIcon className={classes.editIcon}/>
-            </Button>
-          </Grid>
-          : null
-      }
+      <div className={classes.clearfix}>
+        {
+          createContract
+            ? <Grid item xs={6} container={true} justify="flex-end" alignItems="center">
+              <Button
+                className={classes.btnAdd}
+                onClick={createContract}
+              >
+                Додати контракт <DescriptionIcon className={classes.editIcon}/>
+              </Button>
+            </Grid>
+            : null
+        }
 
 
-      <Grid item xs={6}>
-        <div className={classes.search}>
-          <div>
-            <SearchIcon className={classes.searchIcon}/>
+        <Grid item xs={6}>
+          <div className={classes.search}>
+            <div>
+              <SearchIcon className={classes.searchIcon}/>
+            </div>
+            <TextField
+              focused={false}
+              value={search}
+              className={classes.inputRoot}
+              onChange={event => setSearch(event.target.value)}
+            />
           </div>
-          <TextField
-            focused={false}
-            className={classes.inputRoot}
-            onChange={searchHandler}
-          />
-        </div>
 
-      </Grid>
+        </Grid>
+      </div>
 
     </Grid>
   </div>);

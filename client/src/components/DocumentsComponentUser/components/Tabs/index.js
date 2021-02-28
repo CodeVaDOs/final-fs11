@@ -53,12 +53,14 @@ const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "transparent",
     width: "100%",
-    marginTop: "20px"
+    marginTop: "20px",
+    overflow: "hidden"
   },
 
   clearfix: {
     display: 'flex',
     flexDirection: "row",
+    justifyContent: 'space-between',
     alignItems: "center",
     height: 60
   },
@@ -74,7 +76,7 @@ const useStyles = makeStyles(() => ({
   sortListWrap: {
     display: "flex",
     minWidth: 200,
-    maxWidth: 300
+    maxWidth: 300,
   },
   sortText: {
     fontSize: "16px",
@@ -115,7 +117,8 @@ export default function FullWidthTabs() {
 
         </Tabs>
 
-        <Grid item xs={6}>
+        <Grid item xs={4}
+        >
           <div className={classes.sortListWrap}>
             <p className={classes.sortText}>Сортувати</p>
             <FormControl variant="outlined" className={classes.formControl}>

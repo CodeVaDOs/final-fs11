@@ -13,8 +13,9 @@ import Transaction from "../../Transaction";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
+    flexGrow: 1,
+    margin: "0 auto",
+    width: "98%"
   },
   topSide: {
     margin: 0,
@@ -22,7 +23,7 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     zIndex: 9999999999,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: 'space-between',
     alignItems: 'center'
   },
@@ -34,8 +35,9 @@ const useStyles = makeStyles(() => ({
     gridRowGap: 0,
   },
   cleatfix: {
-    position: "relative",
+    position: "absolute",
     right: 0,
+    marginTop: 60,
     display: "flex",
     flexDirection: "row",
     alignItems: 'center'
@@ -46,30 +48,13 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: 'center',
   },
-  btnAdd: {
-    textTransform: 'capitalize',
-    marginTop: 20,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    color: 'white',
-    textDecoration: 'none',
-    backgroundColor: '#254A93',
-    width: "189px",
-    height: "39px",
-    background: "#EEF5FF 0% 0% no-repeat padding-box",
-    border: "0.5px solid #ACB5B9",
-    borderRadius: "5px",
-    opacity: 1,
-  },
+
   documents: {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-  },
-
+  }
 }));
-
 export const MyBills = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -88,25 +73,30 @@ export const MyBills = () => {
 
     <>
       <div className={classes.root}>
-        {documents.list.length === 0
-          ? <Grid item xs={12}><DataNotFound/></Grid>
-          :
-          <div className={classes.root}>
-            <HeadContracts setSearch={setSearch}/>
-            <Grid container spacing={3}>
-              {documents.list
-                .map((doc, index) => {
-                  return (
-                    <Grid key={index} item xs={4}>
-                      <Transaction name={doc.name} fromDate={doc.fromDate} toDate={doc.toDate}/>
-                    </Grid>
-                  );
-                })
-              }
+        <Grid container spacing={3}>
 
-            </Grid>
-          </div>
-        }
+          <Grid item xs={12}>
+            <HeadContracts search={search} setSearch={setSearch}/>
+          </Grid>
+          {documents.list.length === 0
+            ? <Grid item xs={12}><DataNotFound/></Grid>
+            :
+            <div className={classes.root}>
+              <Grid container spacing={3}>
+                {documents.list
+                  .map((doc, index) => {
+                    return (
+                      <Grid key={index} item xs={4}>
+                        <Transaction name={doc.name} fromDate={doc.fromDate} toDate={doc.toDate}/>
+                      </Grid>
+                    );
+                  })
+                }
+
+              </Grid>
+            </div>
+          }
+        </Grid>
       </div>
     </>
   );

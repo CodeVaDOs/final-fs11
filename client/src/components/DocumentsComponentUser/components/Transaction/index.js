@@ -7,15 +7,14 @@ import PrintIcon from "@material-ui/icons/Print";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
-    minWidth: "270px",
+    width: "105%",
+    //maxWidth: "370px",
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
     boxShadow: "0px 1px 3px #00000033",
     borderRadius: "20px",
-    padding: "20px",
-    minHeight: "200px"
+    minHeight: "200px",
   },
   infoContainer: {
     display: "flex",
