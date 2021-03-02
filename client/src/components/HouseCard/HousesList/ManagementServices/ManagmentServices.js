@@ -12,12 +12,12 @@ import window from "../../../../images/window.png";
 import blago from "../../../../images/blago.png";
 import temper from "../../../../images/temper.png";
 import house from "../../../../images/house.png";
+
 import ModalsContainer from "@components/ModalsContainer";
 import ModalManageServices from '@components/ModalsContainer/ModalChildrens/ModalRequestServices';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
-
 
 const useStyles = makeStyles({
   containerSer: {
@@ -120,6 +120,7 @@ const useStyles = makeStyles({
 
 export const ManagementServices = () => {
   const {t} = useTranslation();
+
   const callButtonStyle = {
     backgroundColor: "#EEF5FF",
     width: "50px",
@@ -127,8 +128,6 @@ export const ManagementServices = () => {
     borderRadius: "50%",
     minWidth: "50px"
   }
-
-
   const services1 = [
     {
       "id": "1",
@@ -195,6 +194,7 @@ export const ManagementServices = () => {
     });
     console.log(id);
   };
+
 
   return (
       <Box className={classes.containerSer}>

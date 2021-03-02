@@ -187,14 +187,15 @@ export default function HouseCards({ data, onHouseClick }) {
                             </span>
                           </div>
                         </div>
-                            </div>
-                          </div>
-                        </ListItem>
-                    );
-                  })}
-            </Grid>
-          </div>
-        </Grid>
+                      </div>
+                    </div>
+                  </ListItem>
+                );
+              })}
+          </Grid>
+        </div>
+      </Grid>
+
     </div>
 
   );
