@@ -41,7 +41,7 @@ const getAdminInfo = () => (dispatch) => {
   api.get('total/accessPanel')
       .then((data) => {
         console.log("Fetched admin data: ", data);
-        dispatch({ type: "GET_ADMIN_SUCCESS", payload: data });
+//        dispatch({ type: "GET_ADMIN_SUCCESS", payload: data });
       })
       .catch(err => {
         catchError(err);

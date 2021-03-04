@@ -12,7 +12,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "transaction_groups")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +23,16 @@ public class TransactionGroup extends BaseEntity {
 
     @Column(name = "to_date")
     private Date toDate;
+
+    private Double amount;
+
+    @Column(name = "amount_USD")
+    private Double amountUSD;
+
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
+
+    private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id")
