@@ -9,6 +9,9 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {connect} from "react-redux";
+import { houseMaintainService } from '../../../../redux/houseMaintain/action';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme)=>({
   formControlSelect: {
@@ -89,20 +92,27 @@ const useStyles = makeStyles((theme)=>({
     marginTop:"10px"
   }
 }));
-const Index=( { service, icon } )=> {
+const Index=({ user, service, icon, backservice })=> {
   const classes = useStyles();
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     textValue:t("inputDefault"),
-    propertyId:"Home 1",
-    typeService:'',
+    propertyId:'',
+    typeService:backservice,
   });
+  const dataForPost = {
+    serviceType:dataForm.typeService,
+    text:dataForm.textValue,
+    houseId:dataForm.propertyId,
+    isActive: false
+  }
   const resetInput =()=>{
     setDataForm({
       textValue:'',
       propertyId:dataForm.propertyId,
       typeService:dataForm.typeService,
     });
+    console.log(dataForm.typeService)
   };
   const handleChangeData = (e) => {
     setDataForm({
@@ -160,14 +170,15 @@ const Index=( { service, icon } )=> {
         <FormControl variant="filled" className={classes.formControlSelect}>
           <InputLabel id="demo-simple-select-filled-label"></InputLabel>
           <Select className={classes.rootSelect}
-            defaultValue={dataForm.typeMassage}
+            defaultValue={dataForm.propertyId}
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
             value={dataForm.propertyId}
             onChange={handleChangePropId}
           >
-            <MenuItem value={"Home 1"}>{"Home 1"}</MenuItem>
-            <MenuItem value={"Home 2"}>{"Home 2"}</MenuItem>
+            {user.houses.map((house)=>{
+              <MenuItem value={house}>{house}</MenuItem>
+            })}
           </Select>
         </FormControl> 
       </Grid>
@@ -186,7 +197,19 @@ const Index=( { service, icon } )=> {
         />
       </form>
     </Box>
-
+    <Button className={classes.btn} onClick={houseMaintainService(dataForPost)} >{"POST TEST"}</Button>
   </Box>);
 };
-export default Index;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    houseMaintainService: (data) => dispatch(houseMaintainService(data)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
