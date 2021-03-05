@@ -24,8 +24,7 @@ public class UserService {
     private final FileService fileService;
 
     public ResponseUser create(RequestUser u, String manager, String token) {
-        String urlAvatar = null;
-        if (u.getAvatar() != null) urlAvatar = fileService.upload(u.getAvatar(), token);
+        String urlAvatar = u.getAvatar() != null ? fileService.upload(u.getAvatar(), token) : null;
 
         String text = "<p>Ваш пароль для входа в MARKSEM CRM :</p>" + u.getPassword();
         messageService.send(u.getEmail(), "user creation", text);
