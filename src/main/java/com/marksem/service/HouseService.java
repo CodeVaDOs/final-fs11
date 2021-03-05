@@ -1,15 +1,14 @@
 package com.marksem.service;
 
 import com.marksem.dto.request.RequestHouse;
-import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseHouse;
 import com.marksem.entity.house.House;
 import com.marksem.entity.house.HouseImage;
+import com.marksem.entity.user.Role;
+import com.marksem.entity.user.User;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repository.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,12 +62,16 @@ public class HouseService {
                 .orElseThrow(() -> new NoDataFoundException("house", id));
     }
 
-    public PageableResponse<ResponseHouse> readAll(int page, int size) {
-        Page<House> houses = houseRepository.findAll(PageRequest.of(page, size));
-        return new PageableResponse<>(houses.getTotalElements(),
-                houses.getContent().stream()
-                        .map(h -> new ResponseHouse(h, bookingRepository.getHouseRating(h.getId()), h.getBookings()))
-                        .collect(Collectors.toList()));
+    public List<ResponseHouse> readAll(User user) {
+        List<House> houses;
+        if (user.getRole().equals(Role.USER)) {
+            houses = houseRepository.findByOwnerId(user.getId());
+        } else {
+            houses = houseRepository.findByManager(user.getId());
+        }
+        return houses.stream()
+                .map(h -> new ResponseHouse(h, bookingRepository.getHouseRating(h.getId()), h.getBookings()))
+                .collect(Collectors.toList());
     }
 
     public Long delete(Long id) {

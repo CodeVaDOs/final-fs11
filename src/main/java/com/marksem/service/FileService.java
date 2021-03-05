@@ -39,7 +39,7 @@ public class FileService {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return responseMap.get("filePath");
+    return responseMap.get("fileName");
   }
 
 }

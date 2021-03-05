@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,8 +24,7 @@ public class UserService {
     private final FileService fileService;
 
     public ResponseUser create(RequestUser u, String manager, String token) {
-        String urlAvatar = null;
-        if (u.getAvatar() != null) urlAvatar = fileService.upload(u.getAvatar(), token);
+        String urlAvatar = u.getAvatar() != null ? fileService.upload(u.getAvatar(), token) : null;
 
         String text = "<p>Ваш пароль для входа в MARKSEM CRM :</p>" + u.getPassword();
         messageService.send(u.getEmail(), "user creation", text);
@@ -54,6 +52,7 @@ public class UserService {
         ResponseUser user = new ResponseUser(getUserByEmail(email));
         repository.findById(user.getManagerId()).ifPresent(manager -> user.setManager(new ResponseUser(manager)));
         return user;
+
     }
 
     public PageableResponse<ResponseUser> readAll(int page, int size, Role role, String searchString, Sort.Direction direction, String sortBy) {
