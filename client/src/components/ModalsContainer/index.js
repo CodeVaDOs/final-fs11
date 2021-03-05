@@ -59,7 +59,7 @@ const useStyles = makeStyles({
   }
 });
 
-const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActivateDialog, body, style, clickIcon})=>{
+const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActivateDialog, body, style, clickIcon, onChildClick})=>{
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -69,6 +69,10 @@ const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActi
   const handleClose = () => {
     setOpen(false);
   };
+  const handleSubmit =()=> {
+    setOpen(false);
+    console.log("pass funct to children")
+  }
 
   const classes = useStyles();
   const theme = useTheme();
@@ -92,7 +96,7 @@ const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActi
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
           <Button className={classes.btn} onClick={handleClose} >{buttonOk}</Button>
-          <Button style={{ display:`${displayBtn}` }} className={classes.btn} onClick={handleClose} >{buttonCancel}</Button>
+          <Button style={{ display:`${displayBtn}` }} className={classes.btn} onClick={handleSubmit} >{buttonCancel}</Button>
         </DialogActions>
       </Dialog>
     </Box>

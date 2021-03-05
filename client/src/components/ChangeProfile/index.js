@@ -123,12 +123,10 @@ const ChangeProfile =(props) => {
       'name': dataForm.surname
     //   'contacts': [
     // {
-    //    'id':0,
     //    'phone': dataForm.phone,
     //     'type':"MAIN"
     // },
     // {
-    //   'id':1,
     //   'phone': dataForm.secondPhone,
     //     'type':"ADDITIONAL"
     // }
