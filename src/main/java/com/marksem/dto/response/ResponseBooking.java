@@ -22,7 +22,11 @@ public class ResponseBooking extends BaseEntity {
         this.toDate = b.getToDate();
         this.isOwner = b.getIsOwner();
         this.renterId = b.getRenter().getId();
-        if (withHouse) this.house = new ResponseHouse(b.getHouse(), false);
         if (b.getFeedback() != null) this.feedback = new ResponseFeedBack(b.getFeedback());
+    }
+
+    public ResponseBooking(Booking b, Long rating) {
+        this(b);
+        this.house = new ResponseHouse(b.getHouse(), rating);
     }
 }

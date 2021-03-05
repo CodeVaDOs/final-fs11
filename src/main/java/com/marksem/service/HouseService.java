@@ -6,14 +6,10 @@ import com.marksem.dto.response.ResponseHouse;
 import com.marksem.entity.house.House;
 import com.marksem.entity.house.HouseImage;
 import com.marksem.exception.NoDataFoundException;
-import com.marksem.repository.HouseImageRepository;
-import com.marksem.repository.HouseModelRepository;
-import com.marksem.repository.HouseRepository;
-import com.marksem.repository.UserRepository;
+import com.marksem.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +21,7 @@ import java.util.stream.Collectors;
 public class HouseService {
     private final HouseRepository houseRepository;
     private final UserRepository userRepository;
+    private final BookingRepository bookingRepository;
     private final HouseModelRepository houseModelRepository;
     private final HouseImageRepository houseImageRepository;
     private final FileService fileService;
@@ -38,7 +35,7 @@ public class HouseService {
                             return saved;
                         })
                         .orElseThrow(() -> new NoDataFoundException("houseModel", h.getHouseModelId())))
-                .map(house -> new ResponseHouse(house, true))
+                .map(house -> new ResponseHouse(house, bookingRepository.getHouseRating(house.getId()), house.getBookings()))
                 .orElseThrow(() -> new NoDataFoundException("user", h.getOwnerId()));
     }
 
@@ -54,23 +51,24 @@ public class HouseService {
                     e.setLocation(h.getLocation());
                     e.setEquipment(e.getEquipment());
                     e.setArea(h.getArea());
-                    e.setAvgRating(h.getAvgRating());
                     e.setDescription(h.getDescription());
-                    return new ResponseHouse(houseRepository.save(e), true);
+                    return new ResponseHouse(houseRepository.save(e), bookingRepository.getHouseRating(e.getId()), e.getBookings());
                 })
                 .orElseThrow(() -> new NoDataFoundException("house", h.getId()));
     }
 
     public ResponseHouse read(Long id) {
         return houseRepository.findById(id)
-                .map(house -> new ResponseHouse(house, true))
+                .map(house -> new ResponseHouse(house, bookingRepository.getHouseRating(house.getId()), house.getBookings()))
                 .orElseThrow(() -> new NoDataFoundException("house", id));
     }
 
     public PageableResponse<ResponseHouse> readAll(int page, int size) {
         Page<House> houses = houseRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(houses.getTotalElements(),
-                houses.getContent().stream().map(h -> new ResponseHouse(h, true)).collect(Collectors.toList()));
+                houses.getContent().stream()
+                        .map(h -> new ResponseHouse(h, bookingRepository.getHouseRating(h.getId()), h.getBookings()))
+                        .collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {

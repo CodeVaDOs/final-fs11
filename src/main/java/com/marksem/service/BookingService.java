@@ -26,7 +26,7 @@ public class BookingService {
         return userRepository.findByEmail(email)
                 .map(u -> houseRepository.findById(b.getHouseId())
                         .map(h -> bookingRepository.save(b.toEntity(h, u)))
-                        .map(saved -> new ResponseBooking(saved, true))
+                        .map(saved -> new ResponseBooking(saved, bookingRepository.getHouseRating(saved.getId())))
                         .orElseThrow(() -> new NoDataFoundException("house", b.getHouseId())))
                 .orElseThrow(() -> new NoDataFoundException(String.format("user with email %s not found", email)));
     }
@@ -38,20 +38,22 @@ public class BookingService {
                     i.setToDate(b.getToDate());
                     return bookingRepository.save(i);
                 })
-                .map(saved -> new ResponseBooking(saved, true))
+                .map(saved -> new ResponseBooking(saved, bookingRepository.getHouseRating(saved.getId())))
                 .orElseThrow(() -> new NoDataFoundException("booking", b.getId()));
     }
 
     public ResponseBooking read(Long id) {
         return bookingRepository.findById(id)
-                .map(b -> new ResponseBooking(b, true))
+                .map(b -> new ResponseBooking(b, bookingRepository.getHouseRating(b.getId())))
                 .orElseThrow(() -> new NoDataFoundException("booking", id));
     }
 
     public PageableResponse<ResponseBooking> readAll(int page, int size) {
         Page<Booking> bookings = bookingRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(bookings.getTotalElements(),
-                bookings.getContent().stream().map(b -> new ResponseBooking(b, true)).collect(Collectors.toList()));
+                bookings.getContent().stream()
+                        .map(b -> new ResponseBooking(b, bookingRepository.getHouseRating(b.getId())))
+                        .collect(Collectors.toList()));
     }
 
     public Long delete(Long id) {
