@@ -12,7 +12,7 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
     @Query(
             value = "SELECT Count(*) FROM documents WHERE house_id IN (SELECT id FROM houses WHERE owner_id IN (SELECT id FROM users WHERE manager_id = :id)) AND type = 'CONTRACT'",
             nativeQuery = true)
-    long getContractsQuantity(@Param("id") Long id);
+    Long getContractsQuantity(@Param("id") Long id);
 
     Page<Document> findByNameContainingIgnoreCaseAndType(String name, DocumentType type, Pageable pageable);
 }

@@ -20,7 +20,6 @@ public class RequestHouse extends BaseEntity {
     private String equipment;
     private String area;
     private String description;
-    private Double avgRating;
     private Long ownerId;
     private Long houseModelId;
     private List<MultipartFile> images = new ArrayList<>();
@@ -31,7 +30,6 @@ public class RequestHouse extends BaseEntity {
                 .equipment(this.equipment)
                 .area(this.area)
                 .description(this.description)
-                .avgRating(this.avgRating)
                 .owner(u)
                 .houseModel(hm)
                 .bookings(new ArrayList<>())
