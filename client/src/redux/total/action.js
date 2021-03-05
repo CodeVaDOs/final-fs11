@@ -27,7 +27,6 @@ const getCatalogue = () => (dispatch) => {
     });
 };
 
-
 export const TOTAL_ACTIONS = {
   getAccessPanel, 
   getCatalogue

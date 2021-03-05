@@ -11,7 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import { Container } from "@material-ui/core";
 import CircularStaticHouse from "./CircularStaticHouse";
-import Map from "./Map";
+// import Map from "./Map";
 
 
 const useStyles = makeStyles(() => ({
@@ -255,7 +255,7 @@ export const HouseContainer = ({ house }) => {
         </Box>
         <Box className={classes.bottomSide}>
           <Box className={classes.leftSide}>
-            <BaseMap/>
+            {/*<BaseMap/>*/}
           </Box>
           <Box className={classes.rightSide}>
             <Rent/>

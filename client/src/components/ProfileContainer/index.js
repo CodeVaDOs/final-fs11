@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme)=>({
   },
 
 }));
-const ProfileContainer =({ profileName="Овсієнко Дмитро Вікторович" })=>{
+const ProfileContainer =(props)=>{
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
