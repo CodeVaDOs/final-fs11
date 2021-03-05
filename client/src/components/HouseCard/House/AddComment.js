@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
     overflow: "auto",
     outline: "none",
     boxShadow: "none",
-    width: '87%',
+    width: '95%',
     minHeight: '130px',
     marginTop: '10px',
     border: '1px solid #B1B4BA',

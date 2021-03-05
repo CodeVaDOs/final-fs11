@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Header from "../src/components/Header";
 import Sidebar from "@components/Sidebar";
 import { makeStyles } from "@material-ui/core";
 import AppContainer from "./containers/AppContainer";
 import { useSelector } from "react-redux";
-import { PageLoader } from "./components/Loader";
+import { PageLoader, Preloader } from "./components/Loader";
 
 const sidebarWidth = 416;
 
@@ -17,15 +17,16 @@ const useStyles = makeStyles(() => ({
   },
 
   mainContainer: props => ({
+    float: "left",
     margin: 0,
     padding: 0,
-    width: '100% ',
+    width: '98% ',
     marginLeft: '20px',
-    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 30 + 'px' : '30px',
+    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 115 + 'px' : '30px',
     transition: 'margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
   }),
   sidebar: {
-    flex: 1,
+    float: "right",
     margin: 0,
     padding: 0,
   }
@@ -45,7 +46,9 @@ const App = () => {
     <div className={classes.root}>
       <div className={classes.mainContainer}>
         {authorized && <Header/>}
-        <AppContainer/>
+        <Suspense fallback={<PageLoader/>}>
+          <AppContainer/>
+        </Suspense>
       </div>
       {authorized && <div className={classes.sidebar}>
         <Sidebar

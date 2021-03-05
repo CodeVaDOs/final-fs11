@@ -98,13 +98,14 @@ const ChangePass =()=> {
   };
 
   const fetch = () =>{
-    dispatch(AUTH_ACTIONS.changePassword({ password: dataForm.newPass }, token));
+
+    // Waite for end-point from back ned write new changePass(old, new pass)
+    // dispatch(AUTH_ACTIONS.changePassword({ password: dataForm.newPass }, token));
   };
 
   async function submit (e) {
     e.preventDefault();
-    await fetch();
-    history.push("/login");
+    // await fetch();
   }
 
   ValidatorForm.addValidationRule('isPasswordMatch', (value) =>  value === dataForm.newPass);

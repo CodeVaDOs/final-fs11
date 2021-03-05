@@ -17,7 +17,7 @@ const reduxStore = store();
 ReactDOM.render(
   <ErrorBoundary>
     <Provider store={reduxStore}>
-      <Suspense fallback={<PageLoader loaded={(<div>Pageloader</div>)}/>}>
+      <Suspense fallback={"Loading..."}>
         <Router >
           <App/>
         </Router>

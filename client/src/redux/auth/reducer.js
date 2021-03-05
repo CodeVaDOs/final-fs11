@@ -4,7 +4,7 @@ const { accessToken } = getTokens();
 const INIT_STATE = {
   authorized: Boolean(accessToken),
   loading: false,
-  user: {},
+  user: {}
 };
 
 export default (state = INIT_STATE, action) => {
@@ -106,7 +106,6 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false
       };
-
     default:
       return state;
   }

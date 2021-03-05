@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import BlueHouse from "../../images/blueHouse.png";
@@ -43,48 +43,46 @@ const useStyles = makeStyles({
   },
 });
 const FastAccessPanel =(props)=>{
-  const userType = props.user.role;
   const classes = useStyles();
   const { t } = useTranslation();
   const handleClick =()=>{
     console.log("change path to analytics");
-  //  Back-end should return for
-    // Client (number of all houses && number of free house)
-    // Manager (qty of clients && qty of contracts)
+  // Need to add what to do if button details will be pressed
   };
   const dataClient = [
     {
       "id": "0",
       "icon": BlueHouse,
       "nameTitle": t('privateHouse'),
-      "name": '2',
+      "name": props.admin.quantityAllHouses,
       "onClick": handleClick
     },
     {
       "id": "1",
       "icon": OrangeHouse,
       "nameTitle": t("freeHouses"),
-      "name": 'M-2 ID 00170',
+      "name": props.admin.quantityOfFreeHouses,
       "onClick": handleClick
     },
   ];
   const dataManager = [
     {
-      "id": "0",
+      "id": 0,
       "icon": Client,
       "nameTitle": t("clientTitle"),
-      "name": '24',
+      "name": props.admin.quantityOfClients,
       "onClick": handleClick
     },
     {
       "id": "1",
       "icon": Contracts,
       "nameTitle": t("contractTitle"),
-      "name": '333',
+      "name": props.admin.quantityOfContracts,
       "onClick": handleClick
     },
   ];
-  
+
+
   const isClient =()=>{
     return(<>
       <Box className={classes.boxControl}>
@@ -140,13 +138,14 @@ const FastAccessPanel =(props)=>{
     </>);
   };
   return(<>
-    {(userType === "USER" && isClient()) || (userType === "MANAGER" && isManager()) || (userType === "ADMIN" && isManager()) }
+    {(props.user.role === "USER" && isClient()) || (props.user.role === "MANAGER" && isManager()) || (props.user.role === "ADMIN" && isManager()) }
   </>);
 };
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    admin: state.total.accessPanel
   };
 };
 

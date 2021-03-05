@@ -7,6 +7,7 @@ import { Grid, LinearProgress, List, ListItemIcon, withStyles } from "@material-
 import PhoneEnabledIcon from "@material-ui/icons/PhoneEnabled";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ManagerCard({ name, tel, email, avt }) {
+const ManagerCard =(props)=> {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -69,10 +70,9 @@ export default function ManagerCard({ name, tel, email, avt }) {
 
         <Grid item md={2}>
           <Avatar className={classes.managerAvatar}>
-            {avt === null?  <AccountCircleIcon color="primary"/>: <img src={avt}/>}
+            {props.manager.avatar === null ?  <AccountCircleIcon color="primary"/>: <img src={props.manager.avatar}/>}
           </Avatar>
         </Grid>
-
         <Grid item md={9}>
           <List>
             <Grid container>
@@ -84,7 +84,7 @@ export default function ManagerCard({ name, tel, email, avt }) {
                 </Grid>
                 <Grid item md={11}>
                   <ListItemText
-                    primary={name}/>
+                    primary={props.manager.name}/>
                 </Grid>
               </ListItem>
             </Grid>
@@ -99,7 +99,7 @@ export default function ManagerCard({ name, tel, email, avt }) {
                 </Grid>
                 <Grid item md={10}>
                   <ListItemText
-                    secondary={tel}/>
+                    secondary={props.manager.contacts[0].phone}/>
                 </Grid>
               </ListItem>
             </Grid>
@@ -114,7 +114,7 @@ export default function ManagerCard({ name, tel, email, avt }) {
                 </Grid>
                 <Grid item md={11}>
                   <ListItemText
-                    secondary={email}/>
+                    secondary={props.manager.email}/>
                 </Grid>
               </ListItem>
             </Grid>
@@ -125,6 +125,12 @@ export default function ManagerCard({ name, tel, email, avt }) {
 
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    manager: state.auth.user.manager
+  };
+};
+export default connect(mapStateToProps, null)(ManagerCard);
 //todo
 const BorderLinearProgress = withStyles((theme) => ({
   root: {

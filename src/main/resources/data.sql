@@ -53,3 +53,22 @@ insert into house_models (
 insert into house_models (
     name, house_type_id) values (
     'Elon Musk', 1);
+
+insert into houses (avg_rating, area, description, owner_id, house_model_id) values (4.5, 'test 1', 'house 1', 1, 1);
+insert into houses (avg_rating, area, description, owner_id, house_model_id) values (2.5, 'test 2', 'house 2', 1, 1);
+insert into houses (avg_rating, area, description, owner_id, house_model_id) values (5, 'test 3', 'house 3', 1, 1);
+
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 1');
+insert into documents (house_id, type, url_file, name) values (1 , 'PAYMENT_ORDER', '', 'document 2');
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 3');
+insert into documents (house_id, type, url_file, name) values (1 , 'PAYMENT_ORDER', '', 'document 4');
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 5');
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 6');
+insert into documents (house_id, type, url_file, name) values (1 , 'PAYMENT_ORDER', '', 'document 7');
+insert into documents (house_id, type, url_file, name) values (1 , 'PAYMENT_ORDER', '', 'document 8');
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 9');
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 10');
+insert into documents (house_id, type, url_file, name) values (1 , 'PAYMENT_ORDER', '', 'document 11');
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 12');
+insert into documents (house_id, type, url_file, name) values (1 , 'CONTRACT', '', 'document 13');
+insert into documents (house_id, type, url_file, name) values (1 , 'PAYMENT_ORDER', '', 'document 14');

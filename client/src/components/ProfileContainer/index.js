@@ -18,6 +18,7 @@ import Box from '@material-ui/core/Box';
 import TabPanel from "@components/TabPanel";
 import ChangePass from "../ChangePass";
 import ChangeProfile from "../ChangeProfile";
+import {connect} from "react-redux";
 
 
 const useStyles = makeStyles((theme)=>({
@@ -146,14 +147,17 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
     };
   };
   const [dataForm, setDataForm] = useState({
-    langSystem:`${t("ua")}`,
+    langSystem:props.user.language,
     currencySystem:`${t("uah")}`,
   });
   // Upload Photo Managment
+  const token = localStorage.getItem('authToken');
+  const addToken = `?jwt=${token}`
+  console.log(addToken)
   const [uploadImg, setUploadImg] = useState({
-    mainState: "initial",
-    imageUploaded: 0,
-    selectedFile: null
+    mainState: "uploaded",
+    imageUploaded: 1,
+    selectedFile: props.user.urlAvatar+`${addToken}`
   });
   const handleUploadClick = event => {
     const reader = new FileReader();
@@ -246,7 +250,7 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
               (uploadImg.mainState === "uploaded" && renderUploadedState())}
         </Box>
         <Box>
-          <Typography className={classes.fullName}>{profileName}</Typography>
+          <Typography className={classes.fullName}>{props.user.name}</Typography>
           <Typography className={classes.boldText}>{t("langTitle")}</Typography>
           <FormControl variant="filled" className={classes.formControlSelect}>
             <InputLabel id="demo-simple-select-filled-label"></InputLabel>
@@ -257,7 +261,7 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
               value={dataForm.langSystem}
               onChange={handleChangeLang}
             >
-              <MenuItem value={`${t("ua")}`}>{t("ua")}</MenuItem>
+              <MenuItem value={dataForm.langSystem}>{dataForm.langSystem}</MenuItem>
               <MenuItem value={`${t("ru")}`}>{t("ru")}</MenuItem>
               <MenuItem value={`${t("en")}`}>{t("en")}</MenuItem>
             </Select>
@@ -311,4 +315,10 @@ const ProfileContainer =({ profileName="Овсієнко Дмитро Вікто
     </Grid>
   </>);
 };
-export default ProfileContainer;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps, null)(ProfileContainer);

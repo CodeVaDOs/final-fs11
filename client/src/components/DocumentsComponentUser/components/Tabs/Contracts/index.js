@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { SelectDocument } from "../../../../ClientPage/components/Documents/SelectDocument";
+import React, {useEffect, useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { Button } from "@material-ui/core";
 import { CreateDocument } from "./CreateDocument";
 import { DocumentItem } from '../../../../ClientPage/components/Documents/DocumentItem';
 import { useDispatch, useSelector } from "react-redux";
 import { documentsAction } from "../../../../../redux/documents/action";
+import LinearBuffer from "../../Progress";
+import { DataNotFound } from "../DataNotFound";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
+    flexGrow: 1,
+    margin: "20px 0"
   },
   topSide: {
     margin: 0,
@@ -67,37 +70,18 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const MyContractsUser = ({ search, setSearch }) => {
+export const MyContractsUser = ({ search }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { loading, documents } = useSelector(state => state.documents);
   useEffect(() => {
     dispatch(documentsAction.getDocuments('CONTRACT', search));
   }, [search]);
-  // const [documents, setDocuments] = useState(Array.apply(null, Array(100)).map((_, index) => (
-  //   {
-  //     id: index,
-  //     title: index,
-  //     detail: index,
-  //   }))
-  // );
-  const [createDocument, setCreateDocument] = useState();
-  const [filteredExploitation, setFilteredExploitation] = useState([]);
-  useEffect(() => {
-    setFilteredExploitation(
-      documents.list.filter((d) => {
-        return search.includes(d.title);
-      }));
-  }, [search]);
 
-  const searchHandler = () => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
+  const [createDocument, setCreateDocument] = useState();
 
   if (loading) {
-
-    return <h5>Завантажую контракти...</h5>;
+    return <LinearBuffer/>;
   }
   const createContract = () => {
     setCreateDocument(true);
@@ -106,48 +90,54 @@ export const MyContractsUser = ({ search, setSearch }) => {
 
     <>
       <div className={classes.root}>
-        {createDocument ?
-          <CreateDocument/> :
-          <div>
-            {documents.list.length === 0 ?
-              <h5>У Вас пока контрактов нет...</h5> :
-              <div>
-                <div className={classes.topSide}>
-                  <Button
-                    className={classes.btnAdd}
-                    onClick={createContract}
-                  >
-                    Додати контракт <DescriptionIcon className={classes.editIcon}/>
-                  </Button>
-                  <div className={classes.row}>
-                    <h3>Сортувати</h3>
-                    <SelectDocument
-                      options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
-                  </div>
-                </div>
-                <div className={classes.documents}>
-                  <div className={classes.mainContainerDocuments}>
+        <Grid container spacing={3}>
+          {createDocument ?
+            <CreateDocument/> :
+            <div>
+              <Grid container spacing={3}>
+                {documents.list.length === 0 ?
+                  <Grid item xs={4}>
+                    <DataNotFound/>
+                  </Grid>
+                  :
+                  <Grid container spacing={3}>
+                    <div className={classes.topSide}>
+                      <Button
+                        className={classes.btnAdd}
+                        onClick={createContract}
+                      >
+                        Додати контракт <DescriptionIcon className={classes.editIcon}/>
+                      </Button>
+                      <div className={classes.row}>
+                        <h3>Сортувати</h3>
+                        <SelectDocument
+                          options={['По датi', 'Останнi доданi', 'По датi контракту', 'По iменi вiд А до Я']}/>
+                      </div>
+                    </div>
                     {documents.list
                       .map((v, index) => {
                         return (
-                          <DocumentItem
-                            key={index}
-                            title={v.name}
-                            shortDescription={v.type}
-                          />
+                          <Grid key={index} item xs={4}>
+                            <DocumentItem
+                              title={v.name}
+                              shortDescription={v.type}
+                            />
+                          </Grid>
                         );
                       })
                     }
-                  </div>
-                </div>
-              </div>
 
-            }
+                  </Grid>
+
+                }
+              </Grid>
 
 
-          </div>
-        }
+            </div>
+          }
+        </Grid>
       </div>
     </>
   );
 };
+
