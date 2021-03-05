@@ -16,7 +16,7 @@ public class ResponseBooking extends BaseEntity {
     private ResponseHouse house;
     private ResponseFeedBack feedback;
 
-    public ResponseBooking(Booking b) {
+    public ResponseBooking(Booking b, boolean withHouse) {
         super(b);
         this.fromDate = b.getFromDate();
         this.toDate = b.getToDate();

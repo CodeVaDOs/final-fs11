@@ -77,29 +77,15 @@ const useStyles = makeStyles({
   },
   span1: {
     fontFamily: 'Roboto, sans-serif',
-    fontSize: '14px',
+    fontSize: '19px',
     fontWeight: 'normal',
     color: '#fff',
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom:"5px"
   },
 });
-const taskList = [
-  {
-    title: "Діма Овсієнко",
-    body: "Я б хотів отримати розгорнуту інформацію по Вашому новому проекту \"MARKSEM House-Bath\". Дуже цікавить з якого матеріалу виробляєте бані, які сроки...",
-    color: "#00D0FF",
-    id:1
-  },
-  {
-    title: "Замовити Андрій басейн",
-    body: "Lorem ipsum dolor sit amet, consectete magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    color: "#FA505D",
-    id:2
-  },
-];
 
 const TaskPanel = (props) => {
-  const userType = props.user.role;
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -107,7 +93,7 @@ const TaskPanel = (props) => {
     return(<>
       <Box>
         <Typography className={classes.header}>{t("personalManager")}</Typography>
-        <ManagerCard name={"Олег Притула"} email={"olegprytula@gmail.com"} tel={"093-111-11-11"} avt={avatar}/>
+        {/*<ManagerCard />*/}
       </Box>
     </>);
   };
@@ -116,9 +102,9 @@ const TaskPanel = (props) => {
     return(
       <>
         <Box>
-          <Typography className={classes.header}>{t("tasks")}<Box className={classes.red}><span className={classes.span1}>9+</span></Box></Typography>
+          <Typography className={classes.header}>{t("tasks")}<Box className={classes.red}><span className={classes.span1}>{props.user.tasks.length}</span></Box></Typography>
         </Box>
-        { taskList.map(c=>
+        { props.user.tasks.map(c=>
           <Box key={c.id} className={classes.taskContainer}>
             <Grid className={classes.container}
               container
@@ -127,11 +113,11 @@ const TaskPanel = (props) => {
               alignItems="flex-start"
             >
               <Grid item xs={1}>
-                <Box className={classes.line} style={{ backgroundColor: `${c.color}` }}> </Box>
+                <Box className={classes.line} style={{ backgroundColor: `#00D0FF` }}> </Box>
               </Grid>
               <Grid item xs={11}>
                 <Typography className={classes.header2}>{c.title}</Typography>
-                <Typography className={classes.grey}>{c.body}</Typography>
+                <Typography className={classes.grey}>{c.text}</Typography>
                 <Box style={{ marginLeft: "210px" }}>
                   <Typography className={classes.btnTitle}>{t("detailSecond")}</Typography>
                   <Button className={classes.btnBtn} onClick={()=>{}}><ArrowForwardIosIcon style={{ color:"#99A0A3", fontSize:"15px" }}/></Button>
@@ -144,7 +130,7 @@ const TaskPanel = (props) => {
     );
   };
   return (<>
-    {(userType === "USER" && isClient()) || (userType === "MANAGER" && isManager()) || (userType === "ADMIN" && isManager())}
+    {(props.user.role === "USER" && isClient()) || (props.user.role === "MANAGER" && isManager()) || (props.user.role === "ADMIN" && isManager())}
   </>);
 };
 

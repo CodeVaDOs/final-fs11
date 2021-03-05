@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 import Box from '@material-ui/core/Box';
@@ -10,6 +10,8 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { updateUser } from "../../redux/auth/action";
+import { serialize } from 'object-to-formdata';
+
 
 const useStyles = makeStyles({
   rootProfile: {
@@ -99,11 +101,11 @@ const ChangeProfile =(props) => {
   const [dataForm, setDataForm] = useState({
     id:props.user.id,
     surname: props.user.name,
-    phone: props.user.contacts[0],
-    secondPhone: props.user.contacts[1],
+    phone: props.user.contacts[0].phone,
+    secondPhone: props.user.contacts[1].phone,
     email: props.user.email,
-    dateBirth:"",
-    password:props.user.password
+    dateBirth: props.user.birthday.slice(0,10),
+    password: props.user.password
   });
   const handleChange = (e) => {
     setDataForm({
@@ -112,24 +114,29 @@ const ChangeProfile =(props) => {
     });
   };
 
-  const getFormData = (data) => {
-    const form_data = new FormData();
-    for ( const key in data ) {
-      form_data.append(key, data[key]);
-    }
-    return form_data;
-  }
-    // Form check for back-end && response status
+  // Form check for back-end && response status
   const check = (e) => {
     e.preventDefault();
-    const data = {
-      id: dataForm.id,
-      name:dataForm.surname,
-      email:dataForm.email,
-      password:dataForm.password
+    const dataFormData = {
+      'id': dataForm.id,
+      'email': dataForm.email,
+      'name': dataForm.surname
+    //   'contacts': [
+    // {
+    //    'id':0,
+    //    'phone': dataForm.phone,
+    //     'type':"MAIN"
+    // },
+    // {
+    //   'id':1,
+    //   'phone': dataForm.secondPhone,
+    //     'type':"ADDITIONAL"
+    // }
+    // ]
     };
-    props.updateUser(getFormData(data));
-    console.log(dataForm.surname, dataForm.phone, dataForm.secondPhone, dataForm.email, dataForm.dateBirth );
+    const formData = serialize(dataFormData);
+    console.log(formData);
+    props.updateUser(formData);
   };
     //Form Data Props
   const inputData = [
@@ -193,7 +200,7 @@ const ChangeProfile =(props) => {
                   <TextField
                     id="date"
                     type="date"
-                    defaultValue="2021-01-20"
+                    defaultValue={i.valueType}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,

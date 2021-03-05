@@ -12,15 +12,13 @@ const Index =()=> {
   return(<Container>
     <div> {"HISTORY PAGE"} </div>
     {/*Houses page on Map location*/}
-    <ModalsContainer buttonOk={t( "returnBtn")} buttonCancel={t("changeLocal")} buttonActivateDialog={t("changeLocal")} body={<ModalHouseLocation/>}/>
+    <ModalsContainer style={{backgroundColor:"green"}} buttonOk={t( "returnBtn")} buttonCancel={t("changeLocal")} buttonActivateDialog={t("changeLocal")} body={<ModalHouseLocation/>}/>
     {/*Houses page on Map location second modal confirm after back-emd response*/}
-    <ModalsContainer displayBtn={"none"} buttonOk={t("confBtn")} buttonActivateDialog={"location conf"} body={<ModalHouseLocationConfirm/>}/>
+    <ModalsContainer style={{backgroundColor:"green"}} displayBtn={"none"} buttonOk={t("confBtn")} buttonActivateDialog={"location conf"} body={<ModalHouseLocationConfirm/>}/>
     {/*Create new client/manager Modal -> Admin/Panel -> Створити btn*/}
-    <ModalsContainer buttonOk={t("returnBtn")} buttonCancel={t("clientBtnCard")} buttonActivateDialog={t("create")} body={<ModalNewClient/>}/>
+    <ModalsContainer style={{backgroundColor:"green"}} buttonOk={t("returnBtn")} buttonCancel={t("clientBtnCard")} buttonActivateDialog={t("create")} body={<ModalNewClient/>}/>
     {/*Order Services Modal -> Home -> Замовити Додаткові Послуги btn*/}
-    <ModalsContainer buttonOk={t("returnBtn")} buttonCancel={t("serBtn")} buttonActivateDialog={t("btnService")} body={<ModalNewServices/>}/>
-    {/*Order Manage Modal -> Home/Manage -> Замовити Послугу управління btn*/}
-    <ModalsContainer buttonOk={t("returnBtn")} buttonCancel={t("serBtn")} buttonActivateDialog={t("btnSer2")} body={<ModalManageServices/>}/>
+    <ModalsContainer style={{backgroundColor:"green"}} buttonOk={t("returnBtn")} buttonCancel={t("serBtn")} buttonActivateDialog={t("btnService")} body={<ModalNewServices/>}/>
   </Container>);
 };
 export default Index;

@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { MyContractsUser } from "./Contracts";
-import { MyBills } from "./Platizki";
-import { MyExploitation } from "./Exploitation";
+import {MyContractsUser} from "./Contracts";
+import {MyBills} from "./Platizki";
+import {MyExploitation} from "./Exploitation";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {children, value, index, ...other} = props;
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
+      <div
+          role="tabpanel"
+          hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
@@ -77,11 +77,11 @@ const useStyles = makeStyles(() => ({
     border: "0",
     marginRight: 10
   },
-  clearfix:{
-    display:'flex',
-    flexDirection:"row",
-    alignItems:"center",
-    height:60
+  clearfix: {
+    display: 'flex',
+    flexDirection: "row",
+    alignItems: "center",
+    height: 60
   }
 }));
 
@@ -128,21 +128,19 @@ export default function FullWidthTabs() {
           />
         </div>
       </div>
-
       <SwipeableViews
-        style={{ width: "950px", margin: "0 auto" }}
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={value}
+          onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <MyContractsUser search={search} setSearch={setSearch}/>
+          <MyContractsUser search={search}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <MyBills search={search} setSearch={setSearch}/>
+          <MyBills search={search}/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <MyExploitation search={search} setSearch={setSearch}/>
+          <MyExploitation search={search}/>
         </TabPanel>
       </SwipeableViews>
 

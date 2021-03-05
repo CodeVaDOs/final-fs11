@@ -52,7 +52,7 @@ public class AuthService {
     }
 
     public Map<Object, Object> createTokens(User u) {
-        String token = jwtTokenProvider.createToken(u.getEmail(), u.getRole().name());
+        String token = jwtTokenProvider.createToken(u.getEmail(), u.getRole().name(), u.getId());
 
         RefreshToken createdRefreshToken = this.createRefreshToken(u);
         String refreshToken = jwtTokenProvider.createRefreshToken(createdRefreshToken.getId());
