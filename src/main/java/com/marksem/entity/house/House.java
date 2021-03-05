@@ -24,9 +24,6 @@ public class House extends BaseEntity {
     private String area;
     private String description;
 
-    @Column(name = "avg_rating")
-    private Double avgRating;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;

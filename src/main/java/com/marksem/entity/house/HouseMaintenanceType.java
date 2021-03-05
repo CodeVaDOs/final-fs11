@@ -2,9 +2,12 @@ package com.marksem.entity.house;
 
 public enum HouseMaintenanceType {
     PLUMBING,
+    FACADE_WORKS,
     HEATING,
-    ELECTRIFICATION,
+    ELECTRICITY,
     GUARD,
     LANDSCAPING,
-    VENTILATION;
+    VENTILATION,
+    WINDOWS_AND_DOORS,
+    OTHER
 }

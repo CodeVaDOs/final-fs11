@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,13 +26,16 @@ public class UserService {
     public ResponseUser create(RequestUser u, String manager, String token) {
         String urlAvatar = null;
         if (u.getAvatar() != null) urlAvatar = fileService.upload(u.getAvatar(), token);
-        User saved = repository.save(u.toEntity(getUserByEmail(manager).getId(), urlAvatar));
-
-        if (u.getContacts() != null) contactService.saveAll(u.getContacts(), saved);
 
         String text = "<p>Ваш пароль для входа в MARKSEM CRM :</p>" + u.getPassword();
         messageService.send(u.getEmail(), "user creation", text);
 
+        return save(u, getUserByEmail(manager).getId(), urlAvatar);
+    }
+
+    public ResponseUser save(RequestUser u, Long managerId, String urlAvatar) {
+        User saved = repository.save(u.toEntity(managerId, urlAvatar));
+        if (u.getContacts() != null) contactService.saveAll(u.getContacts(), saved);
         return new ResponseUser(saved);
     }
 
@@ -61,10 +63,15 @@ public class UserService {
     }
 
     public ResponseUser update(RequestUser ru, String token) {
+        String url = (ru.getAvatar() != null) ? fileService.update(ru.getAvatar(), token) : null;
+
         return repository.findById(ru.getId())
-                .map(user -> new ResponseUser(repository.save(ru.update(user, ru.getAvatar() != null
-                        ? fileService.update(ru.getAvatar(), token)
-                        : null))))
+                .map(user -> {
+                    User u = ru.update(user, url);
+                    User saved = repository.save(u);
+                    Long id = u.getId();
+                    return new ResponseUser(saved);
+                })
                 .orElseThrow(() -> new NoDataFoundException("user", ru.getId()));
     }
 
