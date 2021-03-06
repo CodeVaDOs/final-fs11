@@ -68,7 +68,7 @@ public class UserService {
                 .map(user -> {
                     User u = ru.update(user, url);
                     User saved = repository.save(u);
-                    Long id = u.getId();
+                    contactService.saveAll(ru.getContacts(), u);
                     return new ResponseUser(saved);
                 })
                 .orElseThrow(() -> new NoDataFoundException("user", ru.getId()));
