@@ -28,7 +28,7 @@ public class HouseMaintenanceController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseHouseMaintenance> create(@RequestBody RequestHouseMaintenance hm) {
         return ResponseEntity.ok(service.create(hm));
     }

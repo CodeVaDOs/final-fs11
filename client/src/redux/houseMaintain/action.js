@@ -6,8 +6,7 @@ export const houseMaintainService = (data) => (dispatch) => {
     api({
         method: 'post',
         url: 'houseMaintenance',
-        data,
-        headers: { 'Content-Type': 'multipart/form-data' }
+        data
     })
         .then((data) => {
             console.log("Post house maintain : ", data);
