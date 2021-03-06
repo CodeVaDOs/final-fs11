@@ -18,40 +18,35 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class TransactionService {
   private final TransactionRepository transactionRepository;
-  private final TransactionGroupRepository transactionGroupRepository;
 
-  public List<Transaction> create(long transactionGroupId) {
-    TransactionGroup tg = transactionGroupRepository
-        .findById(transactionGroupId)
-        .get();
+  public List<Transaction> create(TransactionGroup tg) {
 
     LocalDate fromDate = convertToLocalDate(tg.getFromDate());
     long daysInterval = getDaysRange(tg.getFromDate(), tg.getToDate());
 
-
-    List<Transaction> transactionList = Stream.iterate(0, n -> n + 1)
+    return transactionRepository.saveAll(
+      Stream.iterate(0, n -> n + 1)
         .limit(daysInterval)
         .map(fromDate::plusDays)
         .map(date ->
-            Transaction.builder()
-                //.transactionGroup(tg)
-                .amountUSDPerDay(tg.getAmountUSD() / daysInterval)
-                .date(Date.from(date
-                    .atStartOfDay(ZoneId.systemDefault())
-                    .toInstant()))
-                .build()).collect(Collectors.toList());
-    return transactionRepository.saveAll(transactionList);
+               Transaction.builder()
+                 .transactionGroup(tg)
+                 .amountUSDPerDay(tg.getAmountUSD() / daysInterval)
+                 .date(Date.from(date
+                                   .atStartOfDay(ZoneId.systemDefault())
+                                   .toInstant()))
+                 .build()).collect(Collectors.toList()));
   }
 
   private int getDaysRange(Date from, Date to) {
     return convertToLocalDate(to).getDayOfYear() -
-        convertToLocalDate(from).getDayOfYear();
+             convertToLocalDate(from).getDayOfYear();
   }
 
   private LocalDate convertToLocalDate(Date dateToConvert) {
     return dateToConvert.toInstant()
-        .atZone(ZoneId.systemDefault())
-        .toLocalDate();
+             .atZone(ZoneId.systemDefault())
+             .toLocalDate();
   }
 
 //    public ResponseTransaction create(RequestTransaction t) {

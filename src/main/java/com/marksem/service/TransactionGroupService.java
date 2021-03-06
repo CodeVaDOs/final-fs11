@@ -24,25 +24,22 @@ public class TransactionGroupService {
 
   public List<ResponseTransactionGroup> create(List<RequestTransactionGroup> tg) {
 
-    return tg.stream()
-        .map(transactionGroup -> houseRepository.findById(transactionGroup.getHouseId())
-            .map(h -> {
+    return tg.parallelStream()
+             .map(requestTransactionGroup ->
+                    houseRepository
+                      .findById(requestTransactionGroup.getHouseId())
+                      .map(h -> {
+                        Double convert = currencyConversionService.convert(requestTransactionGroup.getAmount(),
+                          requestTransactionGroup.getCurrency(),
+                          Currency.USD);
+                        TransactionGroup transactionGroupSave = requestTransactionGroup.toEntity(h, convert);
+                        transactionGroupSave.setTransactions(transactionService.create(transactionGroupSave));
+                        return transactionGroupRepository.save(transactionGroupSave);
 
-              TransactionGroup saveTransactionGroup = transactionGroupRepository.save(
-                  transactionGroup.toEntity(h, currencyConversionService
-                  .convert(transactionGroup.getAmount(), transactionGroup.getCurrency(),
-                      Currency.USD)));
-              List<Transaction> transactionList = transactionService.create(saveTransactionGroup.getId());
-
-              TransactionGroup transactionToUpdate = transactionGroupRepository.getOne(saveTransactionGroup.getId());
-              transactionToUpdate.setTransactions(transactionList);
-
-              return transactionGroupRepository.save(transactionToUpdate);
-
-            })
-            .map(ResponseTransactionGroup::new)
-            .orElseThrow(() -> new NoDataFoundException("house", transactionGroup.getHouseId())))
-        .collect(Collectors.toList());
+                      })
+                      .map(ResponseTransactionGroup::new)
+                      .orElseThrow(() -> new NoDataFoundException("house", requestTransactionGroup.getHouseId())))
+             .collect(Collectors.toList());
   }
 
 
