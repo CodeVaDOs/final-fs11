@@ -7,12 +7,19 @@ import  Container  from "../../components/Container";
 const Index = () => {
   const [page, setPage] = useState(1);
   const [{ data, loading }, getData] = useFetch({
-    url: '/users?role=MANAGER&size=5',
+    url: `/users?role=MANAGER&page=${page - 1}&size=5`,
     initData: {
       list: [],
       total: 1
     }
   });
+
+  const [{loading: isRemoveLoading}, removeUser] = useFetch({
+    instant: false,
+    onCompleted: () => {
+      getData()
+    }
+  })
 
 
   const handleSetPage = (event, newPage) => {
@@ -24,7 +31,7 @@ const Index = () => {
 
   return (
     <div>
-      {loading ? <CircularProgress/> : data.list.map(user => <UserCard key={user.id} user={user}/>)}
+      {loading || isRemoveLoading ? <CircularProgress/> : data.list.map(user => <UserCard removeUser={removeUser} key={user.id} user={user}/>)}
       <Pagination
         page={page}
         count={data.total / 5}
