@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class RequestContact extends BaseEntity {
 
     private Long id;

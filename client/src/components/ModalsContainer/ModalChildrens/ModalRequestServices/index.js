@@ -92,27 +92,20 @@ const useStyles = makeStyles((theme)=>({
     marginTop:"10px"
   }
 }));
-const Index=({ user, service, icon, backservice })=> {
+const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
   const classes = useStyles();
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     textValue:t("inputDefault"),
-    propertyId:'',
-    typeService:backservice,
+    propertyId: houses[0],
+    typeService:backservice
   });
-  const dataForPost = {
-    serviceType:dataForm.typeService,
-    text:dataForm.textValue,
-    houseId:dataForm.propertyId,
-    isActive: false
-  }
   const resetInput =()=>{
     setDataForm({
       textValue:'',
-      propertyId:dataForm.propertyId,
       typeService:dataForm.typeService,
+      propertyId:dataForm.propertyId
     });
-    console.log(dataForm.typeService)
   };
   const handleChangeData = (e) => {
     setDataForm({
@@ -128,6 +121,17 @@ const Index=({ user, service, icon, backservice })=> {
       typeService:dataForm.typeService,
     });
   };
+
+  const handleClick =()=>{
+    console.log(dataForm)
+    console.log("start post");
+    houseMaintainService({
+      type:dataForm.typeService,
+      text:dataForm.textValue,
+      houseId:dataForm.propertyId,
+      isActive: false
+    })
+  }
 
   return(<Box className={classes.containerSer}>
     <Box style={{ textAlign:"center" }}>
@@ -170,15 +174,15 @@ const Index=({ user, service, icon, backservice })=> {
         <FormControl variant="filled" className={classes.formControlSelect}>
           <InputLabel id="demo-simple-select-filled-label"></InputLabel>
           <Select className={classes.rootSelect}
-            defaultValue={dataForm.propertyId}
+            defaultValue={dataForm.defaultValue}
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
-            value={dataForm.propertyId}
+            value={dataForm.id}
             onChange={handleChangePropId}
           >
-            {user.houses.map((house)=>{
-              <MenuItem value={house}>{house}</MenuItem>
-            })}
+            {houses.map((house)=>
+              <MenuItem value={house.id}>{house.houseModel.name}</MenuItem>
+            )}
           </Select>
         </FormControl> 
       </Grid>
@@ -197,13 +201,13 @@ const Index=({ user, service, icon, backservice })=> {
         />
       </form>
     </Box>
-    <Button className={classes.btn} onClick={houseMaintainService(dataForPost)} >{"POST TEST"}</Button>
+    <Button className={classes.btn} onClick={handleClick} >{"POST TEST"}</Button>
   </Box>);
 };
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    houses: state.houses.houses
   };
 };
 
