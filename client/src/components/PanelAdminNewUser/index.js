@@ -71,7 +71,8 @@ const useStyles = makeStyles({
     border: '0.5px solid #6E7375',
     borderRadius: '20px',
     marginTop: '94px',
-    marginLeft: '60px'
+    marginLeft: '60px',
+    objectFit: 'cover'
   },
   greyButton: {
     background: '#ACB5B9',

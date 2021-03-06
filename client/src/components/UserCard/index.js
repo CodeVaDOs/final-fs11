@@ -6,6 +6,7 @@ import Button from '@components/Button';
 import defaultUser from '../../images/avatar.png';
 import clsx from "clsx";
 import { Delete, DeleteRounded, LeakRemove, Message, Remove, RemoveCircle, RemoveCircleOutlineOutlined, RemoveSharp } from "@material-ui/icons";
+import {useFetch} from "../../hooks/useFetch";
 
 const useStyles = makeStyles({
   root: {
@@ -35,7 +36,8 @@ const useStyles = makeStyles({
   userAvatar: {
     objectFit: 'cover',
     width: '40px',
-    height: '40px'
+    height: '40px',
+    borderRadius: '50%'
   },
   userInfo: {
     display: 'flex',
@@ -112,13 +114,21 @@ const useStyles = makeStyles({
   }
 });
 
-const Index = ({ user }) => {
+
+const Index = ({ user, removeUser }) => {
   const classes = useStyles();
 
   const { urlAvatar, name, contacts, email } = user;
   const { phone } = contacts?.find(cc => cc.type === "MAIN") || { phone: "" };
 
   const avatar = urlAvatar ?? defaultUser;
+
+  const handleRemoveUser = () => {
+    removeUser({
+      url: `/users/${user.id}`,
+      method: 'delete'
+    });
+  }
 
   return (
     <Card className={classes.root}>
@@ -152,7 +162,7 @@ const Index = ({ user }) => {
         <div className={classes.buttonContainer}>
           <button className={clsx(classes.messageBtn, classes.btn)}>Написати <Message width="17px" height="17px"/></button>
           <button className={clsx(classes.addBtn, classes.btn)}>Додати клієнта</button>
-          <button className={clsx(classes.btn, classes.deleteBtn)}>Видалити <DeleteRounded width="17px" height="17px"/></button>
+          <button onClick={handleRemoveUser} className={clsx(classes.btn, classes.deleteBtn)}>Видалити <DeleteRounded width="17px" height="17px"/></button>
         </div>
       </div>
     </Card>
