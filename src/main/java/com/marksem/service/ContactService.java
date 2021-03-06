@@ -22,13 +22,6 @@ public class ContactService {
     private final ContactRepository contactRepository;
     private final UserRepository userRepository;
 
-    public ResponseContact create(RequestContact c) {
-        return userRepository.findById(c.getUserId())
-                .map(u -> contactRepository.save(c.toEntity(u)))
-                .map(ResponseContact::new)
-                .orElseThrow(() -> new NoDataFoundException("user", c.getUserId()));
-    }
-
     public void saveAll(List<RequestContact> contacts, User user) {
         contacts.parallelStream().forEach(c -> contactRepository.save(c.toEntity(user)));
     }

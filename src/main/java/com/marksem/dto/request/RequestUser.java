@@ -49,7 +49,6 @@ public class RequestUser extends BaseEntity {
 
     private Currency currency;
 
-//    @Valid
     private List<RequestContact> contacts = new ArrayList<>();
 
     public User toEntity(Long managerId, String url) {

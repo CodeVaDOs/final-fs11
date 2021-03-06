@@ -12,7 +12,6 @@ import window from "../../../../images/window.png";
 import blago from "../../../../images/blago.png";
 import temper from "../../../../images/temper.png";
 import house from "../../../../images/house.png";
-
 import ModalsContainer from "@components/ModalsContainer";
 import ModalManageServices from '@components/ModalsContainer/ModalChildrens/ModalRequestServices';
 import Grid from "@material-ui/core/Grid";
@@ -133,16 +132,19 @@ export const ManagementServices = () => {
       "id": "1",
       "service": t('plumbing'),
       "icon": santech,
+      "backservice":"PLUMBING"
     },
     {
       "id": "2",
       "service": t('securitySystem'),
       "icon": secur,
+      "backservice":"GUARD"
     },
     {
       "id": "3",
       "service": t('facadeWorks'),
       "icon": fasad,
+      "backservice":"FACADE_WORKS"
     },
 
   ];
@@ -151,18 +153,21 @@ export const ManagementServices = () => {
       "id": "4",
       "service": t("Electricity"),
       "icon": electric,
+      "backservice":"ELECTRICITY"
 
     },
     {
       "id": "5",
       "service": t("VentilationAndAirConditioning"),
       "icon": condition,
+      "backservice":"VENTILATION"
 
     },
     {
       "id": "6",
       "service": t("WindowsAndDoors"),
       "icon": window,
+      "backservice":"WINDOWS_AND_DOORS"
     },
 
 
@@ -172,16 +177,19 @@ export const ManagementServices = () => {
       "id": 7,
       "service": t("Landscaping"),
       "icon": blago,
+      "backservice":"LANDSCAPING"
     },
     {
       "id": 8,
       "service": t("Heating"),
       "icon": temper,
+      "backservice":"HEATING"
     },
     {
       "id": 9,
       "service": t("Other") + "...",
       "icon": house,
+      "backservice":"OTHER"
     },
   ];
   const classes = useStyles();
@@ -222,7 +230,7 @@ export const ManagementServices = () => {
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
                                        buttonOk={t("returnBtn")}
                                        buttonCancel={t("serBtn")}
-                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                                       body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
                   </Box>
@@ -248,7 +256,7 @@ export const ManagementServices = () => {
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
                                        buttonOk={t("returnBtn")}
                                        buttonCancel={t("serBtn")}
-                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                                       body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
                   </Box>
@@ -274,7 +282,7 @@ export const ManagementServices = () => {
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
                                        buttonOk={t("returnBtn")}
                                        buttonCancel={t("serBtn")}
-                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                                       body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
                   </Box>

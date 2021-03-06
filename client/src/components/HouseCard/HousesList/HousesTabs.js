@@ -67,7 +67,7 @@ export default function HousesTabs() {
   const [house, setHouse] = useState(tileData[0]);
 
   const dispatch = useDispatch();
-  const { loading, housesList } = useSelector(state => state);
+  let {loading, houses: housesList} = useSelector(state => state.houses);
   useEffect(() => {
     dispatch(housesActions.getHouses());
   }, []);

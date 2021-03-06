@@ -14,12 +14,14 @@ public class SecurityUser implements UserDetails {
     private final String username;
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
+    private final Long id;
     private final boolean isActive = true;
 
-    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities) {
+    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, Long id) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+        this.id = id;
     }
 
     @Override
