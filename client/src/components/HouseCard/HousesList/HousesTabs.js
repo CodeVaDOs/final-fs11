@@ -88,6 +88,7 @@ export default function HousesTabs() {
       <AntTabs className={classes.tabs} value={value} onChange={handleChange} aria-label="ant example">
         <AntTab value="one" label={t("myHouses")} wrapped/>
         <AntTab value="two" label={t("control")}/>
+        {/*<AntTab value="two" label={t("control")}/>*/}
       </AntTabs>
       <TabPanel value={value} index="one">
         <div className={classes.grid}>
