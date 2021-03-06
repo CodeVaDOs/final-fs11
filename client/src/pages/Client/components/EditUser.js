@@ -87,14 +87,33 @@ const EditUser = () => {
       return acc;
     }, [[], []]);
 
+
     const saveData = {
-      ...user,
+      id: user.id,
       email,
       name,
+      currency: "UAH",
+      language: user.language,
       contacts: [{ ...phone, phone: phone.phone.replace(/[^\d;]/g, ""), type: "MAIN" }, ...toSave]
     };
 
-    const formData = Helpers.convertModelToFormData(saveData);
+    console.log("save data", saveData, user)
+
+    // const formData = Helpers.convertModelToFormData(saveData);
+    const formData = new FormData();
+
+    formData.append('id', saveData.id);
+    formData.append('email', saveData.email);
+    formData.append('name', saveData.name);
+    // formData.append('currency', saveData.name);
+
+    saveData.contacts.forEach((i, index) => {
+      formData.append(`contacts[${index}].type`, i.type);
+      formData.append(`contacts[${index}].phone`, i.phone);
+    })
+
+
+
 
     dispatch(AUTH_ACTIONS.updateUser(formData));
   };

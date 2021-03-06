@@ -8,6 +8,7 @@ import com.marksem.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import javax.validation.constraints.Null;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class RequestContact extends BaseEntity {
     @Null(groups = OnCreate.class)
     @NotNull(groups = OnUpdate.class, message = "contact id is require")
