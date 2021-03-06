@@ -3,7 +3,7 @@ import Card from "@material-ui/core/Card";
 import { makeStyles, Typography } from "@material-ui/core";
 import Button from '@components/Button';
 
-import defaultUser from "@assert/icons/defaultUser.svg";
+import defaultUser from '../../images/avatar.png';
 import clsx from "clsx";
 import { Delete, DeleteRounded, LeakRemove, Message, Remove, RemoveCircle, RemoveCircleOutlineOutlined, RemoveSharp } from "@material-ui/icons";
 
@@ -26,11 +26,16 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     paddingRight: '40px'
   },
-  userAvatar: {
+  userName: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
-    marginBottom: '5pxы'
+    marginBottom: '5px'
+  },
+  userAvatar: {
+    objectFit: 'cover',
+    width: '40px',
+    height: '40px'
   },
   userInfo: {
     display: 'flex',
@@ -113,11 +118,13 @@ const Index = ({ user }) => {
   const { urlAvatar, name, contacts, email } = user;
   const { phone } = contacts?.find(cc => cc.type === "MAIN") || { phone: "" };
 
+  const avatar = urlAvatar ?? defaultUser;
+
   return (
     <Card className={classes.root}>
       <div className={classes.userProfile}>
-        <div className={classes.userAvatar}>
-          <img src={urlAvatar || defaultUser} alt="User avatar" onError={(e) => e.target.src = defaultUser}/>
+        <div className={classes.userName}>
+          <img className={classes.userAvatar} src={avatar} alt="User avatar"/>
           <Typography>{name}</Typography>
         </div>
         <div className={classes.userInfo}>

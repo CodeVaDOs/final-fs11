@@ -59,6 +59,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('developers:read')")
     @Validated(OnUpdate.class)
     public ResponseEntity<ResponseUser> update(@ModelAttribute @Valid RequestUser u, @RequestHeader("Authorization") String token) {
+        System.out.println(u);
         return ResponseEntity.ok(userService.update(u, token));
     }
 
