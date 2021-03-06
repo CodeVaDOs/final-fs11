@@ -219,20 +219,20 @@ export const HouseContainer = ({ house }) => {
                 <Box className={classes.diagramBody}>
                   <Box className={classes.roundOfStatistic}>
                     <Grid className={classes.subGrid} item xs={3}>
-                      <CircularStaticHouse size={90} thickness={2} progress={house.days} value={house.id * 10} color={"#4AD584"}/>
+                      <CircularStaticHouse size={90} thickness={2} progress={house.id} value={house.id * 10} color={"#4AD584"}/>
                     </Grid>
                   </Box>
                   <Box className={classes.persentsBlock}>
-                    <Box className={classes.days}>{house.days}</Box>
+                    <Box className={classes.days}>{house.id}</Box>
                     <Box className={classes.persents}>
                       <p>
-                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.percent * 10} %</span>
+                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.id * 10} %</span>
                         <span className={classes.persentsFromTo}>{t('fromLastMonth')}</span>
                       </p>
                     </Box>
                   </Box>
                   <Box className={classes.moneyInDollars}>
-                    <p>$ {house.price}K</p>
+                    <p>$ {house.id}K</p>
                   </Box>
                 </Box>
               </Box>
