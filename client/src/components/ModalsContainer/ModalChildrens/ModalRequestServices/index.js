@@ -97,16 +97,15 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     textValue:t("inputDefault"),
-    propertyId: houses[0].houseModel.name,
-    typeService:backservice,
+    propertyId: houses[0],
+    typeService:backservice
   });
   const resetInput =()=>{
     setDataForm({
       textValue:'',
-      propertyId:dataForm.propertyId,
       typeService:dataForm.typeService,
+      propertyId:dataForm.propertyId
     });
-    console.log(dataForm.typeService)
   };
   const handleChangeData = (e) => {
     setDataForm({
@@ -124,6 +123,7 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
   };
 
   const handleClick =()=>{
+    console.log(dataForm)
     console.log("start post");
     houseMaintainService({
       type:dataForm.typeService,
@@ -174,14 +174,14 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
         <FormControl variant="filled" className={classes.formControlSelect}>
           <InputLabel id="demo-simple-select-filled-label"></InputLabel>
           <Select className={classes.rootSelect}
-            defaultValue={dataForm.propertyId}
+            defaultValue={dataForm.defaultValue}
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
-            value={dataForm.propertyId}
+            value={dataForm.id}
             onChange={handleChangePropId}
           >
             {houses.map((house)=>
-              <MenuItem value={house.houseModel.name}>{house.houseModel.name}</MenuItem>
+              <MenuItem value={house.id}>{house.houseModel.name}</MenuItem>
             )}
           </Select>
         </FormControl> 
