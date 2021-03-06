@@ -36,19 +36,6 @@ const getProfile = () => (dispatch) => {
     });
 };
 
-const getAdminInfo = () => (dispatch) => {
-  dispatch({ type: "GET_ADMIN_REQUEST" });
-  api.get('total/accessPanel')
-      .then((data) => {
-        console.log("Fetched admin data: ", data);
-        dispatch({ type: "GET_ADMIN_SUCCESS", payload: data });
-      })
-      .catch(err => {
-        catchError(err);
-        dispatch({ type: "GET_ADMIN_FAILURE" });
-      });
-};
-
 const logOut = () => (dispatch) => {
   setAuthToken();
   setRefreshToken();

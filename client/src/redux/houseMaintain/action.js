@@ -1,7 +1,7 @@
 import api from "@utils/api";
 import { catchError } from "../../utils";
 
-export const houseMaintainService = () => (dispatch) => {
+export const houseMaintainService = (data) => (dispatch) => {
     dispatch({ type: "HOUSE_MAINTAIN_REQUEST" });
     api({
         method: 'post',

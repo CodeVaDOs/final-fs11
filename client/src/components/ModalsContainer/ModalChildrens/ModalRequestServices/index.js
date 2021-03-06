@@ -92,20 +92,14 @@ const useStyles = makeStyles((theme)=>({
     marginTop:"10px"
   }
 }));
-const Index=({ user, service, icon, backservice })=> {
+const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
   const classes = useStyles();
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     textValue:t("inputDefault"),
-    propertyId:'',
+    propertyId: houses[0].houseModel.name,
     typeService:backservice,
   });
-  const dataForPost = {
-    serviceType:dataForm.typeService,
-    text:dataForm.textValue,
-    houseId:dataForm.propertyId,
-    isActive: false
-  }
   const resetInput =()=>{
     setDataForm({
       textValue:'',
@@ -128,6 +122,16 @@ const Index=({ user, service, icon, backservice })=> {
       typeService:dataForm.typeService,
     });
   };
+
+  const handleClick =()=>{
+    console.log("start post");
+    houseMaintainService({
+      type:dataForm.typeService,
+      text:dataForm.textValue,
+      houseId:dataForm.propertyId,
+      isActive: false
+    })
+  }
 
   return(<Box className={classes.containerSer}>
     <Box style={{ textAlign:"center" }}>
@@ -176,9 +180,9 @@ const Index=({ user, service, icon, backservice })=> {
             value={dataForm.propertyId}
             onChange={handleChangePropId}
           >
-            {user.houses.map((house)=>{
-              <MenuItem value={house}>{house}</MenuItem>
-            })}
+            {houses.map((house)=>
+              <MenuItem value={house.houseModel.name}>{house.houseModel.name}</MenuItem>
+            )}
           </Select>
         </FormControl> 
       </Grid>
@@ -197,13 +201,13 @@ const Index=({ user, service, icon, backservice })=> {
         />
       </form>
     </Box>
-    <Button className={classes.btn} onClick={houseMaintainService(dataForPost)} >{"POST TEST"}</Button>
+    <Button className={classes.btn} onClick={handleClick} >{"POST TEST"}</Button>
   </Box>);
 };
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    houses: state.houses.houses
   };
 };
 
