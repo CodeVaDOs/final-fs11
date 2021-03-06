@@ -16,13 +16,17 @@ public class ResponseBooking extends BaseEntity {
     private ResponseHouse house;
     private ResponseFeedBack feedback;
 
-    public ResponseBooking(Booking b, boolean withHouse) {
+    public ResponseBooking(Booking b) {
         super(b);
         this.fromDate = b.getFromDate();
         this.toDate = b.getToDate();
         this.isOwner = b.getIsOwner();
         this.renterId = b.getRenter().getId();
-        if (withHouse) this.house = new ResponseHouse(b.getHouse(), false);
         if (b.getFeedback() != null) this.feedback = new ResponseFeedBack(b.getFeedback());
+    }
+
+    public ResponseBooking(Booking b, Long rating) {
+        this(b);
+        this.house = new ResponseHouse(b.getHouse(), rating);
     }
 }

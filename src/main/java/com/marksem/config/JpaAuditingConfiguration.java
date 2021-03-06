@@ -18,7 +18,12 @@ public class JpaAuditingConfiguration {
 
         return () -> {
             Principal principal = SecurityContextHolder.getContext().getAuthentication();
-            return Optional.of(principal.getName());
+            try {
+                return Optional.of(principal.getName());
+            } catch (Exception e) {
+                return Optional.of("server");
+            }
+
         };
     }
 }

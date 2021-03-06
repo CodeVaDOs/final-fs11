@@ -1,11 +1,11 @@
 import React from "react";
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Polyline,
-  Marker
-} from "react-google-maps";
+// import {
+//   withGoogleMap,
+//   withScriptjs,
+//   GoogleMap,
+//   Polyline,
+//   Marker
+// } from "react-google-maps";
 
 class Map extends React.Component {
   state = {

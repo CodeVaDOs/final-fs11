@@ -102,9 +102,9 @@ const TaskPanel = (props) => {
     return(
       <>
         <Box>
-          <Typography className={classes.header}>{t("tasks")}<Box className={classes.red}><span className={classes.span1}>{props.user.tasks.length}</span></Box></Typography>
+          <Typography className={classes.header}>{t("tasks")}<Box className={classes.red}><span className={classes.span1}>{props.user?.tasks?.length}</span></Box></Typography>
         </Box>
-        { props.user.tasks.map(c=>
+        { props.user.tasks?.map(c=>
           <Box key={c.id} className={classes.taskContainer}>
             <Grid className={classes.container}
               container
