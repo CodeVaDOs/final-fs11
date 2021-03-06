@@ -20,6 +20,7 @@ import {useSelector} from "react-redux";
 import CircularStatic from "../IncomeCard/CircularProgress";
 import {PageLoader, Preloader} from "../Loader";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {objectToFormData} from "../../utils/formData";
 
 
 const useStyles = makeStyles({
@@ -153,7 +154,7 @@ const PanelAdminNewUser = (input) => {
         method: "POST",
         url: "users",
         headers: {'Content-Type': 'multipart/form-data'},
-        data: getFormData({
+        data: objectToFormData({
             email: dataForm.email,
             name: dataForm.name,
             password: dataForm.password,
