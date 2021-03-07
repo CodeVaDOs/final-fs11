@@ -11,7 +11,7 @@ const TempHousesForm = () => {
         equipment: 'Vse est, fen est',
         area: 'sto kvadratnyh metrov',
         description: 'Systhasnyi budinok, fen est',
-        ownerId: 2,
+        ownerId: 7,
         houseModelId: 1,
         images: []
     })
