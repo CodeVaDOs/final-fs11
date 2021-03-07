@@ -94,7 +94,6 @@ export default function HousesTabs() {
 
 
   if (loading) return <CircularProgress size={60}/>;
-  console.log('househousehousehousehouse', house);
   return (
     <div className={classes.root}>
       <AntTabs className={classes.tabs} value={value} onChange={handleChange} aria-label="ant example">
