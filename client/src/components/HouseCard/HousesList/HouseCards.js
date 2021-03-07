@@ -46,6 +46,10 @@ const useStyles = makeStyles(() => ({
     margin: '10px',
   },
   img: {
+    height: 109,
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: "center",
     marginTop: 10,
     width: "100%",
     borderRadius: '18px',
@@ -171,10 +175,15 @@ export default function HouseCards({ data, onHouseClick }) {
                         className={isActive === index ? classes.houseCardActive : classes.houseCard}
                       >
                         <div>
-                          {/*<img*/}
-                          {/*  className={classes.img}*/}
-                          {/*  src={house.houseImages[0].url}*/}
-                          {/*  alt={house.id}/>*/}
+                          {
+                            house?.houseImages[0]?.url
+                              ? <img
+                                className={classes.img}
+                                src={house?.houseImages[0]?.url}
+                                alt={house.id}/>
+                              : <div className={classes.img}>No image</div>
+                          }
+
                           <div
                             className={classes.houseCardBody}>
                         <span
