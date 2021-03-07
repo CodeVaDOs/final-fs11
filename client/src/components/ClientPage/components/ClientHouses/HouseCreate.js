@@ -104,7 +104,7 @@ const useStyles = makeStyles(() => ({
 }));
 export const HouseCreate = ({ setCreateHouse }) => {
   const [data, setData] = useState({
-    location: 'Kyiv, Ukraine',
+    location: 'Zhytomyr, Ukraine',
     equipment: 'Vse est, fen est',
     area: 'sto kvadratnyh metrov',
     description: 'Systhasnyi budinok, fen est',
@@ -120,16 +120,6 @@ export const HouseCreate = ({ setCreateHouse }) => {
     imageUploaded: 0,
     selectedFile: null
   });
-  const handleUploadClick = e => {
-    const { files } = e.target;
-    setData({
-      ...data,
-      images: Object.keys(files).map(function (key) {
-        return files[key];
-      })
-    });
-    setCreateHouse(true);
-  };
 
   const buttonOnClick = () => {
 
@@ -142,6 +132,19 @@ export const HouseCreate = ({ setCreateHouse }) => {
       headers: { "Content-Type": "multipart/form-data" },
     });
   };
+
+  const handleUploadClick = e => {
+    const { files } = e.target;
+    setData({
+      ...data,
+      images: Object.keys(files).map(function (key) {
+        return files[key];
+      })
+    });
+    setCreateHouse(true);
+    buttonOnClick();
+  };
+
 
   const imageResetHandler = () => {
     setUploadImg({
