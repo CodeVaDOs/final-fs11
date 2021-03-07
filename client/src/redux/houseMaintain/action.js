@@ -9,10 +9,12 @@ export const houseMaintainService = (data) => (dispatch) => {
         data
     })
         .then((data) => {
-                dispatch({ type: "HOUSE_MAINTAIN_SUCCESS", payload: data });
+            console.log("Post house maintain : ", data);
+            dispatch({ type: "HOUSE_MAINTAIN_SUCCESS", payload: data });
         })
         .catch(err => {
             catchError(err);
             dispatch({ type: "HOUSE_MAINTAIN_ERROR" });
         });
 };
+

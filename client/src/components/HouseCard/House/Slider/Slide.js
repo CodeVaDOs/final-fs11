@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import Slider from "react-slick";
 import { photos as images } from "../../../../utils/constants/photos";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -36,7 +36,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function SimpleSlider() {
+export default function SimpleSlider({ images }) {
   const classes = useStyles();
 
   const settings = {
@@ -51,14 +51,11 @@ export default function SimpleSlider() {
     <>
       <Slider {...settings}>
         {images.map((img, i) => (
-          <div
-            className={classes.div}
-            key={i}>
-            <img
-              className={classes.img}
-              src={img}
-              alt={i}/>
-          </div>
+          <img
+            key={i}
+            className={classes.img}
+            src={img}
+            alt={i}/>
         ))}
       </Slider>
     </>
