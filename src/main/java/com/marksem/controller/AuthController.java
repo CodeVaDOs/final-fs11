@@ -2,7 +2,7 @@ package com.marksem.controller;
 
 import com.marksem.dto.request.RequestAuth;
 import com.marksem.dto.request.RequestResetPassword;
-import com.marksem.dto.request.RequestUpdatePassword;
+import com.marksem.dto.request.RequestPassword;
 import com.marksem.service.AuthService;
 import com.marksem.service.ResetPasswordService;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,7 +70,7 @@ public class AuthController {
     }
 
     @PostMapping("/updatePassword")
-    public ResponseEntity<?> updatePassword(@RequestBody @Valid RequestUpdatePassword request, @RequestHeader("Token") String token) {
+    public ResponseEntity<?> updatePassword(@RequestBody @Valid RequestPassword request, @RequestHeader("Token") String token) {
         try {
             return ResponseEntity.ok(resetPasswordService.updatePassword(token, request.getPassword()));
         } catch (RuntimeException e) {

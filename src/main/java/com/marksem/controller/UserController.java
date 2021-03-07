@@ -1,5 +1,6 @@
 package com.marksem.controller;
 
+import com.marksem.dto.request.RequestPassword;
 import com.marksem.dto.request.RequestUser;
 import com.marksem.dto.request.groups.OnCreate;
 import com.marksem.dto.request.groups.OnUpdate;
@@ -61,6 +62,13 @@ public class UserController {
     public ResponseEntity<ResponseUser> update(@ModelAttribute @Valid RequestUser u, @RequestHeader("Authorization") String token) {
         System.out.println(u);
         return ResponseEntity.ok(userService.update(u, token));
+    }
+
+    @PutMapping("changePassword")
+    @PreAuthorize("hasAuthority('developers:read')")
+    public ResponseEntity<ResponseUser> changePassword(@RequestBody @Valid RequestPassword request,
+                                            Principal principal) {
+        return ResponseEntity.ok(userService.changePassword(userService.getUserByEmail(principal.getName()), request.getPassword()));
     }
 
     @DeleteMapping("{id}")
