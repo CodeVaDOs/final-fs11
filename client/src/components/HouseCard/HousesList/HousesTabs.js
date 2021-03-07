@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 import { useFetch } from "../../../hooks/useFetch";
 import TempHousesForm from "../../TempHousesForm/TempHousesForm";
 import { CircularProgress } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { housesActions } from "../../../redux/houses/action";
 
 const AntTabs = withStyles({
   indicator: {
@@ -65,6 +67,17 @@ export default function HousesTabs() {
   const [value, setValue] = useState('one');
   const [house, setHouse] = useState([]);
   const [houses, setHouses] = useState([]);
+  const dispatch = useDispatch();
+  let { loading: load, houses: housesList } = useSelector(state => state.houses);
+  useEffect(() => {
+    dispatch(housesActions.getHouses());
+  }, []);
+
+  if (!load) {
+    console.log('housesList', housesList);
+  }
+
+
   const [{ data, loading }, getData] = useFetch(
     {
       url: "houses", onCompleted: (data) => {
@@ -91,7 +104,7 @@ export default function HousesTabs() {
 
 
   if (loading) return <CircularProgress size={60}/>;
-  console.log('househousehousehousehouse',house);
+  console.log('househousehousehousehouse', house);
   return (
     <div className={classes.root}>
       <AntTabs className={classes.tabs} value={value} onChange={handleChange} aria-label="ant example">
