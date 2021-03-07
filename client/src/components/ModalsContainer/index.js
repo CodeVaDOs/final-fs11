@@ -59,7 +59,9 @@ const useStyles = makeStyles({
   }
 });
 
-const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActivateDialog, body, style, clickIcon, onChildClick})=>{
+export const ModalContext = React.createContext({});
+
+const ModalsContainer =({ displayBtn="none", buttonOk, buttonCancel, buttonActivateDialog, body, style, clickIcon })=>{
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -69,11 +71,6 @@ const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActi
   const handleClose = () => {
     setOpen(false);
   };
-  const handleSubmit =()=> {
-    setOpen(false);
-    console.log("pass funct to children")
-  }
-
   const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -91,13 +88,17 @@ const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActi
         <CloseIcon onClick={handleClose} style={{ position:"absolute", right:"10px", top: "10px", cursor:"pointer" }}/>
         <DialogContent>
           <DialogContentText>
-            {body}
+            <ModalContext.Provider value={{
+              handleClose,
+            }}>
+              {body}
+            </ModalContext.Provider>
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
-          <Button className={classes.btn} onClick={handleClose} >{buttonOk}</Button>
-          <Button style={{ display:`${displayBtn}` }} className={classes.btn} onClick={handleSubmit} >{buttonCancel}</Button>
-        </DialogActions>
+          {/*<Button style={{ display:`${displayBtn}` }} className={classes.btn} ></Button>*/}
+          {/*<Button style={{ display:`${displayBtn}` }} className={classes.btn} ></Button>*/}
+        </DialogActions>s
       </Dialog>
     </Box>
   );
