@@ -97,7 +97,7 @@ const EditUser = () => {
       contacts: [{ ...phone, phone: phone.phone.replace(/[^\d;]/g, ""), type: "MAIN" }, ...toSave]
     };
 
-    console.log("save data", saveData, user)
+    console.log("save data", saveData, user, toDelete)
 
     // const formData = Helpers.convertModelToFormData(saveData);
     const formData = new FormData();
@@ -107,15 +107,13 @@ const EditUser = () => {
     formData.append('name', saveData.name);
     // formData.append('currency', saveData.name);
 
-    saveData.contacts.forEach((i, index) => {
+    saveData.contacts.filter(contact => !toDelete.includes(contact.id)).forEach((i, index) => {
+      if (i.id) formData.append(`contacts[${index}].id`, i.id);
       formData.append(`contacts[${index}].type`, i.type);
       formData.append(`contacts[${index}].phone`, i.phone);
     })
 
-
-
-
-    dispatch(AUTH_ACTIONS.updateUser(formData));
+    dispatch(AUTH_ACTIONS.updateUserWithDeleteContacts(formData, toDelete));
   };
 
   return (
@@ -136,7 +134,10 @@ const EditUser = () => {
           {() => <TextField name="phone" value={phone.phone} label="Телефон"/>}
         </InputMask>
 
-        {additionalPhone.map(({ phone }, index) => (
+        {additionalPhone.sort((a,b) => {
+          if (a.id && !b.id) return -1;
+          else return 1;
+        }).map(({ phone }, index) => (
           <InputMask
             key={index}
             mask="+38(099)999-99-99"

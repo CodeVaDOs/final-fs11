@@ -11,7 +11,7 @@ const TempHousesForm = () => {
         equipment: 'Vse est, fen est',
         area: 'sto kvadratnyh metrov',
         description: 'Systhasnyi budinok, fen est',
-        ownerId: 2,
+        ownerId: 7,
         houseModelId: 1,
         images: []
     })
@@ -25,8 +25,8 @@ const TempHousesForm = () => {
                     id="raised-button-file"
                     multiple
                     type="file"
-                    onChange={({target}) => {
-                        const {files} = target;
+                    onChange={(e) => {
+                        const { files } = e.target;
                         setData({
                             ...data,
                             images: Object.keys(files).map(function(key) {
