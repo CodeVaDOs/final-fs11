@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import PrintIcon from '@material-ui/icons/Print';
 import HouseDesription from "./HouseDesription";
@@ -188,7 +188,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-export const HouseContainer = ({ house }) => {
+export const HouseContainer = ({ house, images }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -197,7 +197,7 @@ export const HouseContainer = ({ house }) => {
       <Container className={classes.root}>
         <Box className={classes.topSide}>
           <Box className={classes.leftSide}>
-            <Slider/>
+            <Slider images={images}/>
           </Box>
           <Box className={classes.rightSide}>
             <Box className={classes.houseIdInfo}>
@@ -219,20 +219,20 @@ export const HouseContainer = ({ house }) => {
                 <Box className={classes.diagramBody}>
                   <Box className={classes.roundOfStatistic}>
                     <Grid className={classes.subGrid} item xs={3}>
-                      <CircularStaticHouse size={90} thickness={2} progress={house.days} value={house.id * 10} color={"#4AD584"}/>
+                      <CircularStaticHouse size={90} thickness={2} progress={house.id} value={house.id * 10} color={"#4AD584"}/>
                     </Grid>
                   </Box>
                   <Box className={classes.persentsBlock}>
-                    <Box className={classes.days}>{house.days}</Box>
+                    <Box className={classes.days}>{house.id}</Box>
                     <Box className={classes.persents}>
                       <p>
-                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.percent * 10} %</span>
+                        <span className={classes.persentsCount}><span>  &#x2B06;</span>+{house.id * 10} %</span>
                         <span className={classes.persentsFromTo}>{t('fromLastMonth')}</span>
                       </p>
                     </Box>
                   </Box>
                   <Box className={classes.moneyInDollars}>
-                    <p>$ {house.price}K</p>
+                    <p>$ {house.id}K</p>
                   </Box>
                 </Box>
               </Box>
@@ -246,8 +246,8 @@ export const HouseContainer = ({ house }) => {
             Деталі
           </Typography><br/>
           <Typography component={'span'} className={classes.texte}>
-            lorem * {house.details} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti earum enim ipsa
-            laboriosam minus neque numquam odit, quos voluptas!
+            {/*{house.description.toString().slice(0, 1).toUpperCase() + house.description.toString().slice(1).toLowerCase()}*/}
+            {house.description}
           </Typography><br/>
           <Typography component={'span'} className={classes.title}>
             Локація
