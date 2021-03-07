@@ -76,6 +76,8 @@ export default function HousesTabs() {
     }
   );
 
+  const user = useSelector(state => state.auth.user);
+
   useEffect(() => {
     getData();
   }, []);
@@ -113,7 +115,7 @@ export default function HousesTabs() {
         </div>
       </TabPanel>
       <TabPanel value={value} index="two" style={{ width: '100%' }}>
-        <ControlNotificationContainer/>
+        <ControlNotificationContainer notifications={user?.notifications}/>
         <ManagementServices/>
       </TabPanel>
 
