@@ -18,7 +18,7 @@ const reducer = combineReducers({
   documents: docReducer,
   total: totalReducer,
   maintain: maintainReducer,
-  houses: housesReducer
+  houses: housesReducer,
 });
 
 export default () => {
