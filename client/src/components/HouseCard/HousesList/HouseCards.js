@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    height: '260px',
+    height: '265px',
     fontFamily: 'Roboto',
     overflow: 'hidden',
   },
@@ -23,7 +23,8 @@ const useStyles = makeStyles(() => ({
     minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
+    backgroundColor: '#fdfdfd',
+
 
   },
   houseCardActive: {
@@ -33,7 +34,6 @@ const useStyles = makeStyles(() => ({
     minWidth: '162px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
     color: 'white',
     backgroundColor: '#254A93',
   },
@@ -69,6 +69,7 @@ const useStyles = makeStyles(() => ({
     display: 'inline',
   },
   locationData: {
+    textAlign: "center",
     display: 'inline',
     fontSize: '12px',
     lineHeight: "20px",
@@ -135,6 +136,13 @@ export default function HouseCards({ data, onHouseClick }) {
     });
   }
 
+  let options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    timezone: 'UTC'
+  };
+
   return (
     <div
       className={classes.root}>
@@ -165,21 +173,17 @@ export default function HouseCards({ data, onHouseClick }) {
                         <div>
                           <img
                             className={classes.img}
-                            src={house.img}
-                            alt={house.contractId}/>
+                            src={house?.houseImages[0].url}
+                            alt={house.id}/>
                           <div
                             className={classes.houseCardBody}>
                         <span
                           className={classes.cardContract}>
-                          Контракт {house.contractDate}
+                          Контракт {new Date(house.createDate.toString()).toLocaleString("ru", options)}
                         </span>
                             <span
                               className={classes.cardId}>
-                              {house.svg} ID {house.contractId}
-                            </span>
-                            <span
-                              className={classes.locationData}>
-                              {house.town}
+                              {house.svg} ID {house.id}
                             </span>
                             <span
                               className={classes.locationData}>

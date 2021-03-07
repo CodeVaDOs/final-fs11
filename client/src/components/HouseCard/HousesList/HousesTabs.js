@@ -7,11 +7,10 @@ import TabPanel from "./TabPanel";
 import ControlNotificationContainer from "./ControlNotification/ControlNotificationContainer";
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
-import { tileData } from "../../../utils/constants/housesView";
 import { useTranslation } from "react-i18next";
-import { housesActions } from "../../../redux/houses/action";
 import { useFetch } from "../../../hooks/useFetch";
 import TempHousesForm from "../../TempHousesForm/TempHousesForm";
+import { CircularProgress } from "@material-ui/core";
 
 const AntTabs = withStyles({
   indicator: {
@@ -64,29 +63,35 @@ export default function HousesTabs() {
   const classes = useStyles();
   const { t } = useTranslation();
   const [value, setValue] = useState('one');
-  const [house, setHouse] = useState([] || data);
-  const [houses, setHouses] = useState([] || data);
+  const [house, setHouse] = useState([]);
+  const [houses, setHouses] = useState([]);
   const [{ data, loading }, getData] = useFetch(
-    { url: "houses" });
+    {
+      url: "houses", onCompleted: (data) => {
+        setHouses(data);
+      }, initData: []
+    }
+  );
 
   useEffect(() => {
     getData();
-    if (loading) {
-      console.log(data);
-      console.log(loading);
-      setHouses(data);
-    } else {
-      return <div>Load...</div>;
-    }
   }, []);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+
   };
 
   function houseToState(e) {
     setHouse(houses[e]);
+
   }
 
+  const images = house?.houseImages?.flatMap(img => img.url);
+
+
+  if (loading) return <CircularProgress size={60}/>;
+  console.log('househousehousehousehouse',house);
   return (
     <div className={classes.root}>
       <AntTabs className={classes.tabs} value={value} onChange={handleChange} aria-label="ant example">
@@ -98,9 +103,12 @@ export default function HousesTabs() {
       <TabPanel value={value} index="one">
         <div className={classes.grid}>
           <HouseCard onHouseClick={houseToState} data={houses}/>
-          <HouseContainer house={house}/>
+          {
+            house.length === 0
+              ? ''
+              : <HouseContainer images={images} house={house}/>
+          }
         </div>
-
       </TabPanel>
       <TabPanel value={value} index="two" style={{ width: '100%' }}>
         <ControlNotificationContainer/>
@@ -110,7 +118,6 @@ export default function HousesTabs() {
       <TabPanel value={value} index="three" style={{ width: '100%' }}>
         <TempHousesForm/>
       </TabPanel>
-
     </div>
   );
 }

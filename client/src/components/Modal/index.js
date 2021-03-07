@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-export default function TransitionsModal({ open, setIsOpen }) {
+export default function TransitionsModal({images, open, setIsOpen }) {
   const classes = useStyles();
 
   const handleClose = () => {
@@ -36,7 +36,7 @@ export default function TransitionsModal({ open, setIsOpen }) {
           timeout: 500,
         }}
       >
-        <div><SimpleSlider/></div>
+        <div><SimpleSlider images={images}/></div>
       </Modal>
     </>
 
