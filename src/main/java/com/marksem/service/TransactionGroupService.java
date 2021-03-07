@@ -3,7 +3,6 @@ package com.marksem.service;
 import com.marksem.dto.request.RequestTransactionGroup;
 import com.marksem.dto.response.ResponseTransactionGroup;
 import com.marksem.entity.transaction.Currency;
-import com.marksem.entity.transaction.Transaction;
 import com.marksem.entity.transaction.TransactionGroup;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repository.HouseRepository;
