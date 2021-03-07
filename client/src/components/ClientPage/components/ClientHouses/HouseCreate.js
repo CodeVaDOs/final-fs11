@@ -6,6 +6,9 @@ import { CardActionArea, CardContent, Fab } from "@material-ui/core";
 import LocalSeeIcon from "@material-ui/icons/LocalSee";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
+import Button from "@material-ui/core/Button";
+import { objectToFormData } from "../../../../utils/formData";
+import api from "../../../../utils/api";
 
 
 const useStyles = makeStyles(() => ({
@@ -46,7 +49,7 @@ const useStyles = makeStyles(() => ({
   },
 
   houseCard: {
-    marginLeft:'30px',
+    marginLeft: '30px',
     height: '99%',
     margin: '4px',
     boxSizing: 'border-box',
@@ -99,7 +102,16 @@ const useStyles = makeStyles(() => ({
     opacity: 1,
   }
 }));
-export const HouseCreate = () => {
+export const HouseCreate = ({ setCreateHouse }) => {
+  const [data, setData] = useState({
+    location: 'Kyiv, Ukraine',
+    equipment: 'Vse est, fen est',
+    area: 'sto kvadratnyh metrov',
+    description: 'Systhasnyi budinok, fen est',
+    ownerId: 7,
+    houseModelId: 1,
+    images: []
+  });
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -108,24 +120,29 @@ export const HouseCreate = () => {
     imageUploaded: 0,
     selectedFile: null
   });
-  const handleUploadClick = event => {
-    const reader = new FileReader();
-    let file = event.target.files[0];
-    let url = reader.readAsDataURL(file);
-    console.log(url);
+  const handleUploadClick = e => {
+    const { files } = e.target;
+    setData({
+      ...data,
+      images: Object.keys(files).map(function (key) {
+        return files[key];
+      })
+    });
+    setCreateHouse(true);
+  };
 
-    reader.onloadend = () => setUploadImg({
-      mainState: "uploaded",
-      selectedFile: [reader.result],
-      imageUploaded: 1
+  const buttonOnClick = () => {
+
+    const formData = objectToFormData(data, '', ['images']);
+    data.images.forEach((file, index) => {
+      formData.append(`images[${index}]`, file, file.name);
     });
 
-    setUploadImg({
-      mainState: "uploaded",
-      selectedFile: event.target.files[0],
-      imageUploaded: 1
+    api.post('houses', formData, {
+      headers: { "Content-Type": "multipart/form-data" },
     });
   };
+
   const imageResetHandler = () => {
     setUploadImg({
       mainState: "initial",
@@ -148,12 +165,8 @@ export const HouseCreate = () => {
               onChange={handleUploadClick}
             />
             <label htmlFor="contained-button-file">
-              <Fab component="span" onChange={handleUploadClick} className={classes.greyButton}>
-                <LocalSeeIcon style={{ color: "#FFF", marginTop: "-23px", marginLeft: '10px' }}/>
-                <Box style={{ marginTop: "36px", marginLeft: "-48px" }}>
-                  <Typography className={classes.smallText}>{t('change')}</Typography>
-                  <Typography className={classes.smallText} style={{ marginLeft: '20px', marginTop: '-4px' }}>{t('Photo')}</Typography>
-                </Box>
+              <Fab onClick={buttonOnClick} component="span" className={classes.greyButton}>
+                <Typography>Edit</Typography>
               </Fab>
             </label>
           </Grid>
@@ -166,7 +179,7 @@ export const HouseCreate = () => {
       <>
         <CardActionArea onClick={imageResetHandler}>
           <img width={"104px"} height={"104px"} alt={'ssss'} style={{ borderRadius: '50%' }}
-            src={uploadImg.selectedFile}
+               src={uploadImg.selectedFile}
           />
         </CardActionArea>
       </>

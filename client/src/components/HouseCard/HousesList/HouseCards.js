@@ -171,10 +171,10 @@ export default function HouseCards({ data, onHouseClick }) {
                         className={isActive === index ? classes.houseCardActive : classes.houseCard}
                       >
                         <div>
-                          <img
-                            className={classes.img}
-                            src={house.houseImages[0].url}
-                            alt={house.id}/>
+                          {/*<img*/}
+                          {/*  className={classes.img}*/}
+                          {/*  src={house.houseImages[0].url}*/}
+                          {/*  alt={house.id}/>*/}
                           <div
                             className={classes.houseCardBody}>
                         <span

@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import {Information} from "./index";
-import {ClientHouses} from "../ClientHouses";
-import {tileData} from "../../../../utils/constants/housesView";
-import {House} from "../ClientHouses/House";
-import {Documents} from "../Documents";
-import {MyContracts} from "../Documents/MyContracts";
+import { Information } from "./index";
+import { ClientHouses } from "../ClientHouses";
+import { tileData } from "../../../../utils/constants/housesView";
+import { House } from "../ClientHouses/House";
+import { Documents } from "../Documents";
+import { MyContracts } from "../Documents/MyContracts";
 import ClientStatisticRent from "../../../ClientStatisticRent";
-import {CreateNewHouse} from "../CreateNewHouse";
+import { CreateNewHouse } from "../CreateNewHouse";
 import EditUser from "../../../../pages/Client/components/EditUser";
 
 const useStyles = makeStyles(() => ({
@@ -101,6 +101,7 @@ export default function ClientTabs() {
   const [HouseIdx,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
   const [bottomView, setHousesDescription] = useState(0);
+  const [createHouse, setCreateHouse] = useState(false);
 
   function houseToState(e) {
     setHouse(HouseIdx[e]);
@@ -119,11 +120,11 @@ export default function ClientTabs() {
             <EditUser/>
           </div>
           <div
-              className={classes.columnProfile}>
+            className={classes.columnProfile}>
             <div className={classes.br}>
               <Tabs
-                  value={value}
-                  onChange={handleChange}
+                value={value}
+                onChange={handleChange}
               >
                 <Tab label="Iнформацiя" {...a11yProps(0)} />
                 <Tab label="Будинки" {...a11yProps(1)} />
@@ -135,8 +136,10 @@ export default function ClientTabs() {
               value={value} index={0}>
               <Information/>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel  value={value} index={1}>
               <ClientHouses
+                setCreateHouse={setCreateHouse}
+                createHouse={createHouse}
                 houseToState={houseToState}
                 HouseIdx={HouseIdx}
                 rent={false}
@@ -147,24 +150,34 @@ export default function ClientTabs() {
             </TabPanel>
             <TabPanel value={value} index={3}>
               <ClientHouses
-                  houseToState={houseToState}
-                  HouseIdx={HouseIdx}
-                  buttonSend={true}
-                  rent={true}
+                houseToState={houseToState}
+                HouseIdx={HouseIdx}
+                buttonSend={true}
+                rent={true}
               />
             </TabPanel>
           </div>
         </div>
         <div>
-          {bottomView === 1 ? <CreateNewHouse/> : null}
-          {bottomView === 1 ? <House house={house}/> : null}
-          <div style={{width: '100%'}}>
+          {bottomView === 1
+            ?
+            <div>
+              {
+                createHouse
+                  ? <CreateNewHouse/>
+                  : ''
+              }
+              <House house={house}/>
+            </div>
+
+            : null}
+          <div style={{ width: '100%' }}>
             {bottomView === 2 ? <MyContracts/> : null}
           </div>
-          <div style={{width: '100%'}}>
+          <div style={{ width: '100%' }}>
             {bottomView === 3 ?
-                <ClientStatisticRent/>
-                : null}
+              <ClientStatisticRent/>
+              : null}
           </div>
         </div>
       </div>

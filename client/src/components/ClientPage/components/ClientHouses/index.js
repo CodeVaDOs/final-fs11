@@ -104,7 +104,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const ClientHouses = ({ HouseIdx, houseToState, rent }) => {
+export const ClientHouses = ({ HouseIdx, houseToState, rent , setCreateHouse}) => {
   const classes = useStyles();
 
   return (
@@ -120,6 +120,7 @@ export const ClientHouses = ({ HouseIdx, houseToState, rent }) => {
         :
         null}
       <MyHouses
+        setCreateHouse={setCreateHouse}
         onHouseClick={houseToState}
         data={HouseIdx}
         rent={rent}/>

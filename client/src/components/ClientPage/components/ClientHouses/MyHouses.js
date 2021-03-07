@@ -126,7 +126,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-export default function MyHouses({ data, onHouseClick, rent }) {
+export default function MyHouses({ data, onHouseClick, rent ,setCreateHouse}) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
 
@@ -180,7 +180,7 @@ export default function MyHouses({ data, onHouseClick, rent }) {
                 </div>
               );
             })}
-          {rent ? null : <HouseCreate/>}
+          {rent ? null : <HouseCreate setCreateHouse={setCreateHouse}/>}
           {imageSourcesToDisplay.length > 5 ?
             "" :
             <button className={classes.btnNext} onClick={nextSlide}>
