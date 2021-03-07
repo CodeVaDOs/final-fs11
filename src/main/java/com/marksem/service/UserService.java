@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -72,6 +73,12 @@ public class UserService {
                     return new ResponseUser(saved);
                 })
                 .orElseThrow(() -> new NoDataFoundException("user", ru.getId()));
+    }
+
+    public ResponseUser changePassword(User user, String password) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        return new ResponseUser(repository.save(user));
     }
 
     public Long delete(Long id) {

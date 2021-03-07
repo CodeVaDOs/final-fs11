@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import {connect} from "react-redux";
 import {updateUser} from "../../redux/auth/action";
 import {serialize} from 'object-to-formdata';
+import {objectToFormData} from "../../utils/formData";
 
 
 const useStyles = makeStyles({
@@ -131,15 +132,6 @@ const ChangeProfile = (props) => {
         }
     };
 
-    function createFormData(formData, key, data) {
-        if (data === Object(data) || Array.isArray(data)) {
-            for (var i in data) {
-                createFormData(formData, key + '[' + i + ']', data[i]);
-            }
-        } else {
-            formData.append(key, data);
-        }
-    }
 
     // Form check for back-end && response status
     const check = (e) => {
@@ -151,10 +143,8 @@ const ChangeProfile = (props) => {
             'contacts': [dataForm.phone, ...dataForm.additionalPhones]
         };
 
-        const formData = new FormData();
-        createFormData(formData, '', dataFormData)
-        console.log(dataFormData);
-        props.updateUser(formData);
+        const data = objectToFormData(dataFormData)
+        props.updateUser(data);
     };
     //Form Data Props
     const inputData = [

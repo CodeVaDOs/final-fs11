@@ -1,94 +1,103 @@
 import api from "@utils/api";
-import { catchError, setAuthToken, setRefreshToken } from "../../utils";
-import { TOTAL_ACTIONS } from "../total/action";
+import {catchError, setAuthToken, setRefreshToken} from "../../utils";
+import {TOTAL_ACTIONS} from "../total/action";
 
+
+export const updateUserWithDeleteContacts = (data, idContacts) => (dispatch) => {
+    dispatch({type: "EDIT_PROFILE_REQUEST"});
+    const promises = idContacts.map(contactId => api({
+        method: 'DELETE',
+        url: `contacts/${contactId}`,
+    }));
+    Promise.all(promises)
+        .then(() => dispatch(updateUser(data)));
+}
 
 export const updateUser = (data) => (dispatch) => {
-  dispatch({ type: "EDIT_PROFILE_REQUEST" });
-  api({
-    method: 'put',
-    url: 'users',
-    data,
-    headers: { 'Content-Type': 'multipart/form-data' }
-  })
-    .then((profileUpdate) =>  {
-        console.log("Edit profile: ", profileUpdate);
-        dispatch({ type: "EDIT_PROFILE_SUCCESS", payload: profileUpdate });
+    dispatch({type: "EDIT_PROFILE_REQUEST"});
+    api({
+        method: 'put',
+        url: 'users',
+        data,
+        headers: {'Content-Type': 'multipart/form-data'}
     })
-    .catch(err => {
-        catchError(err);
-        dispatch({ type: "EDIT_PROFILE_ERROR" });
-    });
+        .then((profileUpdate) => {
+            console.log("Edit profile: ", profileUpdate);
+            dispatch({type: "EDIT_PROFILE_SUCCESS", payload: profileUpdate});
+        })
+        .catch(err => {
+            catchError(err);
+            dispatch({type: "EDIT_PROFILE_ERROR"});
+        });
 }
 
 const getProfile = () => (dispatch) => {
-  dispatch({ type: "GET_PROFILE_REQUEST" });
-  api.get('users/profile')
-    .then((profile) => {
-      console.log("Fetched profile: ", profile);
-      dispatch({ type: "GET_PROFILE", payload: profile });
-      dispatch(TOTAL_ACTIONS.getAccessPanel());
-      dispatch(TOTAL_ACTIONS.getCatalogue());
-    })
-    .catch(err => {
-      catchError(err);
-      dispatch({ type: "GET_PROFILE_FAILURE" });
-    });
+    dispatch({type: "GET_PROFILE_REQUEST"});
+    api.get('users/profile')
+        .then((profile) => {
+            console.log("Fetched profile: ", profile);
+            dispatch({type: "GET_PROFILE", payload: profile});
+            dispatch(TOTAL_ACTIONS.getAccessPanel());
+            dispatch(TOTAL_ACTIONS.getCatalogue());
+        })
+        .catch(err => {
+            catchError(err);
+            dispatch({type: "GET_PROFILE_FAILURE"});
+        });
 };
 
 const logOut = () => (dispatch) => {
-  setAuthToken();
-  setRefreshToken();
-  dispatch({ type: "LOGOUT" });
+    setAuthToken();
+    setRefreshToken();
+    dispatch({type: "LOGOUT"});
 };
 
 const logIn = (values) => (dispatch) => {
-  dispatch({ type: "LOGIN_REQUEST" });
-  setAuthToken();
-  setRefreshToken();
+    dispatch({type: "LOGIN_REQUEST"});
+    setAuthToken();
+    setRefreshToken();
 
-  console.log("test");
+    console.log("test");
 
-  api
-    .post('auth/login', values)
-    .then((data) => {
-      console.log("success log in");
-      setAuthToken(data.token);
-      setRefreshToken(data.refreshToken);
-      dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
-      dispatch(getProfile());
-    })
-    .catch((err) => {
-      catchError(err);
-      dispatch({ type: "LOGIN_FAILURE" });
-    });
+    api.post('auth/login', values)
+        .then((data) => {
+            console.log("success log in");
+            setAuthToken(data.token);
+            setRefreshToken(data.refreshToken);
+            dispatch({type: "LOGIN_SUCCESS", payload: data.user});
+            dispatch(getProfile());
+        })
+        .catch((err) => {
+            catchError(err);
+            dispatch({type: "LOGIN_FAILURE"});
+        });
 };
 
 const forgotPassword = (values) => (dispatch) => {
-  dispatch({ type: "FORGOT_PASSWORD_REQUEST" });
+    dispatch({type: "FORGOT_PASSWORD_REQUEST"});
 
-  api
-    .post('auth/forgotPassword', values)
-    .then(() => {
-      dispatch({ type: "FORGOT_PASSWORD_SUCCESS" });
-    })
-    .catch((err) => {
-      catchError(err);
-      dispatch({ type: "FORGOT_PASSWORD_FAILURE" });
-    });
+    api
+        .post('auth/forgotPassword', values)
+        .then(() => {
+            dispatch({type: "FORGOT_PASSWORD_SUCCESS"});
+        })
+        .catch((err) => {
+            catchError(err);
+            dispatch({type: "FORGOT_PASSWORD_FAILURE"});
+        });
 };
 
 const changePassword = (values, token) => (dispatch) => {
-  dispatch({ type: "CHANGE_PASSWORD_REQUEST" });
-  api
-    .post('auth/updatePassword', values, { headers: { "Token": token } })
-    .then(() => {
-      dispatch({ type: "CHANGE_PASSWORD_SUCCESS" });
-    })
-    .catch((err) => {
-      catchError(err);
-      dispatch({ type: "CHANGE_PASSWORD_FAILURE" });
-    });
+    dispatch({type: "CHANGE_PASSWORD_REQUEST"});
+    api
+        .post('auth/updatePassword', values, {headers: {"Token": token}})
+        .then(() => {
+            dispatch({type: "CHANGE_PASSWORD_SUCCESS"});
+        })
+        .catch((err) => {
+            catchError(err);
+            dispatch({type: "CHANGE_PASSWORD_FAILURE"});
+        });
 };
 // const fetchProfile = () => (dispatch) => {
 //   const { accessToken } = getTokens();
@@ -111,10 +120,11 @@ const changePassword = (values, token) => (dispatch) => {
 // };
 
 export const AUTH_ACTIONS = {
-  logIn,
-  logOut,
-  getProfile,
-  forgotPassword,
-  changePassword,
-  updateUser,
+    logIn,
+    logOut,
+    getProfile,
+    forgotPassword,
+    changePassword,
+    updateUser,
+    updateUserWithDeleteContacts
 };
