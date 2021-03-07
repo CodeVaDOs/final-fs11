@@ -25,8 +25,8 @@ const TempHousesForm = () => {
                     id="raised-button-file"
                     multiple
                     type="file"
-                    onChange={({target}) => {
-                        const {files} = target;
+                    onChange={(e) => {
+                        const { files } = e.target;
                         setData({
                             ...data,
                             images: Object.keys(files).map(function(key) {

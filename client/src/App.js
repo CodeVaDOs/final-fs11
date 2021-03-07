@@ -20,9 +20,9 @@ const useStyles = makeStyles(() => ({
     float: "left",
     margin: 0,
     padding: 0,
-    width: '98% ',
+    width: '100%',
     marginLeft: '20px',
-    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 115 + 'px' : '30px',
+    marginRight: props.isOpenSidebar && props.authorized ? sidebarWidth + 30 + 'px' : '30px',
     transition: 'margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms',
   }),
   sidebar: {
