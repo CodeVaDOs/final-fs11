@@ -20,7 +20,7 @@ const useStyles = makeStyles({
       display: "block",
       width: "10px",
       height: "90%",
-      background: "#FA505D",
+      background: props => props.color,
       position: "absolute",
       margin: "10px 0"
     }
@@ -45,16 +45,17 @@ const useStyles = makeStyles({
 });
 
 
-const ControlNotification = ({ title, body }) => {
-  const classes = useStyles();
-
+const ControlNotification = ({ title, body, importance }) => {
+  const color = importance === "LARGE" ? "#FA505D" : importance === "MEDIUM" ? "#F88B38" : "#4AD584";
+  const props = { color: color };
+  const classes = useStyles(props);
   return (<Card className={classes.rootBox}>
     <CardHeader
       className={classes.header}
       title={title}
     />
     <CardContent>
-      <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+      <Typography variant="body2" color={color} component="p" className={classes.text}>
         {body}
       </Typography>
     </CardContent>
