@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
 import { houseMaintainService } from '../../../../redux/houseMaintain/action';
 import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
+import {ModalContext} from "../../index";
+
 
 const useStyles = makeStyles((theme)=>({
   formControlSelect: {
@@ -49,6 +52,23 @@ const useStyles = makeStyles((theme)=>({
     fontWeight: 'normal',
     color: '#6E7375',
     margin:"2% 17%"
+  },
+  btn: {
+    height: '60px',
+    width: '240px',
+    border: "1px solid #254A93",
+    textTransform:"none",
+    borderRadius: '10px',
+    margin: "20px",
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '19px',
+    fontWeight: 'normal',
+    backgroundColor:"#254A93",
+    color:"#fff",
+    "&:hover": {
+      backgroundColor:"#fff",
+      color:"black"
+    }
   },
   rootInput: {
     borderRadius: 10,
@@ -97,7 +117,7 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     textValue:t("inputDefault"),
-    propertyId: houses[0],
+    propertyId: '',
     typeService:backservice
   });
   const resetInput =()=>{
@@ -121,18 +141,18 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
       typeService:dataForm.typeService,
     });
   };
-
-  const handleClick =()=>{
-    console.log(dataForm)
-    console.log("start post");
-    houseMaintainService({
-      type:dataForm.typeService,
-      text:dataForm.textValue,
-      houseId:dataForm.propertyId,
-      isActive: false
-    })
+  const {handleClose} = useContext(ModalContext);
+  const handleSubmit =()=>{
+    if (dataForm.propertyId !== '') {
+      houseMaintainService({
+        type:dataForm.typeService,
+        text:dataForm.textValue,
+        houseId:dataForm.propertyId,
+        isActive: false
+      })
+      if (handleClose) handleClose();
+    }
   }
-
   return(<Box className={classes.containerSer}>
     <Box style={{ textAlign:"center" }}>
       <Typography className={classes.headerReq}>{t("headerReq")}</Typography>
@@ -146,7 +166,7 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
       <Grid item xs={4}></Grid>
       <Grid item xs={1}>
         <Box className={classes.boxReq}>
-          <img src={icon} />
+          <img style={{borderRadius:"13px"}} src={icon} />
         </Box>
       </Grid>
       <Grid item xs={3}>
@@ -174,10 +194,8 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
         <FormControl variant="filled" className={classes.formControlSelect}>
           <InputLabel id="demo-simple-select-filled-label"></InputLabel>
           <Select className={classes.rootSelect}
-            defaultValue={dataForm.defaultValue}
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
-            value={dataForm.id}
             onChange={handleChangePropId}
           >
             {houses.map((house)=>
@@ -201,7 +219,12 @@ const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
         />
       </form>
     </Box>
-    <Button className={classes.btn} onClick={handleClick} >{"POST TEST"}</Button>
+    <Box style={{ marginLeft:"17%", marginTop:"5%" }}>
+      <Button className={classes.btn} onClick={()=>{
+        if (handleClose) handleClose();
+      }} >{t("returnBtn")}</Button>
+      <Button className={classes.btn} onClick={handleSubmit} >{t("serBtn")}</Button>
+    </Box>
   </Box>);
 };
 
@@ -210,7 +233,6 @@ const mapStateToProps = (state) => {
     houses: state.houses.houses
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
     houseMaintainService: (data) => dispatch(houseMaintainService(data)),

@@ -119,7 +119,6 @@ const useStyles = makeStyles({
 
 export const ManagementServices = () => {
   const {t} = useTranslation();
-
   const callButtonStyle = {
     backgroundColor: "#EEF5FF",
     width: "50px",
@@ -202,8 +201,6 @@ export const ManagementServices = () => {
     });
     console.log(id);
   };
-
-
   return (
       <Box className={classes.containerSer}>
         <Box style={{textAlign: "center"}}>
@@ -228,8 +225,6 @@ export const ManagementServices = () => {
                     <Typography align="right" paragraph className={classes.details}>
                       <ModalsContainer style={callButtonStyle}
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                       buttonOk={t("returnBtn")}
-                                       buttonCancel={t("serBtn")}
                                        body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
@@ -254,9 +249,7 @@ export const ManagementServices = () => {
                     <Typography align="right" paragraph className={classes.details}>
                       <ModalsContainer style={callButtonStyle}
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                       buttonOk={t("returnBtn")}
-                                       buttonCancel={t("serBtn")}
-                                       body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
+                                       body={<ModalManageServices  backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
                   </Box>
@@ -280,8 +273,6 @@ export const ManagementServices = () => {
                     <Typography align="right" paragraph className={classes.details}>
                       <ModalsContainer style={callButtonStyle}
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                       buttonOk={t("returnBtn")}
-                                       buttonCancel={t("serBtn")}
                                        body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
