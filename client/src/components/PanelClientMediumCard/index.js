@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 import Box from '@material-ui/core/Box';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
 import Grid from "@material-ui/core/Grid";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ReplyIcon from '@material-ui/icons/Reply';
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   mediumCardContainer: {
@@ -77,13 +79,28 @@ const useStyles = makeStyles({
   },
 
 });
-const PanelClientMediumCard =({ id, title, user, date, subName, body, typeCard, widthT })=>{
+const PanelClientMediumCard =({ id, title, booking, subName, typeCard, widthT })=>{
   const classes = useStyles();
   const { t } = useTranslation();
   const [userType] = useState('client');
+  const language = useSelector(state => state.auth?.user?.language);
+
+  const renderRating = (i) => {
+    if (booking?.feedback?.rating > i) return (<StarIcon style={{ color:"#F88B38" }}/>);
+    else return (<StarBorderIcon style={{ color:"#F88B38" }}/>);
+  };
+
+  const writeDate = (date1, date2) => {
+    let local = language === 'UKRAINIAN' ? 'uk-UA' : language === 'RUSSIAN' ? 'ru' : 'en-US';
+    const count = (date) => new Date(date).toLocaleDateString(local, {
+      day : 'numeric',
+      month : 'long'
+    });
+    return `${count(date1)} - ${count(date2)}`;
+  };
 
   const renderClientPanel =()=>{
-    return(
+    return  (
       <Box className={classes.mediumCardContainer} style={{ width: widthT === 1 ? "96%": "290px" }} key={id}>
         <Grid
           container
@@ -94,22 +111,22 @@ const PanelClientMediumCard =({ id, title, user, date, subName, body, typeCard, 
             <Typography className={classes.cardHeader}>{title}</Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography className={classes.cardAvatar}>{user}</Typography>
+            <Typography className={classes.cardAvatar}>{booking?.renter}</Typography>
           </Grid>
           <Grid item xs={2}>
             <AccountCircleIcon style={{ color:"#B1B4BA", width:"34px", height:"34px", marginTop:"10px" }}/>
           </Grid>
         </Grid>
-        <Typography className={classes.subHeader}>{date}</Typography>
+        <Typography className={classes.subHeader}>{booking ? writeDate(booking.fromDate, booking.toDate) : null}</Typography>
         <Box style={{ marginLeft:"15px", marginTop:"5px" }}>
-          <StarBorderIcon style={{ color:"#F88B38" }}/>
-          <StarBorderIcon style={{ color:"#F88B38" }}/>
-          <StarBorderIcon style={{ color:"#F88B38" }}/>
-          <StarBorderIcon style={{ color:"#F88B38" }}/>
-          <StarBorderIcon style={{ color:"#F88B38" }}/>
+          {renderRating(0)}
+          {renderRating(1)}
+          {renderRating(2)}
+          {renderRating(3)}
+          {renderRating(4)}
         </Box>
         <Typography className={classes.cardReview}>{subName}</Typography>
-        <Typography className={classes.feedback}>{body}</Typography>
+        <Typography className={classes.feedback}>{booking?.feedback.review}</Typography>
         {typeCard === "btn"?
           <Box style={{ margin:"10% -20%", display: "block" }}>
             <Button className={classes.btn} onClick={()=>{}}>{t('more')}</Button>
