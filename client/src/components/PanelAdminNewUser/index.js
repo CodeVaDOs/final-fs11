@@ -209,11 +209,7 @@ const PanelAdminNewUser = (input) => {
     };
     // Form check for back-end && response status
     const check = (e) => {
-        console.log('post to backend with new user');
         e.preventDefault();
-        console.log(dataForm.name, dataForm.email, dataForm.password, dataForm.confpassword, uploadImg.selectedFile);
-
-        // serialize()
         sendData();
     };
     //Email Validation

@@ -1,25 +1,21 @@
 const INIT_STATE = {
     loading: false,
-    serviceType:'',
-    text:'',
-    houseId:'',
-    isActive: false
+    password:[]
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
-        case "HOUSE_MAINTAIN_REQUEST":
+        case "POST_PASSWORD_REQUEST":
             return {
                 ...state,
-                loading: true
+                loading: true,
             };
-        case "HOUSE_MAINTAIN_SUCCESS":
+        case "POST_PASSWORD_SUCCESS":
             return {
-                ...state,
-                accessPanel: action.payload,
-                loading: false
+                password: action.payload,
+                loading: false,
             };
-        case "HOUSE_MAINTAIN_ERROR":
+        case "POST_PASSWORD_ERROR":
             return {
                 ...state,
                 loading: false,

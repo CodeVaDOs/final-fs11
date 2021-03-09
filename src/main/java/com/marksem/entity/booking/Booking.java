@@ -33,9 +33,7 @@ public class Booking extends BaseEntity {
     @OneToOne(mappedBy = "booking", fetch = FetchType.LAZY)
     private FeedBack feedback;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "renter_id")
-    private User renter;
+    private String renter;
 
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
     private List<BookingMaintenance> bookingMaintenance = new ArrayList<>();
