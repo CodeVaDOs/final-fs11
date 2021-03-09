@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,14 +25,16 @@ public class RequestBooking extends BaseEntity {
     private Boolean isOwner;
     @NotEmpty
     private Long houseId;
+    @NotBlank
+    private String renter;
 
-    public Booking toEntity(House house, User renter) {
+    public Booking toEntity(House house) {
         return Booking.builder()
                 .fromDate(this.fromDate)
                 .toDate(this.toDate)
                 .isOwner(this.isOwner)
                 .house(house)
-                .renter(renter)
+                .renter(this.renter)
                 .bookingMaintenance(new ArrayList<>())
                 .build();
     }

@@ -23,7 +23,10 @@ public class ContactService {
     private final UserRepository userRepository;
 
     public void saveAll(List<RequestContact> contacts, User user) {
-        contacts.parallelStream().forEach(c -> contactRepository.save(c.toEntity(user)));
+        contacts.parallelStream().forEach(c -> {
+            if (c.getId() != null) update(c);
+            else contactRepository.save(c.toEntity(user));
+        });
     }
 
     public ResponseContact update(RequestContact c) {

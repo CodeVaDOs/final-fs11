@@ -12,7 +12,7 @@ public class ResponseBooking extends BaseEntity {
     private Date fromDate;
     private Date toDate;
     private boolean isOwner;
-    private Long renterId;
+    private String renter;
     private ResponseHouse house;
     private ResponseFeedBack feedback;
 
@@ -21,7 +21,7 @@ public class ResponseBooking extends BaseEntity {
         this.fromDate = b.getFromDate();
         this.toDate = b.getToDate();
         this.isOwner = b.getIsOwner();
-        this.renterId = b.getRenter().getId();
+        this.renter = b.getRenter();
         if (b.getFeedback() != null) this.feedback = new ResponseFeedBack(b.getFeedback());
     }
 

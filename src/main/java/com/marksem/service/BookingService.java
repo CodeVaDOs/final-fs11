@@ -25,7 +25,7 @@ public class BookingService {
     public ResponseBooking create(RequestBooking b, String email) {
         return userRepository.findByEmail(email)
                 .map(u -> houseRepository.findById(b.getHouseId())
-                        .map(h -> bookingRepository.save(b.toEntity(h, u)))
+                        .map(h -> bookingRepository.save(b.toEntity(h)))
                         .map(saved -> new ResponseBooking(saved, bookingRepository.getHouseRating(saved.getId())))
                         .orElseThrow(() -> new NoDataFoundException("house", b.getHouseId())))
                 .orElseThrow(() -> new NoDataFoundException(String.format("user with email %s not found", email)));
