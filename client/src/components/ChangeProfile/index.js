@@ -115,14 +115,19 @@ const ChangeProfile = (props) => {
         password: props.user.password
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e, additionalPhoneIndex) => {
         switch (e.target.name) {
             case 'phone':
                 setDataForm({
                     ...dataForm,
                     phone: {...dataForm.phone, type: 'MAIN', phone: e.target.value}
                 })
-                console.log(dataForm)
+                break;
+            case 'secondPhone':
+                setDataForm({
+                    ...dataForm,
+                    additionalPhones: dataForm.additionalPhones.map((phone, index) => index === additionalPhoneIndex ? { ...phone, phone: e.target.value } : phone)
+                });
                 break;
             default:
                 setDataForm({
@@ -131,7 +136,6 @@ const ChangeProfile = (props) => {
                 });
         }
     };
-
 
     // Form check for back-end && response status
     const check = (e) => {
@@ -142,10 +146,11 @@ const ChangeProfile = (props) => {
             'name': dataForm.surname,
             'contacts': [dataForm.phone, ...dataForm.additionalPhones]
         };
-
         const data = objectToFormData(dataFormData)
         props.updateUser(data);
     };
+    console.log(dataForm)
+
     //Form Data Props
     const inputData = [
         {
@@ -163,14 +168,16 @@ const ChangeProfile = (props) => {
             "type": "number",
             "onChange": handleChange
         },
-        {
-            "id": "3",
+        ...dataForm.additionalPhones.map((additionalPhone, index) => ({
+            "id": 6 + index + "",
             "label": t('profilePhoneAdd'),
-            "valueType": dataForm.secondPhone,
+            "valueType": additionalPhone.phone,
             "name": "secondPhone",
             "type": "number",
-            "onChange": handleChange
-        },
+            "onChange": (e) => {
+                handleChange(e, index);
+            }
+        })),
         {
             "id": "4",
             "label": t('Email'),
@@ -185,7 +192,6 @@ const ChangeProfile = (props) => {
             "name": "dateBirth",
             "onChange": handleChange
         },
-
     ];
     return (<>
         <Container maxWidth={"xl"}>
@@ -203,7 +209,7 @@ const ChangeProfile = (props) => {
                     </Grid>
                     <Grid item xs={8}>
                         <ValidatorForm noValidate autoComplete="off" instantValidate={false}>
-                            {inputData.map(i =>
+                            {inputData.map((i, index) =>
                                 (i.name === "dateBirth") ?
                                     <TextField
                                         id="date"
