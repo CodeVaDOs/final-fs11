@@ -173,7 +173,7 @@ export default function HouseCards({ data, onHouseClick }) {
                         <div>
                           <img
                             className={classes.img}
-                            src={house.houseImages[0].url}
+                            src={house?.houseImages[0]?.url}
                             alt={house.id}/>
                           <div
                             className={classes.houseCardBody}>
@@ -199,9 +199,7 @@ export default function HouseCards({ data, onHouseClick }) {
           </Grid>
         </div>
       </Grid>
-
     </div>
-
   );
 }
 
