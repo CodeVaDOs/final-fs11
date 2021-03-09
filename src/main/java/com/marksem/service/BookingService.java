@@ -22,7 +22,7 @@ public class BookingService {
     private final HouseRepository houseRepository;
     private final UserRepository userRepository;
 
-    public ResponseBooking create(RequestBooking b, String email) {
+    public ResponseBooking create(RequestBooking b, String email) throws NoDataFoundException {
         return userRepository.findByEmail(email)
                 .map(u -> houseRepository.findById(b.getHouseId())
                         .map(h -> bookingRepository.save(b.toEntity(h)))
