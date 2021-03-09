@@ -217,7 +217,7 @@ export const House = ({ house }) => {
     <div className={classes.root}>
       <div className={classes.topSide}>
         <div className={classes.leftSide}>
-          <Slider/>
+          {/*<Slider/>*/}Slider
         </div>
 
         <div className={classes.rightSide}>
