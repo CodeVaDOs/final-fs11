@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -6,9 +6,6 @@ import { CardActionArea, CardContent, Fab } from "@material-ui/core";
 import LocalSeeIcon from "@material-ui/icons/LocalSee";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
-import Button from "@material-ui/core/Button";
-import { objectToFormData } from "../../../../utils/formData";
-import api from "../../../../utils/api";
 
 
 const useStyles = makeStyles(() => ({
@@ -102,50 +99,35 @@ const useStyles = makeStyles(() => ({
     opacity: 1,
   }
 }));
+
+
 export const HouseCreate = ({ setCreateHouse }) => {
-  const [data, setData] = useState({
-    location: 'Zhytomyr, Ukraine',
-    equipment: 'Vse est, fen est',
-    area: 'sto kvadratnyh metrov',
-    description: 'Systhasnyi budinok, fen est',
-    ownerId: 7,
-    houseModelId: 1,
-    images: []
-  });
   const classes = useStyles();
   const { t } = useTranslation();
-
   const [uploadImg, setUploadImg] = useState({
     mainState: "initial",
     imageUploaded: 0,
     selectedFile: null
   });
-
-  const buttonOnClick = () => {
-
-    const formData = objectToFormData(data, '', ['images']);
-    data.images.forEach((file, index) => {
-      formData.append(`images[${index}]`, file, file.name);
-    });
-
-    api.post('houses', formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-  };
-
-  const handleUploadClick = e => {
-    const { files } = e.target;
-    setData({
-      ...data,
-      images: Object.keys(files).map(function (key) {
-        return files[key];
-      })
-    });
+  const handleUploadClick = event => {
     setCreateHouse(true);
-    buttonOnClick();
+    const reader = new FileReader();
+    let file = event.target.files[0];
+    let url = reader.readAsDataURL(file);
+    console.log(url);
+    reader.onloadend = () => setUploadImg({
+      mainState: "uploaded",
+      selectedFile: [reader.result],
+      imageUploaded: 1
+    });
+
+    setUploadImg({
+      mainState: "uploaded",
+      selectedFile: event.target.files[0],
+      imageUploaded: 1
+    });
+
   };
-
-
   const imageResetHandler = () => {
     setUploadImg({
       mainState: "initial",
@@ -153,7 +135,6 @@ export const HouseCreate = ({ setCreateHouse }) => {
       imageUploaded: 0
     });
   };
-  //Upload Photo Managment
   const renderInitialState = () => {
     return (
       <>
@@ -168,8 +149,12 @@ export const HouseCreate = ({ setCreateHouse }) => {
               onChange={handleUploadClick}
             />
             <label htmlFor="contained-button-file">
-              <Fab onClick={buttonOnClick} component="span" className={classes.greyButton}>
-                <Typography>Edit</Typography>
+              <Fab component="span" onChange={handleUploadClick} className={classes.greyButton}>
+                <LocalSeeIcon style={{ color: "#FFF", marginTop: "-23px", marginLeft: '10px' }}/>
+                <Box style={{ marginTop: "36px", marginLeft: "-48px" }}>
+                  <Typography className={classes.smallText}>{t('change')}</Typography>
+                  <Typography className={classes.smallText} style={{ marginLeft: '20px', marginTop: '-4px' }}>{t('Photo')}</Typography>
+                </Box>
               </Fab>
             </label>
           </Grid>
@@ -181,12 +166,14 @@ export const HouseCreate = ({ setCreateHouse }) => {
     return (
       <>
         <CardActionArea onClick={imageResetHandler}>
-          <img width={"104px"} height={"104px"} alt={'ssss'} style={{ borderRadius: '50%' }}
+          <img width={"104px"} height={"104px"} alt={'ssss'}
                src={uploadImg.selectedFile}
           />
         </CardActionArea>
       </>
     );
+    //Upload Photo Managment
+
   };
 
   return (

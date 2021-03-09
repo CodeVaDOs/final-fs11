@@ -13,6 +13,7 @@ import { MyContracts } from "../Documents/MyContracts";
 import ClientStatisticRent from "../../../ClientStatisticRent";
 import { CreateNewHouse } from "../CreateNewHouse";
 import EditUser from "../../../../pages/Client/components/EditUser";
+import { HouseImages } from "../ClientHouses/HouseCreate";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -136,7 +137,7 @@ export default function ClientTabs() {
               value={value} index={0}>
               <Information/>
             </TabPanel>
-            <TabPanel  value={value} index={1}>
+            <TabPanel value={value} index={1}>
               <ClientHouses
                 setCreateHouse={setCreateHouse}
                 createHouse={createHouse}
@@ -162,12 +163,13 @@ export default function ClientTabs() {
           {bottomView === 1
             ?
             <div>
+
+              <House house={house}/>
               {
                 createHouse
                   ? <CreateNewHouse/>
                   : ''
               }
-              <House house={house}/>
             </div>
 
             : null}

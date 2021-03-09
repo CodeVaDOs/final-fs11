@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import MyHouses from "./MyHouses";
-import {makeStyles} from "@material-ui/core/styles";
-import {Button, Typography} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Button, Typography } from "@material-ui/core";
 import MessageIcon from "@material-ui/icons/Message";
 import SimpleSelect from "./Select";
 import Flex from "react-calendar/dist/umd/Flex";
+import { HouseImages } from "./HouseCreate";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -104,39 +105,39 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const ClientHouses = ({ HouseIdx, houseToState, rent , setCreateHouse}) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      {rent ?
-        <div className={classes.flexFix}>
-          <h2 style={{ fontFamily: "Roboto", fontSize: '18px' }}>Створити документ</h2>
-          <Flex direction={"row"} style={{ alignItems: 'center',justifyContent:"center" }}>
-            <h3 style={{ fontFamily: "Roboto", fontSize: '14px' }}>Показати</h3>
-            <SimpleSelect option={['Всі будинки', 'Вільні', 'Орендовані']}/>
-          </Flex>
-        </div>
-        :
-        null}
-      <MyHouses
-        setCreateHouse={setCreateHouse}
-        onHouseClick={houseToState}
-        data={HouseIdx}
-        rent={rent}/>
-      {rent ?
-        <div>
+export const ClientHouses = ({ HouseIdx, houseToState, rent, setCreateHouse }) => {
+    const classes = useStyles();
+    return (
+      <div className={classes.root}>
+        {rent ?
           <div className={classes.flexFix}>
-            <Typography>Надіслати обраний будинок орендарю для огляду</Typography>
-            <Button className={classes.btnSend}>
-              Надiслати
-            </Button>
+            <h2 style={{ fontFamily: "Roboto", fontSize: '18px' }}>Створити документ</h2>
+            <Flex direction={"row"} style={{ alignItems: 'center', justifyContent: "center" }}>
+              <h3 style={{ fontFamily: "Roboto", fontSize: '14px' }}>Показати</h3>
+              <SimpleSelect option={['Всі будинки', 'Вільні', 'Орендовані']}/>
+            </Flex>
           </div>
-          <Button className={classes.btnWrite}>
-            Написати <MessageIcon className={classes.editIcon}/></Button>
-        </div> :
-        <Typography style={{ width: "400px" }}>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor </Typography>
-      }
-    </div>
-  );
-};
+          :
+          null}
+        <MyHouses
+          setCreateHouse={setCreateHouse}
+          onHouseClick={houseToState}
+          data={HouseIdx}
+          rent={rent}/>
+        {rent ?
+          <div>
+            <div className={classes.flexFix}>
+              <Typography>Надіслати обраний будинок орендарю для огляду</Typography>
+              <Button className={classes.btnSend}>
+                Надiслати
+              </Button>
+            </div>
+            <Button className={classes.btnWrite}>
+              Написати <MessageIcon className={classes.editIcon}/></Button>
+          </div> :
+          <Typography style={{ width: "400px" }}>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor </Typography>
+        }
+      </div>
+    );
+  }
+;
