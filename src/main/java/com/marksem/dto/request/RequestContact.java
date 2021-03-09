@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestContact extends BaseEntity {
-
     private Long id;
 
     @Size(min = 10, message = "phone number is too short")

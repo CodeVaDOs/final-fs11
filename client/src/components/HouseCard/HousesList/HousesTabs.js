@@ -67,6 +67,14 @@ export default function HousesTabs() {
   const [value, setValue] = useState('one');
   const [house, setHouse] = useState([]);
   const [houses, setHouses] = useState([]);
+  const dispatch = useDispatch();
+  let {loading:load, houses: housesList} = useSelector(state => state.houses);
+  useEffect(() => {
+    if (!load) {
+      console.log('housesList', housesList);
+    }
+    dispatch(housesActions.getHouses());
+  }, []);
 
   const [{ data, loading }, getData] = useFetch(
     {

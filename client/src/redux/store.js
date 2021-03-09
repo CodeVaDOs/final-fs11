@@ -5,6 +5,7 @@ import docReducer from './documents/reducer';
 import totalReducer from './total/reducer';
 import housesReducer from './houses/reducer';
 import maintainReducer from './houseMaintain/reducer';
+import passwordReducer from './profilePass/reducer';
 import { AUTH_ACTIONS } from "./auth/action";
 import { getTokens, setAuthToken } from "../utils";
 
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   total: totalReducer,
   maintain: maintainReducer,
   houses: housesReducer,
+  password:passwordReducer,
 });
 
 export default () => {
