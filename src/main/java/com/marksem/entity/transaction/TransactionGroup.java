@@ -41,6 +41,6 @@ public class TransactionGroup extends BaseEntity {
     @JoinColumn(name = "house_id")
     private House house;
 
-    @OneToMany(mappedBy = "transactionGroup", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "transactionGroup", fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 }
