@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from "../../components/Container";
 import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
@@ -15,6 +15,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useSelector } from "react-redux";
 const useStyles = makeStyles({
   indicator: {
     backgroundColor: '#254A93',
@@ -84,107 +85,10 @@ const a11yProps=(index)=> {
     'aria-controls': `simple-tabpanel-${index}`,
   };
 };
-const feedbacks = [
-  {
-    id:1,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:2,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:3,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:4,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:5,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:6,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:7,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:8,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:9,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:10,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:11,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-  {
-    id:12,
-    title:"Останній відгук",
-    user:"Anatolii",
-    date:"27 Червня - 30 Червня",
-    subName:"Огляд",
-    body:"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"
-  },
-];
 
 const TabPanel=(props)=> {
   const { children, value, index, ...other } = props;
+  
   return (
     <div
       role="tabpanel"
@@ -212,12 +116,22 @@ const Index =()=> {
   const [dataForm] = useState({
     propertyId:'all'
   });
+
+  const houses = useSelector(state => state.houses?.houses);
+  const getBookings = () => houses
+    ?.flatMap(h => h?.bookings)
+    ?.filter(i => i.feedback)
+    ?.sort((a,b) => new Date(b.feedback?.createDate)?.getTime() - new Date(a.feedback?.createDate).getTime());
+
+  const [bookings, setBookings] = useState(getBookings());
+
+  useEffect(() => setBookings(getBookings()), [houses]);
   // const handleChangeProperty= (e) => {
   //   setDataForm({
   //     propertyId:e.target.value
   //   });
   // };
-
+  
   return(<Container>
     <Box className={classes.root}>
       <AppBar position="static" color="default" style={{ boxShadow:"none" }}>
@@ -263,11 +177,11 @@ const Index =()=> {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Grid container spacing={3} style={{ marginTop:"20px", marginBottom:"20px" }}>
-          {feedbacks.map(f=>
-            <PanelClientMediumCard key={f.id} id={f.id} user={f.user} title={f.title} subName={f.subName} date={f.date} body={f.body} />)
+          {bookings?.map(booking =>
+            <PanelClientMediumCard id={booking.id} title={"Відгук орендаря"} booking={booking} subName={booking.subName} typeCard={"btn"}/>)
           }
           <Box style={{ marginTop: "20px", marginBottom: "15px", marginLeft: "30%", marginRight:"30%" }}>
-            <Pagination count={10} />
+            {bookings?.length > 10 ? (<Pagination count={Math.ceil(bookings.length/10)} />) : null}
           </Box>
         </Grid>
       </TabPanel>
