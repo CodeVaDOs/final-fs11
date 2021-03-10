@@ -124,6 +124,13 @@ export const routes = [
   },
   {
     isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/clients/:id",
+    component: lazy(() => import("@pages/ClientPage")),
+  },
+  {
+    isPublic: false,
     isAdminRoute: true,
     exact: true,
     path: "/employee",

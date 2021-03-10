@@ -2,7 +2,8 @@ import React from 'react';
 import {Card, CardActions, CardContent, Divider, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import {ChatOutlined, ChatRounded, ChatSharp} from "@material-ui/icons";
+import {ChatRounded} from "@material-ui/icons";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -129,6 +130,10 @@ const useStyles = makeStyles({
         fontSize: '14px',
         letterSpacing: '0em',
         margin: '5px 0 0 0'
+    },
+
+    link: {
+        textDecoration: 'none'
     }
 })
 
@@ -154,17 +159,19 @@ const useStyles = makeStyles({
 const ClientCard = ({user}) => {
     const classes = useStyles();
 
-    const {contacts, name, email, urlAvatar} = user;
+    const {contacts, name, email, urlAvatar, id} = user;
 
     const phone = contacts.find(contact => contact.type === "MAIN")?.phone || '+380933232222';
 
     return <Card className={classes.root}>
         <CardContent className={classes.profile}>
             <div className={classes.userLink}>
-                <img src={urlAvatar} alt="user avatar" className={classes.userAvatar}/>
-                <Typography variant="h3" className={classes.userName}>
-                    {name}
-                </Typography>
+                <Link className={classes.link} to={"clients/" + id}>
+                    <img src={urlAvatar} alt="user avatar" className={classes.userAvatar}/>
+                    <Typography variant="h3" className={classes.userName}>
+                        {name}
+                    </Typography>
+                </Link>
             </div>
             <div className={classes.userData}>
                 <div className={classes.leftSideContent}>

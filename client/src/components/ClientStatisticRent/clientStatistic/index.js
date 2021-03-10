@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import CircularStatic from "@components/IncomeCard/CircularProgress/index";
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { useTranslation } from "react-i18next";
-import { More } from "../../../components/ClientPage/components/More/index";
+import { More } from "../../../pages/ClientPage/components/More/index";
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.backgroundColor = "#EEF5FF";
 Chart.defaults.global.tooltips.titleFontColor = "#293134";
