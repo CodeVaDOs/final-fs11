@@ -50,6 +50,14 @@ public class TransactionService {
         .toLocalDate();
   }
 
+//  public List<Transaction> getByDateRange(Date from, Date to) {
+//    return this.transactionRepository.getTransactionsByRange(from, to);
+//  }
+
+  public List<Transaction> getByDate(Date date) {
+    return this.transactionRepository.getAllByDate(date);
+  }
+
 //    public ResponseTransaction create(RequestTransaction t) {
 //        return transactionGroupRepository.findById(t.getTransactionGroupId())
 //                .map(tg -> transactionTypeRepository.findById(t.getTransactionTypeId())

@@ -200,6 +200,7 @@ export const AddNewStatistic = () => {
             className={classes.selectHouse}
             labelId="house-select"
             value={houseName}
+            dataid={houseId}
             onChange={selectHouseChange}
           >
             {houses.length ? houses.map((h, idx) =>
