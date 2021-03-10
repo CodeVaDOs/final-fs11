@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import src from "./img.png";
 import { TableRow, Typography } from "@material-ui/core";
-import CircularStatic from "../../../IncomeCard/CircularProgress";
+import CircularStatic from "../../../../components/IncomeCard/CircularProgress";
 // const Card = () => (
 //   <tr>
 //     <td className="fullWidth">
@@ -16,21 +16,22 @@ import CircularStatic from "../../../IncomeCard/CircularProgress";
 const useStyles = makeStyles({
   div: {
     borderRadius: '20px',
+
   },
   root: {
-    padding: 20,
-    backgroundColor: '#EEF5FF',
+    margin: 20,
     display: "flex",
     alignItems: "center",
     justifyContent: 'center'
   },
   centered: {
+    margin: 20,
     borderRadius: '20px',
     width: "100%",
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '15px',
+    padding: '20px',
 
   },
   img: {
@@ -42,16 +43,7 @@ const useStyles = makeStyles({
     alignItems: 'flex-start',
     justifyContent: 'left'
   },
-  text: {
-    color: '#6E7375',
-    fontWeight: 300,
-    fontSize: '16px'
-  },
-  id: {
-    color: '#293134',
-    fontWeight: 500,
-    fontSize: '18px'
-  }
+  text: {}
 });
 
 export const TableItem = () => {
@@ -60,7 +52,7 @@ export const TableItem = () => {
     <div>
       <TableRow className={classes.root}>
         <div className={classes.centered}>
-          <img className={classes.img} alt={'d'} src={src}/>
+          <img className={classes.img} alt={'s'} src={src}/>
           <div className={classes.description}>
             <Typography className={classes.id}>ID 00170</Typography>
             <Typography className={classes.text}>80 m2</Typography>
@@ -69,7 +61,7 @@ export const TableItem = () => {
             <Typography className={classes.text}>Standart</Typography>
           </div>
           <div className={classes.description}>
-            <Typography><span className={classes.id}>Оренда:</span><span className={classes.text}>18 днів</span></Typography>
+            <Typography>Оренда: 18 днів</Typography>
             <CircularStatic size={80} thickness={2} progress={"9.573"} color={"#4AD584"}/>
           </div>
         </div>

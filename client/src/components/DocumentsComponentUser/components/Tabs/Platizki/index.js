@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {DocumentItem} from "../../../../ClientPage/components/Documents/DocumentItem";
-import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
+import {DocumentItem} from "../../../../../pages/ClientPage/components/Documents/DocumentItem";
+import {SelectDocument} from "../../../../../pages/ClientPage/components/Documents/SelectDocument";
 import {useDispatch, useSelector} from "react-redux";
 import {documentsAction} from "../../../../../redux/documents/action";
 import LinearBuffer from "../../Progress";

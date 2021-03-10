@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Helpers from "../../../utils/formData";
 import { AUTH_ACTIONS } from "../../../redux/auth/action";
+import {useFetch} from "../../../hooks/useFetch";
+import {useLocation} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -18,9 +20,8 @@ const useStyles = makeStyles({
   }
 });
 
-const EditUser = () => {
+const EditUser = ({user}) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.auth.user);
 
   const [mainPhone, additionalPhones] = user.contacts?.reduce((acc, contact) => {
     switch (contact.type) {

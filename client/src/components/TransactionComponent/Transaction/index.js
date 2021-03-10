@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
-import { DocSvg } from "../../ClientPage/components/Documents/DocSvg";
+import { DocSvg } from "../../../pages/ClientPage/components/Documents/DocSvg";
 import Typography from "@material-ui/core/Typography";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PrintIcon from "@material-ui/icons/Print";

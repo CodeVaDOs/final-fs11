@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {SelectDocument} from "../../../../ClientPage/components/Documents/SelectDocument";
+import {SelectDocument} from "../../../../../pages/ClientPage/components/Documents/SelectDocument";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { Button } from "@material-ui/core";
 import { CreateDocument } from "./CreateDocument";
-import { DocumentItem } from '../../../../ClientPage/components/Documents/DocumentItem';
+import { DocumentItem } from '../../../../../pages/ClientPage/components/Documents/DocumentItem';
 import { useDispatch, useSelector } from "react-redux";
 import { documentsAction } from "../../../../../redux/documents/action";
 import LinearBuffer from "../../Progress";
