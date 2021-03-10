@@ -36,8 +36,8 @@ export default function HouseDesription({ house }) {
 
 
   const rows = [
-    createData(t('status'), house.status, pause),
-    createData(t('square'), house.square),
+    createData(t('status'), house.status , pause),
+    createData(t('square'), house.area),
     createData(t('location'), house.location),
     createData(t('equipment'), house.equipment),
   ];

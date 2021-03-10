@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   },
   gridList: {
     display: "flex",
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: "center",
     flexDirection: 'row',
     transform: 'translateZ(0)',
@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
 
   },
   gridListitem: {
+    marginRight: 10,
     maxHeight: "110px",
     borderRadius: '10%',
     width: '140px',
@@ -46,7 +47,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const Slider = () => {
+export const Slider = ({ images }) => {
   const classes = useStyles();
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -74,30 +75,34 @@ export const Slider = () => {
         className={classes.bigPhoto}
         src={photoIndex ? images[photoIndex] : images[0]}
         alt={'das'}/>
-      <div className={classes.gridList}>
-        <img
-          className={classes.gridListitem}
-          onClick={() => {
-            showPhoto(0);
-          }}
-          src={images[0]} alt={"1"}/>
-        <img
-          className={classes.gridListitem}
-          onClick={() => {
-            showPhoto(1);
-          }} src={images[1]} alt={"1"}/>
-        <div>
-          <img
-            className={classes.gridListitemShadowImg}
-            onClick={openModal}
-            src={images[2]}
-            alt={"2"}/>
-          <p className={classes.countOfPfoto}>+25</p>
-        </div>
+      {
+        images.length > 1
+          ? <div className={classes.gridList}>
+            <img
+              className={classes.gridListitem}
+              onClick={() => {
+                showPhoto(0);
+              }}
+              src={images[0]} alt={"1"}/>
+            <img
+              className={classes.gridListitem}
+              onClick={() => {
+                showPhoto(1);
+              }} src={images[1]} alt={"1"}/>
+            <div>
+              <img
+                className={classes.gridListitemShadowImg}
+                onClick={openModal}
+                src={images.length >= 1 ? images[1] : images[0]}
+                alt={"2"}/>
+              <p className={classes.countOfPfoto}>+{images.length}</p>
+            </div>
+          </div>
+          : ''
+      }
 
-
-      </div>
       {isOpen ? <TransitionsModal
+        images={images}
           open={isOpen}
           setIsOpen={setIsOpen}
           photoIndex={photoIndex}

@@ -140,7 +140,7 @@ export const CreateNewHouse = () => {
         <div className={classes.mainContainer}>
           {/*left photo part*/}
           <div className={classes.leftPart}>
-            <Slider/>
+            {/*<Slider/>*/}
           </div>
           {/*right part*/}
           <div className={classes.rightPart}>
