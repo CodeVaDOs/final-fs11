@@ -12,10 +12,10 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import {useTranslation} from "react-i18next";
-import {More} from "../ClientPage/components/More";
-import Tab from "../ClientPage/components/Tabs/Tab";
-import Tabs from "../ClientPage/components/Tabs/Tabs";
-import {NewStatistic} from "../ClientPage/components/NewStatistic";
+import {More} from "../../pages/ClientPage/components/More";
+import Tab from "../../pages/ClientPage/components/Tabs/Tab";
+import Tabs from "../../pages/ClientPage/components/Tabs/Tabs";
+import {NewStatistic} from "../../pages/ClientPage/components/NewStatistic";
 import Container from "@material-ui/core/Container";
 
 Chart.defaults.global.legend.display = false;

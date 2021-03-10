@@ -10,9 +10,9 @@ import {tileData} from "../../../../utils/constants/housesView";
 import {House} from "../ClientHouses/House";
 import {Documents} from "../Documents";
 import {MyContracts} from "../Documents/MyContracts";
-import ClientStatisticRent from "../../../ClientStatisticRent";
+import ClientStatisticRent from "../../../../components/ClientStatisticRent";
 import {CreateNewHouse} from "../CreateNewHouse";
-import EditUser from "../../../../pages/Client/components/EditUser";
+import EditUser from "../../../Client/components/EditUser";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -95,7 +95,7 @@ function a11yProps(index) {
 }
 
 
-export default function ClientTabs() {
+export default function ClientTabs({ user }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [HouseIdx,] = useState(tileData);
@@ -116,7 +116,7 @@ export default function ClientTabs() {
       <div className={classes.columnStart}>
         <div className={classes.root}>
           <div className={classes.user}>
-            <EditUser/>
+            <EditUser user={user}/>
           </div>
           <div
               className={classes.columnProfile}>

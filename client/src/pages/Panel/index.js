@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from "../../components/Container";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import PanelClientSmallCard from '../../components/PanelClientSmallCard';
 import Box from "@material-ui/core/Box";
 import PanelClientMediumCard from '../../components/PanelClientMediumCard';
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 const useStyles = makeStyles({
   header: {
     fontFamily: 'Roboto, sans-serif',
@@ -23,6 +23,16 @@ const useStyles = makeStyles({
 const Panel =(props)=> {
   const { t } = useTranslation();
   const classes = useStyles();
+  const houses = useSelector(state => state.houses?.houses);
+  const getBooking = () => houses
+    ?.flatMap(h => h?.bookings)
+    ?.filter(i => i.feedback)
+    ?.sort((a,b) => new Date(b.feedback?.createDate)?.getTime() - new Date(a.feedback?.createDate)?.getTime())[0];
+
+  const [booking, setBooking] = useState(getBooking());
+
+  useEffect(() => setBooking(getBooking()), [houses]);
+
   return(<>
     <Container>
       <Typography className={classes.header}>{t("hello")} {props.user.name} {"!"}</Typography>
@@ -40,9 +50,7 @@ const Panel =(props)=> {
           <Grid item xs={4}><PanelClientMediumCard 
             id={1}
             title={"Останній відгук"}
-            user ={"Anatolii"}
-            date={"27 Червня - 30 Червня"}
-            body={"Це місце дивовижне! Супер чистий, стильний і не надто далеко від усього найкращого, що може запропонувати Україна. Господар був привітним. Однозначно знову затримаюсь тут, повернувшись в Україну"}
+            booking={booking}
             subName={"Огляд"}
             typeCard={"btn"}
             widthT={1}
