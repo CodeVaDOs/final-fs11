@@ -3,7 +3,6 @@ import Container from "../../components/Container";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { ClientPage } from "../../components/ClientPage";
 import {useFetch} from "../../hooks/useFetch";
 import ClientCard from "./components/ClientCard";
 import {CircularProgress} from "@material-ui/core";
@@ -37,7 +36,6 @@ const Client = () => {
 
       {!loading && data.list.map(user => <ClientCard user={user}/>)}
       {loading && <CircularProgress size={60}/>}
-      {/*<ClientPage/>*/}
     </Container>
   </>);
 };
