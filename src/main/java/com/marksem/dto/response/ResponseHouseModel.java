@@ -1,8 +1,6 @@
 package com.marksem.dto.response;
 
 import com.marksem.entity.house.HouseModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
