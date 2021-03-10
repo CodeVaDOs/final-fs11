@@ -134,7 +134,7 @@ const Index =()=> {
 
   const [total, setTotal] = useState(0);
   const init = () => {
-    setBookings(getBookings().slice(0,9));
+    setBookings(getBookings().slice(0,10));
     setTotal(getBookings().length);
   };
   
