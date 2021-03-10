@@ -6,17 +6,34 @@ import { useTranslation } from "react-i18next";
 import TextField from '@material-ui/core/TextField';
 import ButtonStyle from "../Button";
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Bell from '../../assert/icons/bellRing.svg';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import {useDispatch, useSelector} from "react-redux";
+import { NOTIFICATION_ACTIONS } from "@redux/notifications/action";
 
 
 const useStyles = makeStyles((theme)=>({
   formControlSelect: {
     margin: theme.spacing(1),
     minWidth: 139,
+  },
+  rootPaper: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    width: '177px',
+    height: '30px',
+    marginLeft: '-20px',
+    fontWeight: 400,
+    fontSize: 14,
+  },
+  inputPaper: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -99,45 +116,28 @@ const useStyles = makeStyles((theme)=>({
 const PanelAdmMemo =()=>{
   const classes = useStyles();
   const { t } = useTranslation();
-  const [dataForm, setDataForm] = useState({
-    textValue:t("inputValue"),
-    typeMassage:'',
-    toMassage:'',
-  });
-  const handleChangeType= (e) => {
-    setDataForm({
-      typeMassage:e.target.value,
-      toMassage:dataForm.toMassage
-    });
+  const clients = useSelector(store => store.total.accessPanel.clients);
+  const init = {
+    title: '',
+    text:'',
+    importance:'SMALL',
+    receivers: '',
   };
-  const handleChangeTo= (e) => {
-    setDataForm({
-      typeMassage:dataForm.typeMassage,
-      toMassage:e.target.value,
-    });
-  };
-  const resetInput =()=>{
-    setDataForm({
-      textValue:'',
-      typeMassage:dataForm.typeMassage,
-      toMassage:dataForm.toMassage,
-    });
-  };
+  const [dataForm, setDataForm] = useState(init);
+
   const handleChangeData = (e) => {
     setDataForm({
-      textValue: e.target.value,
-      typeMassage:dataForm.typeMassage,
-      toMassage:dataForm.toMassage,
+      ...dataForm,
+      [e.target.name]: e.target.value
     });
   };
+
+  const dispatch = useDispatch();
   const onSubmit =()=>{
-    //send data to backend
-    setDataForm({
-      textValue:t("inputValue"),
-      typeMassage:'',
-      toMassage:'',
-    });
-    console.log(dataForm.textValue, dataForm.typeMassage, dataForm.toMassage);
+    let data = dataForm;
+    data.receivers = dataForm.receivers === 'all' ? clients.map(c => c.id) : [dataForm.receivers];
+    dispatch(NOTIFICATION_ACTIONS.setNotifications(data));
+    setDataForm(init);
   };
   return(<>
     <Box className={classes.formControl}>
@@ -153,50 +153,54 @@ const PanelAdmMemo =()=>{
         >
           <Grid item xs={3}>
             <Box style={{ marginTop:"10px", marginBottom:"20px" }}>
-              <ButtonStyle btnState={true} w={"177px"} h={"30px"} fs={14} fw={400} ml={"-20px"} text={t('createBtn')} onClick={()=>{}}/>
+              <Paper component="form" className={classes.rootPaper}>
+                <InputBase
+                  className={classes.inputPaper}
+                  placeholder={t('createBtn')}
+                  name = "title"
+                  value={dataForm.title}
+                  onChange={handleChangeData}
+                />
+              </Paper>
             </Box>
           </Grid>
           <Grid item xs={2}><Typography className={classes.text}>{t("typeMassage")}</Typography></Grid>
           <Grid item xs={2}>
             <FormControl variant="filled" className={classes.formControlSelect}>
-              <InputLabel id="demo-simple-select-filled-label"></InputLabel>
               <Select className={classes.rootSelect}
-                defaultValue={dataForm.typeMassage}
-                labelId="demo-simple-select-filled-label"
-                id="demo-simple-select-filled"
-                value={dataForm.typeMassage}
-                onChange={handleChangeType}
+                value={dataForm.importance}
+                name = "importance"
+                onChange={handleChangeData}
               >
-                <MenuItem value={`${t("important")}`}>{t("important")}</MenuItem>
-                <MenuItem value={`${t("informative")}`}>{t("informative")}</MenuItem>
+                <MenuItem value="LARGE">{t("important")}</MenuItem>
+                <MenuItem value="MEDIUM">{t("informative")}</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={2}><div style={{ marginLeft:"65px" }}><Typography className={classes.text}>{t("sendBtn")}</Typography></div></Grid>
           <Grid item xs={3}>
             <FormControl variant="filled" className={classes.formControlSelect}>
-              <InputLabel id="demo-simple-select-filled-label"></InputLabel>
               <Select className={classes.rootSelect}
-                defaultValue={dataForm.toMassage}
-                labelId="demo-simple-select-filled-label"
-                id="demo-simple-select-filled"
-                value={dataForm.toMassage}
-                onChange={handleChangeTo}
+                value={dataForm.receivers}
+                name="receivers"
+                onChange={handleChangeData}
               >
-                <MenuItem value={t("allManager")}>{t("allManager")}</MenuItem>
-                <MenuItem value={t("choseManager")}>{t("choseManager")}</MenuItem>
+                <MenuItem value="all">{t("allClients")}</MenuItem>
+                {clients?.map(client =>
+                  <MenuItem value={client.id}>{client.name}</MenuItem>
+                )}
               </Select>
             </FormControl>
           </Grid>
         </Grid>
         <form className={classes.root} noValidate autoComplete="off">
           <TextField className={classes.rootInput}
-            id="outlined-multiline-static"
             multiline
             rows={8}
-            onFocus={resetInput}
             variant="outlined"
-            value={dataForm.textValue}
+            placeholder={t('inputValue')}
+            name="text"
+            value={dataForm.text}
             onChange={handleChangeData}
           />
         </form>
