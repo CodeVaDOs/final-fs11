@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class RequestNotification extends BaseEntity {
     private String text;
     private Boolean isRead = false;
     private Importance importance;
-    private Long receiverId;
+    private List<Long> receivers;
 
     public RequestNotification(String title, String text, Importance importance) {
         this.title = title;
