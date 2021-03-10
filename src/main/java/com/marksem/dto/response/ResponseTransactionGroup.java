@@ -1,6 +1,7 @@
 package com.marksem.dto.response;
 
 import com.marksem.entity.transaction.Currency;
+import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.TransactionGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +20,7 @@ public class ResponseTransactionGroup extends BaseEntity {
     private Currency currency;
     private Double amountUSD;
     private String comment;
+    private FinanceType transactionType;
     private List<Object> transactions;
 
     public ResponseTransactionGroup(TransactionGroup tg) {
@@ -30,6 +32,7 @@ public class ResponseTransactionGroup extends BaseEntity {
         this.currency = tg.getCurrency();
         this.amountUSD = tg.getAmountUSD();
         this.comment = tg.getComment();
+        this.transactionType = tg.getTransactionType();
         this.transactions = tg.getTransactions().stream().map(ResponseTransaction::new).collect(Collectors.toList());
     }
 }

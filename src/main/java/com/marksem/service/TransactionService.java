@@ -25,28 +25,29 @@ public class TransactionService {
     long daysInterval = getDaysRange(tg.getFromDate(), tg.getToDate());
 
     return transactionRepository.saveAll(
-      Stream.iterate(0, n -> n + 1)
-        .limit(daysInterval)
-        .map(fromDate::plusDays)
-        .map(date ->
-               Transaction.builder()
-                 .transactionGroup(tg)
-                 .amountUSDPerDay(tg.getAmountUSD() / daysInterval)
-                 .date(Date.from(date
-                                   .atStartOfDay(ZoneId.systemDefault())
-                                   .toInstant()))
-                 .build()).collect(Collectors.toList()));
+        Stream.iterate(0, n -> n + 1)
+            .limit(daysInterval)
+            .map(fromDate::plusDays)
+            .map(date ->
+                Transaction.builder()
+                    .transactionGroup(tg)
+                    .transactionType(tg.getTransactionType())
+                    .amountUSDPerDay(tg.getAmountUSD() / daysInterval)
+                    .date(Date.from(date
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant()))
+                    .build()).collect(Collectors.toList()));
   }
 
   private int getDaysRange(Date from, Date to) {
     return convertToLocalDate(to).getDayOfYear() -
-             convertToLocalDate(from).getDayOfYear();
+        convertToLocalDate(from).getDayOfYear();
   }
 
   private LocalDate convertToLocalDate(Date dateToConvert) {
     return dateToConvert.toInstant()
-             .atZone(ZoneId.systemDefault())
-             .toLocalDate();
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate();
   }
 
 //    public ResponseTransaction create(RequestTransaction t) {

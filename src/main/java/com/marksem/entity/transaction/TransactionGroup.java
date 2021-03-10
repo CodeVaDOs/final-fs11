@@ -24,6 +24,9 @@ public class TransactionGroup extends BaseEntity {
     @Column(name = "to_date")
     private Date toDate;
 
+    @Enumerated(EnumType.STRING)
+    private FinanceType transactionType;
+
     private Double amount;
 
     @Column(name = "amount_USD")

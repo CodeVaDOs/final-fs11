@@ -21,6 +21,9 @@ public class Transaction extends BaseEntity {
 
     private Date date;
 
+    @Enumerated(EnumType.STRING)
+    private FinanceType transactionType;
+
     @Column(name = "amount_USD_per_Day")
     private Double amountUSDPerDay;
 

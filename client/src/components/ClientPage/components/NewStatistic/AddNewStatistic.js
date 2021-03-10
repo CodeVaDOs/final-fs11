@@ -1,5 +1,5 @@
 import 'date-fns';
-import React, { createContext, useReducer, useState } from "react";
+import React, { createContext, useEffect, useMemo, useReducer, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +9,9 @@ import FormControl from "@material-ui/core/FormControl";
 import DatePicker from "react-datepicker";
 import Transaction from "./Transaction";
 import { TRANSACTION_TYPES } from "./TransactionTypes";
-import { useDispatch } from "react-redux";
+import { useFetch } from "../../../../hooks/useFetch";
+import { AddTransactionField } from "./AddTransactionFieldBtn";
+import Button from "@material-ui/core/Button";
 
 
 const useStyles = makeStyles(() => ({
@@ -43,18 +45,12 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-export const FormTransactionsContext = createContext({
-  transactions: [],
-  setTransactions: () => {
-  }
-});
-
 export const AddNewStatistic = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
   const initFormFieldsState = {
-    house: "House 1",
+    houseId: "",
     fromDate: new Date(),
     toDate: new Date()
   };
@@ -81,122 +77,198 @@ export const AddNewStatistic = () => {
     }
   };
 
-  const [formFieldsState, dispatcher] = useReducer(formFieldsReducer, initFormFieldsState);
+  const [formFieldsState, formFieldsDispatcher] = useReducer(formFieldsReducer, initFormFieldsState);
 
-  const transactionsTypesCountState = {
+  const [transactionsCount, setTransactionsCount] = useState({
     income: 1,
     communal: 1,
     service: 1,
     other: 1
+  });
+
+  const changeTransactionCount = (transactionType) => (_) => {
+    setTransactionsCount(state => {
+      return {
+        ...state,
+        [transactionType]: state[transactionType] + 1
+      };
+    });
   };
 
-  const transactionsTypesReducer = (state, action) => {
+
+  const updateArrItemByIndex = (inputArray, item) => {
+    inputArray.splice(item.index, 1, item.dataTransaction);
+    return inputArray;
+  };
+
+  const transactionsDataState = {
+    income: [],
+    communal: [],
+    service: [],
+    other: []
+  };
+
+  const transactionsDataReducer = (state, action) => {
     switch (action.type) {
-      case 'changeIncome':
+      case 'CHANGE_INCOME':
         return {
           ...state,
-          income: action.payload
+          income: updateArrItemByIndex(state.income, action.payload)
         };
-      case 'changeCommunal':
+      case 'CHANGE_COMMUNAL':
         return {
           ...state,
-          communal: action.payload
+          communal: updateArrItemByIndex(state.communal, action.payload)
         };
-      case 'changeService':
+      case 'CHANGE_SERVICE':
         return {
           ...state,
-          service: action.payload
+          service: updateArrItemByIndex(state.service, action.payload)
         };
-      case 'changeOther':
+      case 'CHANGE_OTHER':
         return {
           ...state,
-          other: action.payload
+          other: updateArrItemByIndex(state.other, action.payload)
+        };
+      case 'ADD_ITEM':
+        return {
+          ...state,
+          [action.payload.transactionType]: [...state[action.payload.transactionType], action.payload.dataTransaction]
         };
       default:
         return state;
     }
   };
 
-  const [transactionsState, transactionsDispatcher] = useReducer(transactionsTypesReducer, transactionsTypesCountState);
-
-  const selectHouseChange = (e) =>
-    dispatcher({
-      type: "setHouse",
-      payload: e.target.value
-    });
+  const [transactionsData, dataDispatcher] = useReducer(transactionsDataReducer, transactionsDataState);
 
   const handleDateChange = (direction) => (date) => {
-    dispatcher({
+    formFieldsDispatcher({
       type: direction,
       payload: date
     });
   };
 
-  const [transactions, setTransactions] = useState([]);
-  const value = { transactions, setTransactions };
+
+  const [houses, setHouses] = useState([]);
+  const [houseName, setHouseName] = useState("");
+  const [houseId, setHouseId] = useState(undefined);
+  const selectHouseChange = (e) => {
+    setHouseName(e.target.value);
+    setHouseId(e.currentTarget.getAttribute("dataid"));
+  };
+
+  useFetch({
+    method: "GET",
+    url: "houses",
+    initData: houses,
+    dataTransformer: (data) => {
+      setHouses(data);
+      setHouseName(data[0]['description']);
+    }
+  });
+
+
+  const renderTransactions = (count, type) => {
+    return Array(count)
+      .fill(type)
+      .map((t, idx) =>
+        <Transaction
+          transactionDispatcher={dataDispatcher}
+          key={idx}
+          index={idx}
+          transactionType={t}
+        />);
+  };
 
   return (
-    <FormTransactionsContext.Provider value={value}>
-      <form className={classes.root} noValidate autoComplete="off">
-        <label className={classes.labelForm}>
-          <Typography component="span" className={classes.boldedText}>
-            {t("Клієнт")}
-          </Typography>
-          <Typography component="span">
-            {"Приходько Андрій Олександрович"}
-          </Typography>
-        </label>
-        <label htmlFor={"house-select"} className={classes.labelForm}>
-          <Typography component="span" className={classes.boldedText}>
-            {t("Будинок")}
-          </Typography>
-          <FormControl variant="outlined" className={classes.formControlSelectHouse}>
-            <Select
-              className={classes.selectHouse}
-              labelId="house-select"
-              value={formFieldsState.house}
-              onChange={selectHouseChange}
-            >
-              <MenuItem value={"House 1"}>House 1</MenuItem>
-              <MenuItem value={"House 2"}>House 2</MenuItem>
-              <MenuItem value={"House 3"}>House 3</MenuItem>
-            </Select>
-          </FormControl>
-        </label>
-        <label className={classes.labelForm}>
-          <Typography
-            component="p"
-            style={{ marginBottom: "10px" }}
-            className={classes.boldedText}>
-            {t("Період статистики")}
-          </Typography>
-          <DatePicker
-            selected={formFieldsState.fromDate}
-            onChange={handleDateChange("setFromDate")}
-            className={classes.datePicker}
-          />
-            &nbsp;|&nbsp;
-          <DatePicker
-            selected={formFieldsState.toDate}
-            onChange={handleDateChange("setToDate")}
-            className={classes.datePicker}
-          />
-        </label>
-        {
-          <Transaction transactionType={TRANSACTION_TYPES.income}/>
-        }
-
-        <Typography
-          style={{ margin: "20px 0" }}
-          component={"p"}
-          className={classes.boldedText}>
-          {"Витрати за напрямками:"}
+    <form className={classes.root} noValidate autoComplete="off">
+      <label className={classes.labelForm}>
+        <Typography component="span" className={classes.boldedText}>
+          {t("Клієнт")}
         </Typography>
-        <Transaction transactionType={TRANSACTION_TYPES.communal}/>
-        <Transaction transactionType={TRANSACTION_TYPES.service}/>
-        <Transaction transactionType={TRANSACTION_TYPES.other}/>
-      </form>
-    </FormTransactionsContext.Provider>
+        <Typography component="span">
+          {"Приходько Андрій Олександрович"}
+        </Typography>
+      </label>
+      <label htmlFor={"house-select"} className={classes.labelForm}>
+        <Typography component="span" className={classes.boldedText}>
+          {t("Будинок")}
+        </Typography>
+        <FormControl variant="outlined" className={classes.formControlSelectHouse}>
+          <Select
+            className={classes.selectHouse}
+            labelId="house-select"
+            value={houseName}
+            onChange={selectHouseChange}
+          >
+            {houses.length ? houses.map((h, idx) =>
+              <MenuItem
+                dataid={h['id']}
+                key={idx}
+                value={h['description']}>
+                {h['description']}
+              </MenuItem>) : null}
+          </Select>
+        </FormControl>
+      </label>
+      <label className={classes.labelForm}>
+        <Typography
+          component="p"
+          style={{ marginBottom: "10px" }}
+          className={classes.boldedText}>
+          {t("Період статистики")}
+        </Typography>
+        <DatePicker
+          selected={formFieldsState.fromDate}
+          onChange={handleDateChange("setFromDate")}
+          className={classes.datePicker}
+        />
+        &nbsp;|&nbsp;
+        <DatePicker
+          selected={formFieldsState.toDate}
+          onChange={handleDateChange("setToDate")}
+          className={classes.datePicker}
+        />
+      </label>
+      {
+        renderTransactions(transactionsCount.income, TRANSACTION_TYPES.income)
+      }
+      <AddTransactionField
+        handler={changeTransactionCount}
+        transactionType={"income"}
+      />
+      <Typography
+        style={{ margin: "20px 0" }}
+        component={"p"}
+        className={classes.boldedText}>
+        {"Витрати за напрямками:"}
+      </Typography>
+      {
+        renderTransactions(transactionsCount.communal, TRANSACTION_TYPES.communal)
+      }
+
+      <AddTransactionField
+        handler={changeTransactionCount}
+        transactionType={"communal"}
+      />
+      {
+        renderTransactions(transactionsCount.service, TRANSACTION_TYPES.service)
+      }
+      <AddTransactionField
+        handler={changeTransactionCount}
+        transactionType={"service"}
+      />
+      {
+        renderTransactions(transactionsCount.other, TRANSACTION_TYPES.other)
+      }
+      <AddTransactionField
+        handler={changeTransactionCount}
+        transactionType={"other"}
+      />
+      <Button>
+
+      </Button>
+    </form>
   );
-}
-;
+};

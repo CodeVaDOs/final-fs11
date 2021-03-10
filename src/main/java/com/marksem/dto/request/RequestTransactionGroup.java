@@ -2,7 +2,7 @@ package com.marksem.dto.request;
 
 import com.marksem.entity.house.House;
 import com.marksem.entity.transaction.Currency;
-import com.marksem.entity.transaction.Transaction;
+import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.TransactionGroup;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -26,6 +25,9 @@ public class RequestTransactionGroup extends BaseEntity {
 
   @NotEmpty
   private Long houseId;
+
+  @NotEmpty
+  private FinanceType transactionType;
 
   @NotEmpty
   private Double amount;
@@ -45,6 +47,7 @@ public class RequestTransactionGroup extends BaseEntity {
         .comment(this.comment)
         .transactions(new ArrayList<>())
         .house(house)
+        .transactionType(transactionType)
         .build();
   }
 }

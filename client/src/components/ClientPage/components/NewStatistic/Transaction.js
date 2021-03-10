@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
@@ -6,7 +6,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
-import { FormTransactionsContext } from "./AddNewStatistic";
 
 
 const useStyles = makeStyles(({
@@ -33,7 +32,7 @@ const useStyles = makeStyles(({
   }
 }));
 
-const Transaction = ({ transactionType }) => {
+const Transaction = ({ transactionType, index, transactionDispatcher }) => {
   const { t } = useTranslation();
 
   const TRANSACTION_TYPES = {
@@ -90,11 +89,22 @@ const Transaction = ({ transactionType }) => {
 
   const [transactionState, dispatch] = useReducer(transactionReducer, initTransactionState);
   const [selectState, setSelectState] = useState("₴ UAH");
+  //const { transactions, setTransaction } = useContext(FormTransactionsContext);
 
   const fieldHandler = (actionType) => (e) => dispatch({
     type: actionType,
     payload: e.currentTarget.value
   });
+
+  useEffect(() => {
+    transactionDispatcher({
+      type: `CHANGE_${transactionType}`,
+      payload: {
+        index,
+        dataTransaction: transactionState
+      }
+    });
+  }, [transactionState]);
 
 
   return (<fieldset className={classes.root}>
@@ -129,7 +139,7 @@ const Transaction = ({ transactionType }) => {
           <MenuItem
             key={idx}
             value={`${currency.label} ${currency.value}`}
-            datavalue={currency}
+            datavalue={currency.value}
             className={classes.currencySelect}>
             {`${currency.label} ${currency.value}`}
           </MenuItem>
