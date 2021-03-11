@@ -41,7 +41,6 @@ public class TransactionGroupService {
              .collect(Collectors.toList());
   }
 
-
   private Double convertAmount(Double amount, Currency currency, FinanceType transactionType) {
     return transactionType.equals(FinanceType.INCOME) ?
         currencyConversionService.convert(amount, currency, Currency.USD)
@@ -64,18 +63,6 @@ public class TransactionGroupService {
 //                })
 //                .map(ResponseTransactionGroup::new)
 //                .orElseThrow(() -> new NoDataFoundException("transaction group", tg.getId()));
-//    }
-//
-//    public ResponseTransactionGroup read(Long id) {
-//        return transactionGroupRepository.findById(id)
-//                .map(ResponseTransactionGroup::new)
-//                .orElseThrow(() -> new NoDataFoundException("transaction group", id));
-//    }
-//
-//    public PageableResponse<ResponseTransactionGroup> readAll(int page, int size) {
-//        Page<TransactionGroup> groups = transactionGroupRepository.findAll(PageRequest.of(page, size));
-//        return new PageableResponse<>(groups.getTotalElements(),
-//                groups.getContent().stream().map(ResponseTransactionGroup::new).collect(Collectors.toList()));
 //    }
 //
 //    public Long delete(Long id) {
