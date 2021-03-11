@@ -174,7 +174,7 @@ export default function ClientTabs({ user }) {
           </div>
           <div style={{ width: '100%' }}>
             {bottomView === 3 ?
-              <ClientStatisticRent/>
+              <ClientStatisticRent user={user}/>
               : null}
           </div>
         </div>

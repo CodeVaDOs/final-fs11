@@ -1,23 +1,22 @@
 import 'date-fns';
-import React, { createContext, useEffect, useMemo, useReducer, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useReducer, useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {useTranslation} from "react-i18next";
 import Typography from "@material-ui/core/Typography";
-import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import DatePicker from "react-datepicker";
 import Transaction from "./Transaction";
-import { TRANSACTION_TYPES } from "./TransactionTypes";
-import { useFetch } from "../../../../hooks/useFetch";
-import { AddTransactionField } from "./AddTransactionFieldBtn";
+import {TRANSACTION_TYPES} from "./TransactionTypes";
+import {AddTransactionField} from "./AddTransactionFieldBtn";
 import Button from "@material-ui/core/Button";
 import {useSelector} from "react-redux";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import TextField from "@material-ui/core/TextField";
 
 
 const useStyles = makeStyles(() => ({
   root: {
-    maxWidth: "1200px",
     width: "100%",
     margin: "0 40px"
   },
@@ -25,10 +24,19 @@ const useStyles = makeStyles(() => ({
     fontWeight: "bold",
     marginRight: "20px"
   },
+  labelDate: {
+    display: "block"
+  },
   labelForm: {
-    display: "block",
+    display: "flex",
     marginBottom: "30px"
   },
+  yCenter: {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center"
+  },
+
   formControlSelectHouse: {
     height: "30px",
     width: "50%",
@@ -42,12 +50,18 @@ const useStyles = makeStyles(() => ({
     border: "1px solid #c2c2c2",
     padding: "5px",
     width: "150px"
-  }
+  },
 
+  sendButton: {
+    marginTop: "50px",
+    display: "block",
+    background: "#254A93",
+    color: "white"
+  }
 }));
 
-export const AddNewStatistic = () => {
-  const { t } = useTranslation();
+export const AddNewStatistic = ({user}) => {
+  const {t} = useTranslation();
   const classes = useStyles();
 
   const initFormFieldsState = {
@@ -61,7 +75,7 @@ export const AddNewStatistic = () => {
       case "setHouse":
         return {
           ...state,
-          house: action.payload
+          houseId: action.payload
         };
       case "setFromDate":
         return {
@@ -95,7 +109,6 @@ export const AddNewStatistic = () => {
       };
     });
   };
-
 
   const updateArrItemByIndex = (inputArray, item) => {
     inputArray.splice(item.index, 1, item.dataTransaction);
@@ -151,12 +164,27 @@ export const AddNewStatistic = () => {
   };
 
 
-  const [houses] = useState(useSelector((state) => state.houses.houses));
-  const [houseName, setHouseName] = useState(houses[0]['description']);
-  const [houseId, setHouseId] = useState(undefined);
+  let houses = useSelector(state => state.houses.houses);
+  let housesLoading = useSelector(state => state.houses.loading);
+
+  const [houseName, setHouseName] = useState("");
+
+  useEffect(() => {
+    if (!housesLoading) {
+      setHouseName(`${houses[0].description} ID${houses[0].id}`);
+      formFieldsDispatcher({
+        type: "setHouse",
+        payload: houses[0].id
+      })
+    }
+  }, [housesLoading])
+
   const selectHouseChange = (e) => {
     setHouseName(e.target.value);
-    setHouseId(e.currentTarget.getAttribute("datavalue"));
+    formFieldsDispatcher({
+      type: "setHouse",
+      payload: e.currentTarget.getAttribute("dataid")
+    })
   };
 
   const renderTransactions = (count, type) => {
@@ -171,6 +199,30 @@ export const AddNewStatistic = () => {
         />);
   };
 
+  const submitTransaction = (e) => {
+    e.preventDefault();
+    console.log([
+      ...transactionsData.income,
+      ...transactionsData.communal,
+      ...transactionsData.other,
+      ...transactionsData.service
+    ]
+      .map(t => {
+        t.amount = Number.parseInt(t.amount)
+        return t;
+      })
+      .filter(t => t.amount !== 0)
+      .map(t => {
+        if(t.transactionType !== TRANSACTION_TYPES.income && t.amount > 0) {
+          t.amount = t.amount * -1;
+        }
+        return {
+          ...t,
+          ...formFieldsState
+        }
+      }));
+  }
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <label className={classes.labelForm}>
@@ -178,35 +230,36 @@ export const AddNewStatistic = () => {
           {t("Клієнт")}
         </Typography>
         <Typography component="span">
-          {"Приходько Андрій Олександрович"}
+          {user['name']}
         </Typography>
       </label>
-      <label htmlFor={"house-select"} className={classes.labelForm}>
+      <label className={`${classes.labelForm} ${classes.yCenter}`}>
         <Typography component="span" className={classes.boldedText}>
           {t("Будинок")}
         </Typography>
         <FormControl variant="outlined" className={classes.formControlSelectHouse}>
-          <Select
-            className={classes.selectHouse}
-            labelId="house-select"
-            value={houseName}
-            datavalue={houseId}
-            onChange={selectHouseChange}
-          >
-            {houses.length ? houses.map((h, idx) =>
-              <MenuItem
-                datavalue={h['id']}
-                key={idx}
-                value={h['description']}>
-                {h['description']}
-              </MenuItem>) : null}
-          </Select>
+          {housesLoading ? <CircularProgress/> :
+            <TextField
+              size={"small"}
+              select
+              value={houseName}
+              variant="outlined"
+              onChange={selectHouseChange}
+            >
+              {houses.map((h, idx) => (
+                <MenuItem
+                  dataid={h.id}
+                  key={idx}
+                  value={`${h.description} ID${h.id}`}>
+                  {`${h.description} ID${h.id}`}
+                </MenuItem>))}
+            </TextField>}
         </FormControl>
       </label>
-      <label className={classes.labelForm}>
+      <label className={classes.labelDate}>
         <Typography
           component="p"
-          style={{ marginBottom: "10px" }}
+          style={{marginBottom: "10px"}}
           className={classes.boldedText}>
           {t("Період статистики")}
         </Typography>
@@ -230,7 +283,7 @@ export const AddNewStatistic = () => {
         transactionType={"income"}
       />
       <Typography
-        style={{ margin: "20px 0" }}
+        style={{margin: "20px 0"}}
         component={"p"}
         className={classes.boldedText}>
         {"Витрати за напрямками:"}
@@ -257,8 +310,14 @@ export const AddNewStatistic = () => {
         handler={changeTransactionCount}
         transactionType={"other"}
       />
-      <Button>
 
+
+      <Button
+        onClick={submitTransaction}
+        variant="contained"
+        className={classes.sendButton}
+        disabled={false}>
+        {t("Зберегти")}
       </Button>
     </form>
   );
