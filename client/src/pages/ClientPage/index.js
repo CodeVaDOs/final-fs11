@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ClientTabs from "./components/Information/Tabs";
 import {makeStyles} from "@material-ui/core/styles";
 import {useLocation} from "react-router-dom";
@@ -18,20 +18,21 @@ const ClientPage = () => {
 
     const location = useLocation()
     const userId = location.pathname.split('/').pop();
-    const [{data: user, loading: loadingUser}, getUser] = useFetch({
-        url: `/users/${userId}`
+    const [user, setUser] = useState(null);
+
+    const [{loading: loadingUser}] = useFetch({
+        url: `/users/${userId}`,
+        onCompleted: (data) => setUser(data),
     });
 
-    useEffect(() => {
-        getUser();
-    }, [])
+    const editUser = (newUser) => setUser(newUser);
 
     if (!user || loadingUser) return <CircularProgress size={60}/>
 
     return (
         <>
             <div className={classes.clearfix}>
-                <ClientTabs user={user}/>
+                <ClientTabs editUser={editUser} user={user}/>
             </div>
         </>
     );

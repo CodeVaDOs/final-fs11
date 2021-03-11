@@ -96,7 +96,7 @@ function a11yProps(index) {
 }
 
 
-export default function ClientTabs({ user }) {
+export default function ClientTabs({ user, editUser }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [HouseIdx,] = useState(tileData);
@@ -117,7 +117,7 @@ export default function ClientTabs({ user }) {
       <div className={classes.columnStart}>
         <div className={classes.root}>
           <div className={classes.user}>
-            <EditUser user={user}/>
+            <EditUser editUser={editUser} user={user}/>
           </div>
           <div
             className={classes.columnProfile}>

@@ -67,7 +67,7 @@ const SidebarMenuItem = (props) => {
           </div>
           <img onClick={() => {
             dispatch(AUTH_ACTIONS.logOut());
-          }} className={classes.userAvatar} src={props.user.avatar === undefined ? avatar : props.user.avatar} alt="user avatar"/>
+          }} className={classes.userAvatar} src={props.user.urlAvatar === undefined ? avatar : props.user.urlAvatar} alt="user avatar"/>
         </Box>
       </div>
 
