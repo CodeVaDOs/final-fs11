@@ -4,14 +4,9 @@ import {TOTAL_ACTIONS} from "../total/action";
 import {housesActions} from "../houses/action";
 
 
-export const updateUserWithDeleteContacts = (data, idContacts) => (dispatch) => {
+const updateUserWithDeleteContacts = (data, idContacts) => (dispatch) => {
     dispatch({type: "EDIT_PROFILE_REQUEST"});
-    const promises = idContacts.map(contactId => api({
-        method: 'DELETE',
-        url: `contacts/${contactId}`,
-    }));
-    Promise.all(promises)
-        .then(() => dispatch(updateUser(data)));
+
 }
 
 export const updateUser = (data) => (dispatch) => {
