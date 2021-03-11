@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme)=>({
     height: '556px',
     borderRadius: '20px',
     boxShadow: '0px 2px 4px #00000033',
-    marginTop: "20px",
+    marginTop: "40px",
     marginBottom: "20px",
     backgroundColor:"#fff"
   },
