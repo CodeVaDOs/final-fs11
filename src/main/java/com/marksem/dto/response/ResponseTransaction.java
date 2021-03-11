@@ -1,26 +1,27 @@
 package com.marksem.dto.response;
 
 import com.marksem.entity.transaction.Currency;
+import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.Transaction;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ResponseTransaction extends BaseEntity {
     private Long transactionGroupId;
-    private Double amount;
-    private Currency currency;
-    private String comment;
-    private ResponseTransactionType transactionType;
+    private Date date;
+    private Double amountUSDPerDay;
+    private FinanceType transactionType;
 
-    public ResponseTransaction(Transaction n) {
-        super(n);
-        this.transactionGroupId = n.getTransactionGroup().getId();
-        this.amount = n.getAmount();
-        this.currency = n.getCurrency();
-        this.comment = n.getComment();
-        this.transactionType = new ResponseTransactionType(n.getTransactionType());
+    public ResponseTransaction(Transaction t) {
+        super(t);
+        this.transactionGroupId = t.getTransactionGroup().getId();
+        this.amountUSDPerDay = t.getAmountUSDPerDay();
+        this.date = t.getDate();
+        this.transactionType = t.getTransactionType();
     }
 }

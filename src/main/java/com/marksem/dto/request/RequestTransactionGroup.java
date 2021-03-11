@@ -1,6 +1,8 @@
 package com.marksem.dto.request;
 
 import com.marksem.entity.house.House;
+import com.marksem.entity.transaction.Currency;
+import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.TransactionGroup;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,22 +16,38 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class RequestTransactionGroup extends BaseEntity {
-    private Long id;
-    @NotEmpty
-    private Date fromDate;
+  private Long id;
+  @NotEmpty
+  private Date fromDate;
 
-    @NotEmpty
-    private Date toDate;
+  @NotEmpty
+  private Date toDate;
 
-    @NotEmpty
-    private Long houseId;
+  @NotEmpty
+  private Long houseId;
 
-    public TransactionGroup toEntity(House h) {
-        return TransactionGroup.builder()
-                .fromDate(this.fromDate)
-                .toDate(this.toDate)
-                .transactions(new ArrayList<>())
-                .house(h)
-                .build();
-    }
+  @NotEmpty
+  private FinanceType transactionType;
+
+  @NotEmpty
+  private Double amount;
+
+  @NotEmpty
+  private Currency currency;
+
+  private String comment;
+
+  public TransactionGroup toEntity(House house, Double amountUSD) {
+    return TransactionGroup.builder()
+        .fromDate(this.fromDate)
+        .toDate(this.toDate)
+        .amount(this.amount)
+        .amountUSD(amountUSD)
+        .currency(this.currency)
+        .comment(this.comment)
+        .transactions(new ArrayList<>())
+        .house(house)
+        .transactionType(transactionType)
+        .build();
+  }
 }
