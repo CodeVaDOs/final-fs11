@@ -4,30 +4,27 @@ import com.marksem.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "transactions")
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "transaction_group_id")
     private TransactionGroup transactionGroup;
 
-    private Double amount;
-
-    @Column(name = "amount_USD")
-    private Double amountUSD;
+    private Date date;
 
     @Enumerated(EnumType.STRING)
-    private Currency currency;
+    private FinanceType transactionType;
 
-    private String comment;
+    @Column(name = "amount_USD_per_Day")
+    private Double amountUSDPerDay;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_type_id")
-    private TransactionType transactionType;
 }
