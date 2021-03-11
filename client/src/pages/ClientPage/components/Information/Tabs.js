@@ -114,10 +114,10 @@ export default function ClientTabs({ user, editUser }) {
     selectedFile: null
   });
   const [data, setData] = useState({
-    location: 'Bucha, Ukraine',
-    equipment: 'Vse est, fen est',
-    area: 'sto kvadratnyh metrov',
-    description: 'Systhasnyi budinok, fen est',
+    location: 'Zhytomyr, Ukraine',
+    equipment: 'Fen equipment',
+    area: '850',
+    description: 'New info',
     ownerId: 7,
     houseModelId: 1,
     images: []

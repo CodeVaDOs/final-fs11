@@ -212,24 +212,11 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-export const House = ({ house, showHouses, uploadImg,data,setData }) => {
+export const House = ({ house, showHouses, uploadImg, data, setData }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const btn = () => {
-    return (
-      <Button onClick={() => {
-        const formData = objectToFormData(data, '', ['images']);
-        data.images.forEach((file, index) => {
-          formData.append(`images[${index}]`, file, file.name);
-        });
 
-        api.post('houses', formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-      }}>Submit</Button>
-    );
-  };
   const renderUploadedState = () => {
     return (
       <>
@@ -261,7 +248,16 @@ export const House = ({ house, showHouses, uploadImg,data,setData }) => {
               <div className={classes.btns}>
                 <Button className={classes.btnSend}>
                   Написати <MessageIcon className={classes.editIcon}/></Button>
-                {btn}
+                <Button onClick={() => {
+                  const formData = objectToFormData(data, '', ['images']);
+                  data.images.forEach((file, index) => {
+                    formData.append(`images[${index}]`, file, file.name);
+                  });
+
+                  api.post('houses', formData, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                  });
+                }}>Submit</Button>
               </div>
 
             </div>

@@ -113,7 +113,7 @@ export const HouseCreate = ({
     setShowHouses(true);
     const reader = new FileReader();
     let file = event.target.files[0];
-    const { files } = e.target;
+    const { files } = event.target;
     let url = reader.readAsDataURL(file);
     console.log(url);
     setData({
