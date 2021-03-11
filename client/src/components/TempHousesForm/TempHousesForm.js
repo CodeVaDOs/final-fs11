@@ -7,7 +7,7 @@ import api from "../../utils/api";
 
 const TempHousesForm = () => {
     const [data, setData] = useState({
-        location: 'Kyiv, Ukraine',
+        location: 'Bucha, Ukraine',
         equipment: 'Vse est, fen est',
         area: 'sto kvadratnyh metrov',
         description: 'Systhasnyi budinok, fen est',
