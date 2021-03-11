@@ -67,7 +67,6 @@ export default function HousesTabs() {
   const [value, setValue] = useState('one');
   const [house, setHouse] = useState([]);
   const [houses, setHouses] = useState([]);
-
   let {loading:loading, houses: data} = useSelector(state => state.houses);
 
   const user = useSelector(state => state.auth.user);

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {SelectDocument} from "../../../../../pages/ClientPage/components/Documents/SelectDocument";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { SelectDocument } from "../../../../../pages/ClientPage/components/Documents/SelectDocument";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { Button } from "@material-ui/core";
 import { CreateDocument } from "./CreateDocument";
@@ -90,15 +90,16 @@ export const MyContractsUser = ({ search }) => {
 
     <>
       <div className={classes.root}>
-        <Grid container spacing={3}>
+        <Grid style={{ margin: "0 auto" }} container spacing={12}>
           {createDocument ?
             <CreateDocument/> :
             <div>
-              <Grid container spacing={3}>
+              <Grid style={{ margin: "0 auto" }} container spacing={3}>
                 {documents.list.length === 0 ?
-                  <Grid item xs={4}>
+                  <div style={{ margin: "0 auto", marginLeft:"350px" }}>
                     <DataNotFound/>
-                  </Grid>
+                  </div>
+
                   :
                   <Grid container spacing={3}>
                     <div className={classes.topSide}>
