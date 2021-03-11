@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     cursor: 'pointer',
     outline: 'none',
-    zIndex: 12021
+    zIndex: 5000
   }),
   header: {
     fontFamily: 'Roboto, sans-serif',

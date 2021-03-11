@@ -9,8 +9,7 @@ import { useTranslation } from "react-i18next";
 const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
-    height: '318px',
-    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 1px 2px 2px rgba(0,0,0,0.23)",
+    height: 'auto',
     borderRadius: '20px',
     paddingTop: '35px',
     paddingBottom: '35px',
@@ -20,7 +19,8 @@ const useStyles = makeStyles(() => ({
     alignItems: 'flex-start',
     justifyContent: 'center',
     flexDirection: 'column',
-    margin: '10px'
+    margin: '10px',
+    boxShadow: "0px 3px 6px #00000033",
 
   },
   p: {
