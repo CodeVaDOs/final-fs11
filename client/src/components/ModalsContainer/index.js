@@ -15,7 +15,9 @@ const useStyles = makeStyles({
     width: "auto",
     maxWidth:"none",
     border: "1px solid #707070",
-    borderRadius: '20px'
+    borderRadius: '20px',
+    marginTop: "70px"
+
   },
   btn: {
     height: '60px',
@@ -98,7 +100,7 @@ const ModalsContainer =({ displayBtn="none", buttonOk, buttonCancel, buttonActiv
         <DialogActions style={{ justifyContent: "center" }}>
           {/*<Button style={{ display:`${displayBtn}` }} className={classes.btn} ></Button>*/}
           {/*<Button style={{ display:`${displayBtn}` }} className={classes.btn} ></Button>*/}
-        </DialogActions>s
+        </DialogActions>
       </Dialog>
     </Box>
   );
