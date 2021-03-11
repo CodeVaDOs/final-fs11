@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Container from "../../components/Container";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
@@ -21,14 +21,15 @@ const Client = () => {
   const classes = useStyles();
   const propsName = "user.name";
 
-  const [{data, loading}, getData] = useFetch({
+
+  const [{data, loading}] = useFetch({
+    url: 'users?role=USER&size=5',
     initData: {
       list: [],
       total: 1
-    },
-    url: 'users?role=MANAGER&size=5',
-
+    }
   })
+
 
   return (<>
     <Container>
