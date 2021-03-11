@@ -11,14 +11,41 @@ import Loader from "../../../components/Loader/Loader";
 
 const useStyles = makeStyles({
     root: {
-        boxShadow: '2px 0px 3px rgba(0, 0, 0, 0.5)',
-        borderRight: '1px solid #707070',
-        borderBottom: '1px solid #707070',
-        borderRadius: 0,
+        // boxShadow: '2px 0px 3px rgba(0, 0, 0, 0.5)',
+        // borderRight: '1px solid #707070',
+        // borderBottom: '1px solid #707070',
+        boxShadow: 'none',
+        borderRadius: 0
     },
 
     buttonSubmit: {
-        width: '100%'
+        width: '100%',
+        textTransform: 'capitalize',
+        borderRadius: '15px',
+        border: '1px solid #6e7375',
+        padding: '5px',
+        height: '30px',
+        marginTop: '3px'
+    },
+
+    inputLabel: {
+        marginBottom: '15px',
+        width: '100%',
+        "& > label": {
+            fontWeight: 500,
+            color: '#6e7375',
+            lineHeight: '19px',
+            fontSize: '18px'
+        },
+        "& > input": {
+            color: '#293134',
+            lineHeight: '19px',
+            fontSize: '14px'
+        }
+    },
+
+    content: {
+        padding: 0
     }
 });
 
@@ -106,8 +133,6 @@ const EditUser = ({user, editUser}) => {
             contacts: [{...phone, phone: phone.phone.replace(/[^\d;]/g, ""), type: "MAIN"}, ...toSave]
         };
 
-        console.log("save data", saveData, user, toDelete)
-
         // const formData = Helpers.convertModelToFormData(saveData);
         const formData = new FormData();
 
@@ -134,7 +159,6 @@ const EditUser = ({user, editUser}) => {
             }).catch((e) => setLoading(false))
         }
 
-        // dispatch(AUTH_ACTIONS.updateUserWithDeleteContacts(formData, toDelete));
         if (toDelete.length > 0) {
             const promises = toDelete.map((contactId) => api({
                 method: 'DELETE',
@@ -154,11 +178,14 @@ const EditUser = ({user, editUser}) => {
 
     return (
         <Card className={classes.root}>
-            <CardHeader>
+            <CardHeader className={classes.header}>
 
             </CardHeader>
-            <CardContent>
-                <TextField onChange={handleChange} name="name" value={name} label="П.І.Б"/>
+            <CardContent className={classes.content}>
+                <TextField focused={false} InputLabelProps={{
+                    shrink: true,
+                }} className={classes.inputLabel} placeholder="Введіть ПІБ" onChange={handleChange} name="name"
+                           value={name} label="П.І.Б"/>
 
                 <InputMask
                     mask="+38(099)999-99-99"
@@ -167,7 +194,10 @@ const EditUser = ({user, editUser}) => {
                     onChange={handleChange}
                     value={phone.phone}
                 >
-                    {() => <TextField name="phone" value={phone.phone} label="Телефон"/>}
+                    {() => <TextField focused={false} InputLabelProps={{
+                        shrink: true,
+                    }} placeholder="Введіть основний телефон" className={classes.inputLabel} name="phone"
+                                      value={phone.phone} label="Телефон"/>}
                 </InputMask>
 
                 {additionalPhone.sort((a, b) => {
@@ -184,12 +214,18 @@ const EditUser = ({user, editUser}) => {
                         }}
                         value={phone}
                     >
-                        {() => <TextField name="additionalPhone" value={phone} label="Додаткові телефони"/>}
+                        {() => <TextField focused={false} placeholder="Введіть додатк. телефон" InputLabelProps={{
+                            shrink: true,
+                        }} className={classes.inputLabel} name="additionalPhone" value={phone}
+                                          label="Додаткові телефони"/>}
                     </InputMask>
                 ))}
-                <TextField onChange={handleChange} name="email" value={email} label="Email"/>
+                <TextField focused={false} placeholder="Введіть email" InputLabelProps={{
+                    shrink: true,
+                }} className={classes.inputLabel} onChange={handleChange} name="email" value={email} label="Email"/>
             </CardContent>
-            <Button className={classes.buttonSubmit} onClick={onSubmit} variant="outlined">{loading ? <Loader size={30}/> : 'Відправити Адміністратору'}</Button>
+            <Button className={classes.buttonSubmit} onClick={onSubmit} variant="outlined">{loading ?
+                <Loader size={20}/> : 'Відправити Адміністратору'}</Button>
         </Card>
     );
 };
