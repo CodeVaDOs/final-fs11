@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Slider } from "../../../../components/HouseCard/House/Slider/Slider";
 import HouseDesription from "../../../../components/HouseCard/House/HouseDesription";
 import { useTranslation } from "react-i18next";
-import { Button } from "@material-ui/core";
+import { Button, CardActionArea } from "@material-ui/core";
 import MessageIcon from "@material-ui/icons/Message";
 import EditIcon from "@material-ui/icons/Edit";
+import Box from "@material-ui/core/Box";
+import { objectToFormData } from "../../../../utils/formData";
+import api from "../../../../utils/api";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -209,36 +212,67 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-export const House = ({ house }) => {
+export const House = ({ house, showHouses, uploadImg,data,setData }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const btn = () => {
+    return (
+      <Button onClick={() => {
+        const formData = objectToFormData(data, '', ['images']);
+        data.images.forEach((file, index) => {
+          formData.append(`images[${index}]`, file, file.name);
+        });
+
+        api.post('houses', formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      }}>Submit</Button>
+    );
+  };
+  const renderUploadedState = () => {
+    return (
+      <>
+        <CardActionArea>
+          <img width={"400px"} alt={'ssss'}
+               src={uploadImg.selectedFile}
+          />
+        </CardActionArea>
+      </>
+    );
+  };
   return (
-    <div className={classes.root}>
-      <div className={classes.topSide}>
-        <div className={classes.leftSide}>
-          {/*<Slider/>*/}Slider
+    <div>
+      {showHouses
+        ? <div className={classes.root}>
+          <div className={classes.topSide}>
+            <div className={classes.leftSide}>
+              <Box className={classes.photoContainer}>
+                {(uploadImg.mainState === "initial" && <div>IMG ZDECb</div>) ||
+                (uploadImg.mainState === "uploaded" && renderUploadedState())}
+              </Box>
+            </div>
+
+            <div className={classes.rightSide}>
+              <div className={classes.houseIdInfo}>
+                <p className={classes.id}>{t('id')} {house.id}</p>
+              </div>
+
+              <div className={classes.btns}>
+                <Button className={classes.btnSend}>
+                  Написати <MessageIcon className={classes.editIcon}/></Button>
+                {btn}
+              </div>
+
+            </div>
+
+          </div>
         </div>
+        : null
+      }
 
-        <div className={classes.rightSide}>
-          <div className={classes.houseIdInfo}>
-            <p className={classes.id}>{t('id')} {house.id}</p>
-          </div>
-          <div className={classes.houseDescription}>
-            <HouseDesription house={house}/>
-          </div>
-
-          <div className={classes.btns}>
-            <Button className={classes.btnSend}>
-              Написати <MessageIcon className={classes.editIcon}/></Button>
-            <Button className={classes.btnEdit}>
-              Edit <EditIcon className={classes.editIcon}/>
-            </Button>
-          </div>
-
-        </div>
-
-      </div>
     </div>
-  );
+
+  )
+    ;
 };

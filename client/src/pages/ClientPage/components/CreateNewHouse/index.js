@@ -105,7 +105,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const CreateNewHouse = () => {
+export const CreateNewHouse = ({setShowHouses}) => {
   const classes = useStyles();
 
   return (

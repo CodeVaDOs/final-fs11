@@ -6,6 +6,7 @@ import { CardActionArea, CardContent, Fab } from "@material-ui/core";
 import LocalSeeIcon from "@material-ui/icons/LocalSee";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
+import MyHouses from "./MyHouses";
 
 
 const useStyles = makeStyles(() => ({
@@ -16,7 +17,9 @@ const useStyles = makeStyles(() => ({
   },
 
   photoContainer: {
-
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     width: '100%',
     borderRadius: '15%',
     background: '#F7FAFF',
@@ -46,7 +49,7 @@ const useStyles = makeStyles(() => ({
   },
 
   houseCard: {
-    marginLeft:'30px',
+    marginLeft: '30px',
     height: '99%',
     margin: '4px',
     boxSizing: 'border-box',
@@ -56,6 +59,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: "flex-start",
     boxShadow: "0 4px 4px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23)",
 
   },
@@ -99,20 +103,27 @@ const useStyles = makeStyles(() => ({
     opacity: 1,
   }
 }));
-export const HouseCreate = () => {
+export const HouseCreate = ({
+  setShowHouses, uploadImg,
+  setUploadImg, setData, dataHousePost
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
-
-  const [uploadImg, setUploadImg] = useState({
-    mainState: "initial",
-    imageUploaded: 0,
-    selectedFile: null
-  });
   const handleUploadClick = event => {
+    setShowHouses(true);
     const reader = new FileReader();
     let file = event.target.files[0];
+    const { files } = e.target;
     let url = reader.readAsDataURL(file);
     console.log(url);
+    setData({
+      ...dataHousePost,
+      images: Object.keys(files).map(function (key) {
+        return files[key];
+        //VADOS глянь плз тут надо картинку сюда впихнуть, да все на этом...)
+        // let file = event.target.files[0];  -- эта хрень это эта картинка
+      })
+    });
 
     reader.onloadend = () => setUploadImg({
       mainState: "uploaded",
@@ -164,11 +175,18 @@ export const HouseCreate = () => {
   const renderUploadedState = () => {
     return (
       <>
-        <CardActionArea onClick={imageResetHandler}>
-          <img width={"104px"} height={"104px"} alt={'ssss'} style={{ borderRadius: '50%' }}
-            src={uploadImg.selectedFile}
-          />
-        </CardActionArea>
+        <div style={{ display: "flex", alignItems: "center", overflow: "hidden", maxHeight: 108, maxWidth: 162, borderRadius: 14 }}>
+          <CardActionArea
+
+            onClick={imageResetHandler}>
+            <img
+              width={"204px"} alt={'ssss'}
+              src={uploadImg.selectedFile}
+            />
+
+          </CardActionArea>
+        </div>
+
       </>
     );
   };

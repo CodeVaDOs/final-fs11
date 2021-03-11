@@ -126,7 +126,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-export default function MyHouses({ data, onHouseClick, rent }) {
+export default function MyHouses({ data, onHouseClick, rent,setShowHouses, uploadImg,setData,dataHousePost,
+  setUploadImg }) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
 
@@ -180,7 +181,13 @@ export default function MyHouses({ data, onHouseClick, rent }) {
                 </div>
               );
             })}
-          {rent ? null : <HouseCreate/>}
+          {rent ? null
+            : <HouseCreate
+              dataHousePost={dataHousePost}
+              setData={setData}
+              uploadImg={uploadImg}
+              setUploadImg={setUploadImg}
+            setShowHouses={setShowHouses}/>}
           {imageSourcesToDisplay.length > 5 ?
             "" :
             <button className={classes.btnNext} onClick={nextSlide}>
