@@ -12,6 +12,7 @@ import { TRANSACTION_TYPES } from "./TransactionTypes";
 import { useFetch } from "../../../../hooks/useFetch";
 import { AddTransactionField } from "./AddTransactionFieldBtn";
 import Button from "@material-ui/core/Button";
+import {useSelector} from "react-redux";
 
 
 const useStyles = makeStyles(() => ({
@@ -150,24 +151,13 @@ export const AddNewStatistic = () => {
   };
 
 
-  const [houses, setHouses] = useState([]);
-  const [houseName, setHouseName] = useState("");
+  const [houses] = useState(useSelector((state) => state.houses.houses));
+  const [houseName, setHouseName] = useState(houses[0]['description']);
   const [houseId, setHouseId] = useState(undefined);
   const selectHouseChange = (e) => {
     setHouseName(e.target.value);
-    setHouseId(e.currentTarget.getAttribute("dataid"));
+    setHouseId(e.currentTarget.getAttribute("datavalue"));
   };
-
-  useFetch({
-    method: "GET",
-    url: "houses",
-    initData: houses,
-    dataTransformer: (data) => {
-      setHouses(data);
-      setHouseName(data[0]['description']);
-    }
-  });
-
 
   const renderTransactions = (count, type) => {
     return Array(count)
@@ -200,12 +190,12 @@ export const AddNewStatistic = () => {
             className={classes.selectHouse}
             labelId="house-select"
             value={houseName}
-            dataid={houseId}
+            datavalue={houseId}
             onChange={selectHouseChange}
           >
             {houses.length ? houses.map((h, idx) =>
               <MenuItem
-                dataid={h['id']}
+                datavalue={h['id']}
                 key={idx}
                 value={h['description']}>
                 {h['description']}
