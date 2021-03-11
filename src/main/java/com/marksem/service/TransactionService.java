@@ -1,5 +1,6 @@
 package com.marksem.service;
 
+import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.Transaction;
 import com.marksem.entity.transaction.TransactionGroup;
 import com.marksem.repository.TransactionGroupRepository;

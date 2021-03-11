@@ -17,11 +17,7 @@ import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
-    // borderLeft: '1px solid black',
-    width: "90%",
-    marginLeft: '3px',
     display: "flex",
-    margin: "2px",
     flexDirection: 'row',
     textTransform: 'capitalize',
   },
@@ -44,14 +40,20 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "white",
     maxWidth: '285px',
     minWidth: '285px',
-  },
+    borderRight: '1px solid #acb5b9',
+    filter: 'drop-shadow(2px 0px 3px rgba(0, 0, 0, 0.5))',
+    padding: '20px 21px 24px'
+
+},
   columnStart: {
     width: '100%',
-    margin: '10px',
+    marginTop: '54px',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: "white",
-    borderRadius: "0px 30px 30px 0px  ",
+    backgroundColor: "#fff",
+    borderRadius: "20px",
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+    overflow: 'hidden'
   },
   columnProfile: {
     margin: 0,
@@ -96,7 +98,7 @@ function a11yProps(index) {
 }
 
 
-export default function ClientTabs({ user }) {
+export default function ClientTabs({ user, editUser }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [HouseIdx,] = useState(tileData);
@@ -117,7 +119,7 @@ export default function ClientTabs({ user }) {
       <div className={classes.columnStart}>
         <div className={classes.root}>
           <div className={classes.user}>
-            <EditUser user={user}/>
+            <EditUser editUser={editUser} user={user}/>
           </div>
           <div
             className={classes.columnProfile}>
