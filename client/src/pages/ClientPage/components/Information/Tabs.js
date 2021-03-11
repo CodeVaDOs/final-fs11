@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import {Information} from "./index";
-import {ClientHouses} from "../ClientHouses";
-import {tileData} from "../../../../utils/constants/housesView";
-import {House} from "../ClientHouses/House";
-import {Documents} from "../Documents";
-import {MyContracts} from "../Documents/MyContracts";
+import { Information } from "./index";
+import { ClientHouses } from "../ClientHouses";
+import { tileData } from "../../../../utils/constants/housesView";
+import { House } from "../ClientHouses/House";
+import { Documents } from "../Documents";
+import { MyContracts } from "../Documents/MyContracts";
 import ClientStatisticRent from "../../../../components/ClientStatisticRent";
-import {CreateNewHouse} from "../CreateNewHouse";
+import { CreateNewHouse } from "../CreateNewHouse";
 import EditUser from "../../../Client/components/EditUser";
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -119,11 +120,11 @@ export default function ClientTabs({ user }) {
             <EditUser user={user}/>
           </div>
           <div
-              className={classes.columnProfile}>
+            className={classes.columnProfile}>
             <div className={classes.br}>
               <Tabs
-                  value={value}
-                  onChange={handleChange}
+                value={value}
+                onChange={handleChange}
               >
                 <Tab label="Iнформацiя" {...a11yProps(0)} />
                 <Tab label="Будинки" {...a11yProps(1)} />
@@ -147,24 +148,34 @@ export default function ClientTabs({ user }) {
             </TabPanel>
             <TabPanel value={value} index={3}>
               <ClientHouses
-                  houseToState={houseToState}
-                  HouseIdx={HouseIdx}
-                  buttonSend={true}
-                  rent={true}
+                houseToState={houseToState}
+                HouseIdx={HouseIdx}
+                buttonSend={true}
+                rent={true}
               />
             </TabPanel>
           </div>
         </div>
         <div>
-          {bottomView === 1 ? <CreateNewHouse/> : null}
-          {bottomView === 1 ? <House house={house}/> : null}
-          <div style={{width: '100%'}}>
+          {bottomView === 1 ?
+            <div>
+              <Container>
+                <Container>
+                  <CreateNewHouse/>
+                </Container>
+                <Container style={{ marginTop: "200px" }}>
+                  <House house={house}/>
+                </Container>
+              </Container>
+            </div>
+            : null}
+          <div style={{ width: '100%' }}>
             {bottomView === 2 ? <MyContracts/> : null}
           </div>
-          <div style={{width: '100%'}}>
+          <div style={{ width: '100%' }}>
             {bottomView === 3 ?
-                <ClientStatisticRent/>
-                : null}
+              <ClientStatisticRent/>
+              : null}
           </div>
         </div>
       </div>

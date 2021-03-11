@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,13 +21,19 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
 
-    public ResponseNotification create(RequestNotification n) {
-        return userRepository.findById(n.getReceiverId())
-                .map(u -> notificationRepository.save(n.toEntity(u)))
-                .map(ResponseNotification::new)
-                .orElseThrow(() -> new NoDataFoundException("user", n.getReceiverId()));
+    public List<ResponseNotification> create(RequestNotification n) {
+        return n.getReceivers()
+                .stream()
+                .map(id -> saveOne(n, id))
+                .collect(Collectors.toList());
     }
 
+    public ResponseNotification saveOne(RequestNotification n, Long id) {
+        return userRepository.findById(id)
+                .map(u -> notificationRepository.save(n.toEntity(u)))
+                .map(ResponseNotification::new)
+                .orElseThrow(() -> new NoDataFoundException("user", id));
+    }
     public ResponseNotification update(RequestNotification n) {
         return notificationRepository.findById(n.getId())
                 .map(i -> {

@@ -3,6 +3,7 @@ package com.marksem.service;
 import com.marksem.dto.response.ResponseAccessPanelManagerInfo;
 import com.marksem.dto.response.ResponseAccessPanelUserInfo;
 import com.marksem.dto.response.ResponseCatalogue;
+import com.marksem.dto.response.ResponseUser;
 import com.marksem.entity.booking.BookingMaintenanceType;
 import com.marksem.entity.contact.ContactType;
 import com.marksem.entity.document.DocumentType;
@@ -12,6 +13,7 @@ import com.marksem.entity.transaction.Currency;
 import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.user.Language;
 import com.marksem.entity.user.Role;
+import com.marksem.entity.user.User;
 import com.marksem.repository.BookingRepository;
 import com.marksem.repository.DocumentRepository;
 import com.marksem.repository.HouseRepository;
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +40,7 @@ public class TotalService {
     }
 
     public ResponseAccessPanelManagerInfo getAccessPanelManagerInfo(Long id) {
-        long quantityOfClients = userRepository.countByManagerId(id);
+        List<ResponseUser> quantityOfClients = (userRepository.findByManagerId(id)).stream().map(ResponseUser::new).collect(Collectors.toList());
         long quantityOfContracts = documentRepository.getContractsQuantity(id);
         return new ResponseAccessPanelManagerInfo(quantityOfClients, quantityOfContracts);
     }

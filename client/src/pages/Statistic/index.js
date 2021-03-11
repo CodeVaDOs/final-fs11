@@ -113,24 +113,38 @@ const Index =()=> {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const [dataForm] = useState({
+  const [dataForm, setDataForm] = useState({
     propertyId:'all'
   });
 
+  const [page, setPage] = useState(1);
+
   const houses = useSelector(state => state.houses?.houses);
   const getBookings = () => houses
+    ?.filter(h => dataForm.propertyId !== 'all' ? h.id === dataForm.propertyId : true)
     ?.flatMap(h => h?.bookings)
     ?.filter(i => i.feedback)
-    ?.sort((a,b) => new Date(b.feedback?.createDate)?.getTime() - new Date(a.feedback?.createDate).getTime());
+    ?.sort((a, b) => new Date(b.feedback?.createDate)?.getTime() - new Date(a.feedback?.createDate)?.getTime());
 
-  const [bookings, setBookings] = useState(getBookings());
+  const [bookings, setBookings] = useState([]);
+  const handleSetPage = (event, newPage) => {
+    setBookings(getBookings().slice((10*newPage) - 10, (10*newPage)));
+    setPage(newPage);
+  };
 
-  useEffect(() => setBookings(getBookings()), [houses]);
-  // const handleChangeProperty= (e) => {
-  //   setDataForm({
-  //     propertyId:e.target.value
-  //   });
-  // };
+  const [total, setTotal] = useState(0);
+  const init = () => {
+    setBookings(getBookings().slice(0,10));
+    setTotal(getBookings().length);
+  };
+  
+  useEffect(() => init(), [houses, dataForm.propertyId]);
+
+  const handleChangeProperty= (e) => {
+    setDataForm({
+      propertyId:e.target.value
+    });
+  };
   
   return(<Container>
     <Box className={classes.root}>
@@ -159,11 +173,10 @@ const Index =()=> {
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
                   value={dataForm.propertyId}
-                  // onChange={handleChangeProperty}
+                  onChange={handleChangeProperty}
                 >
                   <MenuItem value={'all'}>{t('allHouse')}</MenuItem>
-                  <MenuItem value={'id1'}>{t('houseOne')}</MenuItem>
-                  <MenuItem value={'id2'}>{t('houseTwo')}</MenuItem>
+                  {houses.map(house => <MenuItem value={house.id}>{house?.houseModel?.name} {house.id}</MenuItem>)}
                 </Select>
               </FormControl>
             </Grid>
@@ -181,7 +194,12 @@ const Index =()=> {
             <PanelClientMediumCard id={booking.id} title={"Відгук орендаря"} booking={booking} subName={booking.subName} typeCard={"btn"}/>)
           }
           <Box style={{ marginTop: "20px", marginBottom: "15px", marginLeft: "30%", marginRight:"30%" }}>
-            {bookings?.length > 10 ? (<Pagination count={Math.ceil(bookings.length/10)} />) : null}
+            {total > 10 ? (
+              <Pagination
+                page={page}
+                count={Math.ceil(total/10)}
+                onChange={handleSetPage}
+              />) : null}
           </Box>
         </Grid>
       </TabPanel>

@@ -27,7 +27,7 @@ const Panel =(props)=> {
   const getBooking = () => houses
     ?.flatMap(h => h?.bookings)
     ?.filter(i => i.feedback)
-    ?.sort((a,b) => new Date(b.feedback?.createDate)?.getTime() - new Date(a.feedback?.createDate).getTime())[0];
+    ?.sort((a,b) => new Date(b.feedback?.createDate)?.getTime() - new Date(a.feedback?.createDate)?.getTime())[0];
 
   const [booking, setBooking] = useState(getBooking());
 

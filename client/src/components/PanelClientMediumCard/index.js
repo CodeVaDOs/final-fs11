@@ -126,7 +126,7 @@ const PanelClientMediumCard =({ id, title, booking, subName, typeCard, widthT })
           {renderRating(4)}
         </Box>
         <Typography className={classes.cardReview}>{subName}</Typography>
-        <Typography className={classes.feedback}>{booking?.feedback.review}</Typography>
+        <Typography className={classes.feedback}>{booking?.feedback?.review}</Typography>
         {typeCard === "btn"?
           <Box style={{ margin:"10% -20%", display: "block" }}>
             <Button className={classes.btn} onClick={()=>{}}>{t('more')}</Button>

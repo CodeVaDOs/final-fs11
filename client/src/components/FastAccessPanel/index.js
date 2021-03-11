@@ -70,7 +70,7 @@ const FastAccessPanel =(props)=>{
       "id": 0,
       "icon": Client,
       "nameTitle": t("clientTitle"),
-      "name": props.admin.quantityOfClients,
+      "name": props.admin.clients?.length,
       "onClick": handleClick
     },
     {
