@@ -21,18 +21,7 @@ public class TransactionGroupController {
     public ResponseEntity<?> create(@RequestBody List<RequestTransactionGroup> tg) {
         return ResponseEntity.ok(service.create(tg));
     }
-//    @GetMapping
-//    @PreAuthorize("hasAuthority('developers:read')")
-//    public ResponseEntity<PageableResponse<ResponseTransactionGroup>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-//        return ResponseEntity.ok(service.readAll(page, size));
-//    }
-//
-//    @GetMapping("{id}")
-//    @PreAuthorize("hasAuthority('developers:read')")
-//    public ResponseEntity<ResponseTransactionGroup> read(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok(service.read(id));
-//    }
-//
+
 //    @PostMapping
 //    @PreAuthorize("hasAuthority('developers:write')")
 //    public ResponseEntity<ResponseTransactionGroup> create(@RequestBody RequestTransactionGroup tg) {
