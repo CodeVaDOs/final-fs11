@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatisticController {
     private final StatisticService service;
-
+  
     @GetMapping
     @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<List<ResponseStatistic>> readAll(@RequestParam long houseId,
@@ -29,5 +29,4 @@ public class StatisticController {
                                                            Principal principal) {
         return ResponseEntity.ok(service.readAll(principal.getName(), houseId, fromDate, toDate));
     }
-
 }
