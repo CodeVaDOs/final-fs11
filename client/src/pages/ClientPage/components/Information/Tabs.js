@@ -108,16 +108,18 @@ export default function ClientTabs({ user, editUser }) {
   const [house, setHouse] = useState(tileData[0]);
   const [bottomView, setHousesDescription] = useState(0);
   const [showHouses, setShowHouses] = useState(false);
+  const [request, setRequest] = useState(false);
+
   const [uploadImg, setUploadImg] = useState({
     mainState: "initial",
     imageUploaded: 0,
     selectedFile: null
   });
   const [data, setData] = useState({
-    location: 'Zhytomyr, Ukraine',
-    equipment: 'Fen equipment',
-    area: '850',
-    description: 'New info',
+    location: '-',
+    equipment: '-',
+    area: '-',
+    description: '-',
     ownerId: 7,
     houseModelId: 1,
     images: []
@@ -189,10 +191,14 @@ export default function ClientTabs({ user, editUser }) {
             <div>
               <Container>
                 <Container>
-                  <CreateNewHouse/>
+                  <CreateNewHouse
+                    request={request}
+                    setRequest={setRequest}/>
                 </Container>
                 <Container style={{ marginTop: "200px" }}>
                   <House
+                    request={request}
+                    setRequest={setRequest}
                     data={data}
                     setData={setData}
                     uploadImg={uploadImg}
