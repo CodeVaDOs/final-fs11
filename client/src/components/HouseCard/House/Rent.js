@@ -41,7 +41,7 @@ export const Rent = ({houseId}) => {
   return (
     <div className={classes.root}>
       <p className={classes.p}>{t('rentThisHouse')}</p>
-      <DatePickers/>
+      <DatePickers houseId={houseId}/>
       <ModalsContainer style={{backgroundColor:"#254A93", color:'white',  borderRadius: "8px", width:"430px", marginLeft:"5px", height:"39px", fontSize: "16px", textTransform:"none", cursor:"pointer"}}
                        buttonOk={t("returnBtn")}
                        buttonCancel={t("serBtn")}

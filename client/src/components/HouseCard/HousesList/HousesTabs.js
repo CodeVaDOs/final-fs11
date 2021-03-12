@@ -72,6 +72,7 @@ export default function HousesTabs() {
 
   const user = useSelector(state => state.auth.user);
 
+
   useEffect(() => {
     setHouses(data);
   }, [data]);
