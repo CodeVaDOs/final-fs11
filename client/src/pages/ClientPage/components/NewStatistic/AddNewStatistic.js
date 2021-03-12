@@ -211,7 +211,13 @@ export const AddNewStatistic = ({user}) => {
     instant: false,
     method: "POST",
     url: "/transactionGroups",
-    initData: []
+    initData: [],
+    onCompleted: () => {
+      setDisabledSendBtn(false)
+      dataDispatcher({
+        type: "RESET"
+      })
+    }
   })
 
   const submitTransaction = (td, ffState) => (e) => {
@@ -245,16 +251,6 @@ export const AddNewStatistic = ({user}) => {
       }
     );
   }
-
-  useEffect(() => {
-    if(!loading) {
-      setDisabledSendBtn(false)
-      dataDispatcher({
-        type: "RESET"
-      })
-      console.log(transactionRes)
-    }
-  }, [loading])
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
