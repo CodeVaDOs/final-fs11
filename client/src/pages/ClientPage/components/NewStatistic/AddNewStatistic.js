@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 import {useFetch} from "../../../../hooks/useFetch";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -70,8 +71,8 @@ export const AddNewStatistic = ({user}) => {
 
   const initFormFieldsState = {
     houseId: "",
-    fromDate: new Date(),
-    toDate: new Date()
+    fromDate: parseDate(new Date()),
+    toDate: parseDate(new Date())
   };
 
   const formFieldsReducer = (state, action) => {
@@ -163,10 +164,10 @@ export const AddNewStatistic = ({user}) => {
 
   const [transactionsData, dataDispatcher] = useReducer(transactionsDataReducer, transactionsDataState);
 
-  const handleDateChange = (direction) => (date) => {
+  const handleDateChange = (direction) => (e) => {
     formFieldsDispatcher({
       type: direction,
-      payload: date
+      payload: e.currentTarget.value
     });
   };
 
@@ -178,10 +179,10 @@ export const AddNewStatistic = ({user}) => {
 
   useEffect(() => {
     if (!housesLoading) {
-      setHouseName(`${houses[0].description} ID${houses[0].id}`);
+      setHouseName(houses.length ? `${houses[0].description} ID${houses[0].id}` : "");
       formFieldsDispatcher({
         type: "setHouse",
-        payload: houses[0].id
+        payload: houses.length ? houses[0].id : null
       })
     }
   }, [housesLoading])
@@ -206,7 +207,8 @@ export const AddNewStatistic = ({user}) => {
         />);
   };
 
-
+  const [fetchError, setFetchError] = useState(false);
+  const [fetchSuccess, setFetchSuccess] = useState(false);
   const [{data: transactionRes, loading}, getData] = useFetch({
     instant: false,
     method: "POST",
@@ -214,25 +216,26 @@ export const AddNewStatistic = ({user}) => {
     initData: [],
     onCompleted: () => {
       setDisabledSendBtn(false)
-      dataDispatcher({
-        type: "RESET"
-      })
-    }
+      setFetchSuccess(true)
+    },
+    onError: () => setFetchError(true)
   })
 
   const submitTransaction = (td, ffState) => (e) => {
     e.preventDefault();
-    setDisabledSendBtn(true)
+    setDisabledSendBtn(true);
     const transactionGroups = [
-      ...td.income.slice(),
-      ...td.communal.slice(),
-      ...td.other.slice(),
-      ...td.service.slice()
+      ...td.income,
+      ...td.communal,
+      ...td.other,
+      ...td.service
     ]
       .filter(t => t.amount)
       .map(t => {
-        t.amount = Number.parseInt(t.amount)
-        return t;
+        return {
+          ...t,
+          amount: Number.parseInt(t.amount)
+        }
       })
       .map(t => {
         if (t.transactionType !== TRANSACTION_TYPES.income && t.amount > 0) {
@@ -241,15 +244,11 @@ export const AddNewStatistic = ({user}) => {
         return {
           ...t,
           ...ffState,
-          fromDate: parseDate(ffState.fromDate),
-          toDate: parseDate(ffState.toDate)
+          fromDate: ffState.fromDate,
+          toDate: ffState.toDate
         }
       });
-    getData(
-      {
-        data: transactionGroups
-      }
-    );
+    getData({data: transactionGroups});
   }
 
   return (
@@ -292,14 +291,22 @@ export const AddNewStatistic = ({user}) => {
           className={classes.boldedText}>
           {t("Період статистики")}
         </Typography>
-        <DatePicker
-          selected={formFieldsState.fromDate}
+        <TextField
+          InputLabelProps={{
+            shrink: true,
+          }}
+          type="date"
+          value={formFieldsState.fromDate}
           onChange={handleDateChange("setFromDate")}
           className={classes.datePicker}
         />
         &nbsp;|&nbsp;
-        <DatePicker
-          selected={formFieldsState.toDate}
+        <TextField
+          InputLabelProps={{
+            shrink: true,
+          }}
+          type="date"
+          value={formFieldsState.toDate}
           onChange={handleDateChange("setToDate")}
           className={classes.datePicker}
         />
@@ -340,14 +347,19 @@ export const AddNewStatistic = ({user}) => {
         transactionType={"other"}
       />
 
+      {
+        fetchSuccess ? <Alert severity="success">{t("Статистика додана")}</Alert> : null
+      }
 
-      <Button
-        onClick={submitTransaction(transactionsData, formFieldsState)}
-        variant="contained"
-        className={classes.sendButton}
-        disabled={isDisabledSendBtn}>
-        {t("Зберегти")}
-      </Button>
+      {
+        loading ? <CircularProgress style={{display: "block"}}/> : <Button
+          onClick={submitTransaction(transactionsData, formFieldsState)}
+          variant="contained"
+          className={classes.sendButton}
+          disabled={isDisabledSendBtn}>
+          {t("Зберегти")}
+        </Button>
+      }
     </form>
   );
 };
