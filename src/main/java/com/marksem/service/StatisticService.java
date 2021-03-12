@@ -12,8 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatisticService {
     private final TransactionGroupRepository repository;
+    private final UserService userService;
 
-    public List<ResponseStatistic> readAll(Long houseId, Date fromDate, Date toDate) {
-        return repository.findStatistic(houseId, fromDate, toDate);
+    public List<ResponseStatistic> readAll(String email, Long houseId, Date fromDate, Date toDate) {
+        if (houseId > 0) return repository.findStatistic(houseId, fromDate, toDate);
+        return repository.findManagerStatistic(userService.getUserByEmail(email).getId(), fromDate, toDate);
     }
 }
