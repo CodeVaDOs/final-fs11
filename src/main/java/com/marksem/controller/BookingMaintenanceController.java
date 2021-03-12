@@ -34,7 +34,7 @@ public class BookingMaintenanceController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseBookingMaintenance> update(@RequestBody RequestBookingMaintenance bm) {
         return ResponseEntity.ok(service.update(bm));
     }

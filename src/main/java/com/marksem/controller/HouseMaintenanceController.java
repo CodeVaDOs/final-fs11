@@ -34,7 +34,7 @@ public class HouseMaintenanceController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseHouseMaintenance> update(@RequestBody RequestHouseMaintenance hm) {
         return ResponseEntity.ok(service.update(hm));
     }

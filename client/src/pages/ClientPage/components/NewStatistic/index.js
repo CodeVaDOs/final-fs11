@@ -12,13 +12,13 @@ const useStyles = makeStyles(() => ({
   },
 
 }));
-export const NewStatistic = () => {
+export const NewStatistic = ( {user} ) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <HousItem/>
-      <AddNewStatistic/>
+      <AddNewStatistic user={user}/>
     </div>
 
   );
