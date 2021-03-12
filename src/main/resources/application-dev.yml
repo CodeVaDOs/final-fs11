@@ -16,10 +16,8 @@ spring:
             enable: true
   datasource:
     password: Gohojokolo159
-    url: jdbc:postgresql://64.225.103.252:5432/final_project_dev #WRITE HOST
+    url: jdbc:postgresql://64.225.103.252:5432/final_project_dev
     username: super_user
-  #    data: classpath:data.sql
-  #    initialization-mode: always
   jpa:
     hibernate:
       ddl-auto: update
@@ -37,6 +35,6 @@ jwt:
 url:
   server: http://localhost:8080
   client: http://localhost:3000
-  fileServer: http://64.225.103.252:8090
+  fileServer: http://165.232.150.188:8090
 clientChangePasswordPath: changePassword
 serverChangePasswordPath: api/v1/auth/resetPassword

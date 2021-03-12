@@ -196,9 +196,14 @@ export const HouseContainer = ({ house, images }) => {
     <>
       <Container className={classes.root}>
         <Box className={classes.topSide}>
-          <Box className={classes.leftSide}>
-            <Slider images={images}/>
-          </Box>
+          {
+            images[0] !== undefined
+              ? <Box className={classes.leftSide}>
+                <Slider images={images}/>
+              </Box>
+              : ''
+          }
+
           <Box className={classes.rightSide}>
             <Box className={classes.houseIdInfo}>
               <p className={classes.id}>{t('id')} {house.id}</p>

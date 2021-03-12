@@ -4,6 +4,7 @@ import { ListItem } from "@material-ui/core";
 import "./styles.css";
 import style from "./index.module.css";
 import Grid from "@material-ui/core/Grid";
+import noImg from '../../../assert/img/noImg.jpg';
 
 const useStyles = makeStyles(() => ({
   bh: {
@@ -123,9 +124,9 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-export default function HouseCards({ data, onHouseClick }) {
+export default function HouseCards({ data, onHouseClick, images }) {
   const classes = useStyles();
-  const [isActive, setIsActive] = useState(0);
+  const [isActive, setIsActive] = useState();
 
   function scrollElementToCenter(e, id = 0) {
     setIsActive(id);
@@ -149,7 +150,7 @@ export default function HouseCards({ data, onHouseClick }) {
       <Grid
         container>
         <div>
-          <Grid
+          <div
             item
             className={
               `${style.container} ${style.wideSpacer}  `
@@ -171,10 +172,19 @@ export default function HouseCards({ data, onHouseClick }) {
                         className={isActive === index ? classes.houseCardActive : classes.houseCard}
                       >
                         <div>
-                          <img
-                            className={classes.img}
-                            src={house?.houseImages[0]?.url}
-                            alt={house.id}/>
+                          {images
+                            ? <img
+                              className={classes.img}
+                              src={images}
+                              alt={house.id}/>
+                            : <div>
+                              <img
+                                className={classes.img}
+                                src={noImg}
+                                alt='No Image Found'/>
+                            </div>
+                          }
+
                           <div
                             className={classes.houseCardBody}>
                         <span
@@ -196,7 +206,7 @@ export default function HouseCards({ data, onHouseClick }) {
                   </ListItem>
                 );
               })}
-          </Grid>
+          </div>
         </div>
       </Grid>
     </div>

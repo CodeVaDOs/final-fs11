@@ -5,6 +5,7 @@ import {Button, Typography} from "@material-ui/core";
 import MessageIcon from "@material-ui/icons/Message";
 import SimpleSelect from "./Select";
 import Flex from "react-calendar/dist/umd/Flex";
+import { House } from "./House";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -104,7 +105,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const ClientHouses = ({ HouseIdx, houseToState, rent }) => {
+export const ClientHouses = ({request, HouseIdx, houseToState, rent,setShowHouses ,   uploadImg,data,
+  setUploadImg,setData}) => {
   const classes = useStyles();
 
   return (
@@ -120,6 +122,12 @@ export const ClientHouses = ({ HouseIdx, houseToState, rent }) => {
         :
         null}
       <MyHouses
+        request={request}
+        dataHousePost={data}
+        setData={setData}
+        uploadImg={uploadImg}
+        setUploadImg={setUploadImg}
+        setShowHouses={setShowHouses}
         onHouseClick={houseToState}
         data={HouseIdx}
         rent={rent}/>

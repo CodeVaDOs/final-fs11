@@ -1,12 +1,12 @@
 import React from 'react';
 import Card from "@material-ui/core/Card";
-import { makeStyles, Typography } from "@material-ui/core";
+import {Divider, makeStyles, Typography} from "@material-ui/core";
 import Button from '@components/Button';
 
 import defaultUser from '../../images/avatar.png';
 import clsx from "clsx";
 import { Delete, DeleteRounded, LeakRemove, Message, Remove, RemoveCircle, RemoveCircleOutlineOutlined, RemoveSharp } from "@material-ui/icons";
-import {useFetch} from "../../hooks/useFetch";
+import ClientCardProfile from "../../pages/Client/components/ClientCardProfile";
 
 const useStyles = makeStyles({
   root: {
@@ -100,6 +100,11 @@ const useStyles = makeStyles({
 
   },
 
+  divider: {
+    background: '#acb5b9',
+    boxShadow: '1px 0px 3px rgba(0,0,0,0.3)'
+  },
+
   addBtn: {
     backgroundColor: '#f88b38',
     marginRight: '31px',
@@ -118,10 +123,9 @@ const useStyles = makeStyles({
 const Index = ({ user, removeUser }) => {
   const classes = useStyles();
 
-  const { urlAvatar, name, contacts, email } = user;
+  const { urlAvatar, name, contacts, email, id } = user;
   const { phone } = contacts?.find(cc => cc.type === "MAIN") || { phone: "" };
 
-  const avatar = urlAvatar ?? defaultUser;
 
   const handleRemoveUser = () => {
     removeUser({
@@ -132,20 +136,9 @@ const Index = ({ user, removeUser }) => {
 
   return (
     <Card className={classes.root}>
-      <div className={classes.userProfile}>
-        <div className={classes.userName}>
-          <img className={classes.userAvatar} src={avatar} alt="User avatar"/>
-          <Typography>{name}</Typography>
-        </div>
-        <div className={classes.userInfo}>
-          <div className={classes.userInfo_container}>
-            <p className={classes.grayText}>{phone}</p>
-          </div>
-          <div className={clsx(classes.userInfo_container, classes.containerPadding)}>
-            <a href={"mailto:" + email} className={classes.link}>{email}</a>
-          </div>
-        </div>
-      </div>
+      <ClientCardProfile email={email} name={name} phone={phone} urlAvatar={urlAvatar || defaultUser} id={id}/>
+
+      <Divider className={classes.divider} orientation="vertical" flexItem/>
 
       <div className={classes.managerInfo}>
         <table className={classes.table}>

@@ -83,17 +83,17 @@ export const Slider = ({ images }) => {
               onClick={() => {
                 showPhoto(0);
               }}
-              src={images[0]} alt={"1"}/>
+              src={images.length >= 1 ? images[0] : images[1]} alt={"1"}/>
             <img
               className={classes.gridListitem}
               onClick={() => {
                 showPhoto(1);
-              }} src={images[1]} alt={"1"}/>
+              }} src={images.length >= 2 ? images[0] : images[1]} alt={"1"}/>
             <div>
               <img
                 className={classes.gridListitemShadowImg}
                 onClick={openModal}
-                src={images.length >= 1 ? images[1] : images[0]}
+                src={images.length >= 1 ? images[0] : images[1]}
                 alt={"2"}/>
               <p className={classes.countOfPfoto}>+{images.length}</p>
             </div>
@@ -102,7 +102,7 @@ export const Slider = ({ images }) => {
       }
 
       {isOpen ? <TransitionsModal
-        images={images}
+          images={images}
           open={isOpen}
           setIsOpen={setIsOpen}
           photoIndex={photoIndex}

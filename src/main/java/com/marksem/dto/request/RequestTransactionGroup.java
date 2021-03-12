@@ -42,7 +42,7 @@ public class RequestTransactionGroup extends BaseEntity {
     return TransactionGroup.builder()
         .fromDate(this.fromDate)
         .toDate(this.toDate)
-        .amount(this.amount)
+        .amount(transactionType.equals(FinanceType.INCOME) ? this.amount : this.amount * -1)
         .amountUSD(amountUSD)
         .currency(this.currency)
         .comment(this.comment)
