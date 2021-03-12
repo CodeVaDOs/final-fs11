@@ -12,7 +12,23 @@ import './index.scss';
 import './i18next';
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
+
+var console = {
+    ...window.console
+};
+
+console.log = function(...args){};
+console.info = function(...args){};
+console.debug = function(...args){};
+console.trace = function(...args){};
+console.err = function(...args){};
+console.error = function(...args){};
+console.warn = function(...args){};
+
+window.console = console;
+
 const reduxStore = store();
+
 
 ReactDOM.render(
   <ErrorBoundary>

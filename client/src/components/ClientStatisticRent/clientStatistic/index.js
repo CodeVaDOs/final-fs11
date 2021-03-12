@@ -150,17 +150,16 @@ const useStyles = makeStyles({
         marginLeft: "2%"
     },
 });
-const ClientStatisticRent = () => {
+const ClientStatisticRent = ({houseId}) => {
     const {t} = useTranslation();
     const [[dateFrom, dateTo], setDate] = useState([moment().startOf('month').format('yyyy-MM-DD'), moment().format('yyyy-MM-DD')])
-    const [houseId, setHouseId] = useState(1);
 
     const [dataForm, setDataForm] = useState({
         dateFrom: dateFrom,
         dateTo: dateTo,
         propertyId: 'all',
         dataBar: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            labels: [],
             datasets: [
                 {
                     label: "Витрати",
@@ -169,7 +168,7 @@ const ClientStatisticRent = () => {
                     borderWidth: 1,
                     hoverBackgroundColor: "#F88B38",
                     hoverBorderColor: "#F88B38",
-                    data: [20, 20, 15, 25, 30, 15, 15, 29, 15, 21, 16, 29]
+                    data: []
                 },
                 {
                     label: "Прибуток",
@@ -178,7 +177,7 @@ const ClientStatisticRent = () => {
                     borderWidth: 1,
                     hoverBackgroundColor: "#4AD584",
                     hoverBorderColor: "#4AD584",
-                    data: [45, 99, 50, 41, 55, 85, 45, 79, 50, 41, 78, 70]
+                    data: []
                 }
             ]
         }
@@ -187,17 +186,19 @@ const ClientStatisticRent = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(analyticActions.getAnalytics(houseId));
-    }, [dateFrom, dateTo])
+        dispatch(analyticActions.getAnalytics(houseId, dateFrom, dateTo));
+    }, [dateFrom, dateTo, houseId])
 
 
     const {analytic: statistics, isLoading: isLoadingStatistics} = useSelector(state => state.analytic)
+    const [[totalIncome, totalExpenditure], setTotal] = useState([0, 0]);
 
     useEffect(() => {
         setDataForm({
             ...dataForm,
             dataBar: {
                 ...dataForm.dataBar,
+                labels: statistics.flatMap(st => moment(st.date).format('DD.MM.yyyy')),
                 datasets: [
                     {
                         ...dataForm.dataBar.datasets[0],
@@ -210,7 +211,19 @@ const ClientStatisticRent = () => {
                 ]
             }
         })
+
+        setTotal([
+            statistics.flatMap(st => st.income).reduce((acc, item) => acc + item, 0),
+            statistics.flatMap(st => st.other + st.communal + st.service).reduce((acc, item) => acc + item, 0)
+        ])
+
+        console.log("STATS", totalIncome, totalExpenditure)
+
     }, [statistics])
+
+
+
+
 
     // const handleChangeProperty= (e) => {
     //   setDataForm({
@@ -249,6 +262,9 @@ const ClientStatisticRent = () => {
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
+                                            onChange={(e) => {
+                                                setDate(prev => [e.target.value, prev[1]])
+                                            }}
                                         />
                                     </Grid>
                                     <Grid className={classes.subGrid} item xs={6}>
@@ -259,6 +275,10 @@ const ClientStatisticRent = () => {
                                             className={classes.textField}
                                             InputLabelProps={{
                                                 shrink: true
+                                            }}
+                                            onChange={(e) => {
+                                                console.log(e.target.value)
+                                                setDate(prev => [prev[0], e.target.value])
                                             }}
                                         />
                                     </Grid>
@@ -353,20 +373,20 @@ const ClientStatisticRent = () => {
                                                 <Typography className={classes.cardHeader}>{t("allProfit")}</Typography>
                                             </Box>
                                             <Box style={{marginTop: "10px"}}>
-                                                <Typography className={classes.cardHeaderSmall}>{t("profHouse")}<span
-                                                    className={classes.cardHeaderSmallGray}>{" M-2 ID0170, ID 00177"}</span></Typography>
+                                                {/*<Typography className={classes.cardHeaderSmall}>{t("profHouse")}<span*/}
+                                                {/*    className={classes.cardHeaderSmallGray}>{""}</span></Typography>*/}
                                             </Box>
                                             <Box style={{marginTop: "10px"}}>
                                                 <Typography className={classes.cardHeaderSmall}>{t("profPeriod")}<span
-                                                    className={classes.cardHeaderSmallGray}>{"21 Червня 2019 - 31 Грудня 2020"}</span></Typography>
+                                                    className={classes.cardHeaderSmallGray}>{moment(dateFrom).format('DD MMMM yyyy')} - {moment(dateTo).format('DD MMMM yyyy')}</span></Typography>
                                             </Box>
                                             <Box style={{marginTop: "10px"}}>
                                                 <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span
-                                                    className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
+                                                    className={classes.cardHeaderSmallGray}>{"2 чоловіки"}</span></Typography>
                                             </Box>
                                         </Grid>
                                         <Grid className={classes.subGrid} style={{marginTop: "15px"}} item xs={3}>
-                                            <CircularStatic size={80} thickness={2} progress={"18.573"}
+                                            <CircularStatic size={80} thickness={2} progress={totalIncome.toFixed(2)}
                                                             color={"#F88B38"}/>
                                         </Grid>
                                     </Grid>
@@ -384,7 +404,7 @@ const ClientStatisticRent = () => {
                                             <Box style={{marginTop: "15px"}}>
                                                 <Typography className={classes.cardHeader}>{t("expense")}</Typography>
                                                 <Typography
-                                                    className={classes.cardSubHeader}>{"1 Січня - 31 Грудня"}</Typography>
+                                                    className={classes.cardSubHeader}>{moment(dateFrom).format('DD MMMM yyyy')} - {moment(dateTo).format('DD MMMM yyyy')}</Typography>
                                             </Box>
                                             <Box style={{marginTop: "10px"}}>
                                                 <Typography className={classes.cardHeaderSmall}>{t("mostExpense")}<span
@@ -397,11 +417,11 @@ const ClientStatisticRent = () => {
                                             </Box>
                                             <Box style={{marginTop: "10px"}}>
                                                 <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span
-                                                    className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
+                                                    className={classes.cardHeaderSmallGray}>{"2 чоловіки"}</span></Typography>
                                             </Box>
                                         </Grid>
                                         <Grid className={classes.subGrid} style={{marginTop: "15px"}} item xs={3}>
-                                            <CircularStatic size={80} thickness={2} progress={"9.573"}
+                                            <CircularStatic size={80} thickness={2} progress={totalExpenditure.toFixed(2)}
                                                             color={"#4AD584"}/>
                                         </Grid>
                                     </Grid>

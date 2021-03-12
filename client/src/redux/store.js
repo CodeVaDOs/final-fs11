@@ -15,8 +15,6 @@ import { getTokens, setAuthToken } from "../utils";
 
 const { applyMiddleware, combineReducers, createStore } = require("redux");
 
-console.log(authReducer);
-console.log(docReducer);
 const reducer = combineReducers({
   auth: authReducer,
   documents: docReducer,
