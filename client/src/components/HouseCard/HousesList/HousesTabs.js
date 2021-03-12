@@ -89,7 +89,6 @@ export default function HousesTabs() {
   const images = house?.houseImages?.flatMap(img => {
     return img.url + '?jwt=' + getTokens().token;
   });
-  console.log('imagesimages', images);
 
   if (loading) return <CircularProgress size={60}/>;
   return (

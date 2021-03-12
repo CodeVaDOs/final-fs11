@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from "react-i18next";
+import {connect} from "react-redux";
+import {bookingHouse} from "../../../../redux/bookingHouse/action";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3)
   },
   btn: {
-    fontSize: '14px',
+    fontSize: '16px',
     backgroundColor: '#254A93',
     color: 'white',
     opacity: '95%',
@@ -37,11 +39,21 @@ const useStyles = makeStyles((theme) => ({
   }
 
 }));
-
-export default function DatePickers() {
+function DatePickers({ bookingHouse }) {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const handleSubmit =()=>{
+    if (true) {
+      // bookingHouse({
+      //   fromDate: "2021-03-12T13:24:06.981Z",
+      //   toDate: "2021-03-12T13:24:06.981Z",
+      //   isOwner: true,
+      //   houseId: 0,
+      //   renter: "string"
+      // })
+    }
+  }
   return (
     <div className={classes.container}>
       <div>
@@ -67,13 +79,20 @@ export default function DatePickers() {
           }}
         />
       </div>
-
       <div>
-        <button className={classes.btn}>
+        <button
+            className={classes.btn}
+            onClick={handleSubmit}>
           {t("toBook")}
         </button>
       </div>
-
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+   bookingHouse: (data) => dispatch(bookingHouse(data)),
+  };
+};
+export default connect(null, mapDispatchToProps)(DatePickers)

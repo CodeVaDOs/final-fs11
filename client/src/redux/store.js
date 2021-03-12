@@ -6,6 +6,7 @@ import totalReducer from './total/reducer';
 import housesReducer from './houses/reducer';
 import notificationsReducer from './notifications/reducer';
 import maintainReducer from './houseMaintain/reducer';
+import bookingService from './houseBokingService/reducer';
 import passwordReducer from './profilePass/reducer';
 import analyticReducer from './analytic/reducer';
 import { AUTH_ACTIONS } from "./auth/action";
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   documents: docReducer,
   total: totalReducer,
   maintain: maintainReducer,
+  bookingService:bookingService,
   houses: housesReducer,
   password:passwordReducer,
   notifications: notificationsReducer,

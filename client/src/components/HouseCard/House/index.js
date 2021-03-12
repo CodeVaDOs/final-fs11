@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "20px",
     textAlign: "start",
     marginBottom: '15px',
-    marginTop: '5px',
+    marginTop: '35px',
     font: 'Roboto'
   },
   topSide: {
@@ -263,7 +263,7 @@ export const HouseContainer = ({ house, images }) => {
             {/*<BaseMap/>*/}
           </Box>
           <Box className={classes.rightSide}>
-            <Rent/>
+            <Rent houseId={house.id}/>
           </Box>
         </Box>
       </Container>
