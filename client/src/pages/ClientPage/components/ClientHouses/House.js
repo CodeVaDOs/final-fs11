@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Slider } from "../../../../components/HouseCard/House/Slider/Slider";
 import HouseDesription from "../../../../components/HouseCard/House/HouseDesription";
 import { useTranslation } from "react-i18next";
-import { Button } from "@material-ui/core";
+import { Button, CardActionArea } from "@material-ui/core";
 import MessageIcon from "@material-ui/icons/Message";
-import EditIcon from "@material-ui/icons/Edit";
+import Box from "@material-ui/core/Box";
+import { objectToFormData } from "../../../../utils/formData";
+import api from "../../../../utils/api";
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     flexDirection: 'column',
     marginBottom: '15px',
-    marginTop: '5px',
+    marginTop: -100,
     font: 'Roboto'
   },
   topSide: {
@@ -27,6 +29,24 @@ const useStyles = makeStyles(() => ({
     marginBottom: '15px',
     marginTop: '15px',
     font: 'Roboto'
+  },
+  btnEdit: {
+    textTransform: 'capitalize',
+    display: 'flex',
+    alignItems: 'center',
+    color: "#ffffff",
+    backgroundColor: "#F88B38",
+    width: 140,
+    height: "30px",
+    border: "0.5px solid #707070",
+    borderRadius: "5px",
+    opacity: 1,
+  },
+  editIcon: {
+    margin: 5,
+    padding: 1,
+    position: 'absolute',
+    right: 10
   },
 
 
@@ -186,59 +206,87 @@ const useStyles = makeStyles(() => ({
     borderRadius: "5px",
     opacity: 1,
   },
-  btnEdit: {
-    textTransform: 'capitalize',
 
-    display: 'flex',
-    alignItems: 'center',
-    color: "#293134",
-    width: "115px",
-    height: "30px",
-    border: "0.5px solid #707070",
-    borderRadius: "5px",
-    opacity: 1,
-  },
-  editIcon: {
-    padding: 3,
-    position: 'absolute',
-    right: 10
-  },
   subGrid: {
     marginTop: 20
   },
 
 }));
 
-export const House = ({ house }) => {
+export const House = ({ house, showHouses, uploadImg, data, setData, setRequest, request }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const renderUploadedState = () => {
+    return (
+      <>
+        <CardActionArea>
+          {
+            !request
+              ? <img width={"400px"} alt={'ssss'}
+                     style={{ borderRadius: 20 ,margin:20}}
+                     src={uploadImg.selectedFile}
+              />
+              : <div></div>
+
+          }
+
+        </CardActionArea>
+      </>
+    );
+  };
   return (
-    <div className={classes.root}>
-      <div className={classes.topSide}>
-        <div className={classes.leftSide}>
-          {/*<Slider/>*/}Slider
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {request
+        ? <h2 style={{ marginTop: "-750px" }}>Новий будинок успішно створений!</h2>
+        : <div>
+          {showHouses
+            ? <div className={classes.root}>
+              <div className={classes.topSide}>
+                <div className={classes.leftSide}>
+                  <Box className={classes.photoContainer}>
+                    {(uploadImg.mainState === "initial" && <div>IMG ZDECb</div>) ||
+                    (uploadImg.mainState === "uploaded" && renderUploadedState())}
+                  </Box>
+                </div>
+
+                <div className={classes.rightSide}>
+                  <div className={classes.houseIdInfo}>
+                    <p className={classes.id}>{t('id')} {house.id}</p>
+                  </div>
+                  <Box className={classes.houseDescription}>
+                    <HouseDesription house={house}/>
+                  </Box>
+                  <div className={classes.btns}>
+                    <Button className={classes.btnSend}>
+                      Написати <MessageIcon className={classes.editIcon}/></Button>
+                    <Button
+                      className={classes.btnEdit}
+                      onClick={() => {
+                        const formData = objectToFormData(data, '', ['images']);
+                        data.images.forEach((file, index) => {
+                          formData.append(`images[${index}]`, file, file.name);
+                        });
+
+                        api.post('houses', formData, {
+                          headers: { "Content-Type": "multipart/form-data" },
+                        }).then(setRequest(true));
+                      }}>Створити <SaveIcon className={classes.editIcon}/></Button>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            : null
+          }
+
         </div>
 
-        <div className={classes.rightSide}>
-          <div className={classes.houseIdInfo}>
-            <p className={classes.id}>{t('id')} {house.id}</p>
-          </div>
-          <div className={classes.houseDescription}>
-            <HouseDesription house={house}/>
-          </div>
-
-          <div className={classes.btns}>
-            <Button className={classes.btnSend}>
-              Написати <MessageIcon className={classes.editIcon}/></Button>
-            <Button className={classes.btnEdit}>
-              Edit <EditIcon className={classes.editIcon}/>
-            </Button>
-          </div>
-
-        </div>
-
-      </div>
+      }
     </div>
-  );
+
+
+  )
+    ;
 };

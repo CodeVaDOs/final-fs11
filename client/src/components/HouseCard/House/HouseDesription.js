@@ -36,10 +36,10 @@ export default function HouseDesription({ house }) {
 
 
   const rows = [
-    createData(t('status'), house.status , pause),
+    createData(t('status'), house.status = 'Не активний', pause),
     createData(t('square'), house.area),
-    createData(t('location'), house.location),
-    createData(t('equipment'), house.equipment),
+    createData(t('location'), house.location = 'Локація не встановлена'),
+    createData(t('equipment'), house.equipment = 'Немає'),
   ];
 
   return (
