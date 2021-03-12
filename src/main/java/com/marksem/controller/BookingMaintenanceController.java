@@ -28,13 +28,13 @@ public class BookingMaintenanceController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseBookingMaintenance> create(@RequestBody RequestBookingMaintenance bm) {
         return ResponseEntity.ok(service.create(bm));
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseBookingMaintenance> update(@RequestBody RequestBookingMaintenance bm) {
         return ResponseEntity.ok(service.update(bm));
     }
