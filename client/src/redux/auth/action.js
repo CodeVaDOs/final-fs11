@@ -37,7 +37,6 @@ const getProfile = () => (dispatch) => {
             dispatch(TOTAL_ACTIONS.getAccessPanel());
             dispatch(TOTAL_ACTIONS.getCatalogue());
             dispatch(housesActions.getHouses());
-            dispatch(analyticActions.getAnalytics(1));
         })
         .catch(err => {
             catchError(err);

@@ -7,6 +7,7 @@ import housesReducer from './houses/reducer';
 import notificationsReducer from './notifications/reducer';
 import maintainReducer from './houseMaintain/reducer';
 import passwordReducer from './profilePass/reducer';
+import analyticReducer from './analytic/reducer';
 import { AUTH_ACTIONS } from "./auth/action";
 import { getTokens, setAuthToken } from "../utils";
 
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   houses: housesReducer,
   password:passwordReducer,
   notifications: notificationsReducer,
+  analytic: analyticReducer
 });
 
 export default () => {
