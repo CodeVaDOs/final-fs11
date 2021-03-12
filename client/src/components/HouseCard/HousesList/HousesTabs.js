@@ -13,6 +13,7 @@ import TempHousesForm from "../../TempHousesForm/TempHousesForm";
 import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { housesActions } from "../../../redux/houses/action";
+import { getTokens } from "../../../utils";
 
 const AntTabs = withStyles({
   indicator: {
@@ -67,7 +68,7 @@ export default function HousesTabs() {
   const [value, setValue] = useState('one');
   const [house, setHouse] = useState([]);
   const [houses, setHouses] = useState([]);
-  let {loading:loading, houses: data} = useSelector(state => state.houses);
+  let { loading: loading, houses: data } = useSelector(state => state.houses);
 
   const user = useSelector(state => state.auth.user);
 
@@ -85,8 +86,10 @@ export default function HousesTabs() {
 
   }
 
-  const images = house?.houseImages?.flatMap(img => img.url);
-
+  const images = house?.houseImages?.flatMap(img => {
+    return img.url + '?jwt=' + getTokens().token;
+  });
+  console.log('imagesimages', images);
 
   if (loading) return <CircularProgress size={60}/>;
   return (
