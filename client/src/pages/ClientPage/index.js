@@ -5,13 +5,7 @@ import {useLocation} from "react-router-dom";
 import {useFetch} from "../../hooks/useFetch";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const useStyles = makeStyles(() => ({
-    clearfix: {
-        width: "97%",
-        marginLeft: -10
-    }
-
-}));
+const useStyles = makeStyles(() => ({}));
 
 const ClientPage = () => {
     const classes = useStyles();
@@ -31,9 +25,7 @@ const ClientPage = () => {
 
     return (
         <>
-            <div className={classes.clearfix}>
-                <ClientTabs editUser={editUser} user={user}/>
-            </div>
+            <ClientTabs editUser={editUser} user={user}/>
         </>
     );
 };

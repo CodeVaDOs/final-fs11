@@ -1,5 +1,5 @@
 .container {
-    width: 800px;
+    width: 700px;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     overflow-x: scroll;
@@ -17,13 +17,13 @@
 .container.spacer {
     grid-template-columns:
     1em
-    repeat(70, 1fr)
+    repeat(100, 2fr)
     1em;
 }
 
 .container.wideSpacer {
     grid-template-columns:
-    repeat(20, 1fr)
+    repeat(100, 1fr)
     1em;
 }
 

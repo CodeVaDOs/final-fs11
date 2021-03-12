@@ -33,5 +33,4 @@ public class TransactionGroupController {
     public ResponseEntity<ResponseTransactionGroup> read(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.read(id));
     }
-
 }
