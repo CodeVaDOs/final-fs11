@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Box from '@material-ui/core/Box';
 import Typography from "@material-ui/core/Typography";
@@ -16,7 +16,9 @@ import {More} from "../../pages/ClientPage/components/More";
 import Tab from "../../pages/ClientPage/components/Tabs/Tab";
 import Tabs from "../../pages/ClientPage/components/Tabs/Tabs";
 import {NewStatistic} from "../../pages/ClientPage/components/NewStatistic";
-import Container from "@material-ui/core/Container";
+import moment from "moment";
+import {useDispatch, useSelector} from "react-redux";
+import {analyticActions} from "../../redux/analytic/action";
 
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.backgroundColor = "#EEF5FF";
@@ -152,11 +154,16 @@ const useStyles = makeStyles({
   }
 });
 
+
+
 const ClientStatisticRent = ({user}) => {
   const {t} = useTranslation();
+
+
+
   const [dataForm, setDataForm] = useState({
-    dateFrom: "2021-01-01",
-    dateTo: "2021-01-31",
+    // dateFrom: dateFrom,
+    // dateTo: dateTo,
     propertyId: 'all',
     dataBar: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
@@ -188,6 +195,12 @@ const ClientStatisticRent = ({user}) => {
   //   });
   // };
   const [key, setKey] = useState(0);
+
+  console.log("USEEFFECT")
+
+
+
+
 
   const classes = useStyles();
   return (
