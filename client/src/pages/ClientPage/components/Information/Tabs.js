@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -14,6 +14,9 @@ import ClientStatisticRent from "../../../../components/ClientStatisticRent";
 import { CreateNewHouse } from "../CreateNewHouse";
 import EditUser from "../../../Client/components/EditUser";
 import { Container } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import { objectToFormData } from "../../../../utils/formData";
+import api from "../../../../utils/api";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -44,7 +47,7 @@ const useStyles = makeStyles(() => ({
     filter: 'drop-shadow(2px 0px 3px rgba(0, 0, 0, 0.5))',
     padding: '20px 21px 24px'
 
-},
+  },
   columnStart: {
     width: '100%',
     marginTop: '54px',
@@ -104,6 +107,26 @@ export default function ClientTabs({ user, editUser }) {
   const [HouseIdx,] = useState(tileData);
   const [house, setHouse] = useState(tileData[0]);
   const [bottomView, setHousesDescription] = useState(0);
+  const [showHouses, setShowHouses] = useState(false);
+  const [request, setRequest] = useState(false);
+
+  const [uploadImg, setUploadImg] = useState({
+    mainState: "initial",
+    imageUploaded: 0,
+    selectedFile: null
+  });
+  const [data, setData] = useState({
+    location: '-',
+    equipment: '-',
+    area: '-',
+    description: '-',
+    ownerId: 7,
+    houseModelId: 1,
+    images: []
+  });
+  useEffect(() => {
+
+  }, []);
 
   function houseToState(e) {
     setHouse(HouseIdx[e]);
@@ -140,6 +163,12 @@ export default function ClientTabs({ user, editUser }) {
             </TabPanel>
             <TabPanel value={value} index={1}>
               <ClientHouses
+                request={request}
+                data={data}
+                setData={setData}
+                uploadImg={uploadImg}
+                setUploadImg={setUploadImg}
+                setShowHouses={setShowHouses}
                 houseToState={houseToState}
                 HouseIdx={HouseIdx}
                 rent={false}
@@ -163,10 +192,19 @@ export default function ClientTabs({ user, editUser }) {
             <div>
               <Container>
                 <Container>
-                  <CreateNewHouse/>
+                  <CreateNewHouse
+                    request={request}
+                    setRequest={setRequest}/>
                 </Container>
                 <Container style={{ marginTop: "200px" }}>
-                  <House house={house}/>
+                  <House
+                    request={request}
+                    setRequest={setRequest}
+                    data={data}
+                    setData={setData}
+                    uploadImg={uploadImg}
+                    showHouses={showHouses}
+                    house={house}/>
                 </Container>
               </Container>
             </div>

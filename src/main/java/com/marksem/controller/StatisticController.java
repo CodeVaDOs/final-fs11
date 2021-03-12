@@ -1,12 +1,18 @@
 package com.marksem.controller;
 
-import com.marksem.dto.response.PageableResponse;
-import com.marksem.dto.response.ResponseTransactionGroup;
+import com.marksem.dto.response.ResponseStatistic;
 import com.marksem.service.StatisticService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/statistic")
@@ -14,15 +20,11 @@ import org.springframework.web.bind.annotation.*;
 public class StatisticController {
     private final StatisticService service;
 
-    @GetMapping
+    @GetMapping("")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<PageableResponse<ResponseTransactionGroup>> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(service.readAll(page, size));
-    }
-
-    @GetMapping("{id}")
-    @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<ResponseTransactionGroup> read(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(service.read(id));
+    public ResponseEntity<List<ResponseStatistic>> readAll(@RequestParam Long houseId,
+                                                           @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
+                                                           @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
+        return ResponseEntity.ok(service.readAll(houseId, fromDate, toDate));
     }
 }

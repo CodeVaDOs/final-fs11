@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomizedDividers from "./Buttons";
 import { Slider } from "../../../../components/HouseCard/House/Slider/Slider";
@@ -59,7 +59,7 @@ const useStyles = makeStyles(() => ({
 
   },
   btns: {
-    marginTop:10,
+    marginTop: 10,
     fontSize: "14px",
     color: "#B1B4BA",
     textAlign: "left",
@@ -90,7 +90,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     color: "#ffffff",
-    backgroundColor:"#F88B38",
+    backgroundColor: "#F88B38",
     width: 140,
     height: "30px",
     border: "0.5px solid #707070",
@@ -105,82 +105,91 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const CreateNewHouse = () => {
-  const classes = useStyles();
+export const CreateNewHouse = ({ setShowHouses, request, setRequest }) => {
+    const classes = useStyles();
+    useEffect(() => {
 
-  return (
-    <>
-      <div className={classes.heading}>
-        <h2>Створити новий будинок</h2>
-      </div>
+    }, [request]);
+    return (
+      <>
 
-      <div className={classes.div}>
-        {/*selects part*/}
-        <div className={classes.row}>
-          <div className={classes.row}>
-            <h4> Тип будинку</h4>
-            <select name="select">
-              <option value="M-2">M-2</option>
-              <option value="M-4" selected>M-4</option>
-              <option value="M-Hotel">M-Hotel</option>
-              <option value="M-Hotel">M-Hotel</option>
-            </select>
-          </div>
-          <div className={classes.row}>
-            <h4>Модель</h4>
-            <select name="select">
-              <option value="value1">Значение 1</option>
-              <option value="value2" selected>Значение 2</option>
-              <option value="value3">Значение 3</option>
-            </select>
-          </div>
+        <div>
+          {request === false && <div>
+            <div className={classes.heading}>
+              <h2>Створити новий будинок</h2>
+            </div>
+
+            <div className={classes.div}>
+              {/*selects part*/}
+              <div className={classes.row}>
+                <div className={classes.row}>
+                  <h4> Тип будинку</h4>
+                  <select name="select">
+                    <option value="M-2">M-2</option>
+                    <option value="M-4" selected>M-4</option>
+                    <option value="M-Hotel">M-Hotel</option>
+                    <option value="M-Hotel">M-Hotel</option>
+                  </select>
+                </div>
+                <div className={classes.row}>
+                  <h4>Модель</h4>
+                  <select name="select">
+                    <option value="value1">Значение 1</option>
+                    <option value="value2" selected>Значение 2</option>
+                    <option value="value3">Значение 3</option>
+                  </select>
+                </div>
+              </div>
+
+              {/*two parts*/}
+              <div className={classes.mainContainer}>
+                {/*left photo part*/}
+                <div className={classes.leftPart}>
+                  {/*<Slider/>*/}
+                </div>
+                {/*right part*/}
+                <div className={classes.rightPart}>
+                  <CustomizedDividers labels={["Екстер\'єр\n", "Інтер\'єр\n", "Планування"]}/>
+                  <div>
+                    <Typography className={classes.text}>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis deleniti ea fugit harum maxime quidem rerum tempore ullam veritatis voluptatem.
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography className={classes.text}>
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
+                      <h2>Інтер'єр у будинку</h2>
+
+                    </Typography>
+                    <CustomizedDividers labels={["Барокко", "Барокко", "Барокко", "Барокко"]}/>
+                  </div>
+                  <div className={classes.row}>
+
+                    <div className={classes.column}>
+                      <h4>Колір меблів та текстилю</h4>
+                      <CheckboxLabels/>
+                    </div>
+                    <div className={classes.column}>
+                      <h4>Колір фасаду стін</h4><br/>
+                      <CheckboxLabels/>
+                    </div>
+                  </div>
+                  <div className={classes.btns}>
+                    <Button className={classes.btnSend}>
+                      <h5>Написати</h5> <MessageIcon className={classes.editIcon}/></Button>
+                    <Button className={classes.btnEdit}>
+                      <h5>Зберегти</h5> <SaveIcon className={classes.editIcon}/>
+                    </Button>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>}
         </div>
 
-        {/*two parts*/}
-        <div className={classes.mainContainer}>
-          {/*left photo part*/}
-          <div className={classes.leftPart}>
-            {/*<Slider/>*/}
-          </div>
-          {/*right part*/}
-          <div className={classes.rightPart}>
-            <CustomizedDividers labels={["Екстер\'єр\n", "Інтер\'єр\n", "Планування"]}/>
-            <div>
-              <Typography className={classes.text}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis deleniti ea fugit harum maxime quidem rerum tempore ullam veritatis voluptatem.
-              </Typography>
-            </div>
-            <div>
-              <Typography className={classes.text}>
-                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                <h2>Інтер'єр у будинку</h2>
-
-              </Typography>
-              <CustomizedDividers labels={["Барокко", "Барокко", "Барокко", "Барокко"]}/>
-            </div>
-            <div className={classes.row}>
-
-              <div className={classes.column}>
-                <h4>Колір меблів та текстилю</h4>
-                <CheckboxLabels/>
-              </div>
-              <div className={classes.column}>
-                <h4>Колір фасаду стін</h4><br/>
-                <CheckboxLabels/>
-              </div>
-            </div>
-            <div className={classes.btns}>
-              <Button className={classes.btnSend}>
-                <h5>Написати</h5> <MessageIcon className={classes.editIcon}/></Button>
-              <Button className={classes.btnEdit}>
-                <h5>Зберегти</h5> <SaveIcon className={classes.editIcon}/>
-              </Button>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+;
