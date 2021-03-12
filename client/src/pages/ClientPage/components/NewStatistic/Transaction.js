@@ -125,7 +125,7 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
       <TextField
         InputLabelProps={{ shrink: true }}
         style={{width: "70%"}}
-        //value={transactionState.amount}
+        value={transactionState.amount}
         onChange={fieldHandler("setAmount")}
       />
     </Box>
@@ -161,7 +161,7 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
       variant={"outlined"}
       size={"small"}
       placeholder={t("Комментар")}
-      //value={transactionState.comment}
+      value={transactionState.comment}
       onChange={fieldHandler("setComment")}/>
   </fieldset>);
 };
