@@ -86,6 +86,11 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
           ...state,
           comment: action.payload
         };
+      case 'reset':
+        return {
+          ...state,
+          ...initTransactionState
+        }
       default:
         return state;
     }
@@ -118,9 +123,9 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
         {TRANSACTION_TYPES[transactionType]}
       </Typography>
       <TextField
-        //InputLabelProps={{ shrink: true }}
+        InputLabelProps={{ shrink: true }}
         style={{width: "70%"}}
-        value={transactionState.amount}
+        //value={transactionState.amount}
         onChange={fieldHandler("setAmount")}
       />
     </Box>
@@ -156,7 +161,7 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
       variant={"outlined"}
       size={"small"}
       placeholder={t("Комментар")}
-      value={transactionState.comment}
+      //value={transactionState.comment}
       onChange={fieldHandler("setComment")}/>
   </fieldset>);
 };

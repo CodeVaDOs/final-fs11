@@ -1,5 +1,4 @@
-import 'date-fns';
-import React, {useEffect, useReducer, useState} from "react";
+import React, {useCallback, useEffect, useReducer, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {useTranslation} from "react-i18next";
 import Typography from "@material-ui/core/Typography";
@@ -13,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import {useSelector} from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
-
+import {useFetch} from "../../../../hooks/useFetch";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -63,6 +62,11 @@ const useStyles = makeStyles(() => ({
 export const AddNewStatistic = ({user}) => {
   const {t} = useTranslation();
   const classes = useStyles();
+  const [isDisabledSendBtn, setDisabledSendBtn] = useState(false);
+
+  const parseDate = (date) => {
+    return date.toJSON().split("T")[0];
+  }
 
   const initFormFieldsState = {
     houseId: "",
@@ -144,10 +148,13 @@ export const AddNewStatistic = ({user}) => {
           ...state,
           other: updateArrItemByIndex(state.other, action.payload)
         };
-      case 'ADD_ITEM':
+      case 'RESET':
         return {
           ...state,
-          [action.payload.transactionType]: [...state[action.payload.transactionType], action.payload.dataTransaction]
+          income: [],
+          communal: [],
+          service: [],
+          other: []
         };
       default:
         return state;
@@ -199,29 +206,55 @@ export const AddNewStatistic = ({user}) => {
         />);
   };
 
-  const submitTransaction = (e) => {
+
+  const [{data: transactionRes, loading}, getData] = useFetch({
+    instant: false,
+    method: "POST",
+    url: "/transactionGroups",
+    initData: []
+  })
+
+  const submitTransaction = (td, ffState) => (e) => {
     e.preventDefault();
-    console.log([
-      ...transactionsData.income,
-      ...transactionsData.communal,
-      ...transactionsData.other,
-      ...transactionsData.service
+    setDisabledSendBtn(true)
+    const transactionGroups = [
+      ...td.income.slice(),
+      ...td.communal.slice(),
+      ...td.other.slice(),
+      ...td.service.slice()
     ]
+      .filter(t => t.amount)
       .map(t => {
         t.amount = Number.parseInt(t.amount)
         return t;
       })
-      .filter(t => t.amount !== 0)
       .map(t => {
-        if(t.transactionType !== TRANSACTION_TYPES.income && t.amount > 0) {
+        if (t.transactionType !== TRANSACTION_TYPES.income && t.amount > 0) {
           t.amount = t.amount * -1;
         }
         return {
           ...t,
-          ...formFieldsState
+          ...ffState,
+          fromDate: parseDate(ffState.fromDate),
+          toDate: parseDate(ffState.toDate)
         }
-      }));
+      });
+    getData(
+      {
+        data: transactionGroups
+      }
+    );
   }
+
+  useEffect(() => {
+    if(!loading) {
+      setDisabledSendBtn(false)
+      dataDispatcher({
+        type: "RESET"
+      })
+      console.log(transactionRes)
+    }
+  }, [loading])
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -313,10 +346,10 @@ export const AddNewStatistic = ({user}) => {
 
 
       <Button
-        onClick={submitTransaction}
+        onClick={submitTransaction(transactionsData, formFieldsState)}
         variant="contained"
         className={classes.sendButton}
-        disabled={false}>
+        disabled={isDisabledSendBtn}>
         {t("Зберегти")}
       </Button>
     </form>
