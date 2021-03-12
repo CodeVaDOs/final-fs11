@@ -104,6 +104,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 export const HouseCreate = ({
+  request,
   setShowHouses, uploadImg,
   setUploadImg, setData, dataHousePost
 }) => {
@@ -176,6 +177,7 @@ export const HouseCreate = ({
     return (
       <>
         <div style={{ display: "flex", alignItems: "center", overflow: "hidden", maxHeight: 108, maxWidth: 162, borderRadius: 14 }}>
+
           <CardActionArea
 
             onClick={imageResetHandler}>
@@ -197,7 +199,8 @@ export const HouseCreate = ({
     >
       <Box className={classes.photoContainer}>
         {(uploadImg.mainState === "initial" && renderInitialState()) ||
-        (uploadImg.mainState === "uploaded" && renderUploadedState())}
+        (uploadImg.mainState === "uploaded" && renderUploadedState()) ||
+        (request === true && <div></div>)}
       </Box>
       <div className={classes.houseCardBody}>
         <span className={classes.cardContract}> Контракт -----</span>

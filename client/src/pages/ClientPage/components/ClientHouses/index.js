@@ -105,7 +105,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const ClientHouses = ({ HouseIdx, houseToState, rent,setShowHouses ,   uploadImg,data,
+export const ClientHouses = ({request, HouseIdx, houseToState, rent,setShowHouses ,   uploadImg,data,
   setUploadImg,setData}) => {
   const classes = useStyles();
 
@@ -122,6 +122,7 @@ export const ClientHouses = ({ HouseIdx, houseToState, rent,setShowHouses ,   up
         :
         null}
       <MyHouses
+        request={request}
         dataHousePost={data}
         setData={setData}
         uploadImg={uploadImg}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomizedDividers from "./Buttons";
 import { Slider } from "../../../../components/HouseCard/House/Slider/Slider";
@@ -106,14 +106,15 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const CreateNewHouse = ({ setShowHouses, request, setRequest }) => {
-  const classes = useStyles();
+    const classes = useStyles();
+    useEffect(() => {
 
-  return (
-    <>
+    }, [request]);
+    return (
+      <>
 
-      <div>
-        {!request
-          ? <div>
+        <div>
+          {request === false && <div>
             <div className={classes.heading}>
               <h2>Створити новий будинок</h2>
             </div>
@@ -185,10 +186,10 @@ export const CreateNewHouse = ({ setShowHouses, request, setRequest }) => {
               </div>
 
             </div>
-          </div>
-          : null}
-      </div>
+          </div>}
+        </div>
 
-    </>
-  );
-};
+      </>
+    );
+  }
+;

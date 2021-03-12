@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     flexDirection: 'column',
     marginBottom: '15px',
-    marginTop: '5px',
+    marginTop: -100,
     font: 'Roboto'
   },
   topSide: {
@@ -222,8 +222,9 @@ export const House = ({ house, showHouses, uploadImg, data, setData, setRequest,
       <>
         <CardActionArea>
           {
-            request
+            !request
               ? <img width={"400px"} alt={'ssss'}
+                     style={{ borderRadius: 20 ,margin:20}}
                      src={uploadImg.selectedFile}
               />
               : <div></div>

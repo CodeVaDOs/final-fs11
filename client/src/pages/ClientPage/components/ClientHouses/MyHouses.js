@@ -126,7 +126,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-export default function MyHouses({ data, onHouseClick, rent,setShowHouses, uploadImg,setData,dataHousePost,
+export default function MyHouses({ request,data, onHouseClick, rent,setShowHouses, uploadImg,setData,dataHousePost,
   setUploadImg }) {
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
   const classes = useStyles();
@@ -183,6 +183,7 @@ export default function MyHouses({ data, onHouseClick, rent,setShowHouses, uploa
             })}
           {rent ? null
             : <HouseCreate
+              request={request}
               dataHousePost={dataHousePost}
               setData={setData}
               uploadImg={uploadImg}

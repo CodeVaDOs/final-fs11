@@ -163,6 +163,7 @@ export default function ClientTabs({ user, editUser }) {
             </TabPanel>
             <TabPanel value={value} index={1}>
               <ClientHouses
+                request={request}
                 data={data}
                 setData={setData}
                 uploadImg={uploadImg}
