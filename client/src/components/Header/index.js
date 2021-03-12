@@ -82,117 +82,7 @@ const Header = (props) => {
   const { t, i18n } = useTranslation();
   const [isOpenHeader, handleHeader] = useState(true);
   const classes = useStyles({ isOpenHeader });
-  useEffect(()=>{
-    setMenu({
-      mainLinks: [
-        {
-          id: 1,
-          text: t('menuHome'),
-          icon: icons.main,
-          to: '/',
-          isMain: true
-        },
-        {
-          id: 2,
-          text: t('menuSettings'),
-          icon: icons.settings,
-          to: '/setting',
-          isMain: true
-        },
-      ],
-      additionalLinks: [
-        {
-          id: 3,
-          text: t("menuPanel"),
-          icon: icons.panel,
-          to: '/panel',
-          isMain: false,
-          role: "USER",
-        },
-        {
-          id: 31,
-          text: t("menuPanel"),
-          icon: icons.panel,
-          to: '/panel/manager',
-          isMain: false,
-          role: "MANAGER"
-        },
-        {
-          id: 32,
-          text: t("menuPanel"),
-          icon: icons.panel,
-          to: '/panel/admin',
-          isMain: false,
-          role: "ADMIN"
-        },
-        {
-          id: 4,
-          text: t("menuHouses"),
-          icon: icons.photo,
-          to: '/houses',
-          isMain: false,
-          role: 'USER:ADMIN',
-        },
-        {
-          id: 5,
-          text: t("menuClients"),
-          icon: icons.clients,
-          to: '/clients',
-          isMain: false,
-          role: "ADMIN:MANAGER",
-        },
-        {
-          id: 6,
-          text: t("menuDocuments"),
-          icon: icons.documents,
-          to: '/documents',
-          isMain: false,
-          role: "USER:ADMIN:MANAGER",
-        },
-        {
-          id: 7,
-          text: t("menuFinance"),
-          icon: icons.finance,
-          to: '/finances',
-          isMain: false,
-          role: "ADMIN:MANAGER",
-        },
-        {
-          id: 8,
-          text: t("menuRent"),
-          icon: icons.analytic,
-          to: '/rent',
-          isMain: false,
-          role: "ADMIN:MANAGER",
-        },
-        {
-          id: 9,
-          text: t("menuStatistic"),
-          icon: icons.analytic,
-          to: '/statistic',
-          isMain: false,
-          role: "USER",
-        },
-        {
-          id: 10,
-          text: t("menuEmployee"),
-          icon: icons.clients,
-          to: '/employees',
-          isMain: false,
-          role: "ADMIN",
-        },
-        {
-          id: 11,
-          text: t("menuHistory"),
-          icon: icons.photo,
-          to: '/history',
-          isMain: false,
-          role: "ADMIN",
-        },
-      ]
-    })
-  },[i18n.language])
-  const [menu, setMenu] = useState({
+  const links = {
     mainLinks: [
       {
         id: 1,
@@ -290,25 +180,25 @@ const Header = (props) => {
         isMain: false,
         role: "ADMIN",
       },
-      {
-        id: 11,
-        text: t("menuHistory"),
-        icon: icons.photo,
-        to: '/history',
-        isMain: false,
-        role: "ADMIN",
-      },
+      // {
+      //   id: 11,
+      //   text: t("menuHistory"),
+      //   icon: icons.photo,
+      //   to: '/history',
+      //   isMain: false,
+      //   role: "ADMIN",
+      // },
     ]
-  })
+  }
 
   const mainList = useMemo(() =>
-      menu.mainLinks.map(link =>
-      <HeaderLink key={link.id} {...link}/>), []);
+      links.mainLinks.map(link =>
+      <HeaderLink key={link.id} {...link}/>), [i18n.language]);
 
   const additionalList = useMemo(() =>
-      menu.additionalLinks
+      links.additionalLinks
       .filter(link => link.role.split(':').includes(props.user.role))
-      .map(link => <HeaderLink key={link.id} {...link}/>), []
+      .map(link => <HeaderLink key={link.id} {...link}/>), [i18n.language]
   );
 
   return (

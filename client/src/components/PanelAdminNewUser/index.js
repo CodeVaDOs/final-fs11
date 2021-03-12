@@ -376,14 +376,6 @@ const PanelAdminNewUser = (input) => {
                         <ModalsContainer style={{backgroundColor:"#254A93", color:'white', width:"161px", marginLeft:"5px", height:"39px"}}
                                          buttonActivateDialog={t("create")}
                                          body={<ModalNewClient onClick={check} name={dataForm.name}/>}/>
-                        {/*<ButtonStyle*/}
-                        {/*    w={"161px"}*/}
-                        {/*    h={"39px"}*/}
-                        {/*    disabled={loading}*/}
-                        {/*    bgcolor={"#254A93"}*/}
-                        {/*    ml={"10px"}*/}
-                        {/*    text={loading ? <CircularProgress color="inherit" size={25}/> : t('create')}*/}
-                        {/*    onClick={check}/>*/}
                     </Box>
                 </Grid>
             </Grid>
