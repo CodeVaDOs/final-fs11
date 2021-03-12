@@ -30,7 +30,7 @@ public class BookingController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseBooking> create(@RequestBody RequestBooking b, Principal principal) {
         return ResponseEntity.ok(service.create(b, principal.getName()));
     }

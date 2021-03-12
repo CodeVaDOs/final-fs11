@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from "react-i18next";
 import {connect} from "react-redux";
 import {bookingHouse} from "../../../../redux/bookingHouse/action";
+import ModalsContainer from "../../../ModalsContainer";
+import ModalNewClient from "../../../ModalsContainer/ModalChildrens/ModalNewClient";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -39,19 +42,35 @@ const useStyles = makeStyles((theme) => ({
   }
 
 }));
-function DatePickers({ bookingHouse }) {
+function DatePickers({ user, houseId, bookingHouse }) {
   const classes = useStyles();
   const { t } = useTranslation();
-
+  const [dates, setDate] = useState({
+    dateFrom:'',
+    dateTo:''
+  })
+  const handleChangeFrom = (e) => {
+    setDate({
+      dateFrom: e.target.value,
+      dateTo: dates.dateTo
+    });
+  };
+  const handleChangeTo = (e) => {
+    setDate({
+      dateFrom: dates.dateFrom,
+      dateTo: e.target.value,
+    });
+  };
   const handleSubmit =()=>{
-    if (true) {
-      // bookingHouse({
-      //   fromDate: "2021-03-12T13:24:06.981Z",
-      //   toDate: "2021-03-12T13:24:06.981Z",
-      //   isOwner: true,
-      //   houseId: 0,
-      //   renter: "string"
-      // })
+    console.log(dates.dateFrom, dates.dateTo)
+    if (dates.dateFrom !=='' && dates.dateTo !=='') {
+      bookingHouse({
+        fromDate: dates.dateFrom,
+        toDate: dates.dateTo,
+        isOwner: true,
+        houseId: houseId,
+        renter: user.name
+      })
     }
   }
   return (
@@ -61,6 +80,8 @@ function DatePickers({ bookingHouse }) {
           id="date"
           label={t('bout')}
           type="date"
+          value={dates.dateFrom}
+          onChange={handleChangeFrom}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -73,6 +94,8 @@ function DatePickers({ bookingHouse }) {
           id="date"
           label={t('departure')}
           type="date"
+          value={dates.dateTo}
+          onChange={handleChangeTo}
           className={classes.textFieldR}
           InputLabelProps={{
             shrink: true,
@@ -80,19 +103,21 @@ function DatePickers({ bookingHouse }) {
         />
       </div>
       <div>
-        <button
-            className={classes.btn}
-            onClick={handleSubmit}>
-          {t("toBook")}
-        </button>
+        <ModalsContainer style={{backgroundColor:"#254A93", color:'white', width:"161px", marginLeft:"5px", height:"39px"}}
+                         buttonActivateDialog={t("toBook")}
+                         body={<ModalNewClient onClick={handleSubmit}/>}/>
       </div>
     </div>
   );
 }
-
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
    bookingHouse: (data) => dispatch(bookingHouse(data)),
   };
 };
-export default connect(null, mapDispatchToProps)(DatePickers)
+export default connect(mapStateToProps, mapDispatchToProps)(DatePickers)
