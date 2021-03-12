@@ -63,32 +63,26 @@ const useStyles = makeStyles({
     }
   },
 });
-const Index=({name, onClick})=> {
+const Index=({ onClick})=> {
   const {handleClose} = useContext(ModalContext);
   const classes = useStyles();
   const { t } = useTranslation();
   return(<Box className={classes.containerClient}>
     <Box style={{ textAlign:"center" }}>
-      <Typography className={classes.headerClient}>{t("headerClient")}<span className={classes.blueClient}>{name}</span></Typography>
+      <Typography className={classes.headerClient}>{t("headerBooking")}<span className={classes.blueClient}>{}</span></Typography>
     </Box>
     <Box style={{ textAlign:"center" }}>
       <Typography className={classes.blackTextClient}>{t("textClient")}</Typography>
     </Box>
     <Box style={{ textAlign:"center" }}>
-      <Typography className={classes.greyTextClient}>
-        {t("subTextClient")}
-      </Typography>
     </Box>
-    <Box style={{ marginLeft:"17%", marginTop:"5%" }}>
-      <Button className={classes.btn} onClick={()=>{
-        if (handleClose) handleClose();
-      }} >{t("returnBtn")}</Button>
+    <Box style={{ marginLeft:"16%", marginTop:"5%" }}>
       <Button className={classes.btn}
               onClick={()=>{
                 onClick();
                 handleClose();
               }}
-      >{t("clientBtnCard")}</Button>
+      >{t("recoverySend")}</Button>
     </Box>
   </Box>);
 };

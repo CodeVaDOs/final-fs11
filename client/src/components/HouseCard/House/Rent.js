@@ -4,6 +4,9 @@ import SelecOptions from "./SelectOptions";
 import AddComment from "./AddComment";
 import DatePickers from "./datePicker/DatePicker";
 import { useTranslation } from "react-i18next";
+import ModalsContainer from "../../ModalsContainer";
+import ModalNewServices from "../../ModalsContainer/ModalChildrens/ModalServices";
+import Container from "../../Container";
 
 
 const useStyles = makeStyles(() => ({
@@ -31,16 +34,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-export const Rent = () => {
+export const Rent = ({houseId}) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
       <p className={classes.p}>{t('rentThisHouse')}</p>
-      <DatePickers/>
-      <SelecOptions/>
-      <AddComment/>
+      <DatePickers houseId={houseId}/>
+      <ModalsContainer style={{backgroundColor:"#254A93", color:'white',  borderRadius: "8px", width:"430px", marginLeft:"5px", height:"39px", fontSize: "16px", textTransform:"none", cursor:"pointer"}}
+                       buttonOk={t("returnBtn")}
+                       buttonCancel={t("serBtn")}
+                       buttonActivateDialog={t("btnService")}
+                       body={<ModalNewServices id={houseId}/>}/>
+      {/*<SelecOptions/>*/}
+      {/*<AddComment/>*/}
     </div>
   );
 };

@@ -72,6 +72,7 @@ export default function HousesTabs() {
 
   const user = useSelector(state => state.auth.user);
 
+
   useEffect(() => {
     setHouses(data);
   }, [data]);
@@ -89,7 +90,6 @@ export default function HousesTabs() {
   const images = house?.houseImages?.flatMap(img => {
     return img.url + '?jwt=' + getTokens().token;
   });
-  console.log('imagesimages', images);
 
   if (loading) return <CircularProgress size={60}/>;
   return (

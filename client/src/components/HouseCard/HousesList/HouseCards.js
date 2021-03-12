@@ -13,26 +13,27 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    height: '265px',
+    height: 'auto',
     fontFamily: 'Roboto',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   houseCard: {
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '162px',
+    height: "auto",
+    width: '182px',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fdfdfd',
-
-
+    boxShadow:"0px 3px 6px #00000033"
   },
   houseCardActive: {
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '162px',
+    height: "auto",
+    width: '182px',
     display: 'flex',
     flexDirection: 'column',
     color: 'white',
@@ -48,7 +49,8 @@ const useStyles = makeStyles(() => ({
   },
   img: {
     marginTop: 10,
-    width: "100%",
+    width: "162px",
+    height:"109px",
     borderRadius: '18px',
   },
   houseCardBody: {
