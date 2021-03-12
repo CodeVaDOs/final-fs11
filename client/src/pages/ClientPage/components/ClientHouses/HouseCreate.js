@@ -198,9 +198,11 @@ export const HouseCreate = ({
       className={classes.houseCard}
     >
       <Box className={classes.photoContainer}>
-        {(uploadImg.mainState === "initial" && renderInitialState()) ||
-        (uploadImg.mainState === "uploaded" && renderUploadedState()) ||
-        (request === true && <div></div>)}
+        {request === false
+          ? (uploadImg.mainState === "initial" && renderInitialState()) ||
+          (uploadImg.mainState === "uploaded" && renderUploadedState())
+          : renderInitialState()
+        }
       </Box>
       <div className={classes.houseCardBody}>
         <span className={classes.cardContract}> Контракт -----</span>

@@ -125,8 +125,8 @@ export default function ClientTabs({ user, editUser }) {
     images: []
   });
   useEffect(() => {
-
-  }, []);
+    console.log(request);
+  }, [request]);
 
   function houseToState(e) {
     setHouse(HouseIdx[e]);
