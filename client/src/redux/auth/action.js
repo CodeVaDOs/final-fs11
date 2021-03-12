@@ -2,6 +2,7 @@ import api from "@utils/api";
 import {catchError, setAuthToken, setRefreshToken} from "../../utils";
 import {TOTAL_ACTIONS} from "../total/action";
 import {housesActions} from "../houses/action";
+import {analyticActions} from "../analytic/action";
 
 
 const updateUserWithDeleteContacts = (data, idContacts) => (dispatch) => {
@@ -36,6 +37,7 @@ const getProfile = () => (dispatch) => {
             dispatch(TOTAL_ACTIONS.getAccessPanel());
             dispatch(TOTAL_ACTIONS.getCatalogue());
             dispatch(housesActions.getHouses());
+            dispatch(analyticActions.getAnalytics(1));
         })
         .catch(err => {
             catchError(err);
