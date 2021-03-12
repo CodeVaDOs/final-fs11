@@ -7,6 +7,7 @@ import com.marksem.entity.transaction.TransactionGroup;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
@@ -17,10 +18,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class RequestTransactionGroup extends BaseEntity {
   private Long id;
-  @NotEmpty
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date fromDate;
 
-  @NotEmpty
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date toDate;
 
   @NotEmpty

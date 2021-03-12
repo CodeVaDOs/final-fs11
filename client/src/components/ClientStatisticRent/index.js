@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     width: "90%",
   },
   subGrid: {
-    transform:'scale(0.95)',
+    transform: 'scale(0.95)',
     width: '90%',
   },
   aboveHeader: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
       textDecoration: "underline"
     }
   },
-  aboveSelectorTxt:{
+  aboveSelectorTxt: {
     color: "#293134",
     fontFamily: 'Roboto, sans-serif',
     fontSize: '16px',
@@ -52,7 +52,7 @@ const useStyles = makeStyles({
     width: '100%',
     boxShadow: "0px 3px 6px #00000033",
     borderRadius: '20px',
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     marginTop: '15px',
     marginBottom: '40px'
   },
@@ -63,7 +63,7 @@ const useStyles = makeStyles({
     color: '#293134',
     marginLeft: "20px"
   },
-  rentGrayText:{
+  rentGrayText: {
     fontFamily: 'Roboto, sans-serif',
     fontSize: '12px',
     fontWeight: 'normal',
@@ -138,11 +138,11 @@ const useStyles = makeStyles({
     color: '#293134',
     marginLeft: "20px",
   },
-  rootSelect:{
+  rootSelect: {
     "& .MuiSelect-filled.MuiSelect-filled": {
-      backgroundColor:'#F7FAFE',
-      padding:"0px 32px 0px 0px",
-      border:"fff",
+      backgroundColor: '#F7FAFE',
+      padding: "0px 32px 0px 0px",
+      border: "fff",
       color: "#293134"
     },
   },
@@ -152,12 +152,12 @@ const useStyles = makeStyles({
   }
 });
 
-const ClientStatisticRent=()=>{
-  const { t } = useTranslation();
+const ClientStatisticRent = ({user}) => {
+  const {t} = useTranslation();
   const [dataForm, setDataForm] = useState({
-    dateFrom:"2021-01-01",
-    dateTo:"2021-01-31",
-    propertyId:'all',
+    dateFrom: "2021-01-01",
+    dateTo: "2021-01-31",
+    propertyId: 'all',
     dataBar: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       datasets: [
@@ -191,8 +191,8 @@ const ClientStatisticRent=()=>{
 
   const classes = useStyles();
   return (
-    <div style={{ margin: '20px 20px'}} >
-      <Box  >
+    <div style={{margin: '20px 20px'}}>
+      <Box>
         <Tabs
           activeKey={key}
           onSelect={(k) => {
@@ -201,11 +201,11 @@ const ClientStatisticRent=()=>{
         >
           <Tab style={{width: "80%", margin: '0 auto'}} eventKey={0} title="Статистика Оренди">
             <Grid
-                className={classes.aboveContainer}
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start"
+              className={classes.aboveContainer}
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="flex-start"
             >
               <Grid className={classes.subGrid} item xs={1}>
                 <Typography className={classes.aboveSelectorTxt}>{t('showItem')}</Typography>
@@ -279,13 +279,13 @@ const ClientStatisticRent=()=>{
                     alignItems="flex-start"
                   >
                     <Grid className={classes.subGrid} item xs={2}>
-                      <Box style={{ width: "12px", height: "12px", backgroundColor: "#4AD584" }}/>
+                      <Box style={{width: "12px", height: "12px", backgroundColor: "#4AD584"}}/>
                     </Grid>
                     <Grid className={classes.subGrid} item xs={4}>
                       <Typography className={classes.rentGrayText}>{t("setIncome")}</Typography>
                     </Grid>
                     <Grid className={classes.subGrid} item xs={2}>
-                      <Box style={{ width: "12px", height: "12px", backgroundColor: "#F88B38" }}/>
+                      <Box style={{width: "12px", height: "12px", backgroundColor: "#F88B38"}}/>
                     </Grid>
                     <Grid className={classes.subGrid} item xs={4}>
                       <Typography className={classes.rentGrayText}>{t("setExpense")}</Typography>
@@ -293,7 +293,7 @@ const ClientStatisticRent=()=>{
                   </Grid>
                 </Grid>
               </Grid>
-              <Box style={{ padding: "20px" }}>
+              <Box style={{padding: "20px"}}>
                 <Bar
                   data={dataForm.dataBar}
                   width={620}
@@ -358,14 +358,17 @@ const ClientStatisticRent=()=>{
                           <Box>
                             <Typography className={classes.cardHeader}>{t("allProfit")}</Typography>
                           </Box>
-                          <Box style={{ marginTop: "10px" }}>
-                            <Typography className={classes.cardHeaderSmall}>{t("profHouse")}<span className={classes.cardHeaderSmallGray}>{" M-2 ID0170, ID 00177"}</span></Typography>
+                          <Box style={{marginTop: "10px"}}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profHouse")}<span
+                              className={classes.cardHeaderSmallGray}>{" M-2 ID0170, ID 00177"}</span></Typography>
                           </Box>
-                          <Box style={{ marginTop: "10px" }}>
-                            <Typography className={classes.cardHeaderSmall}>{t("profPeriod")}<span className={classes.cardHeaderSmallGray}>{"21 Червня 2019 - 31 Грудня 2020"}</span></Typography>
+                          <Box style={{marginTop: "10px"}}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profPeriod")}<span
+                              className={classes.cardHeaderSmallGray}>{"21 Червня 2019 - 31 Грудня 2020"}</span></Typography>
                           </Box>
-                          <Box style={{ marginTop: "10px" }}>
-                            <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
+                          <Box style={{marginTop: "10px"}}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span
+                              className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
                           </Box>
                         </Grid>
                         <Grid className={classes.subGrid} item xs={3}>
@@ -387,11 +390,14 @@ const ClientStatisticRent=()=>{
                             <Typography className={classes.cardHeader}>{t("expense")}</Typography>
                             <Typography className={classes.cardSubHeader}>{"1 Січня - 31 Грудня"}</Typography>
                           </Box>
-                          <Box style={{ marginTop: "10px" }}>
-                            <Typography className={classes.cardHeaderSmall}>{t("mostExpense")}<span className={classes.cardHeaderSmallRed}>{"Червень"}</span> <ArrowDownwardIcon style={{ color: "#FA505D", fontSize: "20px", marginBottom: "-7px" }}/></Typography>
+                          <Box style={{marginTop: "10px"}}>
+                            <Typography className={classes.cardHeaderSmall}>{t("mostExpense")}<span
+                              className={classes.cardHeaderSmallRed}>{"Червень"}</span> <ArrowDownwardIcon
+                              style={{color: "#FA505D", fontSize: "20px", marginBottom: "-7px"}}/></Typography>
                           </Box>
-                          <Box style={{ marginTop: "10px" }}>
-                            <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
+                          <Box style={{marginTop: "10px"}}>
+                            <Typography className={classes.cardHeaderSmall}>{t("profRent")}<span
+                              className={classes.cardHeaderSmallGray}>{"159 чоловік"}</span></Typography>
                           </Box>
                         </Grid>
                         <Grid className={classes.subGrid} item xs={3}>
@@ -406,7 +412,7 @@ const ClientStatisticRent=()=>{
             </Box>
           </Tab>
           <Tab eventKey={1} title="Додати нову статистику">
-            <NewStatistic/>
+            <NewStatistic user={user}/>
           </Tab>
 
         </Tabs>

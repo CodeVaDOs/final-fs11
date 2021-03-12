@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
+import clsx from "clsx";
 
 
 const useStyles = makeStyles(({
@@ -25,10 +26,13 @@ const useStyles = makeStyles(({
   },
   boldedText: {
     fontWeight: "bold",
-    marginRight: "20px"
+    marginRight: "20px",
   },
   shadow: {
     boxShadow: "0px 2px 4px #00000029"
+  },
+  grow: {
+    flexGrow: 1
   }
 }));
 
@@ -82,6 +86,11 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
           ...state,
           comment: action.payload
         };
+      case 'reset':
+        return {
+          ...state,
+          ...initTransactionState
+        }
       default:
         return state;
     }
@@ -89,7 +98,6 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
 
   const [transactionState, dispatch] = useReducer(transactionReducer, initTransactionState);
   const [selectState, setSelectState] = useState("₴ UAH");
-  //const { transactions, setTransaction } = useContext(FormTransactionsContext);
 
   const fieldHandler = (actionType) => (e) => dispatch({
     type: actionType,
@@ -108,19 +116,20 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
 
 
   return (<fieldset className={classes.root}>
-    <Box className={classes.wrap}>
+    <Box className={clsx(classes.wrap, classes.grow)}>
       <Typography
         component="span"
-        className={classes.boldedText}>
+        className={clsx(classes.boldedText, classes.grow)}>
         {TRANSACTION_TYPES[transactionType]}
       </Typography>
       <TextField
         InputLabelProps={{ shrink: true }}
-        value={transactionState.amount}
+        style={{width: "70%"}}
+        //value={transactionState.amount}
         onChange={fieldHandler("setAmount")}
       />
     </Box>
-    <FormControl className={classes.currencySelect}>
+    <FormControl className={clsx(classes.currencySelect, classes.grow)}>
       <TextField
         className={classes.shadow}
         select
@@ -147,12 +156,12 @@ const Transaction = ({ transactionType, index, transactionDispatcher }) => {
       </TextField>
     </FormControl>
     <TextField
-      className={classes.shadow}
+      className={clsx(classes.shadow, classes.grow)}
       type={"text"}
       variant={"outlined"}
       size={"small"}
       placeholder={t("Комментар")}
-      value={transactionState.comment}
+      //value={transactionState.comment}
       onChange={fieldHandler("setComment")}/>
   </fieldset>);
 };
