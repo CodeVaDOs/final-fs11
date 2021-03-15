@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import {connect} from "react-redux";
 import {bookingHouse} from "../../../../redux/bookingHouse/action";
 import ModalsContainer from "../../../ModalsContainer";
-import ModalNewClient from "../../../ModalsContainer/ModalChildrens/ModalNewClient";
+import ModalHouseBooking from "../../../ModalsContainer/ModalChildrens/ModalHouseBooking";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +105,7 @@ function DatePickers({ user, houseId, bookingHouse }) {
       <div>
         <ModalsContainer style={{backgroundColor:"#254A93", color:'white', width:"161px", marginLeft:"5px", height:"39px"}}
                          buttonActivateDialog={t("toBook")}
-                         body={<ModalNewClient onClick={handleSubmit}/>}/>
+                         body={<ModalHouseBooking onClick={handleSubmit} houseID={houseId}/>}/>
       </div>
     </div>
   );
