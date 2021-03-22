@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     cursor: 'pointer',
     outline: 'none',
-    zIndex: 12021
+    zIndex: 5
   }),
   header: {
     fontFamily: 'Roboto, sans-serif',
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     transform: props.open ? 'rotate(90deg)' : 'rotate(90deg) rotateX(180deg)',
     transition: '300ms linear',
     marginRight: props.open ? '0' : '15px',
-    zIndex: 120122
+    zIndex: 6
   }),
 
   drawer: props => ({
@@ -51,6 +51,7 @@ const useStyles = makeStyles(theme => ({
     borderLeft: '1px solid #b1b4ba',
     padding: '30px',
     boxSizing: 'border-box',
+    zIndex: 4,
 
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,

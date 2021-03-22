@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -19,6 +19,10 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
 import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import {ModalContext} from "../../index";
+import { houseBookingService } from '../../../../redux/houseBokingService/action';
+import {connect} from "react-redux";
 
 
 const useStyles = makeStyles({
@@ -117,30 +121,51 @@ const useStyles = makeStyles({
     borderRadius: "12px",
     backgroundColor:"#00D0FF"
   },
+  btn2: {
+    height: '60px',
+    width: '240px',
+    border: "1px solid #254A93",
+    textTransform:"none",
+    borderRadius: '10px',
+    margin: "20px",
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '19px',
+    fontWeight: 'normal',
+    backgroundColor:"#254A93",
+    color:"#fff",
+    "&:hover": {
+      backgroundColor:"#fff",
+      color:"black"
+    }
+  }
 });
 
-const Index=()=> {
+const Index=({id, houseBookingService})=> {
   const { t } = useTranslation();
   const services1 = [
     {
       "id": 1,
       "service": t("table"),
       "icon": table,
+      "backendName":"RESTAURANT_TABLE_RESERVATION"
     },
     {
       "id": 2,
       "service": t("taxi"),
       "icon": taxi,
+      "backendName":"TRANSFER_AND_TAXI"
     },
     {
       "id": 3,
       "service": t("tree"),
       "icon": tree,
+      "backendName":"FIREWOOD_FOR_BARBECUE"
     },
     {
       "id": 4,
       "service": t("fishing"),
       "icon": fishing,
+      "backendName":"ORGANIZATION_OF_FISHING"
     },
 
   ];
@@ -149,24 +174,28 @@ const Index=()=> {
       "id": 5,
       "service": t("food"),
       "icon": food,
+      "backendName":"FOOD_DELIVERY"
 
     },
     {
       "id": 6,
       "service": t("bike"),
       "icon": bike,
+      "backendName":"BIKE_ROLLERS_SCOOTER_DELIVERY"
 
     },
     {
       "id": 7,
       "service": t("cleaner"),
       "icon": cleaner,
+      "backendName":"CALL_THE_CLEANER"
 
     },
     {
       "id": 8,
       "service": t("tour"),
       "icon": tour,
+      "backendName":"EXCURSION_BOOKING"
 
     },
   ];
@@ -175,34 +204,51 @@ const Index=()=> {
       "id": 9,
       "service": t("swimming"),
       "icon": swimming,
+      "backendName":"SUN_LOUNGER_BOOKING"
     },
     {
       "id": 10,
       "service": t("flowers"),
       "icon": flowers,
+      "backendName":"FLOWER_DELIVERY"
     },
     {
       "id": 11,
       "service": t("child"),
       "icon": child,
+      "backendName":"BABYSITTING_ORDER"
     },
     {
       "id": 12,
       "service": t("house"),
       "icon": house,
+      "backendName":"OTHER"
     },
   ];
   const classes = useStyles();
+  const {handleClose} = useContext(ModalContext);
   const [input, setInput] = useState({
+    backselected:"",
     selected:"",
     input:"none"
   });
-  const clickHandler =(id)=>{
+  const handleSubmit =()=>{
+    if (inputValue.value !== '' && input.backselected !== '' ) {
+      houseBookingService({
+        type:input.backselected ,
+        text:inputValue.value,
+        bookingId:id,
+        isActive: false
+      })
+      if (handleClose) handleClose();
+    }
+  }
+  const clickHandler =(id, backendName)=>{
     setInput({
+      backselected:backendName,
       selected:id,
       input:"block"
     });
-    console.log(id);
   };
 
   const [inputValue, setInputValue] = useState({
@@ -212,7 +258,6 @@ const Index=()=> {
     setInputValue({
       value:event.target.value
     });
-    console.log(inputValue.value);
   };
 
 
@@ -240,7 +285,7 @@ const Index=()=> {
               </Typography>
               <Typography align="right" paragraph className={classes.details}>
                 <IconButton className={classes.btn}>
-                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id)}/>
+                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id, s.backendName)}/>
                 </IconButton>
               </Typography>
             </Box>
@@ -261,7 +306,7 @@ const Index=()=> {
               </Typography>
               <Typography align="right" paragraph className={classes.details}>
                 <IconButton className={classes.btn}>
-                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id)}/>
+                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id, s.backendName)}/>
                 </IconButton>
               </Typography>
             </Box>
@@ -282,7 +327,7 @@ const Index=()=> {
               </Typography>
               <Typography align="right" paragraph className={classes.details}>
                 <IconButton className={classes.btn}>
-                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id)}/>
+                  <ArrowForwardIosTwoToneIcon onClick={()=>clickHandler(s.id, s.backendName)}/>
                 </IconButton>
               </Typography>
             </Box>
@@ -293,6 +338,19 @@ const Index=()=> {
     <Box style={{ textAlign:"center", display:`${input.input}` }}>
       <TextField fullWidth={200} id="outlined-basic" label="" variant="outlined" onChange={onChangeInput}/>
     </Box>
+    <Box style={{ marginLeft:"17%", marginTop:"5%" }}>
+      <Button className={classes.btn2} onClick={()=>{
+        if (handleClose) handleClose();}}
+      >{t("returnBtn")}</Button>
+      <Button className={classes.btn2}
+              onClick={handleSubmit}
+      >{t("serBtn")}</Button>
+    </Box>
   </Box>);
 };
-export default Index;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    houseBookingService: (data) => dispatch(houseBookingService(data)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Index);

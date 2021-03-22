@@ -2,16 +2,12 @@ import api from "@utils/api";
 import {catchError, setAuthToken, setRefreshToken} from "../../utils";
 import {TOTAL_ACTIONS} from "../total/action";
 import {housesActions} from "../houses/action";
+import {analyticActions} from "../analytic/action";
 
 
-export const updateUserWithDeleteContacts = (data, idContacts) => (dispatch) => {
+const updateUserWithDeleteContacts = (data, idContacts) => (dispatch) => {
     dispatch({type: "EDIT_PROFILE_REQUEST"});
-    const promises = idContacts.map(contactId => api({
-        method: 'DELETE',
-        url: `contacts/${contactId}`,
-    }));
-    Promise.all(promises)
-        .then(() => dispatch(updateUser(data)));
+
 }
 
 export const updateUser = (data) => (dispatch) => {
@@ -41,11 +37,25 @@ const getProfile = () => (dispatch) => {
             dispatch(TOTAL_ACTIONS.getAccessPanel());
             dispatch(TOTAL_ACTIONS.getCatalogue());
             dispatch(housesActions.getHouses());
+            dispatch(analyticActions.getAnalytics(1));
         })
         .catch(err => {
             catchError(err);
             dispatch({type: "GET_PROFILE_FAILURE"});
         });
+};
+
+const getAdminInfo = () => (dispatch) => {
+  dispatch({ type: "GET_ADMIN_REQUEST" });
+  api.get('total/accessPanel')
+      .then((data) => {
+        console.log("Fetched admin data: ", data);
+//        dispatch({ type: "GET_ADMIN_SUCCESS", payload: data });
+      })
+      .catch(err => {
+        catchError(err);
+        dispatch({ type: "GET_ADMIN_FAILURE" });
+      });
 };
 
 const logOut = () => (dispatch) => {

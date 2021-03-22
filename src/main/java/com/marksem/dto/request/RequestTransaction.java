@@ -25,14 +25,14 @@ public class RequestTransaction extends BaseEntity {
     @NotEmpty
     private Long transactionTypeId;
 
-    public Transaction toEntity(TransactionGroup tg, TransactionType tt, Double amountUSD) {
-        return Transaction.builder()
-                .transactionGroup(tg)
-                .amount(this.amount)
-                .currency(this.currency)
-                .comment(this.comment)
-                .transactionType(tt)
-                .amountUSD(amountUSD)
-                .build();
-    }
+//    public Transaction toEntity(TransactionGroup tg, TransactionType tt, Double amountUSD) {
+//        return Transaction.builder()
+//                .transactionGroup(tg)
+//                .amount(this.amount)
+//                .currency(this.currency)
+//                .comment(this.comment)
+//                .transactionType(tt)
+//                .amountUSD(amountUSD)
+//                .build();
+//    }
 }

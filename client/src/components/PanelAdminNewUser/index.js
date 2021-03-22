@@ -21,6 +21,9 @@ import CircularStatic from "../IncomeCard/CircularProgress";
 import {PageLoader, Preloader} from "../Loader";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {objectToFormData} from "../../utils/formData";
+import ModalsContainer from "../ModalsContainer";
+import ModalNewClient from "../ModalsContainer/ModalChildrens/ModalNewClient";
+import Container from "../Container";
 
 
 const useStyles = makeStyles({
@@ -208,8 +211,7 @@ const PanelAdminNewUser = (input) => {
         });
     };
     // Form check for back-end && response status
-    const check = (e) => {
-        e.preventDefault();
+    const check = () => {
         sendData();
     };
     //Email Validation
@@ -369,15 +371,11 @@ const PanelAdminNewUser = (input) => {
                             }
                         </ValidatorForm>
                     </Box>
+
                     <Box style={{marginTop: "20px"}}>
-                        <ButtonStyle
-                            w={"161px"}
-                            h={"39px"}
-                            disabled={loading}
-                            bgcolor={"#254A93"}
-                            ml={"10px"}
-                            text={loading ? <CircularProgress color="inherit" size={25}/> : t('create')}
-                            onClick={check}/>
+                        <ModalsContainer style={{backgroundColor:"#254A93", color:'white', width:"161px", marginLeft:"5px", height:"39px"}}
+                                         buttonActivateDialog={t("create")}
+                                         body={<ModalNewClient onClick={check} name={dataForm.name}/>}/>
                     </Box>
                 </Grid>
             </Grid>

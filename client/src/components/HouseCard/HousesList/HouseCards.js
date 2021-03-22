@@ -4,6 +4,7 @@ import { ListItem } from "@material-ui/core";
 import "./styles.css";
 import style from "./index.module.css";
 import Grid from "@material-ui/core/Grid";
+import noImg from '../../../assert/img/noImg.jpg';
 
 const useStyles = makeStyles(() => ({
   bh: {
@@ -12,26 +13,27 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    height: '265px',
+    height: 'auto',
     fontFamily: 'Roboto',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   houseCard: {
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '162px',
+    height: "auto",
+    width: '182px',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fdfdfd',
-
-
+    boxShadow:"0px 3px 6px #00000033"
   },
   houseCardActive: {
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '162px',
+    height: "auto",
+    width: '182px',
     display: 'flex',
     flexDirection: 'column',
     color: 'white',
@@ -47,7 +49,8 @@ const useStyles = makeStyles(() => ({
   },
   img: {
     marginTop: 10,
-    width: "100%",
+    width: "162px",
+    height:"109px",
     borderRadius: '18px',
   },
   houseCardBody: {
@@ -123,9 +126,9 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-export default function HouseCards({ data, onHouseClick }) {
+export default function HouseCards({ data, onHouseClick, images }) {
   const classes = useStyles();
-  const [isActive, setIsActive] = useState(0);
+  const [isActive, setIsActive] = useState();
 
   function scrollElementToCenter(e, id = 0) {
     setIsActive(id);
@@ -149,7 +152,7 @@ export default function HouseCards({ data, onHouseClick }) {
       <Grid
         container>
         <div>
-          <Grid
+          <div
             item
             className={
               `${style.container} ${style.wideSpacer}  `
@@ -171,10 +174,19 @@ export default function HouseCards({ data, onHouseClick }) {
                         className={isActive === index ? classes.houseCardActive : classes.houseCard}
                       >
                         <div>
-                          <img
-                            className={classes.img}
-                            src={house?.houseImages[0]?.url}
-                            alt={house.id}/>
+                          {images
+                            ? <img
+                              className={classes.img}
+                              src={images}
+                              alt={house.id}/>
+                            : <div>
+                              <img
+                                className={classes.img}
+                                src={noImg}
+                                alt='No Image Found'/>
+                            </div>
+                          }
+
                           <div
                             className={classes.houseCardBody}>
                         <span
@@ -196,7 +208,7 @@ export default function HouseCards({ data, onHouseClick }) {
                   </ListItem>
                 );
               })}
-          </Grid>
+          </div>
         </div>
       </Grid>
     </div>

@@ -20,11 +20,11 @@ const useStyles = makeStyles(() => ({
     paddingRight: 10,
     width: "100%",
     backgroundColor: "#fff",
-    boxShadow: "0px 2px 4px #00000033",
+    boxShadow: "0px 3px 6px #00000033",
     borderRadius: "20px",
     textAlign: "start",
     marginBottom: '15px',
-    marginTop: '5px',
+    marginTop: '35px',
     font: 'Roboto'
   },
   topSide: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: "center",
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
 
@@ -52,7 +52,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: "center",
     flexDirection: 'column',
-    position: 'relative'
+    position: 'relative',
 
   },
   houseIdInfo: {
@@ -95,7 +95,7 @@ const useStyles = makeStyles(() => ({
     margin: '15px',
     borderRadius: '20px',
     paddingTop: '5px',
-    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 1px 2px 2px rgba(0,0,0,0.23)",
+    boxShadow: "0px 2px 6px #00000033",
     padding: '0px',
     width: '100%',
     display: 'flex',
@@ -196,9 +196,14 @@ export const HouseContainer = ({ house, images }) => {
     <>
       <Container className={classes.root}>
         <Box className={classes.topSide}>
-          <Box className={classes.leftSide}>
-            <Slider images={images}/>
-          </Box>
+          {
+            images[0] !== undefined
+              ? <Box className={classes.leftSide}>
+                <Slider images={images}/>
+              </Box>
+              : ''
+          }
+
           <Box className={classes.rightSide}>
             <Box className={classes.houseIdInfo}>
               <p className={classes.id}>{t('id')} {house.id}</p>
@@ -258,7 +263,7 @@ export const HouseContainer = ({ house, images }) => {
             {/*<BaseMap/>*/}
           </Box>
           <Box className={classes.rightSide}>
-            <Rent/>
+            <Rent houseId={house.id}/>
           </Box>
         </Box>
       </Container>
