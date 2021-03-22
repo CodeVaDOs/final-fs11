@@ -33,12 +33,12 @@ public class ContactController {
         return ResponseEntity.ok(service.read(id));
     }
 
-    @PostMapping
-    @PreAuthorize("hasAuthority('developers:write')")
-    @Validated(OnCreate.class)
-    public ResponseEntity<ResponseContact> create(@RequestBody @Valid RequestContact c) {
-        return ResponseEntity.ok(service.create(c));
-    }
+//    @PostMapping
+//    @PreAuthorize("hasAuthority('developers:write')")
+//    @Validated(OnCreate.class)
+//    public ResponseEntity<ResponseContact> create(@RequestBody @Valid RequestContact c) {
+//        return ResponseEntity.ok(service.create(c));
+//    }
 
     @PutMapping
     @PreAuthorize("hasAuthority('developers:write')")

@@ -18,7 +18,6 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
 
-
 const useStyles = makeStyles({
   containerSer: {
     margin: "o auto",
@@ -127,23 +126,24 @@ export const ManagementServices = () => {
     borderRadius: "50%",
     minWidth: "50px"
   }
-
-
   const services1 = [
     {
       "id": "1",
       "service": t('plumbing'),
       "icon": santech,
+      "backservice":"PLUMBING"
     },
     {
       "id": "2",
       "service": t('securitySystem'),
       "icon": secur,
+      "backservice":"GUARD"
     },
     {
       "id": "3",
       "service": t('facadeWorks'),
       "icon": fasad,
+      "backservice":"FACADE_WORKS"
     },
 
   ];
@@ -152,18 +152,21 @@ export const ManagementServices = () => {
       "id": "4",
       "service": t("Electricity"),
       "icon": electric,
+      "backservice":"ELECTRICITY"
 
     },
     {
       "id": "5",
       "service": t("VentilationAndAirConditioning"),
       "icon": condition,
+      "backservice":"VENTILATION"
 
     },
     {
       "id": "6",
       "service": t("WindowsAndDoors"),
       "icon": window,
+      "backservice":"WINDOWS_AND_DOORS"
     },
 
 
@@ -173,16 +176,19 @@ export const ManagementServices = () => {
       "id": 7,
       "service": t("Landscaping"),
       "icon": blago,
+      "backservice":"LANDSCAPING"
     },
     {
       "id": 8,
       "service": t("Heating"),
       "icon": temper,
+      "backservice":"HEATING"
     },
     {
       "id": 9,
       "service": t("Other") + "...",
       "icon": house,
+      "backservice":"OTHER"
     },
   ];
   const classes = useStyles();
@@ -195,7 +201,6 @@ export const ManagementServices = () => {
     });
     console.log(id);
   };
-
   return (
       <Box className={classes.containerSer}>
         <Box style={{textAlign: "center"}}>
@@ -220,9 +225,7 @@ export const ManagementServices = () => {
                     <Typography align="right" paragraph className={classes.details}>
                       <ModalsContainer style={callButtonStyle}
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                       buttonOk={t("returnBtn")}
-                                       buttonCancel={t("serBtn")}
-                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                                       body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
                   </Box>
@@ -246,9 +249,7 @@ export const ManagementServices = () => {
                     <Typography align="right" paragraph className={classes.details}>
                       <ModalsContainer style={callButtonStyle}
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                       buttonOk={t("returnBtn")}
-                                       buttonCancel={t("serBtn")}
-                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                                       body={<ModalManageServices  backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
                   </Box>
@@ -272,9 +273,7 @@ export const ManagementServices = () => {
                     <Typography align="right" paragraph className={classes.details}>
                       <ModalsContainer style={callButtonStyle}
                                        clickIcon={<ArrowForwardIosTwoToneIcon/>}
-                                       buttonOk={t("returnBtn")}
-                                       buttonCancel={t("serBtn")}
-                                       body={<ModalManageServices service={s.service} icon={s.icon}/>}
+                                       body={<ModalManageServices backservice={s.backservice} service={s.service} icon={s.icon}/>}
                       />
                     </Typography>
                   </Box>

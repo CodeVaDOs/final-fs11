@@ -4,6 +4,7 @@ import { ListItem } from "@material-ui/core";
 import "./styles.css";
 import style from "./index.module.css";
 import Grid from "@material-ui/core/Grid";
+import noImg from '../../../assert/img/noImg.jpg';
 
 const useStyles = makeStyles(() => ({
   bh: {
@@ -12,28 +13,29 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    height: '260px',
+    height: 'auto',
     fontFamily: 'Roboto',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   houseCard: {
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '162px',
+    height: "auto",
+    width: '182px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
-
+    backgroundColor: '#fdfdfd',
+    boxShadow:"0px 3px 6px #00000033"
   },
   houseCardActive: {
     boxSizing: 'border-box',
     padding: "10px",
     borderRadius: '20px',
-    minWidth: '162px',
+    height: "auto",
+    width: '182px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: "1px 2px 2px rgba(0,0,0,0.19), 2px 2px 4px rgba(0,0,0,0.23)",
     color: 'white',
     backgroundColor: '#254A93',
   },
@@ -47,7 +49,8 @@ const useStyles = makeStyles(() => ({
   },
   img: {
     marginTop: 10,
-    width: "100%",
+    width: "162px",
+    height:"109px",
     borderRadius: '18px',
   },
   houseCardBody: {
@@ -69,6 +72,7 @@ const useStyles = makeStyles(() => ({
     display: 'inline',
   },
   locationData: {
+    textAlign: "center",
     display: 'inline',
     fontSize: '12px',
     lineHeight: "20px",
@@ -122,9 +126,9 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-export default function HouseCards({ data, onHouseClick }) {
+export default function HouseCards({ data, onHouseClick, images }) {
   const classes = useStyles();
-  const [isActive, setIsActive] = useState(0);
+  const [isActive, setIsActive] = useState();
 
   function scrollElementToCenter(e, id = 0) {
     setIsActive(id);
@@ -135,13 +139,20 @@ export default function HouseCards({ data, onHouseClick }) {
     });
   }
 
+  let options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    timezone: 'UTC'
+  };
+
   return (
     <div
       className={classes.root}>
       <Grid
         container>
         <div>
-          <Grid
+          <div
             item
             className={
               `${style.container} ${style.wideSpacer}  `
@@ -163,23 +174,28 @@ export default function HouseCards({ data, onHouseClick }) {
                         className={isActive === index ? classes.houseCardActive : classes.houseCard}
                       >
                         <div>
-                          <img
-                            className={classes.img}
-                            src={house.img}
-                            alt={house.contractId}/>
+                          {images
+                            ? <img
+                              className={classes.img}
+                              src={images}
+                              alt={house.id}/>
+                            : <div>
+                              <img
+                                className={classes.img}
+                                src={noImg}
+                                alt='No Image Found'/>
+                            </div>
+                          }
+
                           <div
                             className={classes.houseCardBody}>
                         <span
                           className={classes.cardContract}>
-                          Контракт {house.contractDate}
+                          Контракт {new Date(house.createDate.toString()).toLocaleString("ru", options)}
                         </span>
                             <span
                               className={classes.cardId}>
-                              {house.svg} ID {house.contractId}
-                            </span>
-                            <span
-                              className={classes.locationData}>
-                              {house.town}
+                              {house.svg} ID {house.id}
                             </span>
                             <span
                               className={classes.locationData}>
@@ -187,16 +203,15 @@ export default function HouseCards({ data, onHouseClick }) {
                             </span>
                           </div>
                         </div>
-                            </div>
-                          </div>
-                        </ListItem>
-                    );
-                  })}
-            </Grid>
+                      </div>
+                    </div>
+                  </ListItem>
+                );
+              })}
           </div>
-        </Grid>
+        </div>
+      </Grid>
     </div>
-
   );
 }
 

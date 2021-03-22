@@ -3,6 +3,8 @@ package com.marksem.service;
 import com.marksem.dto.request.RequestTransactionGroup;
 import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseTransactionGroup;
+import com.marksem.entity.transaction.Currency;
+import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.TransactionGroup;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repository.HouseRepository;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,23 +22,27 @@ import java.util.stream.Collectors;
 public class TransactionGroupService {
     private final HouseRepository houseRepository;
     private final TransactionGroupRepository transactionGroupRepository;
+    private final CurrencyConversionService currencyConversionService;
+    private final TransactionService transactionService;
 
-    public ResponseTransactionGroup create(RequestTransactionGroup tg) {
-        return houseRepository.findById(tg.getHouseId())
-                .map(h -> transactionGroupRepository.save(tg.toEntity(h)))
-                .map(ResponseTransactionGroup::new)
-                .orElseThrow(() -> new NoDataFoundException("house", tg.getHouseId()));
-    }
+    public List<ResponseTransactionGroup> create(List<RequestTransactionGroup> tg) {
 
-    public ResponseTransactionGroup update(RequestTransactionGroup tg) {
-        return transactionGroupRepository.findById(tg.getId())
-                .map(i -> {
-                    i.setFromDate(tg.getFromDate());
-                    i.setToDate(tg.getToDate());
-                    return transactionGroupRepository.save(i);
-                })
-                .map(ResponseTransactionGroup::new)
-                .orElseThrow(() -> new NoDataFoundException("transaction group", tg.getId()));
+        return tg.parallelStream()
+                .map(requestTransactionGroup ->
+                        houseRepository
+                                .findById(requestTransactionGroup.getHouseId())
+                                .map(h -> {
+                                    Double convert = currencyConversionService.convert(requestTransactionGroup.getAmount(),
+                                            requestTransactionGroup.getCurrency(),
+                                            Currency.USD);
+                                    TransactionGroup transactionGroupSave = requestTransactionGroup.toEntity(h, convert);
+                                    transactionGroupSave.setTransactions(transactionService.create(transactionGroupSave));
+                                    return transactionGroupRepository.save(transactionGroupSave);
+
+                                })
+                                .map(ResponseTransactionGroup::new)
+                                .orElseThrow(() -> new NoDataFoundException("house", requestTransactionGroup.getHouseId())))
+                .collect(Collectors.toList());
     }
 
     public ResponseTransactionGroup read(Long id) {
@@ -48,11 +55,6 @@ public class TransactionGroupService {
         Page<TransactionGroup> groups = transactionGroupRepository.findAll(PageRequest.of(page, size));
         return new PageableResponse<>(groups.getTotalElements(),
                 groups.getContent().stream().map(ResponseTransactionGroup::new).collect(Collectors.toList()));
-    }
-
-    public Long delete(Long id) {
-        transactionGroupRepository.deleteById(id);
-        return id;
     }
 }
 

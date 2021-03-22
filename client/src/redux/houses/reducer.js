@@ -2,10 +2,7 @@ import { housesTypes } from "./types";
 
 const INIT_STATE = {
   loading: false,
-  houses: {
-    list: [],
-    total: 1
-  }
+  houses: []
 };
 
 export default (state = INIT_STATE, action) => {

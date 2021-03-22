@@ -1,5 +1,6 @@
 package com.marksem.dto.response;
 
+import com.marksem.entity.transaction.Currency;
 import com.marksem.entity.user.Language;
 import com.marksem.entity.user.Role;
 import com.marksem.entity.user.User;
@@ -20,8 +21,8 @@ public class ResponseUser extends BaseEntity {
     private Date birthday;
     private String urlAvatar;
     private Language language;
+    private Currency currency;
     private List<ResponseContact> contacts;
-    private List<ResponseHouse> houses;
     private List<ResponseNotification> notifications;
     private List<ResponseTask> tasks;
     private ResponseUser manager;
@@ -35,7 +36,7 @@ public class ResponseUser extends BaseEntity {
         this.birthday = u.getBirthday();
         this.urlAvatar = u.getUrlAvatar();
         this.language = u.getLanguage();
-        this.houses = u.getHouses().stream().map(h -> new ResponseHouse(h, true)).collect(Collectors.toList());
+        this.currency = u.getCurrency();
         this.contacts = u.getContacts().stream().map(ResponseContact::new).collect(Collectors.toList());
         this.notifications = u.getNotifications().stream().map(ResponseNotification::new).collect(Collectors.toList());
         this.tasks = u.getTasks().stream().map(ResponseTask::new).collect(Collectors.toList());

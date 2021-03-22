@@ -59,13 +59,13 @@ export const routes = [
     path: "/employees",
     component: lazy(() => import("@pages/Employee")),
   },
-  {
-    isPublic: false,
-    isAdminRoute: false,
-    exact: true,
-    path: "/history",
-    component: lazy(() => import("@pages/History")),
-  },
+  // {
+  //   isPublic: false,
+  //   isAdminRoute: false,
+  //   exact: true,
+  //   path: "/history",
+  //   component: lazy(() => import("@pages/History")),
+  // },
   {
     isPublic: false,
     isAdminRoute: false,
@@ -121,6 +121,13 @@ export const routes = [
     exact: true,
     path: "/clients",
     component: lazy(() => import("@pages/Client")),
+  },
+  {
+    isPublic: false,
+    isAdminRoute: false,
+    exact: true,
+    path: "/clients/:id",
+    component: lazy(() => import("@pages/ClientPage")),
   },
   {
     isPublic: false,

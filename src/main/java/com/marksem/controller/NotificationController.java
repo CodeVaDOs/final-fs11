@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/notifications")
 @RequiredArgsConstructor
@@ -29,14 +31,8 @@ public class NotificationController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseNotification create(@RequestBody RequestNotification n) {
+    public List<ResponseNotification> create(@RequestBody RequestNotification n) {
         return service.create(n);
-    }
-
-    @PutMapping
-    @PreAuthorize("hasAuthority('developers:write')")
-    public ResponseNotification update(@RequestBody RequestNotification n) {
-        return service.update(n);
     }
 
     @DeleteMapping("{id}")

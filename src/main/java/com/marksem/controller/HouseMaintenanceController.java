@@ -28,13 +28,13 @@ public class HouseMaintenanceController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseHouseMaintenance> create(@RequestBody RequestHouseMaintenance hm) {
         return ResponseEntity.ok(service.create(hm));
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public ResponseEntity<ResponseHouseMaintenance> update(@RequestBody RequestHouseMaintenance hm) {
         return ResponseEntity.ok(service.update(hm));
     }

@@ -11,8 +11,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import { useDispatch } from "react-redux";
-import { AUTH_ACTIONS } from "@redux/auth/action";
+import { connect } from "react-redux";
+import { updatePassword } from "../../redux/profilePass/action";
 
 const useStyles = makeStyles({
   root: {
@@ -88,7 +88,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ChangePass =()=> {
+const ChangePass =({ password, updatePassword })=> {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -110,20 +110,29 @@ const ChangePass =()=> {
     });
   };
   // Form check for back-end && response status
-  const dispatch = useDispatch();
-
-  async function submit (e) {
-    console.log(dataForm.oldPass, dataForm.newPass, dataForm.confPassword)
+  const submit =(e)=> {
     e.preventDefault();
-    const token = localStorage.getItem('authToken');
-    console.log(token)
-    dispatch(AUTH_ACTIONS.changePassword({ password: dataForm.newPass }, token));
-    history.push("/login");
-    console.log("change pass finish")
+    if (dataForm.newPass !== '' && dataForm.newPass === dataForm.confPassword) {
+      updatePassword({
+        password: dataForm.newPass
+      })
+      if(password.length !== 0) {
+        setDataForm({
+          oldPass: '',
+          newPass: '',
+          confPassword: ''
+        })
+      } else {
+        setDataForm({
+          oldPass: dataForm.oldPass,
+          newPass: dataForm.newPass,
+          confPassword: dataForm.confPassword
+        })
+      }
+    }
   };
-
-  ValidatorForm.addValidationRule('isPasswordMatch', (value) =>  value === dataForm.newPass);
-  ValidatorForm.addValidationRule('minNumber', (value) => value.length >= 4);
+  // ValidatorForm.addValidationRule('isPasswordMatch', (value) =>  value === dataForm.newPass);
+  // ValidatorForm.addValidationRule('minNumber', (value) => value.length >= 4);
     //Form Data Props
   const inputData = [
     {
@@ -131,7 +140,8 @@ const ChangePass =()=> {
       "label": t('oldPass'),
       "valueType": dataForm.oldPass,
       "name": "oldPass",
-      "onChange": handleChange
+      "onChange": handleChange,
+      "ref":''
     },
     {
       "id": "2",
@@ -223,4 +233,15 @@ const ChangePass =()=> {
     </Container>
   </>);
 };
-export default ChangePass;
+
+const mapStateToProps = (state) => {
+  return {
+    password: state.password.password
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updatePassword: (data) => dispatch(updatePassword(data)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePass);

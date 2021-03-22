@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Logo from './ui/Logo';
 import {useTranslation} from "react-i18next";
 import {Collapse, makeStyles} from "@material-ui/core";
@@ -79,10 +79,8 @@ const useStyles = makeStyles({
 });
 
 const Header = (props) => {
-  const { t } = useTranslation();
-
+  const { t, i18n } = useTranslation();
   const [isOpenHeader, handleHeader] = useState(true);
-
   const classes = useStyles({ isOpenHeader });
   const links = {
     mainLinks: [
@@ -182,25 +180,25 @@ const Header = (props) => {
         isMain: false,
         role: "ADMIN",
       },
-      {
-        id: 11,
-        text: t("menuHistory"),
-        icon: icons.photo,
-        to: '/history',
-        isMain: false,
-        role: "ADMIN",
-      },
+      // {
+      //   id: 11,
+      //   text: t("menuHistory"),
+      //   icon: icons.photo,
+      //   to: '/history',
+      //   isMain: false,
+      //   role: "ADMIN",
+      // },
     ]
-  };
+  }
 
   const mainList = useMemo(() =>
-    links.mainLinks.map(link =>
-      <HeaderLink key={link.id} {...link}/>), []);
+      links.mainLinks.map(link =>
+      <HeaderLink key={link.id} {...link}/>), [i18n.language]);
 
   const additionalList = useMemo(() =>
-    links.additionalLinks
+      links.additionalLinks
       .filter(link => link.role.split(':').includes(props.user.role))
-      .map(link => <HeaderLink key={link.id} {...link}/>), []
+      .map(link => <HeaderLink key={link.id} {...link}/>), [i18n.language]
   );
 
   return (

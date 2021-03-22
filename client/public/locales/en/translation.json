@@ -44,6 +44,7 @@
   "important": "Important",
   "informative": "Informative",
   "allManager": "All managers",
+  "allClients": "All clients",
   "choseManager": "Select recipients",
   "hello": "Hello, ",
   "privateHouse": "Own Houses",
@@ -185,5 +186,7 @@
   "personalManager": "Personal manager",
   "calendarB": "Booking calendar",
   "tasks": "Tasks for the Day",
-  "detailSecond": "In detail"
+  "detailSecond": "In detail",
+  "headerBooking": "Created a new booking - Houses",
+  "textBooking": "Booking confirmations are sent to the customer by Email"
 }

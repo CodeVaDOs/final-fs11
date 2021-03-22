@@ -2,32 +2,22 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
+import SimpleSlider from "../HouseCard/House/Slider/Slide";
 // import { photos as images } from "../../utils/constants/photos";
 
 const useStyles = makeStyles(() => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: "100%",
-    border: 'none'
+    margin: "0 auto",
+    width: 800,
+    height: 500,
   },
   border: {
     border: 'none'
   },
-  paper: {
-    border: 'none',
-    width: "100%",
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    height: '100rem',
-    lineHeight: '100%',
-  },
 
 }));
 
-export default function TransitionsModal({ open, setIsOpen }) {
+export default function TransitionsModal({images, open, setIsOpen }) {
   const classes = useStyles();
 
   const handleClose = () => {
@@ -46,7 +36,7 @@ export default function TransitionsModal({ open, setIsOpen }) {
           timeout: 500,
         }}
       >
-        saddasd
+        <div><SimpleSlider images={images}/></div>
       </Modal>
     </>
 

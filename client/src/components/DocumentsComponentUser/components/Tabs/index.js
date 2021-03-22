@@ -77,11 +77,11 @@ const useStyles = makeStyles(() => ({
     border: "0",
     marginRight: 10
   },
-  clearfix:{
-    display:'flex',
-    flexDirection:"row",
-    alignItems:"center",
-    height:60
+  clearfix: {
+    display: 'flex',
+    flexDirection: "row",
+    alignItems: "center",
+    height: 60
   }
 }));
 
@@ -128,9 +128,7 @@ export default function FullWidthTabs() {
           />
         </div>
       </div>
-
       <SwipeableViews
-          style={{width: "850px", margin: "0 auto"}}
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={value}
           onChangeIndex={handleChangeIndex}

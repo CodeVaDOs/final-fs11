@@ -15,7 +15,9 @@ const useStyles = makeStyles({
     width: "auto",
     maxWidth:"none",
     border: "1px solid #707070",
-    borderRadius: '20px'
+    borderRadius: '20px',
+    marginTop: "70px"
+
   },
   btn: {
     height: '60px',
@@ -59,7 +61,9 @@ const useStyles = makeStyles({
   }
 });
 
-const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActivateDialog, body, style, clickIcon})=>{
+export const ModalContext = React.createContext({});
+
+const ModalsContainer =({ displayBtn="none", buttonOk, buttonCancel, buttonActivateDialog, body, style, clickIcon })=>{
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -69,7 +73,6 @@ const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActi
   const handleClose = () => {
     setOpen(false);
   };
-
   const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -87,12 +90,16 @@ const ModalsContainer =({ displayBtn="block", buttonOk, buttonCancel, buttonActi
         <CloseIcon onClick={handleClose} style={{ position:"absolute", right:"10px", top: "10px", cursor:"pointer" }}/>
         <DialogContent>
           <DialogContentText>
-            {body}
+            <ModalContext.Provider value={{
+              handleClose,
+            }}>
+              {body}
+            </ModalContext.Provider>
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
-          <Button className={classes.btn} onClick={handleClose} >{buttonOk}</Button>
-          <Button style={{ display:`${displayBtn}` }} className={classes.btn} onClick={handleClose} >{buttonCancel}</Button>
+          {/*<Button style={{ display:`${displayBtn}` }} className={classes.btn} ></Button>*/}
+          {/*<Button style={{ display:`${displayBtn}` }} className={classes.btn} ></Button>*/}
         </DialogActions>
       </Dialog>
     </Box>

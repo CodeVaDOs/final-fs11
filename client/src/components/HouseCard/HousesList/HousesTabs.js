@@ -7,10 +7,13 @@ import TabPanel from "./TabPanel";
 import ControlNotificationContainer from "./ControlNotification/ControlNotificationContainer";
 import { HouseContainer } from "../House";
 import { ManagementServices } from "./ManagementServices/ManagmentServices";
-import { tileData } from "../../../utils/constants/housesView";
 import { useTranslation } from "react-i18next";
+import { useFetch } from "../../../hooks/useFetch";
+import TempHousesForm from "../../TempHousesForm/TempHousesForm";
+import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { housesActions } from "../../../redux/houses/action";
+import { getTokens } from "../../../utils";
 
 const AntTabs = withStyles({
   indicator: {
@@ -63,42 +66,57 @@ export default function HousesTabs() {
   const classes = useStyles();
   const { t } = useTranslation();
   const [value, setValue] = useState('one');
-  const [Houses,] = useState(tileData);
-  const [house, setHouse] = useState(tileData[0]);
+  const [house, setHouse] = useState([]);
+  const [houses, setHouses] = useState([]);
+  let { loading: loading, houses: data } = useSelector(state => state.houses);
 
-  const dispatch = useDispatch();
-  const { loading, housesList } = useSelector(state => state);
+  const user = useSelector(state => state.auth.user);
+
+
   useEffect(() => {
-    dispatch(housesActions.getHouses());
-  }, []);
+    setHouses(data);
+  }, [data]);
 
-  if (loading) {
-    console.log('housesList', housesList);
-  }
   const handleChange = (event, newValue) => {
     setValue(newValue);
+
   };
 
   function houseToState(e) {
-    setHouse(Houses[e]);
+    setHouse(houses[e]);
+
   }
 
+  const images = house?.houseImages?.flatMap(img => {
+    return img.url + '?jwt=' + getTokens().token;
+  });
+
+  if (loading) return <CircularProgress size={60}/>;
   return (
     <div className={classes.root}>
       <AntTabs className={classes.tabs} value={value} onChange={handleChange} aria-label="ant example">
         <AntTab value="one" label={t("myHouses")} wrapped/>
         <AntTab value="two" label={t("control")}/>
+        <AntTab value="three" label={"Создать дом (тест)"}/>
+        {/*<AntTab value="two" label={t("control")}/>*/}
       </AntTabs>
       <TabPanel value={value} index="one">
         <div className={classes.grid}>
-          <HouseCard onHouseClick={houseToState} data={Houses}/>
-          <HouseContainer house={house}/>
+          <HouseCard onHouseClick={houseToState} data={houses}/>
+          {
+            house.length === 0
+              ? ''
+              : <HouseContainer images={images} house={house}/>
+          }
         </div>
-
       </TabPanel>
       <TabPanel value={value} index="two" style={{ width: '100%' }}>
-        <ControlNotificationContainer/>
+        <ControlNotificationContainer notifications={user?.notifications}/>
         <ManagementServices/>
+      </TabPanel>
+
+      <TabPanel value={value} index="three" style={{ width: '100%' }}>
+        <TempHousesForm/>
       </TabPanel>
     </div>
   );

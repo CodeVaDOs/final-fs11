@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme)=>({
       padding:"0px 32px 0px 0px",
       border:"fff",
       color: "#818E94"
-    },
+    }
   },
   subGrid: {
     fontFamily: 'Roboto, sans-serif',
@@ -117,7 +117,7 @@ const ClientBigCard =({ userType, display="block" })=>{
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     staticPeriodType:"year",
-    propertyId:"",
+    propertyId:"all",
     dataGraph: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       datasets: [
@@ -149,6 +149,11 @@ const ClientBigCard =({ userType, display="block" })=>{
       staticPeriodType:e.target.value
     });
   };
+  const handleChangeProperty= (e) => {
+    setDataForm({
+      propertyId:e.target.value
+    });
+  };
   const renderClientPanel =()=>{
     return(
       <Box className={classes.mainContainer}>
@@ -158,12 +163,26 @@ const ClientBigCard =({ userType, display="block" })=>{
           justify="center"
           alignItems="center"
         >
-          <Grid className={classes.subGrid} item xs={3} >
+          <Grid className={classes.subGrid} item xs={6} >
             <Typography className={classes.header}>{t("rentedHouses")}</Typography>
           </Grid>
-          <Grid className={classes.subGrid} item xs={2}>{t("allHouses")}</Grid>
-          <Grid className={classes.subGrid} item xs={2}>{t("house1")}</Grid>
-          <Grid className={classes.subGrid} item xs={2}>{t("house2")}</Grid>
+          <Grid className={classes.subGrid} item xs={3}>
+            <FormControl variant="filled" className={classes.formControlSelect}>
+              <InputLabel id="demo-simple-select-filled-label"/>
+              <Select  className={classes.rootSelect}
+                      defaultValue={dataForm.propertyId}
+                      labelId="demo-simple-select-filled-label"
+                      id="demo-simple-select-filled"
+                      value={dataForm.propertyId}
+                  // onChange={handleChangeProperty}
+              >
+                <MenuItem value={'all'}>{t('All houses')}</MenuItem>
+                <MenuItem value={'1'}>{t('House 1')}</MenuItem>
+                <MenuItem value={'2'}>{t('House 2')}</MenuItem>
+                <MenuItem value={'3'}>{t('House 3')}</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
           <Grid className={classes.subGrid} item xs={3}>
             <FormControl variant="filled" className={classes.formControlSelect}>
               <InputLabel id="demo-simple-select-filled-label"/>

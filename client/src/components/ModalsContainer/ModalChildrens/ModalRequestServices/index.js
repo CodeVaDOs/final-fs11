@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,12 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {connect} from "react-redux";
+import { houseMaintainService } from '../../../../redux/houseMaintain/action';
+import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
+import {ModalContext} from "../../index";
+
 
 const useStyles = makeStyles((theme)=>({
   formControlSelect: {
@@ -46,6 +52,23 @@ const useStyles = makeStyles((theme)=>({
     fontWeight: 'normal',
     color: '#6E7375',
     margin:"2% 17%"
+  },
+  btn: {
+    height: '60px',
+    width: '240px',
+    border: "1px solid #254A93",
+    textTransform:"none",
+    borderRadius: '10px',
+    margin: "20px",
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '19px',
+    fontWeight: 'normal',
+    backgroundColor:"#254A93",
+    color:"#fff",
+    "&:hover": {
+      backgroundColor:"#fff",
+      color:"black"
+    }
   },
   rootInput: {
     borderRadius: 10,
@@ -89,19 +112,19 @@ const useStyles = makeStyles((theme)=>({
     marginTop:"10px"
   }
 }));
-const Index=( { service, icon } )=> {
+const Index=({ houses, service, icon, backservice, houseMaintainService })=> {
   const classes = useStyles();
   const { t } = useTranslation();
   const [dataForm, setDataForm] = useState({
     textValue:t("inputDefault"),
-    propertyId:"Home 1",
-    typeService:'',
+    propertyId: '',
+    typeService:backservice
   });
   const resetInput =()=>{
     setDataForm({
       textValue:'',
-      propertyId:dataForm.propertyId,
       typeService:dataForm.typeService,
+      propertyId:dataForm.propertyId
     });
   };
   const handleChangeData = (e) => {
@@ -118,7 +141,18 @@ const Index=( { service, icon } )=> {
       typeService:dataForm.typeService,
     });
   };
-
+  const {handleClose} = useContext(ModalContext);
+  const handleSubmit =()=>{
+    if (dataForm.propertyId !== '') {
+      houseMaintainService({
+        type:dataForm.typeService,
+        text:dataForm.textValue,
+        houseId:dataForm.propertyId,
+        isActive: false
+      })
+      if (handleClose) handleClose();
+    }
+  }
   return(<Box className={classes.containerSer}>
     <Box style={{ textAlign:"center" }}>
       <Typography className={classes.headerReq}>{t("headerReq")}</Typography>
@@ -132,7 +166,7 @@ const Index=( { service, icon } )=> {
       <Grid item xs={4}></Grid>
       <Grid item xs={1}>
         <Box className={classes.boxReq}>
-          <img src={icon} />
+          <img style={{borderRadius:"13px"}} src={icon} />
         </Box>
       </Grid>
       <Grid item xs={3}>
@@ -160,14 +194,13 @@ const Index=( { service, icon } )=> {
         <FormControl variant="filled" className={classes.formControlSelect}>
           <InputLabel id="demo-simple-select-filled-label"></InputLabel>
           <Select className={classes.rootSelect}
-            defaultValue={dataForm.typeMassage}
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
-            value={dataForm.propertyId}
             onChange={handleChangePropId}
           >
-            <MenuItem value={"Home 1"}>{"Home 1"}</MenuItem>
-            <MenuItem value={"Home 2"}>{"Home 2"}</MenuItem>
+            {houses.map((house)=>
+              <MenuItem value={house.id}>{house.houseModel.name}</MenuItem>
+            )}
           </Select>
         </FormControl> 
       </Grid>
@@ -186,7 +219,23 @@ const Index=( { service, icon } )=> {
         />
       </form>
     </Box>
-
+    <Box style={{ marginLeft:"17%", marginTop:"5%" }}>
+      <Button className={classes.btn} onClick={()=>{
+        if (handleClose) handleClose();
+      }} >{t("returnBtn")}</Button>
+      <Button className={classes.btn} onClick={handleSubmit} >{t("serBtn")}</Button>
+    </Box>
   </Box>);
 };
-export default Index;
+
+const mapStateToProps = (state) => {
+  return {
+    houses: state.houses.houses
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    houseMaintainService: (data) => dispatch(houseMaintainService(data)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme)=>({
     height: '556px',
     borderRadius: '20px',
     boxShadow: '0px 2px 4px #00000033',
-    marginTop: "20px",
+    marginTop: "40px",
     marginBottom: "20px",
     backgroundColor:"#fff"
   },
@@ -148,7 +148,7 @@ const ProfileContainer =(props)=>{
   };
   const [dataForm, setDataForm] = useState({
     langSystem:props.user.language,
-    currencySystem:`${t("uah")}`,
+    currencySystem:props.user.currency,
   });
   // Upload Photo Managment
   const token = localStorage.getItem('authToken');
@@ -158,7 +158,6 @@ const ProfileContainer =(props)=>{
     mainState: "uploaded",
     imageUploaded: 1,
     selectedFile: props.user.urlAvatar+`${addToken}`
-
   });
   const handleUploadClick = event => {
     const reader = new FileReader();
@@ -262,9 +261,9 @@ const ProfileContainer =(props)=>{
               value={dataForm.langSystem}
               onChange={handleChangeLang}
             >
-              <MenuItem value={dataForm.langSystem}>{dataForm.langSystem}</MenuItem>
-              <MenuItem value={`${t("ru")}`}>{t("ru")}</MenuItem>
-              <MenuItem value={`${t("en")}`}>{t("en")}</MenuItem>
+              {props.langCatalog.map((lan)=>
+                <MenuItem value={lan}>{lan}</MenuItem>
+              )}
             </Select>
           </FormControl> 
           <Typography className={classes.boldText}>{t("currency")}</Typography>
@@ -277,9 +276,9 @@ const ProfileContainer =(props)=>{
               value={dataForm.currencySystem}
               onChange={handleChangeCurrency}
             >
-              <MenuItem value={`${t("usd")}`}>{t("usd")}</MenuItem>
-              <MenuItem value={`${t("uah")}`}>{t("uah")}</MenuItem>
-              <MenuItem value={`${t("eur")}`}>{t("eur")}</MenuItem>
+              {props.currCatalogue.map((lan)=>
+                  <MenuItem value={lan}>{lan}</MenuItem>
+              )}
             </Select>
           </FormControl>
         </Box>
@@ -319,7 +318,9 @@ const ProfileContainer =(props)=>{
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    langCatalog: state.total.catalogue.languageType,
+    currCatalogue: state.total.catalogue.currencyType
   };
 };
 export default connect(mapStateToProps, null)(ProfileContainer);

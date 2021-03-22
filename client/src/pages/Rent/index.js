@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from "@material-ui/core/Grid";
-import { More } from "@components/ClientPage/components/More";
+import { More } from "@pages/ClientPage/components/More";
 import ClientBigCard from '@components/PanelClientBigCard';
 import ManagerRentStatistic from '@components/ManagerRentStatistic';
 import { useTranslation } from "react-i18next";

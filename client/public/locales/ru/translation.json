@@ -45,6 +45,7 @@
   "important": "Важное",
   "informative": "Информативное",
   "allManager": "Всем менеджерам",
+  "allClients": "Всем клиентам",
   "choseManager": "Выбрать получателей",
   "hello": "Привет, ",
   "privateHouse": "Собственные Дома",
@@ -186,5 +187,7 @@
   "personalManager": "Персональный менеджер",
   "calendarB": "Календарь бронирования",
   "tasks": "Задачи на День",
-  "detailSecond": "Подробно"
+  "detailSecond": "Подробно",
+  "headerBooking": "Создано новое бронирования - Дома",
+  "textBooking": "Подтверждение о бронировании высланы клиенту на Email"
 }
