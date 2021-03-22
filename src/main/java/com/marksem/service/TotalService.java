@@ -1,7 +1,7 @@
 package com.marksem.service;
 
-import com.marksem.dto.response.ResponseAccessPanelManagerInfo;
-import com.marksem.dto.response.ResponseAccessPanelUserInfo;
+import com.marksem.dto.response.statistic.ResponseAccessPanelManagerInfo;
+import com.marksem.dto.response.statistic.ResponseAccessPanelUserInfo;
 import com.marksem.dto.response.ResponseCatalogue;
 import com.marksem.dto.response.ResponseUser;
 import com.marksem.entity.booking.BookingMaintenanceType;
@@ -13,7 +13,6 @@ import com.marksem.entity.transaction.Currency;
 import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.user.Language;
 import com.marksem.entity.user.Role;
-import com.marksem.entity.user.User;
 import com.marksem.repository.BookingRepository;
 import com.marksem.repository.DocumentRepository;
 import com.marksem.repository.HouseRepository;
