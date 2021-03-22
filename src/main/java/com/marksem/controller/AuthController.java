@@ -1,8 +1,8 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestAuth;
-import com.marksem.dto.request.RequestResetPassword;
 import com.marksem.dto.request.RequestPassword;
+import com.marksem.dto.request.RequestResetPassword;
 import com.marksem.service.AuthService;
 import com.marksem.service.ResetPasswordService;
 import org.springframework.beans.factory.annotation.Value;

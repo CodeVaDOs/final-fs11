@@ -2,10 +2,7 @@ package com.marksem.repository;
 
 import com.marksem.entity.transaction.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 

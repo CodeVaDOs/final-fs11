@@ -5,8 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import lombok.AccessLevel;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 @MappedSuperclass

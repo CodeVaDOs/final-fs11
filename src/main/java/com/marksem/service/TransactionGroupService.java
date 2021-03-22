@@ -4,7 +4,6 @@ import com.marksem.dto.request.RequestTransactionGroup;
 import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseTransactionGroup;
 import com.marksem.entity.transaction.Currency;
-import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.TransactionGroup;
 import com.marksem.exception.NoDataFoundException;
 import com.marksem.repository.HouseRepository;

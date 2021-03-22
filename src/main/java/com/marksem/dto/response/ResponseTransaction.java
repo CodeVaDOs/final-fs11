@@ -1,9 +1,7 @@
 package com.marksem.dto.response;
 
-import com.marksem.entity.transaction.Currency;
 import com.marksem.entity.transaction.FinanceType;
 import com.marksem.entity.transaction.Transaction;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

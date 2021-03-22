@@ -1,6 +1,7 @@
 package com.marksem.repository;
 
-import com.marksem.dto.response.ResponseStatistic;
+import com.marksem.dto.response.statistic.Income;
+import com.marksem.dto.response.statistic.ResponseStatistic;
 import com.marksem.entity.transaction.TransactionGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -37,4 +38,16 @@ public interface TransactionGroupRepository extends JpaRepository<TransactionGro
 
             nativeQuery = true)
     List<ResponseStatistic> findManagerStatistic(@Param("id") Long id, Date from, Date to);
+
+    @Query(
+            value = "SELECT COUNT(b.*) AS bookingsQuantity, SUM(b.to_date - b.from_date) AS daysQuantity FROM bookings b WHERE b.house_id = 1 AND b.to_date <= :to AND b.from_date>= :from",
+            nativeQuery = true)
+    Income countBooking(@Param("id") Long id, Date from, Date to);
+
+    @Query(
+            value = "SELECT SUM(tg.amount_usd) AS income\n" +
+                    "FROM transaction_groups tg\n" +
+                    "WHERE tg.house_id = :id AND tg.from_date >= :from AND tg.to_date <= :to AND tg.transaction_type = 'INCOME'",
+            nativeQuery = true)
+    double countIncome(@Param("id") Long id, Date from, Date to);
 }
