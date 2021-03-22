@@ -45,6 +45,7 @@ public interface TransactionGroupRepository extends JpaRepository<TransactionGro
     Income countBooking(@Param("id") Long id, Date from, Date to);
 
     @Query(
+
             value = "SELECT SUM(tg.amount_usd)\n" +
                     "FROM transaction_groups tg\n" +
                     "WHERE tg.house_id = :id AND tg.from_date >= :from AND tg.to_date <= :to AND tg.transaction_type = 'INCOME'",
