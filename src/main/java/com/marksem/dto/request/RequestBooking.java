@@ -21,11 +21,11 @@ public class RequestBooking extends BaseEntity {
     private Date fromDate;
     @NotEmpty
     private Date toDate;
-    @NotEmpty
+
     private Boolean isOwner;
     @NotEmpty
     private Long houseId;
-    @NotBlank
+
     private String renter;
 
     public Booking toEntity(House house) {
