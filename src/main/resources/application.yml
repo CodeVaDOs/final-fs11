@@ -1,5 +1,5 @@
 spring:
-  profiles:
+ profiles:
     active: dev
 
 springdoc:

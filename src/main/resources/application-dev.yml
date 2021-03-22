@@ -14,14 +14,14 @@ spring:
           writetimeout: 50000
           starttls:
             enable: true
-  datasource:
-    password: Gohojokolo159
-    url: jdbc:postgresql://64.225.103.252:5432/final_project_dev
-    username: super_user
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+    datasource:
+      password: Gohojokolo159
+      url: jdbc:postgresql://64.225.103.252:5432/final_project_dev
+      username: super_user
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
 jwt:
   secret: proselyt4
   secretRefresh: 7xfn849ff
