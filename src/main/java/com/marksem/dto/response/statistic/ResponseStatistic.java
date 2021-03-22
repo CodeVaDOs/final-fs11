@@ -1,4 +1,4 @@
-package com.marksem.dto.response;
+package com.marksem.dto.response.statistic;
 
 import java.util.Date;
 

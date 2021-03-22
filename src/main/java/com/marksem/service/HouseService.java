@@ -69,7 +69,7 @@ public class HouseService {
         } else {
             houses = houseRepository.findByManager(user.getId());
         }
-        return houses.parallelStream()
+        return houses.stream()
                 .map(h -> new ResponseHouse(h, bookingRepository.getHouseRating(h.getId()), h.getBookings()))
                 .collect(Collectors.toList());
     }
