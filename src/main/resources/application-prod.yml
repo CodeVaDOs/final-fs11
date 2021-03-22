@@ -3,8 +3,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME:?SET_ENVIOMENT_MAIL_USERNAME_IN_SYSTEM}
-    password: ${MAIL_PASSWORD:?SET_ENVIOMENT_MAIL_USERNAME_IN_SYSTEM}
+    username: danitfinalfs11
+    password: danit__finalfs11
     properties:
       mail:
         smtp:
@@ -14,28 +14,27 @@ spring:
           writetimeout: 50000
           starttls:
             enable: true
-  datasource:
-    url: ${DATA_BASE_URL:?SET_ENVIOMENT_DATA_BASE_URL_IN_SYSTEM}
-    driver-class-name: org.postgresql.Driver
-    username: ${DATA_BASE_USERNAME:?SET_ENVIOMENT_DATA_BASE_USERNAME_URL_IN_SYSTEM}
-    password: ${DATA_BASE_PASSWORD:?SET_ENVIOMENT_DATA_BASE_PASSWORD_URL_IN_SYSTEM}
-  jpa:
-    hibernate:
-      ddl-auto: create
+    datasource:
+      password: 493077dc5026b18df4824079d0f6b5edcbd90e1412d78740ee4efcbf33a33786
+      url: jdbc:postgresql://ec2-34-203-155-237.compute-1.amazonaws.com:5432/d5hesr0m3s24i2
+      username: bdstuhtppfwzdl
+    jpa:
+      hibernate:
+        ddl-auto: create
+      show-sql: true
 jwt:
-  header: Authorization
-  secret: ${JWT_SECRET:?SET_ENVIOMENT_DJWT_SECRET_IN_SYSTEM}
-  secretRefresh: ${JWT_SECRET_EMAIL:?SET_ENVIOMENT_JWT_SECRET_REFRESH_IN_SYSTEM}
-  secretPasswordReset: ${JWT_SECRET_EMAIL:?SET_ENVIOMENT_JWT_SECRET_PASWORD_RESET_IN_SYSTEM}
-  secretPasswordUpdate: ${JWT_SECRET_EMAIL:?SET_ENVIOMENT_JWT_SECRET_PASWORD_UPDATE_IN_SYSTEM}
+  secret: proselyt4
+  secretRefresh: 7xfn849ff
+  secretPasswordReset: oo9ii7gg4
+  secretPasswordUpdate: dd955l3mm
   expiration: 7200
   expirationRefresh: 604800
   expirationPasswordReset: 86400
   expirationPasswordUpdate: 3600
+  header: Authorization
 url:
-  server: ${SERVER_URL:?SET_ENVIOMENT_SERVER_URL_IN_SYSTEM}
-  client: ${CLIENT_URL:?SET_ENVIOMENT_CLIENT_URL_IN_SYSTEM}
-  fileServer: ${FILE_SERVER_URL:?SET_ENVIROMENT_FILE_SRVER_IN_SYSTEM}
-
+  server: http://localhost:8080
+  client: http://localhost:3000
+  fileServer: http://165.232.150.188:8090
 clientChangePasswordPath: changePassword
 serverChangePasswordPath: api/v1/auth/resetPassword
