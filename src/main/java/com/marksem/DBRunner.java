@@ -1,17 +1,8 @@
 package com.marksem;
 
-import com.marksem.entity.user.User;
 import com.marksem.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 //@Component
 //@Profile("local")

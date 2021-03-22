@@ -2,7 +2,6 @@ package com.marksem.entity.booking;
 
 import com.marksem.entity.BaseEntity;
 import com.marksem.entity.house.House;
-import com.marksem.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,9 +1,6 @@
 package com.marksem.dto.request;
 
 import com.marksem.entity.transaction.Currency;
-import com.marksem.entity.transaction.Transaction;
-import com.marksem.entity.transaction.TransactionGroup;
-import com.marksem.entity.transaction.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

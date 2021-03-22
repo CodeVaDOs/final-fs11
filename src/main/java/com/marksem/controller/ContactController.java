@@ -1,7 +1,6 @@
 package com.marksem.controller;
 
 import com.marksem.dto.request.RequestContact;
-import com.marksem.dto.request.groups.OnCreate;
 import com.marksem.dto.request.groups.OnUpdate;
 import com.marksem.dto.response.PageableResponse;
 import com.marksem.dto.response.ResponseContact;

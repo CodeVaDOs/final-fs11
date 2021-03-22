@@ -1,5 +1,6 @@
-package com.marksem.dto.response;
+package com.marksem.dto.response.statistic;
 
+import com.marksem.dto.response.ResponseUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
