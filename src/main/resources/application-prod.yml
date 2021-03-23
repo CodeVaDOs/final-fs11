@@ -18,6 +18,7 @@ spring:
       password: 493077dc5026b18df4824079d0f6b5edcbd90e1412d78740ee4efcbf33a33786
       url: jdbc:postgresql://ec2-34-203-155-237.compute-1.amazonaws.com:5432/d5hesr0m3s24i2
       username: bdstuhtppfwzdl
+      initialization-mode: always
     jpa:
       hibernate:
         ddl-auto: create
