@@ -51,9 +51,8 @@ public class UserService {
 
     public ResponseUser getProfile(String email) {
         ResponseUser user = new ResponseUser(getUserByEmail(email));
-        repository.findById(user.getManagerId()).ifPresent(manager -> user.setManager(new ResponseUser(manager)));
+        if(user.getManagerId() != null) user.setManager(repository.findById(user.getManagerId()).map(ResponseUser::new).orElse(null));
         return user;
-
     }
 
     public PageableResponse<ResponseUser> readAll(int page, int size, Role role, String searchString, Sort.Direction direction, String sortBy) {
