@@ -2,7 +2,6 @@ package com.marksem.dto.response;
 
 import com.marksem.entity.house.HouseMaintenance;
 import com.marksem.entity.house.HouseMaintenanceType;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -35,7 +35,7 @@ public class StatisticService {
         return houses.parallelStream().map(h -> {
             Income countBooking = repository.countBooking(h.getId(), java.sql.Timestamp.valueOf(fromDate), toDate);
             double income = repository.countIncome(h.getId(), java.sql.Timestamp.valueOf(fromDate), toDate);
-            return new ResponseIncome(countBooking.getDaysQuantity(), countBooking.getBookingsQuantity(), income, period, countBooking.getHouseId());
+            return new ResponseIncome(countBooking.getDaysQuantity(), countBooking.getBookingsQuantity(), income, period, h.getId());
         }).collect(Collectors.toList());
     }
 

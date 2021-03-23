@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestTemplate;
 
-import java.sql.SQLException;
-
 @Configuration
 public class ApplicationsBeans {
 
@@ -30,7 +28,7 @@ public class ApplicationsBeans {
 
   @Profile("local")
   @Bean
-  org.h2.tools.Server h2Server() {
+  Server h2Server() {
     Server server = new Server();
     try {
       server.runTool("-tcp");

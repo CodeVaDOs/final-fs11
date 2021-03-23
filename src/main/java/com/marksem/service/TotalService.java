@@ -4,6 +4,8 @@ import com.marksem.dto.response.statistic.ResponseAccessPanelManagerInfo;
 import com.marksem.dto.response.statistic.ResponseAccessPanelUserInfo;
 import com.marksem.dto.response.ResponseCatalogue;
 import com.marksem.dto.response.ResponseUser;
+import com.marksem.dto.response.statistic.ResponseAccessPanelManagerInfo;
+import com.marksem.dto.response.statistic.ResponseAccessPanelUserInfo;
 import com.marksem.entity.booking.BookingMaintenanceType;
 import com.marksem.entity.contact.ContactType;
 import com.marksem.entity.document.DocumentType;

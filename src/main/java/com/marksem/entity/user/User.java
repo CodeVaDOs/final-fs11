@@ -3,8 +3,6 @@ package com.marksem.entity.user;
 import com.marksem.entity.BaseEntity;
 import com.marksem.entity.contact.Contact;
 import com.marksem.entity.house.House;
-import com.marksem.entity.house.HouseMaintenance;
-import com.marksem.entity.house.HouseModel;
 import com.marksem.entity.notification.Notification;
 import com.marksem.entity.task.Task;
 import com.marksem.entity.transaction.Currency;
