@@ -1,5 +1,7 @@
 package com.marksem.service;
 
+import com.marksem.dto.response.statistic.ResponseAccessPanelManagerInfo;
+import com.marksem.dto.response.statistic.ResponseAccessPanelUserInfo;
 import com.marksem.dto.response.ResponseCatalogue;
 import com.marksem.dto.response.ResponseUser;
 import com.marksem.dto.response.statistic.ResponseAccessPanelManagerInfo;
